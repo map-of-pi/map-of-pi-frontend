@@ -5,7 +5,19 @@
   "HOME": {
     "ADD_MY_BUSINESS": "Fi Ọjà/Òwò mi l'éde",
     "SEARCH_BY_BUSINESS_PLACEHOLDER": "Wá Àwọn Iṣẹ́/Òwò Oríṣirísi..",
-    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Wá Àwọn Ọjà Oríṣirísi.."
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Wá Àwọn Ọjà Oríṣirísi..",
+    "SEARCH_RESULT_FOUND_MESSAGE": "Ṣíṣe àwárí Àyè Ìtajà jẹ́ {{ numberOfShopsFound }} Àyè Ìtajà. Jọ̀wọ́ fi Ìka méjì fẹ Ojú àwòrán yí s'íta láti rí àwọn Àyè Ìtajà tí ó bá kù.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "Ìwádí rẹ kò ṣe àwárí Àyè Ìtajà kankan. Jọ̀wọ́ ṣe Ìwádì míràn Pẹ̀lúu àwọn Àkọ́lé Oríṣí míràn."
+  },
+  "MAP": {
+    "USER_LOCATION": "Ibí ni o wà",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " ni o yàn lááyò gẹ́gẹ́ bíi ibi tí ò ńlọ, ètò láti dé ibẹ̀ sì ti wà. Àsìkò tí ìrìn-àjò ìgboro yí máa gbà ni ",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "{{ numHours }} wákàtí àti {{ numMinutes }} Ìṣẹ́jú",
+    "MIDDLE_CLICKED_MESSAGE": "O ti tẹ̀ẹ́ láàrin",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "Àmì tí kò jẹmọ́ ni o tẹ̀",
+    "BUTTONS": {
+      "CANCEL": "Wọ́gi lée"
+    }
   },
   "FOOTER": {
     "PRIVACY_POLICY": "ÌLÀNÀ ÌPA Ọ̀RỌ̀ MỌ́",
