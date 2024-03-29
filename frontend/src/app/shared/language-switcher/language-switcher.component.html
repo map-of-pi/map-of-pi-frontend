@@ -6,8 +6,8 @@
   <div class="w-full flex flex-col justify-center">
     @for (language of languages; track language) {
       <button mat-menu-item (click)="switchLanguage(language.code)" class="flex items-center mb-2">
-        <div class="flex items-center mb-2 pl-2 pr-2 bg-gray-100 rounded-lg border-5 border-black-300 hover:bg-gray-200">
-          <img [src]="language.imageUrl" alt="{{ language.name }}" class="flag-icon w-8 h-8 border-r border-black pr-2">
+        <div class="language-section flex items-center mb-2 pl-2 pr-2 pb-1 rounded-lg border-5 border-black-300">
+          <img [src]="language.imageUrl" alt="{{ language.name }}" class="flag-image w-8 h-8">
           <div class="w-full ml-5 text-black-500">
             <span class="font-bold text-sm">{{ language.code.toUpperCase() }}</span>
             <span class="block text-xs">{{ language.translation }}</span>

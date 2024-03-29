@@ -1,3 +1,16 @@
+.language-section {
+    background-color: #f0f0f0;
+
+    &:hover {
+        background-color: #e5e5e5;
+    }
+}
+
+.flag-image {
+    border-right: 1px solid #000;
+    padding-right: 0.5rem;
+}
+
 button:hover {
     background-color: transparent !important;
 }
