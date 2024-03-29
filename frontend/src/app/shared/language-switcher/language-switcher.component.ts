@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 export interface LangMenuItem {
   code: string;
   name: string;
+  translation: string;
   imageUrl: string;
 }
 
@@ -22,10 +23,10 @@ export interface LangMenuItem {
 })
 export class LanguageSwitcherComponent {
   protected readonly languages: LangMenuItem[] = [
-    { code: 'en', name: 'English', imageUrl: '../../../assets/images/shared/language/en.svg' },
-    { code: 'es', name: 'Spanish', imageUrl: '../../../assets/images/shared/language/es.svg' },
-    { code: 'ko', name: 'Korean', imageUrl: '../../../assets/images/shared/language/ko.svg' },
-    { code: 'ng_yor', name: 'Nigerian Yoruba', imageUrl: '../../../assets/images/shared/language/ng.svg' }
+    { code: 'en', name: 'English', translation: 'English', imageUrl: '../../../assets/images/shared/language/en.svg' },
+    { code: 'es', name: 'Spanish', translation: 'Español', imageUrl: '../../../assets/images/shared/language/es.svg' },
+    { code: 'ko', name: 'Korean', translation: '한국어', imageUrl: '../../../assets/images/shared/language/ko.svg' },
+    { code: 'ng_yor', name: 'Nigerian Yoruba', translation: 'Yorùbá Nàìjíríà', imageUrl: '../../../assets/images/shared/language/ng.svg' }
   ];
 
   constructor(private readonly translateService: TranslateService) {}
