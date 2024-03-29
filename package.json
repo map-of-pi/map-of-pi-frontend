@@ -1,5 +1,5 @@
 {
-    "name": "@map-of-pi/map-of-pi",
+    "name": "map-of-pi",
     "version": "2.0.0",
     "description": "Map of Pi App",
     "scripts": {
