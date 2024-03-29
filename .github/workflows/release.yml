@@ -38,10 +38,6 @@ jobs:
 
       - name: Authenticate with GitHub Packages registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > ~/.npmrc
-        
-      - name: Check for changesets file
-        id: check_changesets
-        run: echo "::set-output name=changesets_exist::$(ls changesets/*.md | wc -l)"
       
       - name: Create release pull request or publish to GitHub Packages
         uses: changesets/action@v1
