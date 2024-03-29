@@ -1,4 +1,4 @@
-name: Map of Pi CI/CD [Version]
+name: Map of Pi CI/CD [Release]
 
 # Controls when the workflow will execute
 on:
@@ -37,9 +37,14 @@ jobs:
         run: npm ci
 
       - name: Authenticate with GitHub Packages registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > ~/.npmrc   
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > ~/.npmrc
+        
+      - name: Check for changesets file
+        id: check_changesets
+        run: echo "::set-output name=changesets_exist::$(ls changesets/*.md | wc -l)"
       
       - name: Create release pull request or publish to GitHub Packages
+        if: steps.check_changesets.outputs.changesets_exist > 0
         uses: changesets/action@v1
         with:
           publish: true
@@ -48,3 +53,4 @@ jobs:
           title: "chore: New Release Candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
