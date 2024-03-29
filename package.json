@@ -1,15 +1,14 @@
 {
-    "name": "map-of-pi",
-    "version": "0.0.3",
+    "name": "@map-of-pi/map-of-pi",
+    "version": "2.0.0",
     "description": "Map of Pi App",
     "scripts": {
-        "install": "npm install --prefix frontend && npm install --prefix backend",
-        "build": "npm run -C frontend build",
+        "config": "npm install && npm install --prefix frontend && npm install --prefix backend",
         "version": "changeset version",
         "release": "changeset publish"
     },
     "dependencies": {
-        "leaflet-routing-machine": "^3.2.12"
+        "axios": "~1.6.7"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.5.0",

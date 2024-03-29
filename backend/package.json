@@ -1,8 +1,11 @@
 {
-  "name": "pi-backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@map-of-pi/map-of-pi",
+  "version": "2.0.0",
+  "author": "Map of Pi Team",
+  "description": "Map of Pi Backend",
   "main": "server.js",
+  "license": "PiOS",
+  "private": true,
   "scripts": {
     "start": "nodemon server.js",
     "build": "npm install",
@@ -11,10 +14,8 @@
     "version": "changeset version",
     "release": "changeset publish"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "axios": "^1.6.5",
+    "@map-of-pi/map-of-pi": "file:..",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -27,8 +28,6 @@
     "winston": "^3.12.0"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.1",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^27.9.0",
     "eslint-plugin-node": "^11.1.0",
