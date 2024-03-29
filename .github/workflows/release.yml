@@ -44,7 +44,6 @@ jobs:
         run: echo "::set-output name=changesets_exist::$(ls changesets/*.md | wc -l)"
       
       - name: Create release pull request or publish to GitHub Packages
-        if: steps.check_changesets.outputs.changesets_exist > 0
         uses: changesets/action@v1
         with:
           publish: true
