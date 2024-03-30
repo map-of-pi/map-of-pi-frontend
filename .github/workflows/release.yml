@@ -1,0 +1,30 @@
+name: Map of Pi CI/CD [Release]
+
+# Controls when the workflow will execute
+on:
+  pull_request:
+    branches:
+      - dev
+  # Triggers the workflow on publised releases
+  release:
+    types: [published]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    # The sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Extract version from package.json
+        id: extract-version
+        run: echo "APP_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+    
+      - name: Display version from package.json
+        id: display-version
+        run: echo "Version extracted from package.json [$APP_VERSION]"
+        
