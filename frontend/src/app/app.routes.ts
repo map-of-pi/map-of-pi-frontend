@@ -4,8 +4,16 @@ import { BusinessPhotosComponent } from './business/business-settings/business-p
 import { ManageBusinessComponent } from './business/manage-business/manage-business.component';
 import { OrderMenuComponent } from './shop/order-menu/order-menu.component';
 import { BusinessMenuComponent } from './business/business-settings/business-menu/business-menu.component';
+import { MapCenterManagerComponent } from './home/center-search/map-center-manager/map-center-manager.component';
 
 export const routes: Routes = [
+  {
+    path: 'map-center', component: MapCenterManagerComponent
+
+  },
+  { 
+    path: 'Map'
+  },
   {
     path: 'home',
     loadComponent: () => import('./home/home.component').then((m) => m.HomeComponent),
