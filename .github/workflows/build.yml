@@ -17,6 +17,7 @@ on:
 
 jobs:
   build:
+    name: 🏗️ Build
     runs-on: ubuntu-latest
     # The sequence of tasks that will be executed as part of the job
     steps:
