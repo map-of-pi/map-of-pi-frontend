@@ -37,7 +37,6 @@ export class ActionRowComponent implements OnInit {
 
   navigateToBusiness(): void {
     this.router.navigate(['/business']);
-    this.logger.debug('From map user shops', this.currentUser.shops);
   }
 
   openDialog() {

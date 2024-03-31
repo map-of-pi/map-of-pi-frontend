@@ -308,7 +308,6 @@ export class MapComponent implements OnInit, OnDestroy {
     if (this.userMarker) {
       this.userMarker.closePopup();
       this.userMarker.unbindPopup();
-      this.track();
     }
   }
 
