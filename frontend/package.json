@@ -16,6 +16,7 @@
     "lint": "ng lint --max-warnings=0",
     "lint:fix": "ng lint --fix",
     "prettier": "npx prettier --write .",
+    "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"
   },

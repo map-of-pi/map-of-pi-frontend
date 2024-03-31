@@ -4,6 +4,7 @@
     "description": "Map of Pi App",
     "scripts": {
         "config": "npm install && npm install --prefix frontend && npm install --prefix backend",
+        "changeset": "changeset",
         "version": "changeset version",
         "release": "changeset publish"
     },
