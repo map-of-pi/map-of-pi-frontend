@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @Component({
   selector: 'app-map-center-manager',
