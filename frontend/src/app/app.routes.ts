@@ -8,11 +8,8 @@ import { MapCenterManagerComponent } from './home/center-search/map-center-manag
 
 export const routes: Routes = [
   {
-    path: 'map-center', component: MapCenterManagerComponent
-
-  },
-  { 
-    path: 'Map'
+    path: 'map-center',
+    component: MapCenterManagerComponent,
   },
   {
     path: 'home',
