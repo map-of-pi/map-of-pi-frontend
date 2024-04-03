@@ -57,6 +57,28 @@ constructor(
   });
 }
 
+getCenterSearchMapOptions(): L.MapOptions {
+  const southWest = L.latLng(-89.98155760646617, -180);
+  const northEast = L.latLng(89.99346179538875, 180);
+  const bounds = L.latLngBounds(southWest, northEast);
+
+  return {
+    layers: [
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        noWrap: true,
+        maxZoom: 10,
+        minZoom: 1,
+        attribution: 'Map data © OpenStreetMap contributors'
+      }),
+    ],
+    zoom: 1,
+    center: L.latLng([0, 0]),
+    maxBounds: bounds,
+    attributionControl: false,
+    zoomControl: false
+  };
+}
+
 async ngOnInit(): Promise<void> {
   try {
 
@@ -66,6 +88,7 @@ async ngOnInit(): Promise<void> {
   } catch (error) {
     this.logger.error(error);
     }
+    this.options = this.getCenterSearchMapOptions();
   }
 
   onMapReady(map: Map): void {
@@ -74,6 +97,7 @@ async ngOnInit(): Promise<void> {
 
   locateMe(): void {
   }
+  
 
   private updateTranslatedStrings(): void {
     this.userLocation = this.translateService.instant('MAP.USER_LOCATION');
