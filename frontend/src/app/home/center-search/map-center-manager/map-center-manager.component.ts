@@ -26,7 +26,7 @@ import { GeolocationService } from '../../../core/service/geolocation.service';
 export class MapCenterManagerComponent {
   layer?: Layer;
   map!: Map;
-  options;
+  options:any;
   id: string = '65e2d67a38e1e60afd74378d';
   navigator: Router = inject(Router);
   showPopup: boolean = false;
