@@ -1,15 +1,21 @@
 const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const getAllShops = async (req, res) => {
   try {
     const shops = await Shop.find().populate("products");
     if (shops.length > 0) {
-      logger.info("Successfully fetched all shops");
+      logger.debug("Successfully fetched all shops");
       return res.status(200).json({ shops });
     } else {
-      logger.info("No shops found");
+      logger.debug("No shops found");
       return res.status(404).json({ message: "No shops found" });
     }
   } catch (error) {
@@ -36,10 +42,10 @@ const getSingleShop = async (req, res) => {
   try {
     const shop = await Shop.findById(shopId);
     if (shop) {
-      logger.info("Successfully fetched single shop:", shop);
+      logger.debug("Successfully fetched single shop:", shop);
       return res.status(200).json({ shop });
     } else {
-      logger.info("No shop found");
+      logger.debug("No shop found");
       return res.status(404).json({ message: "No shop found" });
     }
   } catch (error) {
@@ -55,7 +61,7 @@ const deleteShop = async (req, res) => {
     const shopToDelete = await Shop.findById(shopId);
     if (shopToDelete && shopToDelete.owner === currentUser.uid) {
       await Shop.findByIdAndDelete(shopId);
-      logger.info("Successfully deleted shop:", shopToDelete);
+      logger.debug("Successfully deleted shop:", shopToDelete);
       return res.status(200).json({ message: "Shop deleted successfully" });
     } else {
       logger.warn("Shop removal denied due to lack of permission");
@@ -92,10 +98,10 @@ const getShopProducts = async (req, res) => {
   try {
     const products = await Product.find({ shop: shopId });
     if (products.length > 0) {
-      logger.info("Successfully fetched products for shop");
+      logger.debug("Successfully fetched products for shop");
       return res.status(200).json({ products });
     } else {
-      logger.info("Shop has no products");
+      logger.debug("Shop has no products");
       return res.status(200).json({ message: "Shop has no products" });
     }
   } catch (error) {
