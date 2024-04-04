@@ -1,6 +1,12 @@
 const Shop = require("../models/shopModel");
 const Product = require("../models/productModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const search = async (req, res) => {
     try {
