@@ -2,12 +2,15 @@ import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, EventEmitter, Ou
 import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';
 import { Map, marker, Layer } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 import { GeolocationService } from '../../../core/service/geolocation.service';
 // import { CustomMarkerOptions } from './marker-options.interface';
@@ -17,7 +20,7 @@ import { GeolocationService } from '../../../core/service/geolocation.service';
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [LeafletModule, RouterModule],
+  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, FormsModule],
 })
 
 export class MapCenterManagerComponent {
@@ -29,6 +32,9 @@ export class MapCenterManagerComponent {
   showPopup: boolean = false;
   searchBarQuery: string = '';
   userPositions: any[] = [];
+  showCenterToSearch: boolean = true;
+  centerToSearchSet: boolean = false;
+  currentPosition: { lat: number; lng: number } | null = null;
   
   // Translation strings
   userLocation!: string;
@@ -40,17 +46,12 @@ export class MapCenterManagerComponent {
   
   private userMarker: any;
   private langChangeSubscription: Subscription;
-  private geolocationSubscription: Subscription;
 
 constructor(
   private readonly geolocationService: GeolocationService,
   private translateService: TranslateService,
-  private logger: NGXLogger) {
-    
-  this.options = this.geolocationService.getMapOptions();
-  this.geolocationSubscription = this.geolocationService.geolocationTriggerEvent$.subscribe(() => {
-    this.locateMe();
-  });
+  private logger: NGXLogger,
+  private router: Router) {
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
     this.updateTranslatedStrings();
@@ -66,7 +67,7 @@ getCenterSearchMapOptions(): L.MapOptions {
     layers: [
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         noWrap: true,
-        maxZoom: 10,
+        maxZoom: 18,
         minZoom: 1,
         attribution: 'Map data © OpenStreetMap contributors'
       }),
@@ -77,6 +78,19 @@ getCenterSearchMapOptions(): L.MapOptions {
     attributionControl: false,
     zoomControl: false
   };
+}
+
+saveCenter(): void {
+  const currentCenter = this.map.getCenter();
+  this.saveLocationToLocalStorage(currentCenter);
+  console.log(`Center location saved at ${currentCenter.lat}, ${currentCenter.lng}`);
+
+  // Redirect the user to the main page after saving
+  this.router.navigate(['/home']);
+}
+
+saveLocationToLocalStorage(position: L.LatLng): void {
+  localStorage.setItem('savedLocation', JSON.stringify(position));
 }
 
 async ngOnInit(): Promise<void> {
@@ -91,13 +105,14 @@ async ngOnInit(): Promise<void> {
     this.options = this.getCenterSearchMapOptions();
   }
 
-  onMapReady(map: Map): void {
+  onMapReady(map: L.Map): void {
     this.map = map;
+    // Assuming `getCustomIcon` is a method that returns the target icon
+    const centerMarker = L.marker(map.getCenter(), { icon: this.getCustomIcon() }).addTo(map);
+    map.on('move', () => {
+      centerMarker.setLatLng(map.getCenter());
+    });
   }
-
-  locateMe(): void {
-  }
-  
 
   private updateTranslatedStrings(): void {
     this.userLocation = this.translateService.instant('MAP.USER_LOCATION');
@@ -106,5 +121,13 @@ async ngOnInit(): Promise<void> {
     this.cancelButton = this.translateService.instant('MAP.BUTTONS.CANCEL'); 
     this.middleClickedMessage = this.translateService.instant('MAP.MIDDLE_CLICKED_MESSAGE');
     this.unknownMarkerClickedMessage = this.translateService.instant('MAP.UNKNOWN_MARKER_CLICKED_MESSAGE');
+  }
+  getCustomIcon(): L.Icon {
+    return L.icon({
+      iconUrl: 'assets/images/map/target.png',
+      iconSize: [64, 64],
+      iconAnchor: [32, 32],
+      popupAnchor: [0, -32],
+    });
   }
 }
