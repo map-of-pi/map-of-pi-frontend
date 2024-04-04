@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 const Product = require("./productModel");
 const User = require("./userModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const shopSchema = new mongoose.Schema({
   name: String,
