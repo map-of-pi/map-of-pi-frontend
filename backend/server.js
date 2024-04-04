@@ -5,10 +5,8 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const morganLogger = require("morgan");
 const cors = require("cors");
-const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
-const logger = require("./logger");
 
 dotenv.config();
 
@@ -23,7 +21,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  console.log(`Received request: ${req.method} ${req.url}`);
   next();
 });
 
@@ -52,9 +49,7 @@ mongoose
   .connect(`${process.env.MONGODB_URL}`)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log(
-        `Successful connection to DB ${process.env.MONGODB_URL} and app running on port ${process.env.PORT}`
-      );
+      console.log("Successful connection to DB");
     });
   })
   .catch((err) => {
