@@ -1,5 +1,4 @@
 const Order = require("../models/orderModel");
-const logger = require("../../logger");
 const initializeLogger = require("../../logger");
 
 let logger;
