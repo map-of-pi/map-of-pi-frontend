@@ -17,7 +17,7 @@ module.exports = class SQLDatabaseTransport extends TransportStream {
             // extract log data from from object accordingly
             const { timestamp, level, message } = info;
 
-            // insert log message into the database
+            // insert log messages into the database
             await this.pool.request()
                 .input('id', sql.VarChar, timestamp)
                 .input('logLevel', sql.VarChar, level)

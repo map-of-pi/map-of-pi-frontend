@@ -34,8 +34,8 @@ const configureLogging = async () => {
         return process.env.VERCEL_ENV === "localhost" || process.env.VERCEL_ENV === "sandbox";
     };
 
-    // determine the logging configuration based on the environment
-    if (!isDevelopment()) {
+    // determine the logging configuration based on the server environment
+    if (isDevelopment()) {
         return {
             level: 'debug',
             format: winston.format.cli(),
@@ -45,10 +45,8 @@ const configureLogging = async () => {
         };
     } else {
         try {
-            // Create a connection pool
+            // create a DB connection pool
             const pool = await new sql.ConnectionPool(sqlConfig).connect();
- 
-            console.log("After connecting to SQL DB");
 
             return {
                 level: 'info',
