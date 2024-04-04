@@ -57,3 +57,54 @@
     color: #000; /* Change color on hover */
   }
   
+
+  /* Customize the close button */
+.leaflet-routing-container .leaflet-routing-popup .leaflet-popup-close-button {
+  color: #333; /* Change color */
+  font-size: 16px; /* Adjust font size */
+  top: 5px; /* Adjust top position */
+  right: 5px; /* Adjust right position */
+}
+
+/* Hover effect for close button */
+.leaflet-routing-container
+  .leaflet-routing-popup
+  .leaflet-popup-close-button:hover {
+  color: #000; /* Change color on hover */
+}
+
+
+.map-controls {
+  display: flex;
+  flex-direction: column;
+  z-index: 1000; /* Increased z-index for visibility */
+  position: relative; /* Add this to ensure contained positioning */
+  bottom: 0;
+}
+
+button {
+  position: relative;
+  top: 460px;
+  left: 0.8rem;
+  width: 180px; /* Adjusted for better visibility */
+  height: auto;
+  margin: 10px; /* Add margin for spacing */
+  padding: 0.6rem;
+  background-color: green;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 1.1px;
+  // border-radius: 5px;
+}
+
+.map-controls__button--save {
+  width: 60px;
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 288px;
+  left: 210px;
+}
