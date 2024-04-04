@@ -1,11 +1,30 @@
 const dotenv = require("dotenv");
 const winston = require('winston');
-const { MongoClient } = require('mongodb');
-const mongoose = require("mongoose");
+const sql = require('mssql');
 
-require('winston-mongodb');
+const SQLDatabaseTransport = require('./sql-database-transport');
 
 dotenv.config();
+
+// SQL database configuration
+const sqlConfig = {
+    user: 'MainAdmin',
+    password: 'pioneer24!Hackathon',
+    database: 'map-of-pi',
+    server: 'mapofpi.database.windows.net',
+    authentication: {
+        type: 'default'
+    },
+    pool: {
+        max: 10,
+        min: 0,
+        idleTimeoutMillis: 30000
+    },
+    options: {
+        encrypt: true,
+        trustServerCertificate: false
+    }
+};
 
 const configureLogging = async () => {
     console.log(`VERCEL_ENV: ${process.env.VERCEL_ENV}`);
@@ -25,52 +44,26 @@ const configureLogging = async () => {
             ]
         };
     } else {
-        const url = "mongodb+srv://mapofpi:mapofpi@map-of-pi-cluster.xoijxiu.mongodb.net/map-of-pi?retryWrites=true&w=majority";
-        // const url = "mongodb://localhost:27017/";
-        console.log(url);
         try {
-            const client = new MongoClient(url);
-            
-
-            console.log("Before connecting to MongoDB");
-            await client.connect();
-            console.log("After connecting to MongoDB");
-
-            // Check if the client is connected
-            if (client.topology && client.topology.isConnected()) {
-                console.log("Client is connected to MongoDB");
-            } else {
-                console.log("Client is not connected to MongoDB");
-            }
-
-            const db = client.db(); // Get the database object
-            console.log("Database object:", db); // Log the database object
-
-            console.log("Connected to MongoDB");
-
-            // return {
-            //     level: 'info',
-            //     format: winston.format.json(),
-            //     transports: [new winston.transports.MongoDB(dbOptions)]
-            // };
+            // Create a connection pool
+            const pool = await new sql.ConnectionPool(sqlConfig).connect();
+ 
+            console.log("After connecting to SQL DB");
 
             return {
                 level: 'info',
-                format: winston.format.json(),
+                format: winston.format.combine(
+                    winston.format.timestamp(),
+                    winston.format.json()
+                ),
                 transports: [
-                new winston.transports.MongoDB({
-                    db: client.db(),
-                    options: {
-                        useNewUrlParser: true,
-                        useUnifiedTopology: true
-                    },
-                    collection: 'server-logs'
-                })]
+                    new SQLDatabaseTransport({ pool })
+                ]
             };
         } catch (error) {
-            console.error('Error connecting to MongoDB for logging: ', error);
+            console.error('Error connecting to SQL DB for logging: ', error);
         }
     }
-}
+};
 
 module.exports = configureLogging;
