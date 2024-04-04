@@ -1,48 +1,28 @@
-name: Map of Pi CI/CD [Version]
+name: Map of Pi CI/CD [Versioning]
 
 # Controls when the workflow will execute
 on:
-  # Triggers the workflow on push or pull request events for the "main" branch
-  push:
-    branches: 
-      - main
-  pull_request:
-    branches:
-      - main
+  # Triggers the workflow on publised releases
+  release:
+    types: [published]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  release:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-
-    timeout-minutes: 10 
-
+  update-version:
+    name: 🔆 Versioning
     runs-on: ubuntu-latest
     # The sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-
-      - name: install dependencies
-        run: npm ci
-      
-      - name: Create release pull request or publish to npm
-        uses: changesets/action@v1
-        with:
-          publish: npm run release
-          version: npm run version
-          commit: "chore: new release"
-          title: "chore: new release candidate"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Extract version from package.json
+        id: extract-version
+        run: echo "APP_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+    
+      - name: Display version from package.json
+        id: display-version
+        run: echo "Version extracted from package.json [$APP_VERSION]"
+        

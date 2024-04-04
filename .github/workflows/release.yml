@@ -1,0 +1,53 @@
+name: Map of Pi CI/CD [Release]
+
+# Controls when the workflow will execute
+on:
+  # Triggers the workflow on push events for the "main" branch
+  push:
+    branches: 
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow only one instance of the workflow to run
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: 🚀 Release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    timeout-minutes: 10 
+
+    runs-on: ubuntu-latest
+    # The sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Authenticate with GitHub Packages registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > ~/.npmrc
+
+      - name: Create release pull request or publish to GitHub Packages
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: true
+          version: true
+          commit: "chore: New Release"
+          title: "chore: New Release Candidate"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
