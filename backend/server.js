@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-  logger.info(`Received request: ${req.method} ${req.url}`);
+  console.log(`Received request: ${req.method} ${req.url}`);
   next();
 });
 
@@ -52,9 +52,11 @@ mongoose
   .connect(`${process.env.MONGODB_URL}`)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      logger.info(`Successful connection to DB ${process.env.MONGODB_URL} and app server running on port ${process.env.PORT}`);
+      console.log(
+        `Successful connection to DB ${process.env.MONGODB_URL} and app running on port ${process.env.PORT}`
+      );
     });
   })
   .catch((err) => {
-    logger.error("Error while connectiong to DB", err);
+    console.log("Error while connecting to DB", err);
   });
