@@ -6,4 +6,14 @@
   @if (layer) {
     <div [leafletLayer]="layer"></div>
   }
+      
+  <!-- Map Controls Block -->
+  <div class="map-controls">
+    <!-- Center to Search Element -->
+    <div class="map-controls__item">
+      <button class="map-controls__button" (click)="saveCenter()">
+        Center to Search
+      </button>
+    </div>
+  </div>
 </div>
