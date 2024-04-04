@@ -1,6 +1,12 @@
 const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const addProductToShop = async (req, res) => {
     const { shopId } = req.params;
@@ -18,7 +24,7 @@ const addProductToShop = async (req, res) => {
         shop.products.push(newProduct);
         await shop.save();
 
-        logger.info("Product added successfully");
+        logger.info("Product added successfully", newProduct);
         return res.status(200).json({ message: "Product added successfully", newProduct });
         
     } catch (error) {
