@@ -13,7 +13,7 @@ import 'leaflet-routing-machine';
 import { GeolocationService } from '../../core/service/geolocation.service';
 import { ShopService } from '../../core/service/shop.service';
 import { SnackService } from '../../core/service/snack.service';
-import { dummyCoordinates } from '../../core/model/business';
+import { dummyCoordinates }| from '../../core/model/business';
 import { CustomMarkerOptions } from './marker-options.interface';
 
 export type SearchType = 'business' | 'product';
@@ -68,7 +68,7 @@ export class MapComponent implements OnInit, OnDestroy {
       
     this.options = this.geolocationService.getMapOptions();
     this.geolocationSubscription = this.geolocationService.geolocationTriggerEvent$.subscribe(() => {
-      this.locateMe();
+      // this.locateMe();
     });
 
     this.userPositions = this.shopService.getUserPosition();
@@ -79,28 +79,53 @@ export class MapComponent implements OnInit, OnDestroy {
       this.addAllCoordinatesToMap();
     });
   }
+
+  loadLocationFromLocalStorage(): { lat: number; lng: number } | null {
+    const savedLocationJSON = localStorage.getItem('savedLocation');
+    return savedLocationJSON ? JSON.parse(savedLocationJSON) : null;
+  }
   
   async ngOnInit(): Promise<void> {
     try {
-      const response = await axios.get('https://api-mapofpi.vercel.app/shops');
-
-      this.logger.debug('From Map of Pi: ', response.data?.data);
-
-      const shops: any[] = response.data?.data;
-
-      this.allShops = shops;
-      this.filteredShops = shops;
-
-      // Wait for translation update before adding coordinates to the map
-      this.updateTranslatedStrings();
-      this.addAllCoordinatesToMap();
-
-      this.logger.debug('All shops after fetching them from DB ', this.allShops.map((shop) => shop.coordinates));
+      // Decide initial map centering based on saved location or geolocation
+      await this.decideInitialMapCentering();
+      // Load shops and add them to the map
+      await this.loadShops();
     } catch (error) {
       this.logger.error(error);
     }
-    this.track();
   }
+  
+  private async decideInitialMapCentering(): Promise<void> {
+    const savedLocation = this.loadLocationFromLocalStorage();
+    if (savedLocation) {
+      this.initializeMapWithSavedLocation(savedLocation);
+    } else {
+      this.initializeMapWithGeolocation();
+    }
+  }
+  
+  private async loadShops(): Promise<void> {
+    const response = await axios.get('https://api-mapofpi.vercel.app/shops');
+    this.logger.debug('From Map of Pi: ', response.data?.data);
+    const shops: any[] = response.data?.data;
+    this.allShops = shops;
+    this.filteredShops = shops;
+    // Update map with shop locations
+    this.updateTranslatedStrings();
+    this.addAllCoordinatesToMap();
+  }
+  
+  
+initializeMapWithSavedLocation(savedLocation: { lat: number, lng: number }): void {
+  // Set map options based on saved location
+  this.options.center = L.latLng(savedLocation.lat, savedLocation.lng);
+  // Directly initialize or update the map view in `onMapReady` if the map is already initialized
+}
+
+initializeMapWithGeolocation(): void {
+  // Geolocation logic here.
+}
 
   ngOnDestroy(): void {
     // Unsubscribe from langChangeSubscription to prevent potential memory leaks
@@ -112,16 +137,12 @@ export class MapComponent implements OnInit, OnDestroy {
       this.geolocationSubscription.unsubscribe();
     }
   }
-
-  onMapReady(map: Map): void {
+  onMapReady(map: L.Map): void {
     this.map = map;
-    // Add all coordinates to the map on component initialization
+    
     this.addAllCoordinatesToMap();
   }
-
-  locateMe(): void {
-    this.track();
-  }
+  
 
   // Filter shops based on search query
   filterShops(query: string, searchType: SearchType): void {
