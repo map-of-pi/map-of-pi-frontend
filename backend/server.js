@@ -49,9 +49,9 @@ mongoose
   .connect(`${process.env.MONGODB_URL}`)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("Successful connection to DB");
+      console.log("Successful connection to Mongo DB");
     });
   })
   .catch((err) => {
-    console.log("Error while connecting to DB", err);
+    console.log("Error while connecting to Mongo DB", err);
   });
