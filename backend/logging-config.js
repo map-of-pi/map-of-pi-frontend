@@ -1,30 +1,10 @@
 const dotenv = require("dotenv");
 const winston = require('winston');
-const sql = require('mssql');
+const { MongoClient } = require('mongodb');
 
-const SQLDatabaseTransport = require('./sql-database-transport');
+require('winston-mongodb');
 
 dotenv.config();
-
-// SQL database configuration
-const sqlConfig = {
-    user: 'MainAdmin',
-    password: 'pioneer24!Hackathon',
-    database: 'map-of-pi',
-    server: 'mapofpi.database.windows.net',
-    authentication: {
-        type: 'default'
-    },
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
-    options: {
-        encrypt: true,
-        trustServerCertificate: false
-    }
-};
 
 const configureLogging = async () => {
     console.log(`VERCEL_ENV: ${process.env.VERCEL_ENV}`);
@@ -44,9 +24,10 @@ const configureLogging = async () => {
             ]
         };
     } else {
+        const url = "mongodb+srv://mapofpi:mapofpi@mapofpi.vibqtx2.mongodb.net/mapofpiDB?retryWrites=true&w=majority";
         try {
-            // create a DB connection pool
-            const pool = await new sql.ConnectionPool(sqlConfig).connect();
+            const client = new MongoClient(url);
+            await client.connect();
 
             return {
                 level: 'info',
@@ -55,7 +36,14 @@ const configureLogging = async () => {
                     winston.format.json()
                 ),
                 transports: [
-                    new SQLDatabaseTransport({ pool })
+                    new winston.transports.MongoDB({
+                        db: client.db(),
+                        options: {
+                            useNewUrlParser: true,
+                            useUnifiedTopology: true
+                        },
+                        collection: 'serverLogs'
+                    })
                 ]
             };
         } catch (error) {
