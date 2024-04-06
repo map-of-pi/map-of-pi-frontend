@@ -15,7 +15,7 @@ const getUserTransactions = async (req, res) => {
     logger.debug("Successfully fetched user transactions");
     return res.status(200).json({ transactions });
   } catch (error) {
-    logger.error("Error getting user transactions:", error.message);
+    logger.error("Error getting user transactions:", error);
     return res.status(500).json({ error: "Internal server error", details: error.message });
   }
 };

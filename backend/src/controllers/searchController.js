@@ -49,7 +49,7 @@ const search = async (req, res) => {
 
         res.status(200).json({ shops });
     } catch (error) {
-        logger.error("Internal server error while searching:", error.message);
+        logger.error("Internal server error while searching:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 };

@@ -18,7 +18,10 @@ const configureLogging = async () => {
     if (isDevelopment()) {
         return {
             level: 'debug',
-            format: winston.format.cli(),
+            format: winston.format.combine(
+                winston.format.errors({ stack: true }),
+                winston.format.cli()
+            ),
             transports: [
               new winston.transports.Console()
             ]
@@ -29,7 +32,8 @@ const configureLogging = async () => {
         return {
             level: 'info',
             format: winston.format.combine(
-                winston.format.timestamp(),
+                winston.format.errors({ stack: true }),
+                winston.format.timestamp(), // GMT
                 winston.format.json()
             ),
             transports: [

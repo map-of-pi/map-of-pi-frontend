@@ -28,7 +28,7 @@ const addProductToShop = async (req, res) => {
         return res.status(200).json({ message: "Product added successfully", newProduct });
         
     } catch (error) {
-        logger.error("Internal server error while adding product:", error.message);
+        logger.error("Internal server error while adding product:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
