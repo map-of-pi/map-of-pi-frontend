@@ -129,13 +129,14 @@ export class MapComponent implements OnInit, OnDestroy {
     // search by business
     if (searchType === 'business') {
       this.filteredShops = this.allShops.filter(shop =>
-        shop.name.toLowerCase().includes(query.toLowerCase())
+        !query || shop.name.toLowerCase().includes(query.toLowerCase())
       );
     // search by product
     } else if (searchType === 'product') {
       this.filteredShops = this.allShops.filter(shop =>
-        shop.products.some((product: { name: string; }) =>
-          product.name.toLowerCase().includes(query.toLowerCase()))
+        !query || shop.products.some((product: { name: string; }) =>
+          product.name.toLowerCase().includes(query.toLowerCase())
+        )
       );
     } else {
       this.logger.error("Unexpected and invalid search type: ", searchType);
