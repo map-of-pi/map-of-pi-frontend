@@ -7,6 +7,7 @@ const morganLogger = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
+const connectDB = require("./mongodb");
 
 dotenv.config();
 
@@ -45,13 +46,13 @@ app.use("/payments", paymentRoutes);
 app.use("/transactions", transactionRoutes);
 app.use("/shops",shopRoutes)
 
-mongoose
-  .connect(`${process.env.MONGODB_URL}`)
+// call the connectDB function to initialize MongoDB connection
+connectDB()
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("Successful connection to Mongo DB");
+      console.log("Server started on port", process.env.PORT);
     });
   })
   .catch((err) => {
-    console.log("Error while connecting to Mongo DB", err);
+    console.error("Error starting server", err);
   });

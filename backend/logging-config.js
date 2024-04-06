@@ -1,13 +1,13 @@
 const dotenv = require("dotenv");
 const winston = require('winston');
-const { MongoClient } = require('mongodb');
+const connectDB = require("./mongodb");
 
 require('winston-mongodb');
 
 dotenv.config();
 
 const configureLogging = async () => {
-    console.log(`VERCEL_ENV: ${process.env.VERCEL_ENV}`);
+    // console.log(`VERCEL_ENV: ${process.env.VERCEL_ENV}`);
 
     // check if the app is running in localhost mode or sandbox
     const isDevelopment = () => {
@@ -24,31 +24,25 @@ const configureLogging = async () => {
             ]
         };
     } else {
-        const url = "mongodb+srv://mapofpi:mapofpi@mapofpi.vibqtx2.mongodb.net/mapofpiDB?retryWrites=true&w=majority";
-        try {
-            const client = new MongoClient(url);
-            await client.connect();
-
-            return {
-                level: 'info',
-                format: winston.format.combine(
-                    winston.format.timestamp(),
-                    winston.format.json()
-                ),
-                transports: [
-                    new winston.transports.MongoDB({
-                        db: client.db(),
-                        options: {
-                            useNewUrlParser: true,
-                            useUnifiedTopology: true
-                        },
-                        collection: 'serverLogs'
-                    })
-                ]
-            };
-        } catch (error) {
-            console.error('Error connecting to SQL DB for logging: ', error);
-        }
+        await connectDB();
+        
+        return {
+            level: 'info',
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.json()
+            ),
+            transports: [
+                new winston.transports.MongoDB({
+                    db: process.env.MONGODB_URL,
+                    options: {
+                        useNewUrlParser: true,
+                        useUnifiedTopology: true
+                    },
+                    collection: 'serverLogs'
+                })
+            ]
+        };
     }
 };
 
