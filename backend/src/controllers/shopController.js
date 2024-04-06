@@ -1,25 +1,19 @@
 const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
-const initializeLogger = require("../../logger");
-
-let logger;
-
-initializeLogger().then((initializedLogger) => {
-  logger = initializedLogger;
-});
+const logger = require("../../logger");
 
 const getAllShops = async (req, res) => {
   try {
     const shops = await Shop.find().populate("products");
     if (shops.length > 0) {
-      logger.debug("Successfully fetched all shops");
+      logger.info("Successfully fetched all shops");
       return res.status(200).json({ shops });
     } else {
-      logger.debug("No shops found");
+      logger.info("No shops found");
       return res.status(404).json({ message: "No shops found" });
     }
   } catch (error) {
-    logger.error(`Error while searching all shops: ${error.stack}`);
+    logger.error("Error while searching all shops:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -32,7 +26,7 @@ const registerShop = async (req, res) => {
     logger.info("Successfully registered new shop:", newShop);
     return res.status(200).json({ newShop });
   } catch (error) {
-    logger.error(`Error while registering new shop: ${error.stack}`);
+    logger.error("Error while registering new shop:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -42,14 +36,14 @@ const getSingleShop = async (req, res) => {
   try {
     const shop = await Shop.findById(shopId);
     if (shop) {
-      logger.debug("Successfully fetched single shop:", shop);
+      logger.info("Successfully fetched single shop:", shop);
       return res.status(200).json({ shop });
     } else {
-      logger.debug("No shop found");
+      logger.info("No shop found");
       return res.status(404).json({ message: "No shop found" });
     }
   } catch (error) {
-    logger.error(`Error while searching single shop: ${error.stack}`);
+    logger.error("Error while searching single shop:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -61,14 +55,14 @@ const deleteShop = async (req, res) => {
     const shopToDelete = await Shop.findById(shopId);
     if (shopToDelete && shopToDelete.owner === currentUser.uid) {
       await Shop.findByIdAndDelete(shopId);
-      logger.debug("Successfully deleted shop:", shopToDelete);
+      logger.info("Successfully deleted shop:", shopToDelete);
       return res.status(200).json({ message: "Shop deleted successfully" });
     } else {
       logger.warn("Shop removal denied due to lack of permission");
       return res.status(401).json({ message: "Shop removal denied due to lack of permission" });
     }
   } catch (error) {
-    logger.error(`Error while deleting shop: ${error.stack}`);
+    logger.error("Error while deleting shop:", error.message);
     return res.status(500).json({ error: "Internal server error while deleting shop" });
   }
 };
@@ -87,7 +81,7 @@ const updateShop = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized to update this shop" });
     }
   } catch (error) {
-    logger.error(`Error while updating shop: ${error.stack}`);
+    logger.error("Error while updating shop:", error.message);
     return res.status(500).json({ error: "Internal server error while updating shop" });
   }
 };
@@ -98,14 +92,14 @@ const getShopProducts = async (req, res) => {
   try {
     const products = await Product.find({ shop: shopId });
     if (products.length > 0) {
-      logger.debug("Successfully fetched products for shop");
+      logger.info("Successfully fetched products for shop");
       return res.status(200).json({ products });
     } else {
-      logger.debug("Shop has no products");
+      logger.info("Shop has no products");
       return res.status(200).json({ message: "Shop has no products" });
     }
   } catch (error) {
-    logger.error(`Error while searching products for a shop: ${error.stack}`);
+    logger.error("Error while searching products for a shop:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };

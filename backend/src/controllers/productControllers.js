@@ -1,12 +1,6 @@
 const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
-const initializeLogger = require("../../logger");
-
-let logger;
-
-initializeLogger().then((initializedLogger) => {
-  logger = initializedLogger;
-});
+const logger = require("../../logger");
 
 const addProductToShop = async (req, res) => {
     const { shopId } = req.params;
@@ -24,11 +18,11 @@ const addProductToShop = async (req, res) => {
         shop.products.push(newProduct);
         await shop.save();
 
-        logger.info("Product added successfully", newProduct);
+        logger.info("Product added successfully");
         return res.status(200).json({ message: "Product added successfully", newProduct });
         
     } catch (error) {
-        logger.error(`Internal server error while adding product: ${error.stack}`);
+        logger.error("Internal server error while adding product:", error.message);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
