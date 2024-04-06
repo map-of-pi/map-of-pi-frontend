@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 const Product = require("./productModel");
 const User = require("./userModel");
-const initializeLogger = require("../../logger");
-
-let logger;
-
-initializeLogger().then((initializedLogger) => {
-  logger = initializedLogger;
-});
+const logger = require("../../logger");
 
 const shopSchema = new mongoose.Schema({
   name: String,
@@ -48,7 +42,7 @@ shopSchema.pre("remove", async function (next) {
     await Product.deleteMany({ shop: this._id });
     next();
   } catch (error) {
-    logger.error(`Product failed to be deleted with shop: ${error.stack}`);
+    logger.error("Product failed to be deleted with shop", error);
     next(error);
   }
 });

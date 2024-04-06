@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const morganLogger = require("morgan");
 const cors = require("cors");
+const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
-const connectDB = require("./mongodb");
+const logger = require("./logger");
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
+  logger.info(`Received request: ${req.method} ${req.url}`);
   next();
 });
 
@@ -46,13 +48,13 @@ app.use("/payments", paymentRoutes);
 app.use("/transactions", transactionRoutes);
 app.use("/shops",shopRoutes)
 
-// call the connectDB function to initialize MongoDB connection
-connectDB()
+mongoose
+  .connect(`${process.env.MONGODB_URL}`)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("Server started on port", process.env.PORT);
+      logger.info(`Successful connection to DB ${process.env.MONGODB_URL} and app server running on port ${process.env.PORT}`);
     });
   })
   .catch((err) => {
-    console.error("Error starting server", err);
+    logger.error("Error while connectiong to DB", err);
   });
