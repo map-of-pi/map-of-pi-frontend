@@ -23,7 +23,7 @@ router.post("/signin", async (req, res) => {
 
     logger.debug("User details from /me endpoint:", me.data);
   } catch (err) {
-    logger.error("Invalid access token:", err.message);
+    logger.error(`Invalid access token: ${error.stack}`);
     return res.status(401).json({ error: "Invalid access token" });
   }
 
@@ -55,7 +55,7 @@ router.post("/signin", async (req, res) => {
     // Sending current user with hsi token in my fronted
     return res.status(200).json({currentUser,token});
   } catch (error) {
-    logger.error("User sign in failed", error);
+    logger.error(`User sign in failed: ${error.stack}`);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -84,7 +84,7 @@ router.post("/verify-token", async (req, res) => {
       return res.status(401).json({ error: "Invalid access token" });
     }
   } catch (error) {
-    logger.error("User access token expired; User needs to login");
+    logger.error(`User access token expired; User needs to login: ${error.stack}`);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });

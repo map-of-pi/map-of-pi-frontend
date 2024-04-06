@@ -19,7 +19,7 @@ const signInUser = async (req, res) => {
     });
     logger.debug("User details from /me endpoint:", me.data);
   } catch (error) {
-    logger.error("Invalid access token:", error);
+    logger.error(`Invalid access token: ${error.stack}`);
     return res.status(401).json({ error: "Invalid access token" });
   }
 
@@ -50,7 +50,7 @@ const signInUser = async (req, res) => {
     );
     res.status(200).json({ currentUser, token });
   } catch (error) {
-    logger.error("Internal server error:", error);
+    logger.error(`Internal server error: ${error.stack}`);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -69,7 +69,7 @@ const signOutUser = async (req, res) => {
       todo: "Remember to remove user token from localstorage",
     });
   } catch (error) {
-    logger.error("Internal server error:", error);
+    logger.error(`Internal server error: ${error.stack}`);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -81,7 +81,7 @@ const verifyUserToken = async (req, res) => {
     const currentUser = await User.findOne({ uid: decoded.userId });
     res.status(200).json({ currentUser, token });
   } catch (error) {
-    logger.error("Internal server error while verifying user token:", error);
+    logger.error(`Internal server error while verifying user token: ${error.stack}`);
     res.status(500).json({ error: "Internal server error" });
   }
 };

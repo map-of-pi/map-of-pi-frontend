@@ -48,7 +48,7 @@ shopSchema.pre("remove", async function (next) {
     await Product.deleteMany({ shop: this._id });
     next();
   } catch (error) {
-    logger.error("Product failed to be deleted with shop", error);
+    logger.error(`Product failed to be deleted with shop: ${error.stack}`);
     next(error);
   }
 });

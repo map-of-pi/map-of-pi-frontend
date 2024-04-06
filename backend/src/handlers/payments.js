@@ -59,7 +59,7 @@ router.post("/incomplete",isAuthenticated, async (req, res) => {
     logger.info(`Handled the incomplete payment: ${paymentId}`);
     return res.status(200).json({ message: `Handled the incomplete payment ${paymentId}` });
   } catch (error) {
-    logger.error("Error in /incomplete route:", error);
+    logger.error(`Error in /incomplete route: ${error.stack}`);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -98,7 +98,7 @@ router.post("/approve", isAuthenticated, async (req, res) => {
     logger.info(`Approved the payment ${paymentId}`);
     return res.status(200).json({ message: `Approved the payment ${paymentId}` });
   } catch (error) {
-    logger.error("Error in /approve route:", error);
+    logger.error(`Error in /approve route: ${error.stack}`);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -136,7 +136,7 @@ router.post("/complete", isAuthenticated, async (req, res) => {
 
     return res.status(200).json({ message: `Completed the payment ${paymentId}` });
   } catch (error) {
-    logger.error("Error in /complete route:", error);
+    logger.error(`Error in /complete route: ${error.stack}`);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -155,7 +155,7 @@ router.post("/cancelled_payment", async (req, res) => {
     logger.debug("Cancelled the payment:", paymentId);
     return res.status(200).json({ message: `Cancelled the payment ${paymentId}` });
   } catch (error) {
-    logger.error("Error in /cancelled_payment route:", error);
+    logger.error(`Error in /cancelled_payment route: ${error.stack}`);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
