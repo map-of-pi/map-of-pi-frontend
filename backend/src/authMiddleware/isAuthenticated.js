@@ -1,6 +1,12 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const isAuthenticated = async (req, res, next) => {
   logger.debug("isAuthenticated middleware started");

@@ -3,7 +3,13 @@ const router = express.Router();
 const platformAPIClient = require("../services/platformAPIClient");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 
 // handle the user auth accordingly
@@ -15,9 +21,9 @@ router.post("/signin", async (req, res) => {
       headers: { Authorization: `Bearer ${auth.accessToken}` },
     });
 
-    logger.info("User details from /me endpoint:", me.data);
+    logger.debug("User details from /me endpoint:", me.data);
   } catch (err) {
-    logger.error("Invalid access token:", err.message);
+    logger.error(`Invalid access token: ${error.stack}`);
     return res.status(401).json({ error: "Invalid access token" });
   }
 
@@ -45,11 +51,11 @@ router.post("/signin", async (req, res) => {
     }
     // Issuing token for succesful login 
     const token = jwt.sign({userId:currentUser.uid},process.env.JWT_SECRET,{expiresIn:"20m"})
-    logger.info("User signed in successfully:", currentUser.uid);
+    logger.debug("User signed in successfully:", currentUser.uid);
     // Sending current user with hsi token in my fronted
     return res.status(200).json({currentUser,token});
   } catch (error) {
-    logger.error("User sign in failed", error);
+    logger.error(`User sign in failed: ${error.stack}`);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -57,29 +63,28 @@ router.post("/signin", async (req, res) => {
 
 router.get("/signout", async (req, res) => {
   // Clear currentUser from the session upon signout
-  logger.info("User signed out");
+  logger.debug("User signed out");
   return res.status(200).json({ message: "User signed out" });
 });
 
 
 // token verifying fujction that will auto login user when his token is still valid 
-//this is called in my fronted when app did mount(for initial loading)
+// this is called in my fronted when app did mount(for initial loading)
 router.post("/verify-token", async (req, res) => {
   try {
     const token = req.body.token;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const currentUser = await User.findOne({ uid: decoded.userId });
 
     if (currentUser) {
-      logger.info("User token verified successfully:", currentUser.uid);
+      logger.debug("User token verified successfully:", currentUser.uid);
       return res.status(200).json({ currentUser });
     } else {
       logger.warn("Invalid access token");
       return res.status(401).json({ error: "Invalid access token" });
     }
   } catch (error) {
-    logger.error("User access token expired; User needs to login");
+    logger.error(`User access token expired; User needs to login: ${error.stack}`);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });

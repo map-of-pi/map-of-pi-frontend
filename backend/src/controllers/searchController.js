@@ -1,6 +1,12 @@
 const Shop = require("../models/shopModel");
 const Product = require("../models/productModel");
-const logger = require("../../logger");
+const initializeLogger = require("../../logger");
+
+let logger;
+
+initializeLogger().then((initializedLogger) => {
+  logger = initializedLogger;
+});
 
 const search = async (req, res) => {
     try {
@@ -43,7 +49,7 @@ const search = async (req, res) => {
 
         res.status(200).json({ shops });
     } catch (error) {
-        logger.error("Internal server error while searching:", error.message);
+        logger.error(`Internal server error while searching: ${error.stack}`);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
