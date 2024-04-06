@@ -13,7 +13,7 @@ import 'leaflet-routing-machine';
 import { GeolocationService } from '../../core/service/geolocation.service';
 import { ShopService } from '../../core/service/shop.service';
 import { SnackService } from '../../core/service/snack.service';
-import { dummyCoordinates }| from '../../core/model/business';
+import { dummyCoordinates } from '../../core/model/business';
 import { CustomMarkerOptions } from './marker-options.interface';
 
 export type SearchType = 'business' | 'product';
@@ -118,6 +118,7 @@ export class MapComponent implements OnInit, OnDestroy {
   
   
 initializeMapWithSavedLocation(savedLocation: { lat: number, lng: number }): void {
+  this.options.zoom = 15;
   // Set map options based on saved location
   this.options.center = L.latLng(savedLocation.lat, savedLocation.lng);
   // Directly initialize or update the map view in `onMapReady` if the map is already initialized
