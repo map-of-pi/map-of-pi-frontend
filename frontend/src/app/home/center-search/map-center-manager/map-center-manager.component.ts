@@ -72,7 +72,7 @@ getCenterSearchMapOptions(): L.MapOptions {
         attribution: 'Map data © OpenStreetMap contributors'
       }),
     ],
-    zoom: 1,
+    zoom: 2,
     center: L.latLng([0, 0]),
     maxBounds: bounds,
     attributionControl: false,
