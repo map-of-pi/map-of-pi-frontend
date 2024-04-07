@@ -20,9 +20,8 @@ export class PaymentsService {
     private snackService: SnackService,
     private shopServices: ShopService,
     private geolocationService: GeolocationService,
-    private logger: NGXLogger,
-  ) {
-    this.currentUser = this.currentUserService.getCurrentUser();
+    private logger: NGXLogger) {
+      this.currentUser = this.currentUserService.getCurrentUser();
   }
 
   signInUser = async () => {

@@ -24,11 +24,11 @@ export class BusinessSettingsComponent {
   showPopup: boolean = false;
   selectedImages: any[] = [];
   email: string = 'i@gmail.com';
+  image: unknown;
   imagePreview: unknown = '';
   isPreviewAvailable: boolean = false;
   isLoadingPreview: boolean = false;
   testUpload: boolean = false;
-  image: unknown;
   isRegistering: boolean = false;
 
   registerShopForm = new FormGroup({
@@ -41,11 +41,7 @@ export class BusinessSettingsComponent {
     shopDescription: new FormControl('', Validators.required),
   });
 
-  constructor(
-    private snackService: SnackService,
-    private shopServices: ShopService,
-    private logger: NGXLogger,
-  ) {}
+  constructor(private snackService: SnackService, private shopServices: ShopService, private logger: NGXLogger) {}
 
   onFileChange(event: any) {
     if (event.target.files) {
@@ -60,7 +56,7 @@ export class BusinessSettingsComponent {
         this.isPreviewAvailable = true;
         this.testUpload = true;
         this.isLoadingPreview = false;
-        console.log(this.image);
+        this.logger.debug(this.image);
         this.registerShopForm.get('shopImage')?.markAsTouched;
       };
     }
@@ -83,7 +79,7 @@ export class BusinessSettingsComponent {
       const response = await this.shopServices.registerShop(datas);
 
       const { data } = response;
-      console.log(data);
+      this.logger.debug(data);
 
       if (response.status === 200) {
         this.isRegistering = false;

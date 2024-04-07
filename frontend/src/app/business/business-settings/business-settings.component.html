@@ -3,7 +3,7 @@
 
   <form [formGroup]="registerShopForm" (ngSubmit)="send()">
     <section class="business-registration__section">
-      <!-- busines name field -->
+      <!-- business name field -->
       <div class="business-registration__field">
         <label for="business-name" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_NAME' | translate }}</label>
         <input
@@ -19,8 +19,7 @@
         }}</span>
       </div>
 
-      <!-- busines description fiel -->
-
+      <!-- business description field -->
       <div class="business-registration__field business-registration__field-middle">
         <label for="business-description" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_DESCRIPTION' | translate }}</label>
         <input
@@ -52,7 +51,7 @@
         }}</span>
       </div>
 
-      <!-- busines image preview section field -->
+      <!-- business image preview section field -->
       <div class="business-registration__field business-registration__field-middle">
         <div class="flex justify-between items-center gap-3">
           <div *ngIf="isLoadingPreview" class="flex flex-col justify-center gap-3 mb-3 items-center p-3 rounded-md w-full">
@@ -72,6 +71,8 @@
             <div *ngIf="imagePreview">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_CHANGE' | translate }}</div>
           </label>
         </div>
+
+        <!-- business image input section -->
         <input
           type="file"
           id="image"
@@ -86,7 +87,7 @@
         }}</span>
       </div>
 
-      <!-- busines email address field -->
+      <!-- business email address field -->
       <div class="business-registration__field business-registration__field-middle">
         <label for="email" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_EMAIL_ADDRESS' | translate }}</label>
         <input
