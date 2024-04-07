@@ -60,7 +60,7 @@
               <div class="spinner"></div>
             </div>
 
-            <div class="animate-bounce text-center">Uploading image You can fill other fields now</div>
+            <div class="animate-bounce text-sm text-center text-green-500">Loading Image</div>
           </div>
           <div *ngIf="testUpload" class="business-registration__label flex justify-center gap-5 mb-3 items-center p-3 rounded-md w-full">
             <img [src]="imagePreview" alt="upload icon" class="w-[100px] h-[100px]" />
@@ -68,8 +68,8 @@
 
           <label for="image" class="flex gap-2 flex-col justify-center mb-3 items-center p-3 rounded-md w-full">
             <img src="../../../assets/images/business/upload.jpg" alt="upload icon" class="w-[50px] h-[50px]" />
-            <div *ngIf="!imagePreview">Upload Shop Image</div>
-            <div *ngIf="imagePreview">Change Shop Image</div>
+            <div *ngIf="!imagePreview">Upload Your Business Image</div>
+            <div *ngIf="imagePreview">Change Your Business Image</div>
           </label>
         </div>
 
