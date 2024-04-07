@@ -60,7 +60,7 @@
               <div class="spinner"></div>
             </div>
 
-            <div class="animate-bounce text-sm text-center text-green-500">Loading Image</div>
+            <div class="animate-bounce text-sm text-center text-green-500">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_LOADING' | translate }}</div>
           </div>
           <div *ngIf="testUpload" class="business-registration__label flex justify-center gap-5 mb-3 items-center p-3 rounded-md w-full">
             <img [src]="imagePreview" alt="upload icon" class="w-[100px] h-[100px]" />
@@ -68,13 +68,10 @@
 
           <label for="image" class="flex gap-2 flex-col justify-center mb-3 items-center p-3 rounded-md w-full">
             <img src="../../../assets/images/business/upload.jpg" alt="upload icon" class="w-[50px] h-[50px]" />
-            <div *ngIf="!imagePreview">Upload Your Business Image</div>
-            <div *ngIf="imagePreview">Change Your Business Image</div>
+            <div *ngIf="!imagePreview">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_UPLOAD' | translate }}</div>
+            <div *ngIf="imagePreview">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_CHANGE' | translate }}</div>
           </label>
         </div>
-
-        <!-- business image input tage -->
-
         <input
           type="file"
           id="image"
@@ -82,7 +79,6 @@
           (change)="onFileChange($event)"
           formControlName="shopImage"
           class="business-registration__input hidden"
-          placeholder="{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGES' | translate }}"
           required />
 
         <span class="text-red-500" *ngIf="registerShopForm.get('shopImage')?.invalid && registerShopForm.get('shopImage')?.touched">{{
