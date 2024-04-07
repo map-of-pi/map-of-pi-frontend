@@ -6,11 +6,11 @@ export interface Business {
 
 export interface IShopData {
   isPiPaymentEnabled: boolean;
-  shopName: string;
+  shopName: string | undefined;
   shopType: string;
   shopAddress: string;
   shopDescription: string;
-  shopImage: string;
+  shopImage: any;
   shopPhone: string;
   shopEmail: string;
 }

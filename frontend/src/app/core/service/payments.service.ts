@@ -20,8 +20,9 @@ export class PaymentsService {
     private snackService: SnackService,
     private shopServices: ShopService,
     private geolocationService: GeolocationService,
-    private logger: NGXLogger) {
-      this.currentUser = this.currentUserService.getCurrentUser();
+    private logger: NGXLogger,
+  ) {
+    this.currentUser = this.currentUserService.getCurrentUser();
   }
 
   signInUser = async () => {
@@ -58,8 +59,8 @@ export class PaymentsService {
 
       return { currentUser, token };
     } catch (error) {
-        this.logger.error('Error during sign-in:', error);
-        throw error;
+      this.logger.error('Error during sign-in:', error);
+      throw error;
     }
   };
 

@@ -59,20 +59,21 @@ body {
   .flag-image {
     border-color: #fff !important;
   }
-  div[class^="inner-wrapper"] {
+  div[class^='inner-wrapper'] {
     color: #ffffff;
     background-color: #7e7777;
   }
-  div[class^="modal"] {
+  div[class^='modal'] {
     color: #ffffff;
     background-color: #7e7777;
   }
-  input#item-name, input#item-price {
+  input#item-name,
+  input#item-price {
     background-color: #666060;
     color: #ffffff;
   }
   textarea#description {
     background-color: #666060;
     color: #ffffff;
-  }  
+  }
 }

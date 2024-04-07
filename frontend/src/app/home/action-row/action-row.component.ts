@@ -58,22 +58,22 @@ export class ActionRowComponent implements OnInit {
 
   ngOnInit(): void {
     const userJoined = localStorage.getItem('joined');
-    if (userJoined === 'true') {
-      return;
-    } else {
-      if (this.currentUserService.getCurrentUser() !== undefined && this.currentUserService.getCurrentUser() !== null) {
-        setTimeout(() => {
-          // Load current user asynchronously and open dialog once loaded
-          this.currentUserService.getCurrentUser().subscribe((user: any) => {
-            if (user) {
-              this.currentUser = user;
-              this.openDialog();
-            }
-          });
-        }, 6000);
-      } else {
-        this.logger.error('Failed to retrieve user');
-      }
-    }
+    // if (userJoined === 'true') {
+    //   return;
+    // } else {
+    //   if (this.currentUserService.getCurrentUser() !== undefined && this.currentUserService.getCurrentUser() !== null) {
+    //     setTimeout(() => {
+    //       // Load current user asynchronously and open dialog once loaded
+    //       this.currentUserService.getCurrentUser().subscribe((user: any) => {
+    //         if (user) {
+    //           this.currentUser = user;
+    //           this.openDialog();
+    //         }
+    //       });
+    //     }, 6000);
+    //   } else {
+    //     this.logger.error('Failed to retrieve user');
+    //   }
+    // }
   }
 }

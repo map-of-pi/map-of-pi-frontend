@@ -52,24 +52,24 @@ export class ShopService {
   }
 
   async registerShop(shopData: IShopData) {
-    const data: any = {
-      name: shopData.shopName,
-      type: shopData.shopType,
-      address: shopData.shopAddress,
-      description: shopData.shopDescription,
-      image: shopData.shopImage[0],
-      phone: shopData.shopPhone,
-      email: shopData.shopEmail,
-      transactionEnabled: shopData.isPiPaymentEnabled,
-      coordinates: this.coordinates,
-      country: this.country,
-      city: this.city,
-      region: this.region,
-    };
+    const formData = new FormData();
+
+    shopData.shopName && formData.append('name', shopData?.shopName);
+    shopData.shopType && formData.append('type', shopData.shopType);
+    shopData.shopAddress && formData.append('address', shopData?.shopAddress);
+    shopData.shopDescription && formData.append('description', shopData?.shopDescription);
+    shopData.shopImage && formData.append('image', shopData?.shopImage);
+    shopData.shopEmail && formData.append('email', shopData?.shopEmail);
+    shopData.shopPhone && formData.append('phone', shopData?.shopPhone);
+    this.coordinates && formData.append('coordinates', JSON.stringify(this.coordinates));
+    this.country && formData.append('country', this.country);
+    this.city && formData.append('city', this.city);
+    this.region && formData.append('region', this.region);
 
     try {
-      const response = await axios.post(`${this.baseUrl}/shops/register`, { ...data }, this.getConfig());
-      return response.data;
+      const response = await axios.post(`${this.baseUrl}/shops/register`, formData, this.getConfig());
+
+      return response;
     } catch (error: any) {
       this.logger.error('Error while registering shop:', error);
       throw new Error(error);
@@ -136,6 +136,7 @@ export class ShopService {
   async getAllShops() {
     try {
       const response = await axios.get(`${this.baseUrl}/shops`);
+      this.logger.info('Tsting logger logger');
       this.logger.info(response.data);
 
       return (this.allShops = response.data.data);

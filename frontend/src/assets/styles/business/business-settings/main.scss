@@ -1,114 +1,140 @@
 .business-registration {
-    padding: 1rem;
-    font-family: var(--font-family-main);
-    font-weight: bold;
-    font-size: 1.0rem;
+  padding: 1rem;
+  font-family: var(--font-family-main);
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .business-registration__section {
-    position: relative;
-    // font-size: 1.0rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  position: relative;
+  // font-size: 1.0rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .business-registration-header__title {
-    letter-spacing: 0.5px;
-    margin-top: 2.5rem;
+  letter-spacing: 0.5px;
+  margin-top: 2.5rem;
 }
 
 .business-registration__field {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .business-registration__input,
 .business-registration__select {
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #090C49;
-    letter-spacing: 0.5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #090c49;
+  letter-spacing: 0.5px;
 }
 
 .business-registration__field-middle {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .business-registration__field-bottom {
-    margin-top: 1.3rem;
+  margin-top: 1.3rem;
 }
 
 #location {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .business-registration__label {
-    padding-bottom: 5px;
-    letter-spacing: 0.5px;
+  padding-bottom: 5px;
+  letter-spacing: 0.5px;
 }
 
 .business-registration__list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    margin-top: 1rem;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 1rem;
 }
 
 .business-registration__item {
-    // font-size: 0.8rem;
-    padding: 1rem;
-    margin-bottom: 1rem; 
-    border-radius: 10px;
-    background-color: #ffc153;
+  // font-size: 0.8rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background-color: #ffc153;
 }
 
 .business-registration__link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--color-text-color);
-    text-decoration: none;
-    letter-spacing: 0.7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-color);
+  text-decoration: none;
+  letter-spacing: 0.7px;
 }
 
 .business-registration__button {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #1d724b;
-    color: #ffffff;
-    // font-size: 0.9rem;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    letter-spacing: .7px;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #1d724b;
+  color: #ffffff;
+  // font-size: 0.9rem;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.7px;
 }
 
 .business-registration__button:active {
-    background-color: #f00909;
+  background-color: #f00909;
 }
 
 .business-registration__button:hover {
-    background-color: #1A8855; /* Lighter for hover */
+  background-color: #1a8855; /* Lighter for hover */
 }
 
-@media(min-width: 768px) {
-    .business-registration-header__title {
-        font-size: 1rem;
-    }
-
-    .business-registration__label {
-        font-size: 1rem;
-    }
-
-    .business-registration__section {
-        max-width: 30rem;
-    }
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
 }
-  
+
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .business-registration-header__title {
+    font-size: 1rem;
+  }
+
+  .business-registration__label {
+    font-size: 1rem;
+  }
+
+  .business-registration__section {
+    max-width: 30rem;
+  }
+}
