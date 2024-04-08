@@ -58,8 +58,8 @@ export class PaymentsService {
 
       return { currentUser, token };
     } catch (error) {
-        this.logger.error('Error during sign-in:', error);
-        throw error;
+      this.logger.error('Error during sign-in:', error);
+      throw error;
     }
   };
 

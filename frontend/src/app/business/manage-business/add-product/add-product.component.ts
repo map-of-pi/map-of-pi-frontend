@@ -37,8 +37,6 @@ export class AddProductComponent {
   }
 
   submitForm() {
-    // const imageUrl = this.selectedImages[0].url;
-    // const cleanedUrl = imageUrl.replace('data:', '');
     this.logger.debug(this.selectedImages);
   }
 }

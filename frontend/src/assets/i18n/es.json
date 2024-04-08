@@ -50,7 +50,6 @@
           "TRANSPORTATION": "Transporte"
         },        
         "BUSINESS_LOCATION": "Ubicación del negocio",
-        "BUSINESS_IMAGES": "Imágenes del negocio",
         "BUSINESS_PHONE_NUMBER": "Número de teléfono del negocio",
         "BUSINESS_EMAIL_ADDRESS": "Correo electrónico del negocio"
       },
@@ -58,7 +57,9 @@
         "BUSINESS_NAME": "Ingrese el nombre de su negocio",
         "BUSINESS_DESCRIPTION": "Ingrese una descripción breve de su negocio",
         "BUSINESS_LOCATION": "Ingrese la ubicación de su negocio",
-        "BUSINESS_IMAGES": "Sube tus imágenes aquí",
+        "BUSINESS_IMAGE_UPLOAD": "Sube la imagen de tu negocio",
+        "BUSINESS_IMAGE_CHANGE": "Cambia la imagen de tu negocio",
+        "BUSINESS_IMAGE_LOADING": "Cargando imagen",
         "BUSINESS_PHONE_NUMBER": "Ingrese el número de teléfono de su negocio",
         "BUSINESS_EMAIL_ADDRESS": "Ingrese la dirección de correo electrónico de su negocio"
       },

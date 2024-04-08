@@ -31,6 +31,10 @@ export class ActionRowComponent implements OnInit {
       this.currentUser = this.currentUserService.getCurrentUser();
   }
 
+  ngOnInit(): void {
+    const userJoined = localStorage.getItem('joined');
+  }
+
   locateMe(): void {
     this.geolocationService.triggerGeolocation();
   }
@@ -54,26 +58,5 @@ export class ActionRowComponent implements OnInit {
         localStorage.setItem('joined', 'true');
       }
     });
-  }
-
-  ngOnInit(): void {
-    const userJoined = localStorage.getItem('joined');
-    if (userJoined === 'true') {
-      return;
-    } else {
-      if (this.currentUserService.getCurrentUser() !== undefined && this.currentUserService.getCurrentUser() !== null) {
-        setTimeout(() => {
-          // Load current user asynchronously and open dialog once loaded
-          this.currentUserService.getCurrentUser().subscribe((user: any) => {
-            if (user) {
-              this.currentUser = user;
-              this.openDialog();
-            }
-          });
-        }, 6000);
-      } else {
-        this.logger.error('Failed to retrieve user');
-      }
-    }
   }
 }

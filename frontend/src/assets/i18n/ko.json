@@ -50,7 +50,6 @@
           "TRANSPORTATION": "운송"
         },
         "BUSINESS_LOCATION": "비즈니스 위치",
-        "BUSINESS_IMAGES": "사업 이미지",
         "BUSINESS_PHONE_NUMBER": "비즈니스 전화번호",
         "BUSINESS_EMAIL_ADDRESS": "비즈니스 이메일 주소"
       },
@@ -58,7 +57,9 @@
         "BUSINESS_NAME": "비즈니스 이름을 입력하세요",
         "BUSINESS_DESCRIPTION": "비즈니스에 대한 간단한 설명을 입력하세요",
         "BUSINESS_LOCATION": "비즈니스 위치를 입력하세요",
-        "BUSINESS_IMAGES": "여기에 이미지를 업로드하세요",
+        "BUSINESS_IMAGE_UPLOAD": "비즈니스 이미지 업로드",
+        "BUSINESS_IMAGE_CHANGE": "비즈니스 이미지 변경",
+        "BUSINESS_IMAGE_LOADING": "이미지 로딩 중",
         "BUSINESS_PHONE_NUMBER": "비즈니스 전화번호를 입력하세요",
         "BUSINESS_EMAIL_ADDRESS": "비즈니스 이메일 주소를 입력하세요"
       },
