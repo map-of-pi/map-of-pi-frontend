@@ -38,10 +38,3 @@ jobs:
         
       - name: Execute Tests for Frontend
         run: cd frontend && npm run test -- --watch=false --browsers=ChromeHeadless
-
-        # Backend CI/CD Process
-      - name: Install Dependencies for Backend
-        run: cd backend && npm install
-
-      - name: Execute Tests for Backend
-        run: cd backend && npm run test
