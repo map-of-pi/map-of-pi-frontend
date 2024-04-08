@@ -50,7 +50,6 @@
           "TRANSPORTATION": "Sufuri"
         },
         "BUSINESS_LOCATION": "Wurin Kasuwanci",
-        "BUSINESS_IMAGES": "Hotunan Kasuwanci",
         "BUSINESS_PHONE_NUMBER": "Lambar Wayar Kasuwanci",
         "BUSINESS_EMAIL_ADDRESS": "Adireshin Imel na Kasuwanci "
       },
@@ -58,7 +57,9 @@
         "BUSINESS_NAME": "Shigar da sunan kasuwancin ku",
         "BUSINESS_DESCRIPTION": "Shigar da bayani mai sauƙi game da kasuwancin ku",
         "BUSINESS_LOCATION": "Shigar da wurin kasuwancin ku",
-        "BUSINESS_IMAGES": "Loda hotunan ku anan ",
+        "BUSINESS_IMAGE_UPLOAD": "Loda hoton kasuwancin ku",
+        "BUSINESS_IMAGE_CHANGE": "Canja hoton kasuwancin ku",
+        "BUSINESS_IMAGE_LOADING": "Ana Loda Hoto",
         "BUSINESS_PHONE_NUMBER": "Shigar da lambar wayar kasuwancin ku",
         "BUSINESS_EMAIL_ADDRESS": "Shigar da adireshin imel na kasuwancin ku"
       },
