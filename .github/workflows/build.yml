@@ -31,10 +31,10 @@ jobs:
 
         # Frontend CI/CD Process
       - name: Install Dependencies for Frontend
-        run: cd frontend && npm install
+        run: npm install
 
       - name: Build Frontend
-        run: cd frontend && npm run build -- --configuration=production
+        run: npm run build -- --configuration=production
         
       - name: Execute Tests for Frontend
-        run: cd frontend && npm run test -- --watch=false --browsers=ChromeHeadless
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
