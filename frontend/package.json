@@ -36,6 +36,7 @@
     "@ngx-translate/core": "~15.0.0",
     "@ngx-translate/http-loader": "~8.0.0",
     "@pinetwork-js/sdk": "~0.7.0",
+    "axios": "~1.6.7",
     "language-icons": "~0.3.0",
     "leaflet": "~1.9.4",
     "leaflet-routing-machine": "~3.2.12",
@@ -45,7 +46,7 @@
     "zone.js": "~0.14.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~17.2.3",
+    "@angular-devkit/build-angular": "^17.3.3",
     "@angular-eslint/builder": "17.2.1",
     "@angular-eslint/eslint-plugin": "17.2.1",
     "@angular-eslint/eslint-plugin-template": "17.2.1",
@@ -53,6 +54,8 @@
     "@angular-eslint/template-parser": "17.2.1",
     "@angular/cli": "~17.2.3",
     "@angular/compiler-cli": "~17.2.4",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
     "@pinetwork-js/api-typing": "~0.7.0",
     "@types/jasmine": "~5.1.4",
     "@types/leaflet": "~1.9.8",
