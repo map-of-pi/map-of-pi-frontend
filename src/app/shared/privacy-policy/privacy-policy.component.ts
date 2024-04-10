@@ -14,6 +14,6 @@ export class PrivacyPolicyComponent {
 
   constructor() {
     this.lastUpdated = "3/1/2024";
-    this.emailAddress = "info@mapofpi.com";
+    this.emailAddress = "mapofpi@gmail.com";
   }
 }
