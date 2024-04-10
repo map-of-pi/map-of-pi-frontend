@@ -14,6 +14,6 @@ export class TermsOfServiceComponent {
 
   constructor() {
     this.lastUpdated = "3/10/2024";
-    this.emailAddress = "info@mapofpi.com";
+    this.emailAddress = "mapofpi@gmail.com";
   }
 }
