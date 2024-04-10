@@ -40,31 +40,26 @@ The Map of Pi Front End Project was generated with [Angular CLI](https://github.
 
 ### Build the Project
 
-- Change directory to front end using `cd frontend`.
 - Run `ng build` to build the project.
     - The build artifacts will be stored in the dist/ directory.
 
 ### Execute the Development Server
 
-- Change directory to front end using `cd frontend`.
 - Execute `ng serve` to spin up a dev server.
 - Navigate to http://localhost:4200/ in your browser.
     - The application will automatically reload if you change any of the source files.
 
 ### Execute Unit Tests
 
-- Change directory to front end using `cd frontend`.
 - Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
  
 ### Execute the End-to-End Tests
 
-- Change directory to front end using `cd frontend`.
 - Run `ng e2e` to execute the end-to-end tests via a platform of your choice.
     - To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 ### Code Scaffolding
 
-- Change directory to front end using `cd frontend`.
 - Run `ng generate component [component-name]` to generate a new component.     - You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## <a name='team'></a>Team 🧑👩‍🦱🧔👨🏾‍🦱👨🏾 
