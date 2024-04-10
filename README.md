@@ -18,7 +18,6 @@
 - [Brand Design](#brand-design)
 - [Tech Stack](#tech-stack)
 - [Front End Local Execution](#frontend-local-execution)
-- [Back End Local Execution](#backend-local-execution)
 - [Team](#team)
 - [Contributions](#contributions)
 
@@ -67,18 +66,6 @@ The Map of Pi Front End Project was generated with [Angular CLI](https://github.
 
 - Change directory to front end using `cd frontend`.
 - Run `ng generate component [component-name]` to generate a new component.     - You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## <a name='backend-local-execution'></a>Back End Local Execution
-
-### Execute the Development Server
-
-- Change directory to back end using `cd backend`.
-- Execute `npm run start` to connect to nodemon and MongoDB server.
-
-### Execute Unit Tests
-
-- Change directory to back end using `cd backend`.
-- Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
 
 ## <a name='team'></a>Team 🧑👩‍🦱🧔👨🏾‍🦱👨🏾 
 
