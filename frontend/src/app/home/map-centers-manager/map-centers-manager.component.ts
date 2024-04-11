@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { Map, marker, Layer } from 'leaflet';
 
 @Component({
   selector: 'app-map-centers-manager',
@@ -9,5 +10,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
   styleUrl: './map-centers-manager.component.scss'
 })
 export class MapCentersManagerComponent {
+  layer?: Layer;
+  map!: Map;
+  options:any;
 
 }
