@@ -89,8 +89,10 @@ saveCenter(): void {
   this.router.navigate(['/home']);
 }
 
+// saveLocationToLocalStorage method
 saveLocationToLocalStorage(position: L.LatLng): void {
-  localStorage.setItem('savedLocation', JSON.stringify(position));
+  localStorage.setItem('savedLocation', JSON.stringify({ lat: position.lat, lng: position.lng }));
+  console.log('Location saved to localStorage');
 }
 
 async ngOnInit(): Promise<void> {
@@ -107,7 +109,6 @@ async ngOnInit(): Promise<void> {
 
   onMapReady(map: L.Map): void {
     this.map = map;
-    // Assuming `getCustomIcon` is a method that returns the target icon
     const centerMarker = L.marker(map.getCenter(), { icon: this.getCustomIcon() }).addTo(map);
     map.on('move', () => {
       centerMarker.setLatLng(map.getCenter());
@@ -124,7 +125,7 @@ async ngOnInit(): Promise<void> {
   }
   getCustomIcon(): L.Icon {
     return L.icon({
-      iconUrl: 'assets/images/map/target.png',
+      iconUrl: 'assets/images/map/crosshair.png',
       iconSize: [64, 64],
       iconAnchor: [32, 32],
       popupAnchor: [0, -32],
