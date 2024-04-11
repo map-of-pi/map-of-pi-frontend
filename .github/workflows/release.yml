@@ -40,14 +40,7 @@ jobs:
       - name: Authenticate with GitHub Packages registry
         run: echo "//npm.pkg.github.com/:_authToken=${{secrets.GITHUB_TOKEN}}" > ~/.npmrc
 
-      - name: Create release pull request or publish to GitHub Packages
-        id: changesets
+      - name: Invoke Changesets for versioning
         uses: changesets/action@v1
-        with:
-          publish: true
-          version: true
-          commit: "chore: New Release"
-          title: "chore: New Release Candidate"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
