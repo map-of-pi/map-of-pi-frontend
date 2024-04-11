@@ -89,12 +89,29 @@ export class MapComponent implements OnInit, OnDestroy {
     try {
       // Decide initial map centering based on saved location or geolocation
       await this.decideInitialMapCentering();
+        // Retrieve the saved location 
+        const savedLocation = this.loadLocationFromLocalStorage();
+        if (savedLocation) {
+          this.dropPinAtSavedLocation(savedLocation);
+        }
       // Load shops and add them to the map
       await this.loadShops();
     } catch (error) {
       this.logger.error(error);
     }
   }
+
+  dropPinAtSavedLocation(location: { lat: number; lng: number }): void {
+  L.marker([location.lat, location.lng], {
+    icon: L.icon({
+      iconUrl: 'assets/images/map/map_pin.png', // Ensure you have a pin icon
+      iconSize: [34, 34],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    })
+  }).addTo(this.map);
+}
   
   private async decideInitialMapCentering(): Promise<void> {
     const savedLocation = this.loadLocationFromLocalStorage();
