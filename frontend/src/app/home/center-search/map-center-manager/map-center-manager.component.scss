@@ -1,64 +1,48 @@
 #map {
-    height: calc(100vh - var(--mat-toolbar-mobile-height));
-    z-index: 0;
-  }
-  
-  /* Customize the route popup */
-  .leaflet-routing-container {
-    background-color: white; /* Change background color */
-    border: 2px solid #ca1010; /* Add border */
-    border-radius: 5px; /* Add border radius */
-    padding: 10px; /* Add padding */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
-  }
-  
-  .leaflet-routing-container .leaflet-routing-instructions {
-    margin-bottom: 5px; /* Adjust margin */
-  }
-  
-  .leaflet-routing-container .leaflet-routing-instructions ul {
-    list-style: none; /* Remove list styles */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-  }
-  
-  .leaflet-routing-container .leaflet-routing-instructions ul li {
-    padding: 5px 0; /* Add padding */
-  }
-  
-  .leaflet-routing-container
-    .leaflet-routing-instructions
-    ul
-    li
-    span.leaflet-routing-text {
-    font-weight: bold; /* Make text bold */
-  }
-  
-  .leaflet-routing-container
-    .leaflet-routing-instructions
-    ul
-    li
-    span.leaflet-routing-icon {
-    margin-right: 5px; /* Adjust margin */
-  }
-  
-  /* Customize the close button */
-  .leaflet-routing-container .leaflet-routing-popup .leaflet-popup-close-button {
-    color: #333; /* Change color */
-    font-size: 16px; /* Adjust font size */
-    top: 5px; /* Adjust top position */
-    right: 5px; /* Adjust right position */
-  }
-  
-  /* Hover effect for close button */
-  .leaflet-routing-container
-    .leaflet-routing-popup
-    .leaflet-popup-close-button:hover {
-    color: #000; /* Change color on hover */
-  }
-  
+  height: calc(100vh - var(--mat-toolbar-mobile-height));
+  z-index: 0;
+}
 
-  /* Customize the close button */
+/* Customize the route popup */
+.leaflet-routing-container {
+  background-color: white; /* Change background color */
+  border: 2px solid #ca1010; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  padding: 10px; /* Add padding */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+.leaflet-routing-container .leaflet-routing-instructions {
+  margin-bottom: 5px; /* Adjust margin */
+}
+
+.leaflet-routing-container .leaflet-routing-instructions ul {
+  list-style: none; /* Remove list styles */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.leaflet-routing-container .leaflet-routing-instructions ul li {
+  padding: 5px 0; /* Add padding */
+}
+
+.leaflet-routing-container
+  .leaflet-routing-instructions
+  ul
+  li
+  span.leaflet-routing-text {
+  font-weight: bold; /* Make text bold */
+}
+
+.leaflet-routing-container
+  .leaflet-routing-instructions
+  ul
+  li
+  span.leaflet-routing-icon {
+  margin-right: 5px; /* Adjust margin */
+}
+
+/* Customize the close button */
 .leaflet-routing-container .leaflet-routing-popup .leaflet-popup-close-button {
   color: #333; /* Change color */
   font-size: 16px; /* Adjust font size */
@@ -71,15 +55,6 @@
   .leaflet-routing-popup
   .leaflet-popup-close-button:hover {
   color: #000; /* Change color on hover */
-}
-
-
-.map-controls {
-  display: flex;
-  flex-direction: column;
-  z-index: 1000; /* Increased z-index for visibility */
-  position: relative; /* Add this to ensure contained positioning */
-  bottom: 0;
 }
 
 button {
@@ -98,13 +73,6 @@ button {
   align-items: center;
   letter-spacing: 1.1px;
   // border-radius: 5px;
+  z-index: 1000;
 }
 
-.map-controls__button--save {
-  width: 60px;
-  display: block;
-  text-align: center;
-  position: relative;
-  top: 288px;
-  left: 210px;
-}
