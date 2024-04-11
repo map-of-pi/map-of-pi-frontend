@@ -1,26 +1,22 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, EventEmitter, Output, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 import { Subscription } from 'rxjs';
-import { NGXLogger } from 'ngx-logger';
 import { Map, marker, Layer } from 'leaflet';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 import { GeolocationService } from '../../../core/service/geolocation.service';
-// import { CustomMarkerOptions } from './marker-options.interface';
 
 @Component({
   selector: 'app-map-center-manager',
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, FormsModule],
+  imports: [SearchBarComponent, LeafletModule, RouterModule],
 })
 
 export class MapCenterManagerComponent {
@@ -50,7 +46,6 @@ export class MapCenterManagerComponent {
 constructor(
   private readonly geolocationService: GeolocationService,
   private translateService: TranslateService,
-  private logger: NGXLogger,
   private router: Router) {
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
@@ -102,7 +97,7 @@ async ngOnInit(): Promise<void> {
     this.updateTranslatedStrings();
 
   } catch (error) {
-    this.logger.error(error);
+    // this.logger.error(error);
     }
     this.options = this.getCenterSearchMapOptions();
   }
