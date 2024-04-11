@@ -28,8 +28,6 @@ export class MapCenterManagerComponent {
   showPopup: boolean = false;
   searchBarQuery: string = '';
   userPositions: any[] = [];
-  showCenterToSearch: boolean = true;
-  centerToSearchSet: boolean = false;
   currentPosition: { lat: number; lng: number } | null = null;
   
   // Translation strings
