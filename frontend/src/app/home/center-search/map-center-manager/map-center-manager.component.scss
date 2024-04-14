@@ -3,69 +3,15 @@
   z-index: 0;
 }
 
-/* Customize the route popup */
-.leaflet-routing-container {
-  background-color: white; /* Change background color */
-  border: 2px solid #ca1010; /* Add border */
-  border-radius: 5px; /* Add border radius */
-  padding: 10px; /* Add padding */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow */
-}
-
-.leaflet-routing-container .leaflet-routing-instructions {
-  margin-bottom: 5px; /* Adjust margin */
-}
-
-.leaflet-routing-container .leaflet-routing-instructions ul {
-  list-style: none; /* Remove list styles */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
-}
-
-.leaflet-routing-container .leaflet-routing-instructions ul li {
-  padding: 5px 0; /* Add padding */
-}
-
-.leaflet-routing-container
-  .leaflet-routing-instructions
-  ul
-  li
-  span.leaflet-routing-text {
-  font-weight: bold; /* Make text bold */
-}
-
-.leaflet-routing-container
-  .leaflet-routing-instructions
-  ul
-  li
-  span.leaflet-routing-icon {
-  margin-right: 5px; /* Adjust margin */
-}
-
-/* Customize the close button */
-.leaflet-routing-container .leaflet-routing-popup .leaflet-popup-close-button {
-  color: #333; /* Change color */
-  font-size: 16px; /* Adjust font size */
-  top: 5px; /* Adjust top position */
-  right: 5px; /* Adjust right position */
-}
-
-/* Hover effect for close button */
-.leaflet-routing-container
-  .leaflet-routing-popup
-  .leaflet-popup-close-button:hover {
-  color: #000; /* Change color on hover */
-}
-
-button {
+.map-controls__button {
   position: relative;
-  top: 460px;
+  top: 560px;
   left: 0.8rem;
-  width: 180px; /* Adjusted for better visibility */
+  width: 180px;
   height: auto;
-  margin: 10px; /* Add margin for spacing */
+  margin: 10px; 
   padding: 0.6rem;
-  background-color: green;
+  background-color: var(--color-highlight-color);
   color: #ffffff;
   font-weight: bold;
   display: flex;
@@ -76,3 +22,61 @@ button {
   z-index: 1000;
 }
 
+.confirmation-popup__button {
+  padding: 0.8em 1.2em;
+  margin-top: 20px;
+  min-width: 150px;
+  background-color: var(--color-highlight-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;}
+
+.confirmation__popup-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10000;
+}
+
+.popup-message img {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: auto; 
+  margin: 10px 0; 
+  z-index: 100000;
+}
+
+.popup-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  height: 2PP#fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
