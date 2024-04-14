@@ -30,7 +30,7 @@ export class MapCenterManagerComponent implements OnInit {
   searchBarQuery: string = '';
   userPositions: any[] = [];
   currentPosition: { lat: number; lng: number } | null = null;
-  message: string = "Click anywhere on the map to set the center point for your activities. You can zoom in or out and drag the map to adjust the view.";
+  message: string = "Dear User, please select your preferred central location on the map, then confirm by clicking 'Save Center'.";
   typedMessage: string = '';
   popupDismissed: boolean = false;
   
