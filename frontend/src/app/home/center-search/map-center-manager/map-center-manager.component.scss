@@ -58,8 +58,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 32px;
-  height: auto; 
-  margin: 10px 0; 
+  height: auto;
+  margin: 10px 0;
   z-index: 100000;
 }
 
@@ -70,7 +70,9 @@
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 400px;
-  height: 2PP#fff;
+  height: 200px;
+  padding: 20px;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 10000;
