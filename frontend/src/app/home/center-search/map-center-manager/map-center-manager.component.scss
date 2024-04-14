@@ -22,47 +22,6 @@
   z-index: 1000;
 }
 
-.confirmation-popup__button {
-  padding: 0.8em 1.2em;
-  margin-top: 20px;
-  min-width: 150px;
-  background-color: var(--color-highlight-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;}
-
-.confirmation__popup-message {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  padding: 20px;
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.4;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 10000;
-}
-
-.popup-message img {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 32px;
-  height: auto;
-  margin: 10px 0;
-  z-index: 100000;
-}
-
 .popup-message {
   position: fixed;
   top: 50%;
@@ -70,7 +29,7 @@
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 400px;
-  height: 200px;
+  height: 350px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
@@ -81,4 +40,48 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.popup-message__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding: 20px;
+  margin: 0;
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10000;
+}
+
+.confirmation-popup__button {
+  padding: 0.8em 1.2em;
+  margin-top: 20px;
+  min-width: 150px;
+  background-color: var(--color-highlight-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  letter-spacing: 1.3px;
+}
+
+.popup-message__welcome-text {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.popup-message img {
+  // margin-top: 1rem;
+  // border: 3px solid red;
 }
