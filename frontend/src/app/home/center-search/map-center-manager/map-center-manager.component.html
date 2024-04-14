@@ -8,7 +8,7 @@
   }
 
   <!-- Save Button Element -->
-  <div class="map-controls__item">
+  <div *ngIf="popupDismissed" class="map-controls__item" >
     <button class="map-controls__button" (click)="saveCenter()">Save Center</button>
   </div>
 </div>
