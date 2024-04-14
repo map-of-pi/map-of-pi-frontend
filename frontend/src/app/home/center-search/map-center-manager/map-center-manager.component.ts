@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Output, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 import { Map, marker, Layer } from 'leaflet';
@@ -16,7 +17,7 @@ import { GeolocationService } from '../../../core/service/geolocation.service';
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [SearchBarComponent, LeafletModule, RouterModule],
+  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule],
 })
 
 export class MapCenterManagerComponent {
@@ -25,7 +26,7 @@ export class MapCenterManagerComponent {
   options:any;
   id: string = '65e2d67a38e1e60afd74378d';
   navigator: Router = inject(Router);
-  showPopup: boolean = false;
+  showPopup: boolean = true;
   searchBarQuery: string = '';
   userPositions: any[] = [];
   currentPosition: { lat: number; lng: number } | null = null;
@@ -49,6 +50,10 @@ constructor(
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
     this.updateTranslatedStrings();
   });
+}
+
+closePopup(): void {
+  this.showPopup = false;
 }
 
 getCenterSearchMapOptions(): L.MapOptions {
