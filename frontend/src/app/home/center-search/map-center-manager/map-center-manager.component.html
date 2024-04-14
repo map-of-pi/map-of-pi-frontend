@@ -13,4 +13,11 @@
   </div>
 </div>
 
+<!-- Popup Message Container -->
+<div *ngIf="showPopup" class="popup-message">
+  <!-- <img src="assets/favicon/favicon-32x32.png" alt="Map-of-Pi-logo"> -->
+  <p class="confirmation__popup-message">Welcome to the map center feature! Use the map to select a center point.</p>
+  <button (click)="closePopup()" class="confirmation-popup__button">Got it!</button>
+</div>
+
 
