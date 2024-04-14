@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, inject, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { GeolocationService } from '../../../core/service/geolocation.service';
   imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule],
 })
 
-export class MapCenterManagerComponent {
+export class MapCenterManagerComponent implements OnInit {
   layer?: Layer;
   map!: Map;
   options:any;
@@ -30,6 +30,8 @@ export class MapCenterManagerComponent {
   searchBarQuery: string = '';
   userPositions: any[] = [];
   currentPosition: { lat: number; lng: number } | null = null;
+  message: string = "Click anywhere on the map to set the center point for your activities. You can zoom in or out and drag the map to adjust the view.";
+  typedMessage: string = '';
   
   // Translation strings
   userLocation!: string;
@@ -45,15 +47,12 @@ export class MapCenterManagerComponent {
 constructor(
   private readonly geolocationService: GeolocationService,
   private translateService: TranslateService,
+  private changeDetectorRef: ChangeDetectorRef,
   private router: Router) {
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
     this.updateTranslatedStrings();
   });
-}
-
-closePopup(): void {
-  this.showPopup = false;
 }
 
 getCenterSearchMapOptions(): L.MapOptions {
@@ -111,7 +110,29 @@ async ngOnInit(): Promise<void> {
     map.on('move', () => {
       centerMarker.setLatLng(map.getCenter());
     });
+  
+    // Start typing effect for the welcome message as soon as the map is ready.
+    this.typeText(this.message, 40); // Adjust speed as necessary
   }
+  
+  // Function to simulate typing effect for given text at specified speed.
+  typeText(text: string, speed: number): void {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        this.typedMessage += text.charAt(i);
+        i++;
+        this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+  }
+  
+  closePopup(): void {
+    this.showPopup = false;
+  }
+  
 
   private updateTranslatedStrings(): void {
     this.userLocation = this.translateService.instant('MAP.USER_LOCATION');
