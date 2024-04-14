@@ -32,6 +32,7 @@ export class MapCenterManagerComponent implements OnInit {
   currentPosition: { lat: number; lng: number } | null = null;
   message: string = "Click anywhere on the map to set the center point for your activities. You can zoom in or out and drag the map to adjust the view.";
   typedMessage: string = '';
+  popupDismissed: boolean = false;
   
   // Translation strings
   userLocation!: string;
@@ -122,7 +123,7 @@ async ngOnInit(): Promise<void> {
       if (i < text.length) {
         this.typedMessage += text.charAt(i);
         i++;
-        this.changeDetectorRef.detectChanges(); // Manually trigger change detection
+        this.changeDetectorRef.detectChanges();
       } else {
         clearInterval(interval);
       }
@@ -131,6 +132,8 @@ async ngOnInit(): Promise<void> {
   
   closePopup(): void {
     this.showPopup = false;
+    this.popupDismissed = true;
+    this.changeDetectorRef.detectChanges();
   }
   
 
