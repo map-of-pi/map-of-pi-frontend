@@ -14,10 +14,12 @@
 </div>
 
 <!-- Popup Message Container -->
-<div *ngIf="showPopup" class="popup-message">
-  <!-- <img src="assets/favicon/favicon-32x32.png" alt="Map-of-Pi-logo"> -->
-  <p class="confirmation__popup-message">Welcome to the map center feature! Use the map to select a center point.</p>
-  <button (click)="closePopup()" class="confirmation-popup__button">Got it!</button>
+<div *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">
+  <img src="assets/favicon/favicon-32x32.png" class="popup-message__logo" alt="Map-of-Pi-logo">
+  <p id="popupMessageText" class="popup-message__text">
+   <span class="popup-message__welcome-text">Welcome!</span>Click anywhere on the map to set the center point for your activities. You can zoom in or out and drag the map to adjust the view.
+  </p>
+  <button (click)="closePopup()" class="confirmation-popup__button" aria-label="Close popup">Got it!</button>
 </div>
 
 
