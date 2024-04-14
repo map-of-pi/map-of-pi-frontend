@@ -4,9 +4,10 @@
 }
 
 .map-controls__button {
-  position: relative;
-  top: 560px;
-  left: 0.8rem;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 180px;
   height: auto;
   margin: 10px; 
@@ -14,13 +15,17 @@
   background-color: var(--color-highlight-color);
   color: #ffffff;
   font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   letter-spacing: 1.1px;
   // border-radius: 5px;
   z-index: 1000;
 }
+
+.map-controls__button:hover {
+  background-color: #164c36;
+  // transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
 
 .popup-message {
   position: fixed;
