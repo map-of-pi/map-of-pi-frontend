@@ -10,7 +10,7 @@
 <!-- Popup Message Container with more semantic elements -->
 <section *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageTitle" tabindex="-1">
   <figure class="popup-message__logo">
-    <img src="assets/favicon/favicon-32x32.png" alt="{{ 'CORE.APP_NAME' | translate }}">
+    <img src="assets/favicon/favicon-32x32.png" loading="lazy" alt="{{ 'CORE.APP_NAME' | translate }}">
     <figcaption class="visually-hidden">{{ 'CORE.APP_NAME' | translate }}</figcaption>
   </figure>
   <div id="popupMessageTitle" class="popup-message__text">
