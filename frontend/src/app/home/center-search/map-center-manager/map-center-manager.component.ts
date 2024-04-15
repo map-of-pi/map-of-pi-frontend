@@ -33,6 +33,8 @@ export class MapCenterManagerComponent implements OnInit {
   currentPosition: { lat: number; lng: number } | null = null;
   typedMessage: string = '';
   popupDismissed: boolean = false;
+  welcomeMessage: string;
+  saveCenterButton: string;
   
   // Translation strings
   userLocation!: string;
@@ -58,7 +60,10 @@ constructor(
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
     this.updateTranslatedStrings();
+    this.typeText('MAP.DYNAMIC_INSTRUCTION', 40); 
   });
+  this.welcomeMessage = this.translateService.instant('MAP.WELCOME_MESSAGE');
+  this.saveCenterButton = this.translateService.instant('MAP.BUTTONS.SAVE_CENTER');
 }
 
 getCenterSearchMapOptions(): L.MapOptions {
@@ -120,6 +125,23 @@ onMapReady(map: L.Map): void {
   });
 
   // this.typeText('MAP.DYNAMIC_INSTRUCTION', 40);
+}
+
+// Function to simulate typing effect for given text at specified speed.
+typeText(translationKey: string, speed: number): void {
+  const fullText = this.translateService.instant(translationKey); // Translate the key to get the actual text
+
+  let i = 0;
+  this.typedMessage = ''; // Clear previous message if any
+  const interval = setInterval(() => {
+    if (i < fullText.length) {
+      this.typedMessage += fullText.charAt(i);
+      i++;
+      this.changeDetectorRef.detectChanges(); // Ensure the UI updates with each character
+    } else {
+      clearInterval(interval);
+    }
+  }, speed);
 }
   
 closePopup(): void {
