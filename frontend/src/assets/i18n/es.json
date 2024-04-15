@@ -11,14 +11,18 @@
   },
   "MAP": {
     "USER_LOCATION": "Estás aquí",
-    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " se ha seleccionado como tu destino y se ha proporcionado la ruta. El transporte móvil te llevará aproximadamente ",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " ha sido seleccionado como tu destino y se ha proporcionado la ruta. El transporte móvil te llevará aproximadamente ",
     "MOBILE_TRANSPORTATION_TIME_MESSAGE": "XX horas y XX minutos",
     "MIDDLE_CLICKED_MESSAGE": "Clic medio",
     "UNKNOWN_MARKER_CLICKED_MESSAGE": "Marcador desconocido clicado",
-    "BUTTONS": {
-      "CANCEL": "Cancelar"
-    }
-  },
+    "WELCOME_MESSAGE": "¡Bienvenido al Mapa de Pi!",
+    "DYNAMIC_INSTRUCTION": "Seleccione su ubicación central preferida en el mapa, luego confirme haciendo clic en 'Guardar Centro'",
+      "BUTTONS": {
+        "GOT_IT": "¡Entendido!",
+        "CANCEL": "Cancelar",
+        "SAVE_CENTER": "Guardar Centro"
+      }
+    },
   "FOOTER": {
     "PRIVACY_POLICY": "Política de privacidad",
     "TERMS_OF_SERVICE": "Condiciones de servicio"
