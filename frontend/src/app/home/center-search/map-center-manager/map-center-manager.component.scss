@@ -33,10 +33,10 @@
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 400px;
-  height: 350px;
-  padding: 20px;
-  background-color: rgb(243, 243, 243);
-  border-radius: 8px;
+  height: 400px;
+  padding: 15px;
+  background-color: rgb(239, 237, 237);
+  border-radius: 20px;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 10000;
@@ -54,7 +54,7 @@
   align-items: center;
   text-align: center;
   height: 100%;
-  width: 100%;
+  width: 90%;
   padding: 20px;
   margin: 0;
   margin-top: 1rem;
@@ -65,7 +65,7 @@
   letter-spacing: 1.5px;
   background-color: white;
   // border: 1px solid rgb(0, 0, 0);
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   z-index: 10000;
 }
