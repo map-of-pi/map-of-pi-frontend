@@ -7,6 +7,23 @@
     <div [leafletLayer]="layer"></div>
   }
 
+<!-- Popup Message Container with more semantic elements -->
+<section *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageTitle" tabindex="-1">
+  <figure class="popup-message__logo">
+    <img src="assets/favicon/favicon-32x32.png" alt="{{ 'CORE.APP_NAME' | translate }}">
+    <figcaption class="visually-hidden">{{ 'CORE.APP_NAME' | translate }}</figcaption>
+  </figure>
+  <div id="popupMessageTitle" class="popup-message__text">
+    <h2 class="popup-message__welcome-text">{{ 'MAP.WELCOME_MESSAGE' | translate }}</h2>
+    <p>{{ typedMessage }}</p>
+  </div>
+  <nav>
+    <ul>
+      <button (click)="closePopup()" class="popup-message__button--confirm" aria-label="Close popup">{{ 'MAP.BUTTONS.GOT_IT' | translate }}</button>
+    </ul>
+  </nav>
+</section>
+
 <!-- Save Button Element -->
 <div *ngIf="popupDismissed" class="map-controls__item">
   <button class="map-controls__button" (click)="saveCenter()"> 
@@ -14,17 +31,6 @@
   </button>
 </div>
 
-<!-- Popup Message Container -->
-<div *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageText" tabindex="-1">
-  <img src="assets/favicon/favicon-32x32.png" loading="lazy" class="popup-message__logo" alt="{{ 'CORE.APP_NAME' | translate }}">
-  <p id="popupMessageText" class="popup-message__text">
-    <span class="popup-message__text--welcome">{{ 'MAP.WELCOME_MESSAGE' | translate }}</span>
-    {{ typedMessage }}
-  </p>
-  <button (click)="closePopup()" class="popup-message__button--confirm">
-    {{ 'MAP.BUTTONS.GOT_IT' | translate }}
-  </button> 
-</div>
 
 
 
