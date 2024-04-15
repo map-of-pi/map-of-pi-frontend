@@ -16,14 +16,14 @@
 
 <!-- Popup Message Container -->
 <div *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageText" tabindex="-1">
-  <img src="assets/favicon/favicon-32x32.png" class="popup-message__logo" alt="{{ 'CORE.APP_NAME' | translate }}">
+  <img src="assets/favicon/favicon-32x32.png" loading="lazy" class="popup-message__logo" alt="{{ 'CORE.APP_NAME' | translate }}">
   <p id="popupMessageText" class="popup-message__text">
     <span class="popup-message__text--welcome">{{ 'MAP.WELCOME_MESSAGE' | translate }}</span>
     {{ typedMessage }}
   </p>
   <button (click)="closePopup()" class="popup-message__button--confirm">
     {{ 'MAP.BUTTONS.GOT_IT' | translate }}
-  </button>
+  </button> 
 </div>
 
 
