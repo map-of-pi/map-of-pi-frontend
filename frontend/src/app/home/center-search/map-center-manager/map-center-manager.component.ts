@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, inject, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService,TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 
+import { NGXLogger } from 'ngx-logger';
 import { Subscription } from 'rxjs';
 import { Map, marker, Layer } from 'leaflet';
 import * as L from 'leaflet';
@@ -17,7 +18,7 @@ import { GeolocationService } from '../../../core/service/geolocation.service';
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule],
+  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, TranslateModule],
 })
 
 export class MapCenterManagerComponent implements OnInit {
@@ -30,7 +31,6 @@ export class MapCenterManagerComponent implements OnInit {
   searchBarQuery: string = '';
   userPositions: any[] = [];
   currentPosition: { lat: number; lng: number } | null = null;
-  message: string = "Dear User, please select your preferred central location on the map, then confirm by clicking 'Save Center'.";
   typedMessage: string = '';
   popupDismissed: boolean = false;
   
@@ -49,7 +49,12 @@ constructor(
   private readonly geolocationService: GeolocationService,
   private translateService: TranslateService,
   private changeDetectorRef: ChangeDetectorRef,
+  private logger: NGXLogger,
   private router: Router) {
+
+    // Set default language and initial language
+  this.translateService.setDefaultLang('en');
+  this.translateService.use('en'); 
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
     this.updateTranslatedStrings();
@@ -96,61 +101,47 @@ saveLocationToLocalStorage(position: L.LatLng): void {
 async ngOnInit(): Promise<void> {
   try {
 
-    // Wait for translation update before adding coordinates to the map
-    this.updateTranslatedStrings();
+  // Wait for translation update before adding coordinates to the map
+  this.updateTranslatedStrings();
 
-  } catch (error) {
-    // this.logger.error(error);
-    }
-    this.options = this.getCenterSearchMapOptions();
+} catch (error) {
+  // this.logger.error(error);
   }
+  this.welcomeMessage = this.translateService.instant('MAP.WELCOME_MESSAGE');
+  // this.typeText('MAP.DYNAMIC_INSTRUCTION', 40); 
+  this.options = this.getCenterSearchMapOptions();
+}
 
-  onMapReady(map: L.Map): void {
-    this.map = map;
-    const centerMarker = L.marker(map.getCenter(), { icon: this.getCustomIcon() }).addTo(map);
-    map.on('move', () => {
-      centerMarker.setLatLng(map.getCenter());
-    });
-  
-    // Start typing effect for the welcome message as soon as the map is ready.
-    this.typeText(this.message, 40); // Adjust speed as necessary
-  }
-  
-  // Function to simulate typing effect for given text at specified speed.
-  typeText(text: string, speed: number): void {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        this.typedMessage += text.charAt(i);
-        i++;
-        this.changeDetectorRef.detectChanges();
-      } else {
-        clearInterval(interval);
-      }
-    }, speed);
-  }
-  
-  closePopup(): void {
-    this.showPopup = false;
-    this.popupDismissed = true;
-    this.changeDetectorRef.detectChanges();
-  }
-  
+onMapReady(map: L.Map): void {
+  this.map = map;
+  const centerMarker = L.marker(map.getCenter(), { icon: this.getCustomIcon() }).addTo(map);
+  map.on('move', () => {
+    centerMarker.setLatLng(map.getCenter());
+  });
 
-  private updateTranslatedStrings(): void {
-    this.userLocation = this.translateService.instant('MAP.USER_LOCATION');
-    this.mobileTransporationDistanceMessage = this.translateService.instant('MAP.MOBILE_TRANSPORTATION_DISTANCE_MESSAGE');
-    this.mobileTransportationTimeMessage = this.translateService.instant('MAP.MOBILE_TRANSPORTATION_TIME_MESSAGE');
-    this.cancelButton = this.translateService.instant('MAP.BUTTONS.CANCEL'); 
-    this.middleClickedMessage = this.translateService.instant('MAP.MIDDLE_CLICKED_MESSAGE');
-    this.unknownMarkerClickedMessage = this.translateService.instant('MAP.UNKNOWN_MARKER_CLICKED_MESSAGE');
-  }
-  getCustomIcon(): L.Icon {
-    return L.icon({
-      iconUrl: 'assets/images/map/crosshair.png',
-      iconSize: [64, 64],
-      iconAnchor: [32, 32],
-      popupAnchor: [0, -32],
+  // this.typeText('MAP.DYNAMIC_INSTRUCTION', 40);
+}
+  
+closePopup(): void {
+  this.showPopup = false;
+  this.popupDismissed = true;
+  this.changeDetectorRef.detectChanges();
+}
+
+private updateTranslatedStrings(): void {
+  this.userLocation = this.translateService.instant('MAP.USER_LOCATION');
+  this.mobileTransporationDistanceMessage = this.translateService.instant('MAP.MOBILE_TRANSPORTATION_DISTANCE_MESSAGE');
+  this.mobileTransportationTimeMessage = this.translateService.instant('MAP.MOBILE_TRANSPORTATION_TIME_MESSAGE');
+  this.cancelButton = this.translateService.instant('MAP.BUTTONS.CANCEL'); 
+  this.middleClickedMessage = this.translateService.instant('MAP.MIDDLE_CLICKED_MESSAGE');
+  this.unknownMarkerClickedMessage = this.translateService.instant('MAP.UNKNOWN_MARKER_CLICKED_MESSAGE');
+}
+getCustomIcon(): L.Icon {
+  return L.icon({
+    iconUrl: 'assets/images/map/crosshair.png',
+    iconSize: [64, 64],
+    iconAnchor: [32, 32],
+    popupAnchor: [0, -32],
     });
   }
 }
