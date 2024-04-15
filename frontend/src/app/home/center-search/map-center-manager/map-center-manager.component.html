@@ -9,17 +9,24 @@
 
   <!-- Save Button Element -->
   <div *ngIf="popupDismissed" class="map-controls__item" >
-    <button class="map-controls__button" (click)="saveCenter()">Save Center</button>
+    <button class="map-controls__button" (click)="saveCenter()"> 
+      {{ 'MAP.BUTTONS.SAVE_CENTER' | translate }}
+    </button>
   </div>
 </div>
 
 <!-- Popup Message Container -->
 <div *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageText" tabindex="-1">
-  <img src="assets/favicon/favicon-32x32.png" class="popup-message__logo" alt="Map-of-Pi-logo">
+  <img src="assets/favicon/favicon-32x32.png" class="popup-message__logo" alt="{{ 'CORE.APP_NAME' | translate }}">
   <p id="popupMessageText" class="popup-message__text">
-    <span class="popup-message__welcome-text">Welcome to Map of Pi!</span>
-    {{ typedMessage }}</p> <!-- Dynamically updates as the typeText function appends characters -->
-  <button (click)="closePopup()" class="confirmation-popup__button" aria-label="Close popup">Got it!</button>
+    <span class="popup-message__welcome-text">{{ 'MAP.WELCOME_MESSAGE' | translate }}</span>
+    {{ typedMessage }}
+  </p>
+  <button (click)="closePopup()" class="confirmation-popup__button" aria-label="Close popup">
+    {{ 'MAP.BUTTONS.GOT_IT' | translate }}
+  </button>
 </div>
+
+
 
 
