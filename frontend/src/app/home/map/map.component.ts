@@ -68,7 +68,7 @@ export class MapComponent implements OnInit, OnDestroy {
       
     this.options = this.geolocationService.getMapOptions();
     this.geolocationSubscription = this.geolocationService.geolocationTriggerEvent$.subscribe(() => {
-      // this.locateMe();
+      this.locateMe();
     });
 
     this.userPositions = this.shopService.getUserPosition();
@@ -134,12 +134,12 @@ export class MapComponent implements OnInit, OnDestroy {
   }
   
   
+// Sets initial map view based on saved location when the map first loads
 initializeMapWithSavedLocation(savedLocation: { lat: number, lng: number }): void {
-  this.options.zoom = 15;
-  // Set map options based on saved location
+  this.options.zoom = 8; // Default zoom
   this.options.center = L.latLng(savedLocation.lat, savedLocation.lng);
-  // Directly initialize or update the map view in `onMapReady` if the map is already initialized
 }
+
 
 initializeMapWithGeolocation(): void {
   // Geolocation logic here.
@@ -161,6 +161,30 @@ initializeMapWithGeolocation(): void {
     this.addAllCoordinatesToMap();
   }
   
+  locateMe(): void {
+    const savedLocation = this.loadLocationFromLocalStorage();
+    if (savedLocation) {
+      this.map.setView([savedLocation.lat, savedLocation.lng],); 
+    } else {
+      this.getCurrentLocation();
+    }
+  }
+  
+  getCurrentLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // Explicitly declare coords as a LatLngTuple
+        const coords: [number, number] = [position.coords.latitude, position.coords.longitude];
+        this.map.setView(coords);
+      }, (error) => {
+        console.error('Error getting location', error);
+        this.snackService.showMessage("We couldn't access your location. Please ensure your location settings are enabled and try again.");
+      });
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+      this.snackService.showMessage("Your browser does not support location services, which are needed for this feature. Please update your browser or try a different one.");
+    }
+  }
 
   // Filter shops based on search query
   filterShops(query: string, searchType: SearchType): void {
