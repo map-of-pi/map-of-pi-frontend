@@ -1,0 +1,217 @@
+{
+  "CORE": {
+    "APP_NAME": "Map of Pi"
+  },
+  "HOME": {
+    "ADD_MY_BUSINESS": "Tinye azụmahịa m",
+    "SEARCH_BY_BUSINESS_PLACEHOLDER": "Chọọ azụmahịa..",
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Chọọ ngwaahịa..",
+    "SEARCH_RESULT_FOUND_MESSAGE": "Nchọ gị chọtara ụlọ ahịa {{numberOfShopsFound}}. Biko bugharịa ka ilele akara nrịbama ụlọ ahịa niile.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "Nchọ gị ahụghị ụlọ ahịa ọ bụla. Biko jiri njirisi dị iche iche nwaa ọzọ."
+  },
+  "MAP": {
+    "USER_LOCATION": "Ị nọ ebe a",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " ahọpụtala ka ebe ị na-aga ma ewepụtala ụzọ ahụ. Ụgbọ njem mkpanaka ga-ewe gị ihe dị ka ",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "Awa XX na nkeji XX",
+    "MIDDLE_CLICKED_MESSAGE": "Akpọrọ etiti",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "Akpọrọ akara amaghi amaị",
+    "BUTTONS": {
+      "CANCEL": "Kagbuo"
+    }
+  },
+  "FOOTER": {
+    "PRIVACY_POLICY": "amụma nzuzo",
+    "TERMS_OF_SERVICE": "Usoro ọrụ"
+  },
+  "INFORMATION_DIALOG": {
+    "LATEST_UPDATES": "Mmelite kacha ọhụrụ",
+    "REPORTING_MESSAGE": "Biko kọọ ntụpọ na" 
+  },
+  "BUSINESS_MARKER_DIALOG": {
+    "DISTANCE_MESSAGE": "Wepụ gị",
+    "ONLINE_PI_ORDERS_ALLOWED_MESSAGE": "anabatara iwu Pi dị n'ịntanetị",
+    "PRODUCTS_AVAILABLE_MESSAGE": "Ngwaahịa/s dị", 
+    "BUTTONS": {
+      "VISIT_SHOP": "Gaa leta ụlọ ahịa",
+      "TAKE_ROUTE": "Were ụzọ"
+    }
+  },
+  "BUSINESS": {
+    "REGISTRATION": {
+      "LABELS": {
+        "BUSINESS_NAME": "Aha azụmahịa",
+        "BUSINESS_DESCRIPTION": "Nkọwa azụmahịa",
+        "BUSINESS_TYPE": "Ụdị azụmahịa",
+        "BUSINESS_TYPES": {
+          "RESTAURANT": "Ụlọ oriri na ọṅụṅụ",
+          "RETAIL_STORE": "Ụlọ ahịa na-ere ahịa",
+          "SERVICE": "Ọrụ",
+          "CONSTRUCTION": "Ihe owuwu",
+          "TRANSPORTATION": "Ụgbọ njem"
+        },
+        "BUSINESS_LOCATION": "Ebe azụmahịa",
+        "BUSINESS_IMAGES": "Onyonyo azụmahịa",
+        "BUSINESS_PHONE_NUMBER": "Nọmba ekwentị azụmahịa",
+        "BUSINESS_EMAIL_ADDRESS": "Adreesị ozi-e azụmahịa"
+      },
+      "PLACEHOLDERS": {
+        "BUSINESS_NAME": "Tinye aha azụmahịa gị",
+        "BUSINESS_DESCRIPTION": "Tinye nkọwa dị mfe gbasara azụmahịa gị",
+        "BUSINESS_LOCATION": "Tinye ebe azụmahịa gị",
+        "BUSINESS_IMAGE_UPLOAD": "Bulite onyonyo azụmahịa gị",
+        "BUSINESS_IMAGE_CHANGE": "Gbanwee onyonyo azụmahịa gị",
+        "BUSINESS_IMAGE_LOADING": "na-ebugo onyonyo",
+        "BUSINESS_PHONE_NUMBER": "Tinye nọmba ekwentị azụmahịa gị",
+        "BUSINESS_EMAIL_ADDRESS": "Tinye adreesị ozi-e nke azụmahịa gị"
+      },
+      "VALIDATIONS": {
+        "BUSINESS_NAME": "Achọ aha azụmahịa",
+        "BUSINESS_DESCRIPTION": "Achọrọ nkọwa azụmahịa",
+        "BUSINESS_TYPE": "Achọrọ Ụdị azụmahịa",
+        "BUSINESS_LOCATION": "A chọrọ adreesị azụmahịa",
+        "BUSINESS_IMAGES": "Azụmahịa ga-enwerịrị onyonyo jikọtara ya",
+        "BUSINESS_PHONE_NUMBER": "Achọrọ nọmba ekwentị azụmahịa",
+        "BUSINESS_EMAIL_ADDRESS": "A chọrọ adreesị ozi-e azụmahịa"
+      },
+      "BUTTONS": {
+        "MENU": "NchNhr",
+        "LOYALTY_STAMPS": "Stampụ iguzosi ike n'ihe",
+        "BUSINESS_PHOTOS": "Foto azụmahịa",
+        "QR_CODE": "Nweta koodu QR",
+        "CONFIRM": "Kwenye ntọala azụmahịa",
+        "UNDER_CONSTRUCTION": "Ewubeghị ọrụ a nke ọma"
+      }
+    },
+    "CONFIGURATION": {
+      "LABELS": {
+        "SHOP_NAME": "Aha ụlọ ahịa",
+        "MENU": "NchNhr",
+        "ACCEPT_ORDERS_WITHOUT_PAYMENT_MESSAGE": "Nabata iwu na-akwụghị ụgwọ",
+        "ACCEPT_PI_TRANSACTIONS_MESSAGE": "Nabata Pi Azụmahịa"
+      },
+      "ADD_PRODUCT_MENU": {
+        "LABELS": {
+          "ADD_PRODUCT_INTO_SHOP_MESSAGE": "Tinye ngwaahịa n'ime ụlọ ahịa gị",
+          "PRODUCT_NAME": "Aha ngwaahịa",
+          "PRODUCT_IMAGES": "Onyonyo ngwaahịa",
+          "ADD_IMAGE": "Tinye onyonyo",
+          "PRICE": "Ọnụ ahịa",
+          "DESCRIPTION": "Nkọwa",
+          "FOOD_SERVICE": {
+            "TIME_PREPARATION_MESSAGE": "Ogologo oge ole ka iji dozie nri a?"
+          }
+        },
+        "BUTTONS": {
+          "LOADING": "Na-ebugo..",
+          "CONFIRM": "Kwenye"
+        }
+      }
+    },
+    "ADD_PRODUCT": {
+      "LABELS": {
+        "PRODUCT_NAME": "Aha ngwaahịa",
+        "PRODUCT_DESCRIPTION": "Nkọwa ngwaahịa",
+        "PRODUCT_IMAGES": "Onyonyo ngwaahịa",
+        "PRODUCT_PRICE": "Ọnụ ahịa ngwaahịa",
+        "PRODUCT_QUANTITY": "Ọnụọgụ ngwaahịa",
+        "SHIPPING_TYPE": "Ụdị mbupu"
+      },
+      "PLACEHOLDERS": {
+        "PRODUCT_IMAGES": "Bulite onyonyo ngwaahịa",
+        "PRODUCT_IMAGES_MAX": "Onyonyo ngwaahịa (oke: 3)"
+      },
+      "VALIDATIONS": {
+        "PRODUCT_IMAGES": "Ọnweghị onyonyo ngwaahịa ahọpụtara"
+      },
+      "OPTIONS": {
+        "SHIPPING_TYPES": {
+          "FREE_SHIPPING": "Mbupu n'efu",
+          "PAID_SHIPPING": "Mbupu akwụ ụgwọ",
+          "PICKUP": "Tụtụlite",
+          "PAY_ON_DELIVERY": "Kwụ ụgwọ na nnyefe"
+        }
+      },
+      "BUTTONS": {
+        "SUBMIT": "Nyefee"
+      }
+    }
+  },
+  "SHOPPING": {
+    "ORDER_SCREEN": {
+      "MENU": "NchNhr",
+      "HIGHLIGHT_MESSAGE": "Ị nwere ike ịtụ n'ịntanetị wee kwụọ ụgwọ n'onwe gị",
+      "BUY_NOW_MESSAGE": "Zụta ugbu a",
+      "NO_PRODUCTS_MESSAGE": "Azụmahịa a enweghị ngwaahịa."
+    }
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "amụma nzuzo",
+    "LAST_UPDATED": "Emelitere ikpeazụ",
+    "EMAIL_ADDRESS": "Adreesị ozi ịntanet",
+    "SECTIONS": {
+      "HEADER_1": "Okwu mmalite",
+      "CONTENT_1": "Nnọọ na Map of Pi ngwa, nke ndị otu Map of Pi na mmekorita ya na Pi Community mepụtara. Amụma nzuzo a na-akọwapụta otu anyị si anakọta, jiri, kpughee ma chekwaa ozi nkeonwe gị mgbe ị na-eji ngwa mkpanaka anyị.",
+      
+      "HEADER_2": "Ozi Anyị na-anakọta",
+      "SUBHEADER_2_1": "Ozi onye ọrụ",
+      "CONTENT_2_1_1": "Mgbe ị debanyere aha dị ka onye ọrụ, anyị nwere ike ịnakọta aha gị, adreesị ozi-e, aha njirimara na nkọwa ndị ọzọ dị mkpa.",
+      "CONTENT_2_1_2": "Anyị nwere ike ịnakọta ozi gbasara ngwaọrụ gị, gụnyere ụdị ngwaọrụ, sistemụ arụmọrụ na ihe nchọpụta ngwaọrụ pụrụ iche.",
+      "SUBHEADER_2_2": "Ozi onye na-ere ahịa",
+      "CONTENT_2_2_1": "Ndị na-ere ahịa na-edebanye aha n'elu ikpo okwu nwere ike ịnye ozi azụmahịa, gụnyere aha azụmahịa, ọnọdụ, na nkọwa kọntaktị.",
+
+      "HEADER_3": "Otu anyị si eji ozi gị",
+      "SUBHEADER_3_1": "Na-enye ọrụ",
+      "CONTENT_3_1_1": "Anyị na-eji ozi gị iji nye ma kwalite ọrụ ngwa Map of Pi, gụnyere ọrụ onye ọrụ na onye na-ere ahịa.",
+      "SUBHEADER_3_2": "Nzikọrịta ozi",
+      "CONTENT_3_2_1": "Anyị nwere ike iji ozi kọntaktị gị zigara gị mmelite, ọkwa na ozi nkwado metụtara Map of Pi ngwa.",
+      "SUBHEADER_3_3": "Nchịkọta",
+      "CONTENT_3_3_1": "Anyị na-anakọta ma na-enyocha data iji melite arụmọrụ, njirimara na arụmọrụ nke ngwa ahụ.",
+
+      "HEADER_4": "Ịkekọrịta ozi gị",
+      "SUBHEADER_4_1": "Mụ na ndị na-ere ahịa",
+      "CONTENT_4_1_1": "Enwere ike ịkekọrịta ozi onye ọrụ n'etiti ndị na-ere ahịa maka mmezu iwu yana ebumnuche nkwukọrịta.",
+      "SUBHEADER_4_2": "Mụ na ndị nke atọ",
+      "CONTENT_4_2_1": "Anyị nwere ike ịkekọrịta ozi n'etiti ndị na-enye ọrụ ndị ọzọ maka ịrụ ọrụ ngwa, nyocha na nhazi ịkwụ ụgwọ.",
+
+      "HEADER_5": "Usoro nchekwa",
+      "CONTENT_5_1": "Anyị na-eji usoro nchekwa ọkọlọtọ ụlọ ọrụ iji chebe ozi gị. Agbanyeghị, ọ nweghị usoro nnyefe na ịntanetị ma ọ bụ nchekwa eletrọnịkị nwere nchekwa zuru oke.",
+
+      "HEADER_6": "Nhọrọ gị",
+      "CONTENT_6_1": "Ị nwere ike imelite ma ọ bụ hichapụ ozi akaụntụ gị site na ntọala ngwa. Ị nwekwara ike ịpụ na mgbasa ozi nkwado.",
+
+      "HEADER_7": "Mgbanwe na amụma nzuzo a",
+      "CONTENT_7_1": "Anyị nwere ike imelite amụma nzuzo a dịka ọ dị mkpa. A ga-ebipụ ụdị kachasị ọhụrụ na webụsaịtị anyị ma ọ bụ n'ime ngwa ahụ.",
+
+      "HEADER_8": "Kpọtụrụ anyị",
+      "CONTENT_8_1": "Ọ bụrụ na ị nwere ajụjụ ọ bụla ma ọ bụ nchegbu gbasara amụma nzuzo a, biko kpọtụrụ anyị "
+    }
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Usoro ọrụ",
+    "LAST_UPDATED": "Emelitere ikpeazụ",
+    "EMAIL_ADDRESS": "Adreesị ozi ịntanetị",
+    "SECTIONS": {
+      "HEADER_1": "Nnabata nke Usoro",
+      "CONTENT_1_1": "Nnọọ na Map of Pi ngwa, nke ndị otu Map of Pi na mmekorita ya na Pi Community mepụtara. Site na iji ngwa a, ị kwenyere ịgbaso Usoro ọrụ ndị a yana Amụma Nzuzo anyị.",
+      
+      "HEADER_2": "Iji ngwa",
+      "CONTENT_2_1": "Ị kwenyere iji Map of Pi ngwa na nrube isi n'iwu na ụkpụrụ niile dị.",
+      "CONTENT_2_2": "Ị gaghị eji ngwa ahụ maka ebumnuche iwu akwadoghị ma ọ bụ amachibidoro, ma ọ bụ n'ụzọ ọ bụla nwere ike imebi, gbanyụọ, ibufe ibu, ma ọ bụ mebie ngwa ahụ.", 
+
+      "HEADER_3": "Arịa ọgụgụ isi",
+      "CONTENT_3_1": "Map of Pi ngwa na ọdịnaya niile, atụmatụ na arụmọrụ bụ nke Map of Pi ma nwee ikike nwebiisinka, ụghalaahịa na iwu ikike ọgụgụ isi ndị ọzọ na-echekwa ya.",
+
+      "HEADER_4": "Mmachi nke ibu",
+      "CONTENT_4_1": "Map of Pi agaghị akwụ ụgwọ maka mmebi ọ bụla kpọmkwem, nke na-apụtaghị ìhè, nke mberede, pụrụ iche, ma ọ bụ nke ga-ebute site na ma ọ bụ n'ụzọ ọ bụla ejikọrọ na iji ngwa Map of Pi.",
+
+      "HEADER_5": "Indemnification",
+      "CONTENT_5_1": "Ị kwenyere n'ịkwụghachi ma jide Map of Pi na ndị mmekọ ya, ndị ọrụ, ndị nduzi, ndị ọrụ na ndị nnọchi anya site na ebubo ọ bụla, ụgwọ, mmebi, mfu, ma ọ bụ mmefu (gụnyere ụgwọ ndị ọka iwu) na-esite na ma ọ bụ n'ụzọ ọ bụla metụtara. maka iji ngwa Map of Pi.",
+
+      "HEADER_6": "Iwu Ọchịchị",
+      "CONTENT_6_1": "Usoro ọrụ ndị a ga-achịkwa ma tụgharịa ya n'ụzọ kwekọrọ n'iwu nke ikike anyị akọwapụtara, na-enweghị n'agbanyeghị esemokwu nke usoro iwu.",
+
+      "HEADER_7": "Mgbanwe na Usoro Ndị a",
+      "CONTENT_7_1": "Anyị debere ikike imelite ma ọ bụ gbanwee Usoro ọrụ ndị a n'oge ọ bụla na-enweghị ọkwa mbụ. A ga-ebipụ ụdị kachasị ọhụrụ na webụsaịtị anyị ma ọ bụ n'ime ngwa ahụ."
+    }
+  }
+}
