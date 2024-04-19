@@ -125,17 +125,17 @@ export class MapComponent implements OnInit, OnDestroy {
 
   // Filter shops based on search query
   filterShops(query: string, searchType: SearchType): void {
-    this.logger.debug(`Filtering shops based on searchType: ${searchType}..`);
+    this.logger.debug(`Filtering shops based on searchType: ${searchType}`);
     // search by business
     if (searchType === 'business') {
       this.filteredShops = this.allShops.filter(shop =>
-        !query || shop.name.toLowerCase().includes(query.toLowerCase())
+        !query || (shop.name && shop.name.toLowerCase().includes(query.toLowerCase()))
       );
     // search by product
     } else if (searchType === 'product') {
       this.filteredShops = this.allShops.filter(shop =>
-        !query || shop.products.some((product: { name: string; }) =>
-          product.name.toLowerCase().includes(query.toLowerCase())
+        !query || shop.products.some((product: { name?: string; }) =>
+          product.name && product.name.toLowerCase().includes(query.toLowerCase())
         )
       );
     } else {
