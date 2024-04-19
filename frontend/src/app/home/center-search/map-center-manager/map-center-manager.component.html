@@ -1,11 +1,12 @@
 <div
-  id="map"
-  leaflet
-  [leafletOptions]="options"
-  (leafletMapReady)="onMapReady($event)">
-  @if (layer) {
-    <div [leafletLayer]="layer"></div>
-  }
+id="map"
+leaflet
+[leafletOptions]="options"
+(leafletMapReady)="onMapReady($event)">
+@if (layer) {
+  <div [leafletLayer]="layer"></div>
+}
+
 
 <!-- Popup Message Container -->
 <section *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageTitle" tabindex="0">
@@ -25,6 +26,10 @@
   <button aria-label="Save your map center location" class="map-controls__button" (click)="saveCenter()" role="button" tabindex="0">
     {{ 'MAP.BUTTONS.SAVE_CENTER' | translate }}
   </button>
+</div>
+
+<div class="search-bar__container">
+  <app-search-bar (searchQuery)="handleSearch($event)"></app-search-bar>
 </div>
 
 
