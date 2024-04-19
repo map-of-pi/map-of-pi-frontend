@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 export class InformationComponent {
   showPopup: boolean = true;
 
-  version: string = 'Beta V2.1.5';
+  version: string = 'Beta V2.2.6';
   logo: string = "../../assets/images/logo.svg";
   email: string = 'mapofpi@gmail.com';
 
