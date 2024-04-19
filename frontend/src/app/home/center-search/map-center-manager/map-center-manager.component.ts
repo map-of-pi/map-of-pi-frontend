@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService,TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { SearchQueryEvent } from '../../search-bar/search-bar.component';
 
 import { NGXLogger } from 'ngx-logger';
 import { Subscription } from 'rxjs';
@@ -12,16 +13,17 @@ import 'leaflet-routing-machine';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 import { GeolocationService } from '../../../core/service/geolocation.service';
+import { SharedModule } from '../../../shared.module';
 
 @Component({
   selector: 'app-map-center-manager',
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, TranslateModule],
+  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, TranslateModule, SharedModule ],
 })
 
-export class MapCenterManagerComponent implements OnInit {
+export class MapCenterManagerComponent implements OnInit {  
   layer?: Layer;
   map!: Map;
   options:any;
@@ -132,7 +134,7 @@ typeText(translationKey: string, speed: number): void {
   const fullText = this.translateService.instant(translationKey); // Translate the key to get the actual text
 
   let i = 0;
-  this.typedMessage = ''; // Clear previous message if any
+  this.typedMessage = ''; // Clear previous message
   const interval = setInterval(() => {
     if (i < fullText.length) {
       this.typedMessage += fullText.charAt(i);
@@ -165,5 +167,22 @@ getCustomIcon(): L.Icon {
     iconAnchor: [32, 32],
     popupAnchor: [0, -32],
     });
+  }
+  handleSearch(event: SearchQueryEvent): void {
+    if (event.coordinates) {
+      this.updateMapLocation(event.coordinates.lat, event.coordinates.lng);
+    } else {
+      console.error('No coordinates provided in the event');
+    }
+  }
+  
+  
+  updateMapLocation(lat: number, lng: number): void {
+    if (this.map) {
+      this.map.setView([lat, lng], 13);
+      console.log(`Map view updated to: ${lat}, ${lng}`);  // Confirm map update
+    } else {
+      console.error('Map instance not available');
+    }
   }
 }
