@@ -14,8 +14,8 @@ leaflet
     <figcaption class="visually-hidden">{{ 'CORE.APP_NAME' | translate }}</figcaption>
   </figure>
   <div id="popupMessageTitle">
-    <h2>{{ 'MAP.WELCOME_MESSAGE' | translate }}</h2>
-    <p>{{ typedMessage }}</p>
+    <h2 class="popup-message__title">{{ 'MAP.WELCOME_MESSAGE' | translate }}</h2>
+    <p class="popup-message__typed-message">{{ typedMessage }}</p>
   </div>
   <button (click)="closePopup()" class="popup-message__button--confirm" aria-label="Close popup">
     {{ 'MAP.BUTTONS.GOT_IT' | translate }}
