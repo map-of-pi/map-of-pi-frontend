@@ -58,7 +58,9 @@
         "BUSINESS_NAME": "Tẹ Orúkọ Òwò/Iṣẹ́ rẹ s'íbí",
         "BUSINESS_DESCRIPTION": "Ṣe Àlàyé ṣókí nípa Ówó tàbí Iṣẹ́ tí o bá ńṣe s'íbí",
         "BUSINESS_LOCATION": "Ṣe Ìjúwé-agbègbè tí Òwò tàbí Iṣẹ́ rẹ́ wà",
-        "BUSINESS_IMAGES": "Fi Àwọn Àworán nípa Iṣẹ́/Òwò rẹ s'íbí",
+        "BUSINESS_IMAGE_UPLOAD": "Fi Àwòrán Iṣẹ́/Òwò rẹ síi",
+        "BUSINESS_IMAGE_CHANGE": "Pàrọ Àwòrán Iṣẹ́/Òwò rẹ",
+        "BUSINESS_IMAGE_LOADING": "Ó ń ṣ'àfihàn Àwòrán l'ọ́wọ́",
         "BUSINESS_PHONE_NUMBER": "Tẹ Ẹ̀rọ Ìbánisọ̀rọ̀ nípa Iṣẹ́/Òwò rẹ s'íbí",
         "BUSINESS_EMAIL_ADDRESS": "Tẹ Ẹ̀rọ Ìfi-Ọ̀rọ̀ Ránṣẹ́ Ímeèlì Iṣẹ́ rẹ s'íbí"
       },
