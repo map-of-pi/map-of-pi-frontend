@@ -1,0 +1,217 @@
+{
+  "CORE": {
+    "APP_NAME": "Map of Pi"
+  },
+  "HOME": {
+    "ADD_MY_BUSINESS": "Fi Ọjà/Òwò mi l'éde",
+    "SEARCH_BY_BUSINESS_PLACEHOLDER": "Wá Àwọn Iṣẹ́/Òwò Oríṣirísi..",
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Wá Àwọn Ọjà Oríṣirísi..",
+    "SEARCH_RESULT_FOUND_MESSAGE": "Ṣíṣe àwárí Àyè Ìtajà jẹ́ {{ numberOfShopsFound }} Àyè Ìtajà. Jọ̀wọ́ fi Ìka méjì fẹ Ojú àwòrán yí s'íta láti rí àwọn Àyè Ìtajà tí ó bá kù.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "Ìwádí rẹ kò ṣe àwárí Àyè Ìtajà kankan. Jọ̀wọ́ ṣe Ìwádì míràn Pẹ̀lúu àwọn Àkọ́lé Oríṣí míràn."
+  },
+  "MAP": {
+    "USER_LOCATION": "Ibí ni o wà",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " ni o yàn lááyò gẹ́gẹ́ bíi ibi tí ò ńlọ, ètò láti dé ibẹ̀ sì ti wà. Àsìkò tí ìrìn-àjò ìgboro yí máa gbà ni ",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "{{ numHours }} wákàtí àti {{ numMinutes }} Ìṣẹ́jú",
+    "MIDDLE_CLICKED_MESSAGE": "O ti tẹ̀ẹ́ láàrin",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "Àmì tí kò jẹmọ́ ni o tẹ̀",
+    "BUTTONS": {
+      "CANCEL": "Wọ́gi lée"
+    }
+  },
+  "FOOTER": {
+    "PRIVACY_POLICY": "ÌLÀNÀ ÌPA Ọ̀RỌ̀ MỌ́",
+    "TERMS_OF_SERVICE": "Májẹ̀mú Àjọṣepọ̀ tàbí Lílo Èròjà yí"
+  },
+  "INFORMATION_DIALOG": {
+    "LATEST_UPDATES": "Àwọn Ìròyìn/Ìkéde Tuntun",
+    "REPORTING_MESSAGE": "Ẹjọ̀wọ́ ẹ fi Àlébù/Àṣìṣe Ránṣẹ́ sí"
+  },
+  "BUSINESS_MARKER_DIALOG": {
+    "DISTANCE_MESSAGE": "Tí ó jínà sí ọ̀dọ̀ rẹ",
+    "ONLINE_PI_ORDERS_ALLOWED_MESSAGE": "À ńgba fífi owó Pi ra ọjà lórí afẹ́fẹ́",
+    "PRODUCTS_AVAILABLE_MESSAGE": "Àwọn Ọjà wà",
+    "BUTTONS": {
+      "VISIT_SHOP": "Yẹ Olùtajà wò",
+      "TAKE_ROUTE": "Gba Ibí Wọlé"
+    }
+  },
+  "BUSINESS": {
+    "REGISTRATION": {
+      "LABELS": {
+        "BUSINESS_NAME": "Orúkọ Òwò/Ilé-Iṣẹ́",
+        "BUSINESS_DESCRIPTION": "Ìjúwé nípa Òwò",
+        "BUSINESS_TYPE": "Irú Òwò",
+        "BUSINESS_TYPES": {
+          "RESTAURANT": "Ilé Oúnjẹ",
+          "RETAIL_STORE": "Oníṣòwò/Alágbàtà",
+          "SERVICE": "Iṣẹ́-ọwọ́",
+          "CONSTRUCTION": "Ilé-kíkọ́/Ọ̀nà-Túntúnṣe",
+          "TRANSPORTATION": "Awakọ̀"
+        },
+        "BUSINESS_LOCATION": "Agbègbè tí Òwò náá wà",
+        "BUSINESS_IMAGES": "Àwọn Àwòrán nípa Òwò",
+        "BUSINESS_PHONE_NUMBER": "Ẹ̀rọ Ìbánisọ̀rọ̀ Olówò/Òṣìsé",
+        "BUSINESS_EMAIL_ADDRESS": "Ẹ̀rọ Ìfi-Ọ̀rọ̀ Ránṣẹ́ Ímeèli Olówò/Òṣìṣẹ́"
+      },
+      "PLACEHOLDERS": {
+        "BUSINESS_NAME": "Tẹ Orúkọ Òwò/Iṣẹ́ rẹ s'íbí",
+        "BUSINESS_DESCRIPTION": "Ṣe Àlàyé ṣókí nípa Ówó tàbí Iṣẹ́ tí o bá ńṣe s'íbí",
+        "BUSINESS_LOCATION": "Ṣe Ìjúwé-agbègbè tí Òwò tàbí Iṣẹ́ rẹ́ wà",
+        "BUSINESS_IMAGE_UPLOAD": "Fi Àwòrán Iṣẹ́/Òwò rẹ síi",
+        "BUSINESS_IMAGE_CHANGE": "Pàrọ Àwòrán Iṣẹ́/Òwò rẹ",
+        "BUSINESS_IMAGE_LOADING": "Ó ń ṣ'àfihàn Àwòrán l'ọ́wọ́",
+        "BUSINESS_PHONE_NUMBER": "Tẹ Ẹ̀rọ Ìbánisọ̀rọ̀ nípa Iṣẹ́/Òwò rẹ s'íbí",
+        "BUSINESS_EMAIL_ADDRESS": "Tẹ Ẹ̀rọ Ìfi-Ọ̀rọ̀ Ránṣẹ́ Ímeèlì Iṣẹ́ rẹ s'íbí"
+      },
+      "VALIDATIONS": {
+        "BUSINESS_NAME": "O kò tíì fi Orúkọ Òwò síi",
+        "BUSINESS_DESCRIPTION": "O kò tíì fi Àlàyé nípa Òwò síi",
+        "BUSINESS_TYPE": "O kò tíì fi Irú Òwò síi",
+        "BUSINESS_LOCATION": "O kò tíì fi Ìjúwé-agbégbé Òwò/Iṣẹ́ rẹ síi",
+        "BUSINESS_IMAGES": "O kò tíì fi àwòrán nípa Òwò/Iṣẹ́ rẹ síi",
+        "BUSINESS_PHONE_NUMBER": "O kò tíì fi Ẹ̀rọ-Ìbánísọ̀rọ̀ Iṣẹ́/Òwò rẹ síi",
+        "BUSINESS_EMAIL_ADDRESS": "O kò tíì fi Ẹ̀rọ-Àtẹ̀jíṣẹ́ Ímeèli Iṣẹ́ rẹ síi"
+      },
+      "BUTTONS": {
+        "MENU": "Èròja Atọ́kùn",
+        "LOYALTY_STAMPS": "Òntẹ̀ Ìṣe-déédé",
+        "BUSINESS_PHOTOS": "Àwòrán Nípa Òwò/Iṣẹ́",
+        "QR_CODE": "Wo Àwòrán QR Code",
+        "CONFIRM": "Fi Ìfiléde Iṣẹ́/Òwò mi Pamọ́",
+        "UNDER_CONSTRUCTION": "À ń ṣiṣẹ̀ nípa Èròjà yí l'ọ́wọ́"
+      }
+    },
+    "CONFIGURATION": {
+      "LABELS": {
+        "SHOP_NAME": "Orúkọ Àyè-Ìtajà",
+        "MENU": "Àwọn Èlò Atọ́kùn",
+        "ACCEPT_ORDERS_WITHOUT_PAYMENT_MESSAGE": "Gba Ìbèèrè fún Ọjà láì tíì sanwó",
+        "ACCEPT_PI_TRANSACTIONS_MESSAGE": "Gba Sísan owó Pi"
+      },
+      "ADD_PRODUCT_MENU": {
+        "LABELS": {
+          "ADD_PRODUCT_INTO_SHOP_MESSAGE": "Fi Ọjà sí inú àyè ìtajà rẹ",
+          "PRODUCT_NAME": "Orúkọ Ọjà",
+          "PRODUCT_IMAGES": "Àwọn Àwòrán Ọjà",
+          "ADD_IMAGE": "Fi Àwòrán síi",
+          "PRICE": "Iye-owó Ọjà",
+          "DESCRIPTION": "Àlàyé nípa Ọjà",
+          "FOOD_SERVICE": {
+            "TIME_PREPARATION_MESSAGE": "Iye Ìṣẹ́jú tí Óunjẹ yí á tó dé lẹ̀?"
+          }
+        },
+        "BUTTONS": {
+          "LOADING": "Ó ń kójọpọ̀ lọ́wọ́..",
+          "CONFIRM": "Ó dára"
+        }
+      }
+    },
+    "ADD_PRODUCT": {
+      "LABELS": {
+        "PRODUCT_NAME": "Orúkọ Ọjà",
+        "PRODUCT_DESCRIPTION": "Àlàyé Ṣókí nípa Ọjà yí",
+        "PRODUCT_IMAGES": "Àwọn Àwòrán nípa Ọjà yí",
+        "PRODUCT_PRICE": "Iye Owó Ọjà",
+        "PRODUCT_QUANTITY": "Iye Ónka Ọjà",
+        "SHIPPING_TYPE": "Àwọn Oríṣí Ọ̀nà làti fi Ọjà ránṣẹ́ sí Olùrajà"
+      },
+      "PLACEHOLDERS": {
+        "PRODUCT_IMAGES": "Tẹ ibí láti fi Àwọn Àwòrán nípa Ọjà rẹ síi",
+        "PRODUCT_IMAGES_MAX": "Ó kéré jù, Àwòrán Mẹ́ta(tàbí Jubẹ́ẹ́lọ)"
+      },
+      "VALIDATIONS": {
+        "PRODUCT_IMAGES": "O kò tíì fi Àwòrán nípa Ọjà rẹ síì"
+      },
+      "OPTIONS": {
+        "SHIPPING_TYPES": {
+          "FREE_SHIPPING": "Fífi Ọjà Ránṣe sí Olùrajà l'ọ́fẹ̀",
+          "PAID_SHIPPING": "Sísan Owó Ìfi Ọjà Ránṣẹ́",
+          "PICKUP": "Kí Olùrajà wá Gba Ọjà rẹ̀ nì Ilé-Iṣẹ́ wa",
+          "PAY_ON_DELIVERY": "Kí Olùrajà san owó Ọjà lẹ́yìn Ìgbà tí a bá gbé Ọjà rẹ̀ lọ fún"
+        }
+      },
+      "BUTTONS": {
+        "SUBMIT": "Ó ti parí"
+      }
+    }
+  },
+  "SHOPPING": {
+    "ORDER_SCREEN": {
+      "MENU": "Àwọn Èlò Atọ́kùn",
+      "HIGHLIGHT_MESSAGE": "O le ràá lórí afẹ́fẹ́ kí o sanwó lójú-kojú",
+      "BUY_NOW_MESSAGE": "Ràá báyì",
+      "NO_PRODUCTS_MESSAGE": "Olùtajà yí kò ní Ọjà kankan."
+    }
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "ÌLÀNÀ ÌPA Ọ̀RỌ̀ MỌ́",
+    "LAST_UPDATED": "Ìgbà tí a ṣe àtúnṣe kányìn",
+    "EMAIL_ADDRESS": "Ẹ̀rọ Àtẹ̀jíṣẹ́ Ímèèlì wa",
+    "SECTIONS": {
+      "HEADER_1": "Àlàyé Nípa Àkọ́lé yí",
+      "CONTENT_1": "Ẹ káábọ̀ sí inú Èròja Káràkátà Map of Pi, èyí tí àwọn Ìgbìmọ Map of Pi dá sílẹ̀, ní Ìfọwọ́sowọ́pọ̀ gbogbo àwùjọ àti àwọn ìkànì Pi. Ìlànà Ìpa Ọ̀rọ̀ mọ́ yí ṣàlàyé bí a ṣe má n gba ọ̀rọ̀, lo ọ̀rọ̀, ṣàfihàn ọ̀rọ̀, àti bí a ṣe má n dáàbò bo àwọn àtẹ̀jíṣẹ́ ọ̀rọ̀ yín nígbà tí ẹ bá n lo Èròja Káràkátà wa.",
+
+      "HEADER_2": "Àwọn Ọ̀rọ̀ tí à ń Gbà",
+      "SUBHEADER_2_1": "Ọ̀rọ̀ nípa Ẹni tí ó ńlo Èròjà yí",
+      "CONTENT_2_1_1": "Tí ẹ bá fi Orúkọ sílẹ̀ gẹ́gẹ́ bí Olùlo-Èròja Káràkátà yí, a máa ní láti gba Orúkọ yín, Ẹ̀rọ Àtẹ̀jíṣẹ́ Íméélì yín, Àlàjẹ́ tàbí Àpèmọ́-Orúkọ yín, àti àwọn Ọ̀rọ̀ pàtàkì míràn.",
+      "CONTENT_2_1_2": "Fún raraarẹ̀ ni Èròja Káràkátà yí máa ní láti gba àwọn Ọ̀rọ̀-àtọ́kasí nípa Ẹ̀rọ Ayára-bí àṣá yín, bíi Irúu Ẹ̀rọ tí ó bá jẹ́, Irúu Irinṣẹ́ àìfojúrí tí ó fí n ṣisẹ́, àti àwọn ọ̀rọ̀ ìtọ́kasí pàtàkì nípa rẹ̀.",
+      "SUBHEADER_2_2": "Àwọn Ọ̀rọ̀ Olùtajà",
+      "CONTENT_2_2_1": "Àwọn Olùtajà tí wọn ń fi Orúkọ s'ílẹ̀ nínúu Èròja Káràkátà yí máa ní láti fi àwọn Ọ̀rọ̀ nípa Òwò/Iṣẹ́/Ilé-iṣẹ́ wọn s'ílẹ̀, bíi Orúkọ Òwò/Iṣẹ́/Ilé-iṣẹ́ wọn, Agbègbè tí ó wà, àti àwọn ẹ̀rọ ìbánisọ̀rọ̀ tàbí ìlànà láti kàn síwọn.",
+
+      "HEADER_3": "Bí a ṣe máa ńlo àwón Ọ̀rọ̀ tí ẹ fi s'ílẹ̀",
+      "SUBHEADER_3_1": "Láti fi ṣe Ìpèsè/Àlékún/Àtúnṣe Iṣẹ́ wa",
+      "CONTENT_3_1_1": "À ńlo àwọn ọ̀rọ̀ tí ẹ fi s'ílẹ̀ láti fi ṣe Ìpèsè, Àtúnṣe àti Àlékún iṣẹ́ wa nínú Èròja Káràkátà Map of Pi, bíi gbogbo àwọn èèlò tí Olúrajà àti Olútajà máa máa lò nínúu Èròja Káràkátà yí.",
+      "SUBHEADER_3_2": "Ọ̀nà Ìkànsíra-Ẹni",
+      "CONTENT_3_2_1": "A máa lo Ẹ̀rọ Àtẹ̀jíṣẹ́ Ímeèlì yín láti máa fún yín ní àwọn Ìròyìn, Àkíyèsí, àti àwọn Ọ̀nà Ìtẹ̀síwájú nípa Èròja Káràkátà Map of Pi.",
+      "SUBHEADER_3_3": "Àtúpalẹ̀",
+      "CONTENT_3_3_1": "A má ńṣe Àtúpalẹ̀ àwọn Ọ̀rọ̀ tí a gbà làti fi ṣe Àtúnṣe ọnà ìgbàṣiṣẹ́, àwọn èèlò, àti àwọn ǹkan míràn nípa Èròja Káràkátà yi.",
+
+      "HEADER_4": "Ṣíṣe Àfihàn Àwọn Ọ̀rọ̀ tí ẹ fi s'ílẹ̀",
+      "SUBHEADER_4_1": "Fún/Pẹ̀lúu Àwọn Olùtajà",
+      "CONTENT_4_1_1": "A máa ṣ'àfihàn àwọn Ọ̀rọ̀ tí Olùrajà bá fi s'ílẹ̀ fún àwọn Olùtajà, láti lòó fún mímọ irúu Ọjà tí wọn fẹ́ tà fúnwọn, àti bí wọ́n ṣe máa kàn sí wọn.",
+      "SUBHEADER_4_2": "Pẹ̀lúu Ẹnì Kẹ̀ta tàbí Ilé-iṣẹ́ míràn",
+      "CONTENT_4_2_1": "A lè ní láti lo àwọn Ọ̀rọ̀ tí a gbà fún ìṣàfihàn pẹ̀lúu Ilé-iṣẹ́ míràn, fún síse-dáada Ẹ̀ròja Káràkátà yí, àti fún Àtúpalẹ̀, àti fùn àwọn ètò pẹ̀lú ílànà láti san owó.",
+
+      "HEADER_5": "Ìgbésẹ̀ Nípa Ètò-Àbò",
+      "CONTENT_5_1": "A ti ṣe ètò àbò orì-afẹ́fẹ́ tí ó múná dóko, láti dáábò bo àwọn ọ̀rọ̀ àti ìfiléde yín. Síbẹ̀síbẹ̀ náà, kò tíì sí ìfi-ọ̀rọ̀ ránṣẹ́ tàbí ìfi-ọ̀rọ̀ pamọ́ lóríi ìtàkùn ayélujàra tàbí lóríi afẹ́fẹ́, tí ètò àbo rẹ̀ dájú tán.",
+
+      "HEADER_6": "Àwọn Àṣàyàn Rẹ",
+      "CONTENT_6_1": "O lè ṣe àtúnkọ tàbí kí o pa àwọn ọ̀rọ̀-ìfiléde rẹ rẹ́, nì inúu èèlo-ètò Èròjà yí. Tí o bá sì fẹ́, o lè wọ́gi lé àwọn àtẹ̀jìṣẹ́ ìròyìn àti àkíyèsí Ímeèlì tí a fí n ránṣẹ́.",
+
+      "HEADER_7": "Àtúnṣe Nípa Ìlànà Ìpa Ọ̀rọ̀ mọ́ yí",
+      "CONTENT_7_1": "A ó máa ṣe àtúnṣe Ìlànà Ìpa Ọ̀rọ̀ mọ́ yí ní ìgbàkúúgbà. Tuntun tí a bá ṣe yío máa wà ní inú ìtàkùn ayélujára wa tàbí ní inú Èròja Káràkátà yí.",
+
+      "HEADER_8": "Ẹ Kàn Síwa",
+      "CONTENT_8_1": "Tí ẹ bá ní ìbéérè tàbí Ìrújú nípa Ìlànà Ìpa Ọ̀rọ̀ mọ́ yí, Ẹjọ̀wọ́ ẹ kàn síwa "
+    }
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Májẹ̀mú Àjọṣepọ̀ tàbí Lílo Èròjà yí",
+    "LAST_UPDATED": "Ìgbà tí a ṣe Àtúnṣe Kányìn",
+    "EMAIL_ADDRESS": "Ẹ̀rọ Àtẹ̀jíṣẹ́ Ímèèli wa",
+    "SECTIONS": {
+      "HEADER_1": "Fífaramọ́ Àwọn Májẹ̀mú yi",
+      "CONTENT_1_1": "Ẹ káábọ̀ sí inú Èròja Káràkátà Map of Pi, èyí tí àwọn Ìgbìmọ Map of Pi dá sílẹ̀, ní Ìfọwọ́sowọ́pọ̀ gbogbo àwùjọ àti àwọn ìkànì Pi. Tí o bá ńlo Èròja Káràkátà yí, o túmọ̀ sí wípé o ti f'aramọ́ àwọn Májẹ̀mú Àjọṣepọ́ wọ̀nyí, àti àwọn Ìlànà Ìpa Ọ̀rọ̀ mọ́ wa.",
+      
+      "HEADER_2": "Lílo Èròjà Náà",
+      "CONTENT_2_1": "O ní láti f'aramọ́ lílo Èròja Map of Pi ni títẹ̀lé gbogbo àwọn Òfin àti Ìlànà tí ó bá so mọ́o.",
+      "CONTENT_2_2": "O kò gbọdọ̀ lo Èròja Káràkátà yí ní Ìlànà tí ó tàpá sí òfin tàbí Ìlànà tí kò tọ́, tàbí Ìlànà tí ó máa fa Àkóbà, Ìbàjẹ́, díwọ́ agbára rẹ̀ kù, tàbí mú Ìfàsẹyìn báa.", 
+
+      "HEADER_3": "Ohun-ìní Ìtọ́kasí",
+      "CONTENT_3_1": "Èròja Káràkátà Map of Pi àti gbogbo ohún tí ó rọ̀ mọ́ọ, Àwọn ohún Èèlo rẹ̀, àti ọ̀nà ìgba-ṣiṣẹ́ rẹ̀ jẹ́ Ogúun Map of Pi, tí ó sì ní Àbo àṣẹ-títa ǹkan, àṣẹ-ìṣòwò, àti àwọn àṣẹ àbò míran tí ó tan mọ́ Ohun-ìní Ìtọ́kasí l'órí.",
+
+      "HEADER_4": "Àìlẹ́bi Ìpalára",
+      "CONTENT_4_1": "Èròja Map of Pi kò ní faramọ́ Ìfẹ̀sùnkàn tàbí Ẹ̀bi ìpalára tí ó bá jẹyọ láti ínúu Èròjà yí, tàbí láti ibòmíràn, tàbí gbogbo ìṣẹ̀lẹ̀-kíṣẹ́lẹ̀ tí ó mú Ìpalára dání, tí ó wá níṣe ní ọ̀nàkọnà pẹ̀lúu lílo Èròja Map of Pi yí.",
+
+      "HEADER_5": "Ìdánilójú fún Àbò àti Ṣíṣe-Àtúnṣe",
+      "CONTENT_5_1": "O faramọ́ láti ṣe Àbò àti Àtúnṣe láì ní kó ìpalára bá àti láti gba Èròja Map of Pi àti gbogbo àwọn tí wọ́n tan mọ́ọ, Àwọn alámójúto rẹ̀, Àwọn Olùdarí rẹ̀, Àwọn Òṣìṣẹ́ rẹ̀, àti àwọn Olùrànlọ́wọ́ rẹ̀ kúrò lọ́wọ gbogbo fífi-ẹ̀sùnkàni, Ìpalára, Ìpàdánù, tàbí Ìnáwó(papọ̀ mọ́ owó aṣojù), gbogbo eléyì tí ó bá jẹyọ láti ara lílo Èròja Map of Pi yí.",
+
+      "HEADER_6": "Àwọn Òfin Tí o yíi ká",
+      "CONTENT_6_1": "Àwọn Májẹ̀mú lílo Èròjà yí á máa lo àwọn Òfin àti Àtúsí, gẹ́gẹ́ bí àwọn Ìgbìmọ̀ Òfin tí ó ti wà tẹ́lẹ̀, láì ní wo àtakò tí ó bá ní sí àwọn Òfin tí ó ti wà.",
+
+      "HEADER_7": "Àtúnṣe Nìpa Àwọn Májẹ̀mú yí",
+      "CONTENT_7_1": "A ní ẹ̀tọ́ láti máa ṣe Àtúnṣe tàbí Àfikún àwọn Májẹ̀mú wọ̀nyì ní ìgbà kí gbà, láì ní fi àkíyèsí kankan síwajú. Àwọn Àtúnṣe tuntun tí a bá ṣe yío máa wà ní inú ìtàkùn ayélujára wa tàbí ní inú Èròja Káràkátà yí."
+    }
+  }
+}

@@ -1,0 +1,79 @@
+@use '../node_modules/@angular/material/' as mat;
+@import '../node_modules/@angular/material/core/theming/theming';
+
+@import './assets/styles/themes/light-mode/light-template.scss';
+@import './assets/styles/themes/dark-mode/dark-template.scss';
+
+@import './assets/styles/fonts.scss';
+@import './assets/styles/reset.scss';
+@import './assets/styles/variables.scss';
+@import './assets/styles/base.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  min-width: 18rem;
+  background-image: url('./assets/images/background.svg');
+  background-color: rgba(255, 255, 255, 0.15);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.mat-app-background {
+  background-color: rgba(221, 221, 221, 0.062);
+}
+
+/* TODO; Refactor and attempt to use Angular Material consistently */
+@include mat.all-component-themes($app-light-theme);
+// dark mode toggle
+.dark-mode {
+  @include mat.all-component-colors($app-dark-theme);
+
+  .mat-app-background {
+    background-color: rgba(0, 0, 0, 0.822);
+  }
+  // account for non-mat elements.
+  .business-registration__input,
+  .business-registration__select {
+    background-color: #666060;
+  }
+  .search-toggle-element {
+    color: #fff !important;
+  }
+  .language-section {
+    background-color: rgba(0, 0, 0, 0.822) !important;
+
+    &:hover {
+      background-color: #666060 !important;
+    }
+  }
+  .flag-image {
+    border-color: #fff !important;
+  }
+  div[class^='inner-wrapper'] {
+    color: #ffffff;
+    background-color: #7e7777;
+  }
+  div[class^='modal'] {
+    color: #ffffff;
+    background-color: #7e7777;
+  }
+  input#item-name,
+  input#item-price {
+    background-color: #666060;
+    color: #ffffff;
+  }
+  textarea#description {
+    background-color: #666060;
+    color: #ffffff;
+  }
+}

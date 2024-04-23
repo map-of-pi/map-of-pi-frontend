@@ -1,0 +1,216 @@
+{
+  "CORE": {
+    "APP_NAME": "파이 지도"
+  },
+  "HOME": {
+    "ADD_MY_BUSINESS": "내 비즈니스 추가",
+    "SEARCH_BY_BUSINESS_PLACEHOLDER": "상점 검색..",
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "제품 검색..",
+    "SEARCH_RESULT_FOUND_MESSAGE": "검색 결과 {{numberOfShopsFound}}개의 상점을 찾았습니다. 모든 상점 마커를 보려면 확대하세요.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "검색 결과 상점을 찾을 수 없습니다. 다른 기준으로 다시 시도하세요."
+  },
+  "MAP": {
+    "USER_LOCATION": "당신은 여기 있습니다",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " 이목적지로 선택되었고 경로가 제공되었습니다. 이동 수단으로 이동하면 약 ",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "XX 시간 XX 분",
+    "MIDDLE_CLICKED_MESSAGE": "가운데 클릭",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "알 수 없는 마커가 클릭되었습니다",
+    "BUTTONS": {
+      "CANCEL": "취소"
+    }
+  },
+  "FOOTER": {
+    "PRIVACY_POLICY": "개인정보 처리방침",
+    "TERMS_OF_SERVICE": "서비스 이용 약관"
+  },
+  "INFORMATION_DIALOG": {
+    "LATEST_UPDATES": "최신 업데이트",
+    "REPORTING_MESSAGE": "결함을 보고해주세요"
+  }, 
+  "BUSINESS_MARKER_DIALOG": {
+    "DISTANCE_MESSAGE": "당신으로부터 떨어진 거리",
+    "ONLINE_PI_ORDERS_ALLOWED_MESSAGE": "온라인 Pi 주문 허용됨",
+    "PRODUCTS_AVAILABLE_MESSAGE": "상품/들이 구매 가능합니다",
+    "BUTTONS": {
+        "VISIT_SHOP": "가게 방문하기",
+        "TAKE_ROUTE": "경로 선택하기"
+    }
+  },
+  "BUSINESS": {
+    "REGISTRATION": {
+      "LABELS": {
+        "BUSINESS_NAME": "비즈니스 이름",
+        "BUSINESS_DESCRIPTION": "비즈니스 설명",
+        "BUSINESS_TYPE": "사업 유형",
+        "BUSINESS_TYPES": {
+          "RESTAURANT": "레스토랑",
+          "RETAIL_STORE": "소매점",
+          "SERVICE": "서비스",
+          "CONSTRUCTION": "건설",
+          "TRANSPORTATION": "운송"
+        },
+        "BUSINESS_LOCATION": "비즈니스 위치",
+        "BUSINESS_PHONE_NUMBER": "비즈니스 전화번호",
+        "BUSINESS_EMAIL_ADDRESS": "비즈니스 이메일 주소"
+      },
+      "PLACEHOLDERS": {
+        "BUSINESS_NAME": "비즈니스 이름을 입력하세요",
+        "BUSINESS_DESCRIPTION": "비즈니스에 대한 간단한 설명을 입력하세요",
+        "BUSINESS_LOCATION": "비즈니스 위치를 입력하세요",
+        "BUSINESS_IMAGE_UPLOAD": "비즈니스 이미지 업로드",
+        "BUSINESS_IMAGE_CHANGE": "비즈니스 이미지 변경",
+        "BUSINESS_IMAGE_LOADING": "이미지 로딩 중",
+        "BUSINESS_PHONE_NUMBER": "비즈니스 전화번호를 입력하세요",
+        "BUSINESS_EMAIL_ADDRESS": "비즈니스 이메일 주소를 입력하세요"
+      },
+      "VALIDATIONS": {
+        "BUSINESS_NAME": "사업 이름이 필요합니다",
+        "BUSINESS_DESCRIPTION": "사업 설명이 필요합니다",
+        "BUSINESS_TYPE": "사업 유형이 필요합니다",
+        "BUSINESS_LOCATION": "사업 주소가 필요합니다",
+        "BUSINESS_IMAGES": "비즈니스에는 관련된 이미지가 있어야 합니다",
+        "BUSINESS_PHONE_NUMBER": "사업 전화 번호가 필요합니다",
+        "BUSINESS_EMAIL_ADDRESS": "사업 이메일 주소가 필요합니다"
+      },
+      "BUTTONS": {
+        "MENU": "메뉴",
+        "LOYALTY_STAMPS": "충성 스탬프",
+        "BUSINESS_PHOTOS": "비즈니스 사진",
+        "QR_CODE": "QR 코드 가져오기",
+        "CONFIRM": "비즈니스 설정 확인",
+        "UNDER_CONSTRUCTION": "이 기능은 아직 완전히 구현되지 않았습니다"
+      }
+    },
+    "CONFIGURATION": {
+      "LABELS": {
+        "SHOP_NAME": "가게 이름",
+        "MENU": "메뉴",
+        "ACCEPT_ORDERS_WITHOUT_PAYMENT_MESSAGE": "결제 없이 주문 받기",
+        "ACCEPT_PI_TRANSACTIONS_MESSAGE": "Pi 거래 수락"
+      },
+      "ADD_PRODUCT_MENU": {
+        "LABELS": {
+          "ADD_PRODUCT_INTO_SHOP_MESSAGE": "상점에 제품 추가",
+          "PRODUCT_NAME": "제품명",
+          "PRODUCT_IMAGES": "제품 이미지",
+          "ADD_IMAGE": "이미지 추가",
+          "PRICE": "가격",
+          "DESCRIPTION": "설명",
+          "FOOD_SERVICE": {
+            "TIME_PREPARATION_MESSAGE": "이 요리를 준비하는 데 얼마나 걸리나요?"
+          }
+        },
+        "BUTTONS": {
+          "LOADING": "로딩 중...",
+          "CONFIRM": "확인"
+        }
+      }
+    },
+    "ADD_PRODUCT": {
+      "LABELS": {
+        "PRODUCT_NAME": "제품 이름",
+        "PRODUCT_DESCRIPTION": "제품 설명",
+        "PRODUCT_IMAGES": "제품 이미지",
+        "PRODUCT_PRICE": "제품 가격",
+        "PRODUCT_QUANTITY": "제품 수량",
+        "SHIPPING_TYPE": "배송 유형"
+      },
+      "PLACEHOLDERS": {
+        "PRODUCT_IMAGES": "제품 이미지 업로드",
+        "PRODUCT_IMAGES_MAX": "제품 이미지 (제한: 3)"
+      },
+      "VALIDATIONS": {
+        "PRODUCT_IMAGES": "제품 이미지가 선택되지 않았습니다"
+      },
+      "OPTIONS": {
+        "SHIPPING_TYPES": {
+          "FREE_SHIPPING": "무료 배송",
+          "PAID_SHIPPING": "유료 배송",
+          "PICKUP": "픽업",
+          "PAY_ON_DELIVERY": "배송 시 현금 결제"
+        }
+      },
+      "BUTTONS": {
+        "SUBMIT": "제출"
+      }
+    }
+  },
+  "SHOPPING": {
+    "ORDER_SCREEN": {
+      "MENU": "메뉴",
+      "HIGHLIGHT_MESSAGE": "온라인으로 주문하고 직접 결제할 수 있습니다",
+      "BUY_NOW_MESSAGE": "지금 구매하기",
+      "NO_PRODUCTS_MESSAGE": "이 비즈니스에는 제품이 없습니다."
+    }
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "개인정보 처리방침",
+    "LAST_UPDATED": "최근 업데이트",
+    "EMAIL_ADDRESS": "이메일 주소",
+    "SECTIONS": {
+      "HEADER_1": "소개",
+      "CONTENT_1": "파이 지도 앱에 오신 것을 환영합니다. 파이 지도 팀이 Pi 커뮤니티와 협력하여 개발한 이 개인정보 처리방침은 모바일 애플리케이션 사용 시 개인 정보를 수집, 사용, 공개 및 보호하는 방법을 설명합니다.",
+      
+      "HEADER_2": "수집하는 정보",
+      "SUBHEADER_2_1": "사용자 정보",
+      "CONTENT_2_1_1": "사용자로 등록할 때 이름, 이메일 주소, 사용자 이름 및 기타 관련 세부 정보를 수집할 수 있습니다.",
+      "CONTENT_2_1_2": "기기 유형, 운영 체제 및 고유 기기 식별자를 포함한 기기 정보를 수집할 수 있습니다.",
+      "SUBHEADER_2_2": "공급업체 정보",
+      "CONTENT_2_2_1": "플랫폼에 등록하는 공급업체는 비즈니스 이름, 위치 및 연락처 정보를 제공해야 할 수 있습니다.",
+      
+      "HEADER_3": "정보 사용 방법",
+      "SUBHEADER_3_1": "서비스 제공",
+      "CONTENT_3_1_1": "사용자 및 공급업체 기능을 포함한 파이 지도 앱 서비스를 제공하고 개선하기 위해 귀하의 정보를 사용합니다.",
+      "SUBHEADER_3_2": "통신",
+      "CONTENT_3_2_1": "파이 지도 앱과 관련된 업데이트, 알림 및 프로모션 메시지를 전송하기 위해 귀하의 연락처 정보를 사용할 수 있습니다.",
+      "SUBHEADER_3_3": "분석",
+      "CONTENT_3_3_1": "앱의 성능, 기능 및 기능을 개선하기 위해 데이터를 수집하고 분석합니다.",
+      
+      "HEADER_4": "정보 공유",
+      "SUBHEADER_4_1": "공급업체와",
+      "CONTENT_4_1_1": "주문 처리 및 커뮤니케이션 목적으로 사용자 정보를 공유할 수 있습니다.",
+      "SUBHEADER_4_2": "제 3자와",
+      "CONTENT_4_2_1": "앱 기능, 분석 및 결제 처리를 위해 제 3자 서비스 제공업체와 정보를 공유할 수 있습니다.",
+      
+      "HEADER_5": "보안 조치",
+      "CONTENT_5_1": "귀하의 정보를 보호하기 위해 산업 표준 보안 조치를 채택하고 있습니다. 그러나 인터넷을 통한 전송 또는 전자 저장 방법은 완전히 안전하지 않을 수 있습니다.",
+      
+      "HEADER_6": "귀하의 선택",
+      "CONTENT_6_1": "앱 설정을 통해 계정 정보를 업데이트하거나 삭제할 수 있습니다. 또한 프로모션 통신을 거부할 수 있습니다.",
+      
+      "HEADER_7": "개인정보 처리방침 변경",
+      "CONTENT_7_1": "필요에 따라 개인정보 처리방침을 업데이트할 수 있습니다. 최신 버전은 웹사이트나 앱 내에서 공개될 것입니다.",
+      
+      "HEADER_8": "문의하기",
+      "CONTENT_8_1": "이 개인정보 처리방침에 관한 질문이나 걱정이 있으시면 저희에게 문의하세요 "
+    }
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "서비스 이용 약관",
+    "LAST_UPDATED": "최근 업데이트",
+    "EMAIL_ADDRESS": "이메일 주소",
+    "SECTIONS": {
+      "HEADER_1": "약관 수락",
+      "CONTENT_1_1": "파이 지도 앱에 오신 것을 환영합니다. 파이 지도 팀이 Pi 커뮤니티와 협력하여 개발한 이 앱을 사용함으로써 귀하는 이 서비스 이용 약관 및 개인정보 처리방침을 준수할 것에 동의합니다.",
+      
+      "HEADER_2": "앱 사용",
+      "CONTENT_2_1": "귀하는 모든 관련 법률 및 규정을 준수하여 파이 지도 앱을 사용하는 데 동의합니다.",
+      "CONTENT_2_2": "귀하는 앱을 불법적이거나 금지된 목적으로 사용하거나, 앱을 손상시키거나 비활성화하거나 과부하를 줄 수 있는 방식으로 사용하지 않을 것에 동의합니다.", 
+
+      "HEADER_3": "지적 재산권",
+      "CONTENT_3_1": "파이 지도 앱과 모든 콘텐츠, 기능 및 기능은 파이 지도에 속하며 저작권, 상표 및 기타 지적 재산권 법으로 보호됩니다.",
+
+      "HEADER_4": "책임 제한",
+      "CONTENT_4_1": "파이 지도는 파이 지도 앱 사용과 관련하여 직접적인, 간접적인, 부수적인, 특별한 또는 결과적인 피해에 대해 책임을 지지 않습니다.",
+
+      "HEADER_5": "면책 및 보상",
+      "CONTENT_5_1": "귀하는 파이 지도 및 그 계열사, 임원, 이사, 직원 및 대리인을 모든 종류의 청구, 책임, 손해, 손실 또는 비용 (변호사 비용 포함)으로부터 면책시키고 보호할 것에 동의합니다. 그러한 청구, 책임, 손해, 손실 또는 비용은 파이 지도 앱 사용과 관련이 있습니다.",
+
+      "HEADER_6": "준거법",
+      "CONTENT_6_1": "본 서비스 이용 약관은 우리가 정의한 관할 구역의 법률에 따라 규정되고 해석됩니다. 법률 충돌 규정을 고려하지 않습니다.",
+
+      "HEADER_7": "약관 변경",
+      "CONTENT_7_1": "우리는 사전 통보 없이 언제든지 이 서비스 이용 약관을 업데이트하거나 수정할 권리를 보유합니다. 최신 버전은 웹사이트나 앱 내에서 공개됩니다."
+    }
+  }
+}

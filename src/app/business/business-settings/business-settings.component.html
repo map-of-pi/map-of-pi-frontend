@@ -1,0 +1,154 @@
+<main class="business-registration mat-app-background">
+  <!-- business registeration form -->
+
+  <form [formGroup]="registerShopForm" (ngSubmit)="send()">
+    <section class="business-registration__section">
+      <!-- business name field -->
+      <div class="business-registration__field">
+        <label for="business-name" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_NAME' | translate }}</label>
+        <input
+          type="text"
+          formControlName="shopName"
+          id="business-name"
+          name="business_name"
+          class="business-registration__input"
+          placeholder="{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_NAME' | translate }}"
+          required />
+        <span class="text-red-500" *ngIf="registerShopForm.get('shopName')?.invalid && registerShopForm.get('shopName')?.touched">{{
+          'BUSINESS.REGISTRATION.VALIDATIONS.BUSINESS_NAME' | translate
+        }}</span>
+      </div>
+
+      <!-- business description field -->
+      <div class="business-registration__field business-registration__field-middle">
+        <label for="business-description" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_DESCRIPTION' | translate }}</label>
+        <input
+          type="text"
+          formControlName="shopDescription"
+          id="business-description"
+          name="business_description"
+          class="business-registration__input"
+          placeholder="{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_DESCRIPTION' | translate }}"
+          required />
+        <span class="text-red-500" *ngIf="registerShopForm.get('shopDescription')?.invalid && registerShopForm.get('shopDescription')?.touched">{{
+          'BUSINESS.REGISTRATION.VALIDATIONS.BUSINESS_DESCRIPTION' | translate
+        }}</span>
+      </div>
+
+      <!-- busines location field -->
+      <div class="business-registration__field business-registration__field-middle">
+        <label for="location" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_LOCATION' | translate }}</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          formControlName="shopAddress"
+          class="business-registration__input"
+          placeholder="{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_LOCATION' | translate }}"
+          required />
+        <span class="text-red-500" *ngIf="registerShopForm.get('shopAddress')?.invalid && registerShopForm.get('shopAddress')?.touched">{{
+          'BUSINESS.REGISTRATION.VALIDATIONS.BUSINESS_LOCATION' | translate
+        }}</span>
+      </div>
+
+      <!-- business image preview section field -->
+      <div class="business-registration__field business-registration__field-middle">
+        <div class="flex justify-between items-center gap-3">
+          <div *ngIf="isLoadingPreview" class="flex flex-col justify-center gap-3 mb-3 items-center p-3 rounded-md w-full">
+            <div class="loading">
+              <div class="spinner"></div>
+            </div>
+
+            <div class="animate-bounce text-sm text-center text-green-500">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_LOADING' | translate }}</div>
+          </div>
+          <div *ngIf="testUpload" class="business-registration__label flex justify-center gap-5 mb-3 items-center p-3 rounded-md w-full">
+            <img [src]="imagePreview" alt="upload icon" class="w-[100px] h-[100px]" />
+          </div>
+
+          <label for="image" class="flex gap-2 flex-col justify-center mb-3 items-center p-3 rounded-md w-full">
+            <img src="../../../assets/images/business/upload.jpg" alt="upload icon" class="w-[50px] h-[50px]" />
+            <div *ngIf="!imagePreview">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_UPLOAD' | translate }}</div>
+            <div *ngIf="imagePreview">{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_IMAGE_CHANGE' | translate }}</div>
+          </label>
+        </div>
+
+        <!-- business image input section -->
+        <input
+          type="file"
+          id="image"
+          name="image"
+          (change)="onFileChange($event)"
+          formControlName="shopImage"
+          class="business-registration__input hidden"
+          required />
+
+        <span class="text-red-500" *ngIf="registerShopForm.get('shopImage')?.invalid && registerShopForm.get('shopImage')?.touched">{{
+          'BUSINESS.REGISTRATION.VALIDATIONS.BUSINESS_IMAGES' | translate
+        }}</span>
+      </div>
+
+      <!-- business email address field -->
+      <div class="business-registration__field business-registration__field-middle">
+        <label for="email" class="business-registration__label">{{ 'BUSINESS.REGISTRATION.LABELS.BUSINESS_EMAIL_ADDRESS' | translate }}</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          formControlName="shopEmail"
+          class="business-registration__input"
+          placeholder="{{ 'BUSINESS.REGISTRATION.PLACEHOLDERS.BUSINESS_EMAIL_ADDRESS' | translate }}"
+          required />
+        <span class="text-red-500" *ngIf="registerShopForm.get('shopEmail')?.invalid && registerShopForm.get('shopEmail')?.touched">{{
+          'BUSINESS.REGISTRATION.VALIDATIONS.BUSINESS_EMAIL_ADDRESS' | translate
+        }}</span>
+      </div>
+
+      <!-- business menu section  -->
+      <nav class="business-registration__navigation">
+        <ul class="business-registration__list">
+          <li class="business-registration__item">
+            <a (click)="displayPopup()" class="business-registration__link"
+              >{{ 'BUSINESS.REGISTRATION.BUTTONS.MENU' | translate }}<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li class="business-registration__item">
+            <a [routerLink]="['/business/loyalty-program']" class="business-registration__link"
+              >{{ 'BUSINESS.REGISTRATION.BUTTONS.LOYALTY_STAMPS' | translate }}<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li class="business-registration__item">
+            <a (click)="displayPopup()" class="business-registration__link"
+              >{{ 'BUSINESS.REGISTRATION.BUTTONS.BUSINESS_PHOTOS' | translate }}<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+          <li class="business-registration__item">
+            <a (click)="displayPopup()" class="business-registration__link"
+              >{{ 'BUSINESS.REGISTRATION.BUTTONS.QR_CODE' | translate }}<i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </li>
+        </ul>
+      </nav>
+      <div class="business-registration__confirmation">
+        <button *ngIf="!isRegistering" type="submit" class="business-registration__button">
+          {{ 'BUSINESS.REGISTRATION.BUTTONS.CONFIRM' | translate }}
+        </button>
+        <button *ngIf="isRegistering" type="submit" class="business-registration__button">
+          <div class="loading">
+            <div class="spinner"></div>
+          </div>
+        </button>
+      </div>
+    </section>
+  </form>
+
+  <!-- Popup -->
+  <div class="popup-container" *ngIf="showPopup">
+    <div class="popup">
+      <span class="close" (click)="hidePopup()">&times;</span>
+      <i class="fas fa-tools fa-3x under-construction-icon"></i>
+      <br />
+      <p>{{ 'BUSINESS.REGISTRATION.BUTTONS.UNDER_CONSTRUCTION' | translate }}</p>
+      <button class="btn-ok" (click)="hidePopup()">OK</button>
+    </div>
+  </div>
+</main>

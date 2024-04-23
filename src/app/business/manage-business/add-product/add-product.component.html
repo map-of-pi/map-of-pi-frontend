@@ -1,0 +1,86 @@
+<form [formGroup]="productForm" (submit)="submitForm()" class="p-4">
+  <div class="mb-4">
+    <label for="product-name" class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.PRODUCT_NAME' | translate }}</label>
+    <input type="text" id="product-name" name="product-name" formControlName="productName" class="mt-1 p-2 block w-full rounded-md border-gray-300" required />
+  </div>
+
+  <div class="mb-4">
+    <label for="product-description" class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.PRODUCT_DESCRIPTION' | translate }}</label>
+    <textarea
+      id="product-description"
+      name="product-description"
+      formControlName="productDescription"
+      class="mt-1 p-2 block w-full rounded-md border-gray-300"
+      required></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.PRODUCT_IMAGES' | translate }}</label>
+    <label for="imagess" class="flex gap-5 items-center bg-blue-200 p-3 rounded-md">
+      <img src="../../../../assets/images/business/upload.jpg" alt="upload icon" class="w-[50px] h-[50px]" />
+      <div>
+        {{ 'BUSINESS.ADD_PRODUCT.PLACEHOLDERS.PRODUCT_IMAGES' | translate }}
+      </div>
+    </label>
+    <input type="file" accept="image/*" id="imagess" (change)="onFileChange($event)" multiple formControlName="productImages" class="mt-1 hidden" />
+  </div>
+
+  <label class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.PLACEHOLDERS.PRODUCT_IMAGES_MAX' | translate }}</label>
+  <div *ngIf="selectedImages.length < 1">
+    <div class="my-4 text-center text-gray-500">
+      {{ 'BUSINESS.ADD_PRODUCT.VALIDATIONS.PRODUCT_IMAGES' | translate }}
+    </div>
+  </div>
+  <div *ngIf="selectedImages.length > 0" class="mb-4">
+    <div class="flex flex-wrap gap-2">
+      <div *ngFor="let imageUrl of selectedImages" class="">
+        <img [src]="imageUrl" alt="Selected Image" class="w-[50px] h-[50px]" />
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 relative">
+    <label for="product-price" class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.PRODUCT_PRICE' | translate }}</label>
+    <input
+      type="number"
+      id="product-price"
+      name="product-price"
+      formControlName="productPrice"
+      class="mt-1 p-2 block w-full rounded-md border-gray-300"
+      required />
+    <div class="absolute right-3 top-[50%] bg-blue-200 rounded-xl px-2 py-1">PI</div>
+  </div>
+
+  <div class="mb-4">
+    <label for="product-stock" class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.PRODUCT_QUANTITY' | translate }}</label>
+    <input
+      type="number"
+      id="product-stock"
+      name="product-stock"
+      formControlName="productStock"
+      class="mt-1 p-2 block w-full rounded-md border-gray-300"
+      required />
+  </div>
+
+  <div class="mb-4">
+    <label class="block font-medium text-gray-700">{{ 'BUSINESS.ADD_PRODUCT.LABELS.SHIPPING_TYPE' | translate }}</label>
+    <select formControlName="selectedShippingOption" class="mt-1 p-2 block w-full rounded-md border-gray-300">
+      <option value="free">
+        {{ 'BUSINESS.ADD_PRODUCT.OPTIONS.SHIPPING_TYPES.FREE_SHIPPING' | translate }}
+      </option>
+      <option value="paid">
+        {{ 'BUSINESS.ADD_PRODUCT.OPTIONS.SHIPPING_TYPES.PAID_SHIPPING' | translate }}
+      </option>
+      <option value="pickup">
+        {{ 'BUSINESS.ADD_PRODUCT.OPTIONS.SHIPPING_TYPES.PICKUP' | translate }}
+      </option>
+      <option value="cod">
+        {{ 'BUSINESS.ADD_PRODUCT.OPTIONS.SHIPPING_TYPES.PAY_ON_DELIVERY' | translate }}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+    {{ 'BUSINESS.ADD_PRODUCT.BUTTONS.SUBMIT' | translate }}
+  </button>
+</form>

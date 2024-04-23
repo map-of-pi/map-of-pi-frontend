@@ -1,0 +1,41 @@
+<div class="popup" *ngIf="showPopup" (click)="stopPropagation($event)">
+  <div class="logo">
+    <img src="{{ logo }}" alt="Map of Pi">
+  </div>
+  <div class="title">
+    <h1>Map of Pi</h1>
+  </div>
+  <div class="version">
+    <h3>{{ version }}</h3>
+  </div>
+  <div class="legal">
+    <a [routerLink]="['/privacy-policy']" class="legal-link">{{ 'FOOTER.PRIVACY_POLICY' | translate }}</a>
+    <a [routerLink]="['/terms-of-service']"class="legal-link">{{ 'FOOTER.TERMS_OF_SERVICE' | translate }}</a>
+  </div>
+  <div class="social-media">
+    <div class="social-media__links">
+      <a href="mailto:mapofpi@gmail.com" class="social-media__link" aria-label="Email Us" target="_blank">
+          <img src="../../../assets/images/shared/footer/email-icon.svg" alt="Map of Pi Email Address" class="social-media__icon">
+      </a>
+      <a href="https://facebook.com/mapofpi" class="social-media__link" aria-label="Facebook page" target="_blank">
+          <img src="../../../assets/images/shared/footer/facebook.icon.png" alt="Map of Pi Facebook Page" class="social-media__icon">
+      </a>
+      <a href="https://instagram.com/mapofpi" class="social-media__link"
+          aria-label="Instagram page" target="_blank">
+          <img src="../../../assets/images/shared/footer/instagram-icon.png" alt="Map of Pi Instagram Page" class="social-media__icon">
+      </a>
+      <a href="https://twitter.com/mapofpi" class="social-media__link" aria-label="Twitter page" target="_blank">
+          <img src="../../../assets/images/shared/footer/x-icon.png" alt="Map of Pi Twitter Page" class="social-media__icon">
+      </a>
+      <a href="https://tiktok.com/@mapofpi" class="social-media__link" aria-label="Tiktok channel" target="_blank">
+          <img src="../../../assets/images/shared/footer/tiktok-icon.svg" alt="Map of Pi TikTok Channel" class="social-media__icon">
+        </a>
+        <a href="https://youtube.com/@mapofpi" class="social-media__link" aria-label="YouTube channel" target="_blank">
+          <img src="../../../assets/images/shared/footer/youtube-icon.png" alt="Map of Pi YouTube Channel" class="social-media__icon">
+        </a>
+    </div>
+  </div>
+  <div class="defects-contact">
+    <span>{{ 'INFORMATION_DIALOG.REPORTING_MESSAGE' | translate }} <a href="mailto:mapofpi@gmail.com" target="_blank">{{ email }}</a></span>
+  </div>
+</div>

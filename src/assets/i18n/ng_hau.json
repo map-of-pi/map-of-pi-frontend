@@ -1,0 +1,217 @@
+{
+  "CORE": {
+    "APP_NAME": "Map of Pi"
+  },
+  "HOME": {
+    "ADD_MY_BUSINESS": "Ƙara kasuwancina",
+    "SEARCH_BY_BUSINESS_PLACEHOLDER": "Bincika Kasuwanci..",
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Bincika Kayayyakin..",
+    "SEARCH_RESULT_FOUND_MESSAGE": "Nemanku ya samo {{numberOfShopsFound}} shaguna. Da fatan za a zuƙowa don duba duk alamun shago.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "Bincikenku bai sami shaguna ba. Da fatan za a sake gwadawa tare da ma'auni daban-daban."
+  },
+  "MAP": {
+    "USER_LOCATION": "Kuna Nan",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": "an zaɓi matsayin wurin da za ku tafi kuma an samar da hanyar. Tafiyar tafi-da-gidanka zai kai ku kusan",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "Awanni XX da mintuna XX",
+    "MIDDLE_CLICKED_MESSAGE": "An danna tsakiya",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "Alamar da ba a sani ba an danna",
+    "BUTTONS": {
+      "CANCEL": "Soke"
+    }
+  },
+  "FOOTER": {
+    "PRIVACY_POLICY": "takardar kebantawa",
+    "TERMS_OF_SERVICE": "Sharuɗɗan Sabis"
+  },
+  "INFORMATION_DIALOG": {
+    "LATEST_UPDATES": "Sabbin Sabuntawa",
+    "REPORTING_MESSAGE": "Da fatan za a ba da rahoton lahani ga" 
+  },
+  "BUSINESS_MARKER_DIALOG": {
+    "DISTANCE_MESSAGE": "Nisa daga gare ku",
+    "ONLINE_PI_ORDERS_ALLOWED_MESSAGE": "Ana ba da izinin odar Pi akan layi",
+    "PRODUCTS_AVAILABLE_MESSAGE": "Samfura/rori akwai", 
+    "BUTTONS": {
+      "VISIT_SHOP": "Ziyarci Shagon",
+      "TAKE_ROUTE": "Bi Hanya"
+    }
+  },
+  "BUSINESS": {
+    "REGISTRATION": {
+      "LABELS": {
+        "BUSINESS_NAME": "Sunan Kasuwanci",
+        "BUSINESS_DESCRIPTION": "Bayanin Kasuwanci",
+        "BUSINESS_TYPE": "Nau'in Kasuwanci",
+        "BUSINESS_TYPES": {
+          "RESTAURANT": "Gidan cin abinci",
+          "RETAIL_STORE": "Store Store",
+          "SERVICE": "Sabis",
+          "CONSTRUCTION": "Gina",
+          "TRANSPORTATION": "Sufuri"
+        },
+        "BUSINESS_LOCATION": "Wurin Kasuwanci",
+        "BUSINESS_PHONE_NUMBER": "Lambar Wayar Kasuwanci",
+        "BUSINESS_EMAIL_ADDRESS": "Adireshin Imel na Kasuwanci "
+      },
+      "PLACEHOLDERS": {
+        "BUSINESS_NAME": "Shigar da sunan kasuwancin ku",
+        "BUSINESS_DESCRIPTION": "Shigar da bayani mai sauƙi game da kasuwancin ku",
+        "BUSINESS_LOCATION": "Shigar da wurin kasuwancin ku",
+        "BUSINESS_IMAGE_UPLOAD": "Loda hoton kasuwancin ku",
+        "BUSINESS_IMAGE_CHANGE": "Canja hoton kasuwancin ku",
+        "BUSINESS_IMAGE_LOADING": "Ana Loda Hoto",
+        "BUSINESS_PHONE_NUMBER": "Shigar da lambar wayar kasuwancin ku",
+        "BUSINESS_EMAIL_ADDRESS": "Shigar da adireshin imel na kasuwancin ku"
+      },
+      "VALIDATIONS": {
+        "BUSINESS_NAME": "Ana buƙatar Sunan Kasuwanci ",
+        "BUSINESS_DESCRIPTION": "Ana buƙatar Bayanin Kasuwanci",
+        "BUSINESS_TYPE": "Ana buƙatar Nau'in kasuwanci",
+        "BUSINESS_LOCATION": "Ana buƙatar adireshin kasuwanci",
+        "BUSINESS_IMAGES": "Dole ne kasuwanci ya kasance yana da hoto mai alaƙa",
+        "BUSINESS_PHONE_NUMBER": "Ana buƙatar lambar wayar kasuwanci",
+        "BUSINESS_EMAIL_ADDRESS": "Ana buƙatar adireshin imel na kasuwanci"
+      },
+      "BUTTONS": {
+        "MENU": "Menu",
+        "LOYALTY_STAMPS": "Tambarin Aminci",
+        "BUSINESS_PHOTOS": "Hotunan Kasuwanci",
+        "QR_CODE": "Samu lambar QR",
+        "CONFIRM": "Tabbatar da Saitunan Kasuwanci",
+        "UNDER_CONSTRUCTION": "Wannan aikin bai cika cika ba tukuna"
+      }
+    },
+    "CONFIGURATION": {
+      "LABELS": {
+        "SHOP_NAME": "Sunan kantin",
+        "MENU": "Menu",
+        "ACCEPT_ORDERS_WITHOUT_PAYMENT_MESSAGE": "Karɓi umarni ba tare da biya ba",
+        "ACCEPT_PI_TRANSACTIONS_MESSAGE": "Karɓar Kasuwancin Pi"
+      },
+      "ADD_PRODUCT_MENU": {
+        "LABELS": {
+          "ADD_PRODUCT_INTO_SHOP_MESSAGE": "Ƙara samfur a cikin shagon ku",
+          "PRODUCT_NAME": "Sunan samfur",
+          "PRODUCT_IMAGES": "Hotunan Samfur",
+          "ADD_IMAGE": "Ƙara Hoto",
+          "PRICE": "Farashin",
+          "DESCRIPTION": "Bayani",
+          "FOOD_SERVICE": {
+            "TIME_PREPARATION_MESSAGE": "Har yaushe za a shirya wannan abincin?"
+          }
+        },
+        "BUTTONS": {
+          "LOADING": "Ana lodawa..",
+          "CONFIRM": "Tabbatar"
+        }
+      }
+    },
+    "ADD_PRODUCT": {
+      "LABELS": {
+        "PRODUCT_NAME": "Sunan samfur",
+        "PRODUCT_DESCRIPTION": "Bayanin Samfura",
+        "PRODUCT_IMAGES": "Hotunan Samfur",
+        "PRODUCT_PRICE": "Farashin samfur",
+        "PRODUCT_QUANTITY": "Yawan samfur",
+        "SHIPPING_TYPE": "Nau'in jigilar kaya"
+      },
+      "PLACEHOLDERS": {
+        "PRODUCT_IMAGES": "Loda Hotunan Samfura",
+        "PRODUCT_IMAGES_MAX": "Hotunan Samfur (Iyakance: 3)"
+      },
+      "VALIDATIONS": {
+        "PRODUCT_IMAGES": "Babu hotunan samfur da aka zaɓa"
+      },
+      "OPTIONS": {
+        "SHIPPING_TYPES": {
+          "FREE_SHIPPING": "Sufuri kyauta",
+          "PAID_SHIPPING": "Shigowar da Aka Biya",
+          "PICKUP": "Daukewa",
+          "PAY_ON_DELIVERY": "Biya akan Bayarwa"
+        }
+      },
+      "BUTTONS": {
+        "SUBMIT": "Sallama"
+      }
+    }
+  },
+  "SHOPPING": {
+    "ORDER_SCREEN": {
+      "MENU": "Menu",
+      "HIGHLIGHT_MESSAGE": "Kuna iya yin oda akan layi kuma ku biya cikin mutum",
+      "BUY_NOW_MESSAGE": "Saya yanzu",
+      "NO_PRODUCTS_MESSAGE": "Wannan kasuwancin ba shi da samfura."
+    }
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "takardar kebantawa",
+    "LAST_UPDATED": "An sabunta ta ƙarshe",
+    "EMAIL_ADDRESS": "Adireshin i-mel",
+    "SECTIONS": {
+      "HEADER_1": "Gabatarwa",
+      "CONTENT_1": "Barka da zuwa Map of Pi app, wanda ƙungiyar Map of Pi ta haɓaka tare da haɗin gwiwar Pi Community. Wannan Dokar Sirri tana fayyace yadda muke tattarawa, amfani, bayyanawa, da kare keɓaɓɓen bayanin ku lokacin da kuke amfani da aikace-aikacen hannu ta hannu.",
+      
+      "HEADER_2": "Bayanin Mu Tattara",
+      "SUBHEADER_2_1": "Bayanin mai amfani",
+      "CONTENT_2_1_1": "Lokacin da kayi rajista azaman mai amfani, ƙila mu tattara sunanka, adireshin imel, sunan mai amfani, da sauran bayanan da suka dace.",
+      "CONTENT_2_1_2": "Muna iya tattara bayanai game da na'urarka, gami da nau'in na'ura, tsarin aiki, da masu gano na'ura na musamman.",
+      "SUBHEADER_2_2": "Bayanin Dillali",
+      "CONTENT_2_2_1": "Ana iya buƙatar dillalai masu rijista akan dandamali don samar da bayanan kasuwanci, gami da sunan kasuwanci, wuri, da bayanan tuntuɓar juna.",
+
+      "HEADER_3": "Yadda Muke Amfani da Bayananku",
+      "SUBHEADER_3_1": "Bayar da Ayyuka",
+      "CONTENT_3_1_1": "Muna amfani da bayanin ku don samarwa da haɓaka Taswirar ayyukan app na Pi, gami da ayyukan mai amfani da mai siyarwa.",
+      "SUBHEADER_3_2": "Sadarwa",
+      "CONTENT_3_2_1": "Za mu iya amfani da bayanan tuntuɓar ku don aika muku sabuntawa, sanarwa, da saƙonnin tallatawa masu alaƙa da Map of Pi app.",
+      "SUBHEADER_3_3": "Bincike",
+      "CONTENT_3_3_1": "Muna tattarawa da bincika bayanai don haɓaka aiki, fasali, da ayyukan ƙa'idar.",
+
+      "HEADER_4": "Raba Bayananku",
+      "SUBHEADER_4_1": "Tare da Dillalai",
+      "CONTENT_4_1_1": "Ana iya raba bayanin mai amfani tare da masu siyarwa don cika oda da dalilai na sadarwa.",
+      "SUBHEADER_4_2": "Tare Da Jam'iyyu Na Uku",
+      "CONTENT_4_2_1": "Za mu iya raba bayani tare da masu ba da sabis na ɓangare na uku don aikin app, nazari, da sarrafa biyan kuɗi.",
+
+      "HEADER_5": "Matakan Tsaro",
+      "CONTENT_5_1": "Muna amfani da matakan tsaro na masana'antu don kare bayanan ku. Koyaya, babu hanyar watsawa akan intanit ko ma'ajin lantarki da ke da cikakken tsaro.",
+
+      "HEADER_6": "Zabinku",
+      "CONTENT_6_1": "Kuna iya sabuntawa ko share bayanan asusunku ta hanyar saitunan app. Hakanan kuna iya ficewa daga sadarwar talla.",
+
+      "HEADER_7": "Canje-canje ga Wannan Manufar Sirri",
+      "CONTENT_7_1": "Za mu iya sabunta wannan Dokar Sirri kamar yadda ya cancanta. Za a buga sabon sigar a gidan yanar gizon mu ko a cikin app.",
+
+      "HEADER_8": "Tuntube Mu",
+      "CONTENT_8_1": "Idan kuna da wasu tambayoyi ko damuwa game da wannan Dokar Sirri, da fatan za a tuntuɓe mu "
+    }
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Sharuɗɗan Sabis",
+    "LAST_UPDATED": "An sabunta ta ƙarshe",
+    "EMAIL_ADDRESS": "Adireshin i-mel",
+    "SECTIONS": {
+      "HEADER_1": "Yarda da Sharuɗɗan",
+      "CONTENT_1_1": "Barka da zuwa Map of Pi app, wanda ƙungiyar Map of Pi ta haɓaka tare da haɗin gwiwar Pi Community. Ta amfani da wannan app, kun yarda ku bi waɗannan Sharuɗɗan Sabis, da kuma Manufar Sirrin mu..",
+      
+      "HEADER_2": "Amfani da App",
+      "CONTENT_2_1": "Kun yarda da amfani da Taswirar Pi app bisa bin duk dokoki da ƙa'idodi.",
+      "CONTENT_2_2": "Ba za ku yi amfani da app ɗin don kowane dalili na haram ko haram ba, ko ta kowace hanya da za ta iya lalata, musaki, nauyi, ko ɓata ƙa'idar.", 
+
+      "HEADER_3": "Dukiyar Hankali",
+      "CONTENT_3_1": "The Map of Pi app da duk abun ciki, fasali, da ayyuka na Taswirar Pi ne kuma ana kiyaye su ta haƙƙin mallaka, alamar kasuwanci, da sauran dokokin mallakar fasaha.",
+
+      "HEADER_4": "Iyakance Alhaki",
+      "CONTENT_4_1": "Map of Pi ba za ta kasance abin dogaro ga kowane kai tsaye, kaikaice, na faruwa ba, na musamman, ko lahani mai lalacewa da ya taso daga ko ta kowace hanya da ke da alaƙa da amfani da Map of Pi app.",
+
+      "HEADER_5": "Cin hanci",
+      "CONTENT_5_1": "Kun yarda da ramuwa da riƙe Map of Pi mara lahani da masu haɗin gwiwa, jami'ai, daraktoci, ma'aikata, da wakilai daga kowane da'awar, alhaki, diyya, asara, ko kashe kuɗi (ciki har da kuɗin lauyoyi) waɗanda suka taso daga ko ta kowace hanya mai alaƙa. don amfani da Map of Pi app.",
+
+      "HEADER_6": "Dokar Mulki",
+      "CONTENT_6_1": "Waɗannan Sharuɗɗan Sabis za a gudanar da su bisa ga ƙayyadaddun dokokin ikon mu, ba tare da la'akari da rikice-rikicen tanadin doka ba.",
+
+      "HEADER_7": "Canje-canje ga waɗannan Sharuɗɗan",
+      "CONTENT_7_1": "Mun tanadi haƙƙin sabunta ko gyara waɗannan Sharuɗɗan Sabis a kowane lokaci ba tare da sanarwa ba. Za a buga sabon sigar a gidan yanar gizon mu ko a cikin app."
+    }
+  }
+}
+  
