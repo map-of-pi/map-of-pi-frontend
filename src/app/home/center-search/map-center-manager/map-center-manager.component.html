@@ -7,7 +7,6 @@ leaflet
   <div [leafletLayer]="layer"></div>
 }
 
-
 <!-- Popup Message Container -->
 <section *ngIf="showPopup" class="popup-message" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageTitle" tabindex="0">
   <figure class="popup-message__logo">
@@ -31,10 +30,3 @@ leaflet
 <div class="search-bar__container">
   <app-search-bar (searchQuery)="handleSearch($event)"></app-search-bar>
 </div>
-
-
-
-
-
-
-
