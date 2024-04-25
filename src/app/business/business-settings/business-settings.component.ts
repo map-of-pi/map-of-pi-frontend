@@ -79,28 +79,24 @@ export class BusinessSettingsComponent {
   }
 }
 
-  async send(): Promise<void> {
-    if (this.registerShopForm.valid) {
-      this.isRegistering = true;
-      const datas: IShopData = {
-        shopName: this.registerShopForm?.get('shopName')?.value || '',
-        shopType: this.registerShopForm.get('shopType')?.value || '',
-        shopAddress: this.registerShopForm.get('shopAddress')?.value || '',
-        shopPhone: this.registerShopForm.get('shopPhone')?.value || '',
-        shopEmail: this.registerShopForm.get('shopEmail')?.value || '',
-        shopImage: this.image,
-        shopDescription: this.registerShopForm.get('shopDescription')?.value || '',
-        isPiPaymentEnabled: true,
-      };
+async send(): Promise<void> {
+  if (this.registerShopForm.valid) {
+    this.isRegistering = true;
+    const datas: IShopData = {
+      shopName: this.registerShopForm.get('shopName')?.value || '',
+      shopType: this.registerShopForm.get('shopType')?.value || '',
+      shopAddress: this.registerShopForm.get('shopAddress')?.value || '',
+      shopPhone: this.registerShopForm.get('shopPhone')?.value || '',
+      shopEmail: this.registerShopForm.get('shopEmail')?.value || '',
+      shopImage: this.image,
+      shopDescription: this.registerShopForm.get('shopDescription')?.value || '',
+      isPiPaymentEnabled: true,
+    };
 
+    try {
       const response = await this.shopServices.registerShop(datas);
-
-      const { data } = response;
-      this.logger.debug(data);
-
       if (response.status === 200) {
-        this.isRegistering = false;
-        const newShop = data.newShop;
+        const newShop = response.data.newShop;
         const shopName = newShop.name;
         const shopId = newShop._id;
         this.snackService.showMessage('Business successfully registered');
@@ -108,18 +104,22 @@ export class BusinessSettingsComponent {
         setTimeout(() => {
           this.router.navigate(['business-config', shopId]);
         }, 3000);
-        // this.router.navigate(['manage-business', response.data._id]);
       } else {
-        this.snackService.showError(`SOmething went wrong try again later 🥹`);
-        this.logger.error(response);
-        this.isRegistering = false;
+        throw new Error(`Server responded with status: ${response.status}`);
       }
-    } else {
-      this.registerShopForm.markAllAsTouched();
-      this.logger.warn('Invalid data logged');
-      this.logger.info(this.registerShopForm.value);
+    } catch (error) {
+      this.snackService.showError('Something went wrong. Please try again later.');
+      this.logger.error('Error while registering shop:', error);
+    } finally {
+      this.isRegistering = false;
     }
+  } else {
+    this.registerShopForm.markAllAsTouched();
+    this.snackService.showError('Please fill in all required fields.');
+    this.logger.warn('Invalid data logged');
+    this.logger.info(this.registerShopForm.value);
   }
+}
 
   displayPopup(): void {
     this.showPopup = true;
