@@ -10,9 +10,10 @@ import { NGXLogger } from 'ngx-logger';
 import { SnackService } from '../../core/service/snack.service';
 import { ShopService } from '../../core/service/shop.service';
 import { IShopData } from '../../core/model/business';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: 'app-business-settings',
+  selector: 'app-business-settings',  
   standalone: true,
   templateUrl: './business-settings.component.html',
   styleUrls: ['./business-settings.component.scss'],
@@ -41,26 +42,42 @@ export class BusinessSettingsComponent {
     shopDescription: new FormControl('', Validators.required),
   });
 
-  constructor(private snackService: SnackService, private shopServices: ShopService, private logger: NGXLogger) {}
+  constructor(
+    private snackService: SnackService, 
+    private shopServices: ShopService, 
+    private logger: NGXLogger,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
-  onFileChange(event: any) {
-    if (event.target.files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      this.image = event.target.files[0];
-      this.isLoadingPreview = true;
+  onFileChange(event: Event): void {
+  const element = event.currentTarget as HTMLInputElement;
+  let file: File | null = element.files ? element.files[0] : null;
 
-      reader.onload = (e: any) => {
-        this.imagePreview = reader.result;
-        this.isLoadingPreview = false;
-        this.isPreviewAvailable = true;
-        this.testUpload = true;
-        this.isLoadingPreview = false;
-        this.logger.debug(this.image);
-        this.registerShopForm.get('shopImage')?.markAsTouched;
-      };
-    }
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    this.isLoadingPreview = true;
+
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+      this.isLoadingPreview = false;
+      this.isPreviewAvailable = true;
+      this.testUpload = true;
+      this.registerShopForm.get('shopImage')?.markAsTouched();
+      this.changeDetectorRef.markForCheck();  // Manually trigger change detection
+    };
+
+    reader.onerror = () => {
+      console.error("Failed to read file!");
+      // Optionally reset image loading state and handle the error visually in UI
+      this.isLoadingPreview = false;
+      this.changeDetectorRef.markForCheck();  // Ensure UI updates on error
+    };
+  } else {
+    console.log('No file selected or file could not be read');
+    // Handle the case where no file is selected
   }
+}
 
   async send(): Promise<void> {
     if (this.registerShopForm.valid) {
