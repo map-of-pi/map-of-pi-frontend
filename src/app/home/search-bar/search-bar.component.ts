@@ -8,6 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
 
 import { map, Observable, startWith } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';
@@ -43,7 +46,11 @@ export class SearchBarComponent implements OnInit {
   @Output() searchQuery = new EventEmitter<SearchQueryEvent>();
   @Output() searchTypeToggled = new EventEmitter<boolean>();
 
-  constructor(private readonly uiStateService: UiStateService, private logger: NGXLogger) {
+  constructor(
+    private http: HttpClient,
+    private readonly uiStateService: UiStateService, 
+    private logger: NGXLogger
+  ) {
     this.uiStateService.setShowBackButton(false);
   }
 
@@ -60,16 +67,32 @@ export class SearchBarComponent implements OnInit {
   }
 
   submitSearch(): void {
-    const query = this.searchBarControl.value;
-    if (query !== null) {
-      const searchType = this.isBusinessSearchType ? 'business' : 'product';
-      this.logger.info(`Search query emitted for ${searchType}: `, query);
-      this.searchQuery.emit({ query, searchType });
+    const address = this.searchBarControl.value;
+    if (address) {
+      const apiKey = "1ddbc964bc124f4db4828dda2a55f22e";
+      const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`;
+  
+      this.http.get<any>(url).subscribe(response => {
+        console.log('API Response:', response);  // This should log the API response
+        if (response && response.results && response.results.length > 0) {
+          const { lat, lng } = response.results[0].geometry;
+          this.searchQuery.emit({
+            query: address,
+            searchType: 'location',
+            coordinates: { lat, lng }
+          });
+        } else {
+          this.logger.error('No results found for the address:', address);
+        }
+      }, error => {
+        this.logger.error('Geocoding error:', error);
+      });
     }
   }
-}
+}  
 
 export interface SearchQueryEvent {
   query: string;
   searchType: string;
+  coordinates?: { lat: number, lng: number };
 }
