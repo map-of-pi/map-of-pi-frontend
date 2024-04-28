@@ -11,14 +11,18 @@
   },
   "MAP": {
     "USER_LOCATION": "Estás aquí",
-    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " se ha seleccionado como tu destino y se ha proporcionado la ruta. El transporte móvil te llevará aproximadamente ",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " ha sido seleccionado como tu destino y se ha proporcionado la ruta. El transporte móvil te llevará aproximadamente ",
     "MOBILE_TRANSPORTATION_TIME_MESSAGE": "XX horas y XX minutos",
     "MIDDLE_CLICKED_MESSAGE": "Clic medio",
     "UNKNOWN_MARKER_CLICKED_MESSAGE": "Marcador desconocido clicado",
-    "BUTTONS": {
-      "CANCEL": "Cancelar"
-    }
-  },
+    "WELCOME_MESSAGE": "¡Bienvenido al Mapa de Pi!",
+    "DYNAMIC_INSTRUCTION": "Estimado usuario, por favor seleccione su ubicación central preferida en el mapa, luego confirme haciendo clic en 'Guardar Centro'.",
+      "BUTTONS": {
+        "GOT_IT": "¡Entendido!",
+        "CANCEL": "Cancelar",
+        "SAVE_CENTER": "Guardar Centro"
+      }
+    },
   "FOOTER": {
     "PRIVACY_POLICY": "Política de privacidad",
     "TERMS_OF_SERVICE": "Condiciones de servicio"
@@ -50,6 +54,7 @@
           "TRANSPORTATION": "Transporte"
         },        
         "BUSINESS_LOCATION": "Ubicación del negocio",
+        "BUSINESS_IMAGES": "Imágenes del negocio",
         "BUSINESS_PHONE_NUMBER": "Número de teléfono del negocio",
         "BUSINESS_EMAIL_ADDRESS": "Correo electrónico del negocio"
       },
@@ -57,9 +62,7 @@
         "BUSINESS_NAME": "Ingrese el nombre de su negocio",
         "BUSINESS_DESCRIPTION": "Ingrese una descripción breve de su negocio",
         "BUSINESS_LOCATION": "Ingrese la ubicación de su negocio",
-        "BUSINESS_IMAGE_UPLOAD": "Sube la imagen de tu negocio",
-        "BUSINESS_IMAGE_CHANGE": "Cambia la imagen de tu negocio",
-        "BUSINESS_IMAGE_LOADING": "Cargando imagen",
+        "BUSINESS_IMAGES": "Sube tus imágenes aquí",
         "BUSINESS_PHONE_NUMBER": "Ingrese el número de teléfono de su negocio",
         "BUSINESS_EMAIL_ADDRESS": "Ingrese la dirección de correo electrónico de su negocio"
       },
