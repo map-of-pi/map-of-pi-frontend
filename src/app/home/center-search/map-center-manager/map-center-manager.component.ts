@@ -34,6 +34,7 @@ export class MapCenterManagerComponent implements OnInit {
   userPositions: any[] = [];
   currentPosition: { lat: number; lng: number } | null = null;
   typedMessage: string = '';
+  private typingInterval: any;
   popupDismissed: boolean = false;
   welcomeMessage: string;
   saveCenterButton: string;
@@ -62,12 +63,23 @@ constructor(
   this.translateService.use('en'); 
 
   this.langChangeSubscription = this.translateService.onLangChange.subscribe(() => {
+    this.cancelOngoingTyping();
     this.updateTranslatedStrings();
     this.typeText('MAP.DYNAMIC_INSTRUCTION', 40); 
   });
   this.welcomeMessage = this.translateService.instant('MAP.WELCOME_MESSAGE');
   this.saveCenterButton = this.translateService.instant('MAP.BUTTONS.SAVE_CENTER');
 }
+
+  // Function to cancel ongoing typing
+  private cancelOngoingTyping(): void {
+    if (this.typingInterval) {
+      clearInterval(this.typingInterval);
+      this.typingInterval = null;
+      this.typedMessage = ''; // Clear the current message
+      this.changeDetectorRef.detectChanges(); // Update the UI
+    }
+  }
 
 getCenterSearchMapOptions(): L.MapOptions {
   const southWest = L.latLng(-89.98155760646617, -180);
@@ -130,22 +142,32 @@ onMapReady(map: L.Map): void {
   // this.typeText('MAP.DYNAMIC_INSTRUCTION', 40);
 }
 
-// Function to simulate typing effect for given text at specified speed.
-typeText(translationKey: string, speed: number): void {
-  const fullText = this.translateService.instant(translationKey); // Translate the key to get the actual text
+  // Function to simulate typing effect for given text at specified speed
+  typeText(translationKey: string, speed: number): void {
+    this.translateService.get(translationKey).subscribe(fullText => {
+      this.cancelOngoingTyping(); // Ensure no other typing process is running
+      let i = 0;
+      this.typedMessage = ''; // Clear previous message
+      this.typingInterval = setInterval(() => {
+        if (i < fullText.length) {
+          this.typedMessage += fullText.charAt(i);
+          i++;
+          this.changeDetectorRef.detectChanges(); // Ensure the UI updates with each character
+        } else {
+          clearInterval(this.typingInterval);
+          this.typingInterval = null;
+        }
+      }, speed);
+    });
+  }
 
-  let i = 0;
-  this.typedMessage = ''; // Clear previous message
-  const interval = setInterval(() => {
-    if (i < fullText.length) {
-      this.typedMessage += fullText.charAt(i);
-      i++;
-      this.changeDetectorRef.detectChanges(); // Ensure the UI updates with each character
-    } else {
-      clearInterval(interval);
+    // Ensures to clean up on component destruction
+    ngOnDestroy(): void {
+      this.cancelOngoingTyping();
+      if (this.langChangeSubscription) {
+        this.langChangeSubscription.unsubscribe();
+      }
     }
-  }, speed);
-}
   
 closePopup(): void {
   this.showPopup = false;
