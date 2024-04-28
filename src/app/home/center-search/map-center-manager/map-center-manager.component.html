@@ -1,1 +1,35 @@
-<p>map-center-manager works!</p>
+<div
+  id="map"
+  leaflet
+  [leafletOptions]="options"
+  (leafletMapReady)="onMapReady($event)">
+  @if (layer) {
+    <div [leafletLayer]="layer"></div>
+  }
+
+<!-- Popup Message Container -->
+<section *ngIf="showPopup" class="popup-message-container" role="alertdialog" aria-modal="true" aria-labelledby="popupMessageTitle" tabindex="0">
+  <figure>
+    <figcaption class="visually-hidden">{{ 'CORE.APP_NAME' | translate }}</figcaption>
+  </figure>
+  <div id="popupMessageTitle">
+    <h2 class="popup-message__title">{{ 'MAP.WELCOME_MESSAGE' | translate }}</h2>
+    <p class="popup-message__typed-message">{{ typedMessage}}</p>
+  </div>
+  <button (click)="closePopup()" class="popup-message__button--confirm" aria-label="Close popup">
+    {{ 'MAP.BUTTONS.GOT_IT' | translate }}
+  </button>
+</section>
+
+<div *ngIf="popupDismissed" class="map-controls__item">
+  <button aria-label="Save your map center location" class="map-controls__button" (click)="saveCenter()" role="button" tabindex="0">
+    {{ 'MAP.BUTTONS.SAVE_CENTER' | translate }}
+  </button>
+</div>
+
+<div class="search-bar__container">
+  <app-search-bar (searchQuery)="handleSearch($event)">Search</app-search-bar>
+</div>
+
+
+
