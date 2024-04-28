@@ -15,8 +15,12 @@
     "MOBILE_TRANSPORTATION_TIME_MESSAGE": "XX hours and XX minutes",
     "MIDDLE_CLICKED_MESSAGE": "Middle clicked",
     "UNKNOWN_MARKER_CLICKED_MESSAGE": "Unknown marker clicked",
+    "WELCOME_MESSAGE": "Welcome to Map of Pi!",
+    "DYNAMIC_INSTRUCTION":"Dear User, please select your preferred central location on the map, then confirm by clicking 'Save Center'",    
     "BUTTONS": {
-      "CANCEL": "Cancel"
+      "GOT_IT": "Got it!",
+      "CANCEL": "Cancel",
+      "SAVE_CENTER": "Save Center"
     }
   },
   "FOOTER": {
