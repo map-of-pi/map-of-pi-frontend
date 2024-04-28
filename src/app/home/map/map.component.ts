@@ -79,28 +79,71 @@ export class MapComponent implements OnInit, OnDestroy {
       this.addAllCoordinatesToMap();
     });
   }
+
+  loadLocationFromLocalStorage(): { lat: number; lng: number } | null {
+    const savedLocationJSON = localStorage.getItem('savedLocation');
+    return savedLocationJSON ? JSON.parse(savedLocationJSON) : null;
+  }
   
   async ngOnInit(): Promise<void> {
     try {
-      const response = await axios.get('https://api-mapofpi.vercel.app/shops');
-
-      this.logger.debug('From Map of Pi: ', response.data?.data);
-
-      const shops: any[] = response.data?.data;
-
-      this.allShops = shops;
-      this.filteredShops = shops;
-
-      // Wait for translation update before adding coordinates to the map
-      this.updateTranslatedStrings();
-      this.addAllCoordinatesToMap();
-
-      this.logger.debug('All shops after fetching them from DB ', this.allShops.map((shop) => shop.coordinates));
+      // Decide initial map centering based on saved location or geolocation
+      await this.decideInitialMapCentering();
+        // Retrieve the saved location 
+        const savedLocation = this.loadLocationFromLocalStorage();
+        if (savedLocation) {
+          this.dropPinAtSavedLocation(savedLocation);
+        }
+      // Load shops and add them to the map
+      await this.loadShops();
     } catch (error) {
       this.logger.error(error);
     }
-    this.track();
   }
+
+  dropPinAtSavedLocation(location: { lat: number; lng: number }): void {
+  L.marker([location.lat, location.lng], {
+    icon: L.icon({
+      iconUrl: 'assets/images/map/search.png',
+      iconSize: [34, 34],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    })
+  }).addTo(this.map);
+}
+  
+  private async decideInitialMapCentering(): Promise<void> {
+    const savedLocation = this.loadLocationFromLocalStorage();
+    if (savedLocation) {
+      this.initializeMapWithSavedLocation(savedLocation);
+    } else {
+      this.initializeMapWithGeolocation();
+    }
+  }
+  
+  private async loadShops(): Promise<void> {
+    const response = await axios.get('https://api-mapofpi.vercel.app/shops');
+    this.logger.debug('From Map of Pi: ', response.data?.data);
+    const shops: any[] = response.data?.data;
+    this.allShops = shops;
+    this.filteredShops = shops;
+    // Update map with shop locations
+    this.updateTranslatedStrings();
+    this.addAllCoordinatesToMap();
+  }
+  
+  
+// Sets initial map view based on saved location when the map first loads
+initializeMapWithSavedLocation(savedLocation: { lat: number, lng: number }): void {
+  this.options.zoom = 8; // Default zoom
+  this.options.center = L.latLng(savedLocation.lat, savedLocation.lng);
+}
+
+
+initializeMapWithGeolocation(): void {
+  // Geolocation logic here.
+}
 
   ngOnDestroy(): void {
     // Unsubscribe from langChangeSubscription to prevent potential memory leaks
@@ -112,31 +155,50 @@ export class MapComponent implements OnInit, OnDestroy {
       this.geolocationSubscription.unsubscribe();
     }
   }
-
-  onMapReady(map: Map): void {
+  onMapReady(map: L.Map): void {
     this.map = map;
-    // Add all coordinates to the map on component initialization
+    
     this.addAllCoordinatesToMap();
   }
-
+  
   locateMe(): void {
-    this.track();
+    const savedLocation = this.loadLocationFromLocalStorage();
+    if (savedLocation) {
+      this.map.setView([savedLocation.lat, savedLocation.lng],); 
+    } else {
+      this.getCurrentLocation();
+    }
+  }
+  
+  getCurrentLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // Explicitly declare coords as a LatLngTuple
+        const coords: [number, number] = [position.coords.latitude, position.coords.longitude];
+        this.map.setView(coords);
+      }, (error) => {
+        console.error('Error getting location', error);
+        this.snackService.showMessage("We couldn't access your location. Please ensure your location settings are enabled and try again.");
+      });
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+      this.snackService.showMessage("Your browser does not support location services, which are needed for this feature. Please update your browser or try a different one.");
+    }
   }
 
   // Filter shops based on search query
   filterShops(query: string, searchType: SearchType): void {
-    this.logger.debug(`Filtering shops based on searchType: ${searchType}`);
+    this.logger.debug(`Filtering shops based on searchType: ${searchType}..`);
     // search by business
     if (searchType === 'business') {
       this.filteredShops = this.allShops.filter(shop =>
-        !query || (shop.name && shop.name.toLowerCase().includes(query.toLowerCase()))
+        shop.name.toLowerCase().includes(query.toLowerCase())
       );
     // search by product
     } else if (searchType === 'product') {
       this.filteredShops = this.allShops.filter(shop =>
-        !query || shop.products.some((product: { name?: string; }) =>
-          product.name && product.name.toLowerCase().includes(query.toLowerCase())
-        )
+        shop.products.some((product: { name: string; }) =>
+          product.name.toLowerCase().includes(query.toLowerCase()))
       );
     } else {
       this.logger.error("Unexpected and invalid search type: ", searchType);
@@ -309,6 +371,7 @@ export class MapComponent implements OnInit, OnDestroy {
     if (this.userMarker) {
       this.userMarker.closePopup();
       this.userMarker.unbindPopup();
+      this.track();
     }
   }
 
