@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Subscription } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';
-
+import { HttpClientModule } from '@angular/common/http';
 import { ActionRowComponent } from './action-row/action-row.component';
 import { SearchBarComponent, SearchQueryEvent } from './search-bar/search-bar.component';
 import { MapComponent } from './map/map.component';
@@ -12,7 +12,7 @@ import { SnackService } from '../core/service/snack.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ActionRowComponent, MapComponent, SearchBarComponent],
+  imports: [ActionRowComponent, MapComponent, SearchBarComponent, HttpClientModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
