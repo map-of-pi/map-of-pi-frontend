@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 
-
 import { map, Observable, startWith } from 'rxjs';
 import { NGXLogger } from 'ngx-logger';
 
@@ -32,6 +31,7 @@ import { UiStateService } from '../../core/service/ui-state.service';
     MatIcon,
     MatMiniFabButton,
     MatProgressSpinner,
+    HttpClientModule,
   ],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.scss',
