@@ -3,14 +3,15 @@ import { Router, RouterModule } from '@angular/router';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { TranslateService,TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { SearchQueryEvent } from '../../search-bar/search-bar.component';
+import { SearchBarComponent, SearchQueryEvent } from '../../search-bar/search-bar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NGXLogger } from 'ngx-logger';
 import { Subscription } from 'rxjs';
 import { Map, marker, Layer } from 'leaflet';
-import * as L from 'leaflet';
+import * as L from 'leaflet'; 
 import 'leaflet-routing-machine';
-import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 import { GeolocationService } from '../../../core/service/geolocation.service';
 import { SharedModule } from '../../../shared.module';
@@ -20,7 +21,7 @@ import { SharedModule } from '../../../shared.module';
   templateUrl: './map-center-manager.component.html',
   styleUrls: ['./map-center-manager.component.scss'],
   standalone: true,
-  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, TranslateModule, SharedModule ],
+  imports: [SearchBarComponent, LeafletModule, RouterModule, CommonModule, TranslateModule, SharedModule, HttpClientModule ],
 })
 
 export class MapCenterManagerComponent implements OnInit {  
