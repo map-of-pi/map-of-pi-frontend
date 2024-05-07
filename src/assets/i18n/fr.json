@@ -1,0 +1,220 @@
+{
+  "CORE": {
+    "APP_NAME": "Map of Pi"
+  },
+  "HOME": {
+    "ADD_MY_BUSINESS": "Ajouter mon entreprise",
+    "SEARCH_BY_BUSINESS_PLACEHOLDER": "Rechercher des entreprises..",
+    "SEARCH_BY_PRODUCT_PLACEHOLDER": "Rechercher des produits.  .",
+    "SEARCH_RESULT_FOUND_MESSAGE": "Votre recherche a trouvé {{numberOfShopsFound}} magasins. Veuillez effectuer un zoom arrière pour afficher tous les marqueurs de magasins.",
+    "SEARCH_RESULT_NOT_FOUND_MESSAGE": "Votre recherche n'a trouvé aucun magasin. Veuillez réessayer avec des critères différents."
+  },
+  "MAP": {
+    "USER_LOCATION": "Vous êtes ici",
+    "MOBILE_TRANSPORTATION_DISTANCE_MESSAGE": " a été sélectionné comme destination et l'itinéraire a été fourni. Le transport mobile vous amènera environ ",
+    "MOBILE_TRANSPORTATION_TIME_MESSAGE": "XX heures et XX minutes",
+    "MIDDLE_CLICKED_MESSAGE": "Clic du milieu",
+    "UNKNOWN_MARKER_CLICKED_MESSAGE": "Marqueur inconnu cliqué",
+    "WELCOME_MESSAGE": "Bienvenue sur la carte de Pi!",
+    "DYNAMIC_INSTRUCTION": "Cher utilisateur, veuillez sélectionner votre préféré  emplacement central sur la carte, puis validez en cliquant sur 'Enregistrer le centre'",
+    "BUTTONS": {
+      "GOT_IT": "Compris!",
+      "CANCEL": "Annuler",
+      "SAVE_CENTER": "Enregistrer le centre"
+    }
+  },
+  "FOOTER": {
+    "PRIVACY_POLICY": "Politique de confidentialité",
+    "TERMS_OF_SERVICE": "Conditions d'utilisation"
+  },
+  "INFORMATION_DIALOG": {
+    "LATEST_UPDATES": "Dernières mises à jour",
+    "REPORTING_MESSAGE": "Veuillez signaler les défauts à"
+  },
+  "BUSINESS_MARKER_DIALOG": {
+    "DISTANCE_MESSAGE": "Loin de vous",
+    "ONLINE_PI_ORDERS_ALLOWED_MESSAGE": "Commandes Pi en ligne autorisées",
+    "PRODUCTS_AVAILABLE_MESSAGE": "Produit(s) disponible(s)", 
+    "BUTTONS": { 
+      "VISIT_SHOP": "Visiter la boutique", 
+      "TAKE_ROUTE": "Prendre l'itinéraire" 
+    } 
+  }, 
+  "BUSINESS": { 
+    "REGISTRATION": { 
+      "LABELS": { 
+        "BUSINESS_NAME": "Nom de l'entreprise", 
+        "BUSINESS_DESCRIPTION": "Description de l'entreprise", 
+        "BUSINESS_TYPE":  "Type d'entreprise", 
+        "BUSINESS_TYPES": { 
+          "RESTAURANT": "Restaurant", 
+          "RETAIL_STORE": "Magasin de détail", 
+          "SERVICE": "Service", 
+          "CONSTRUCTION": "Construction", 
+          "TRANSPORTATION": "Transport"  
+        }, 
+        "BUSINESS_LOCATION": "Emplacement de l'entreprise", 
+        "BUSINESS_PHONE_NUMBER": "Numéro de téléphone professionnel", 
+        "BUSINESS_EMAIL_ADDRESS": "Adresse e-mail professionnelle" 
+      }, 
+      "PLACEHOLDERS": { 
+        "BUSINESS_NAME": "Entrez le nom de votre entreprise",  
+        "BUSINESS_DESCRIPTION": "Entrez une description simple de votre entreprise", 
+        "BUSINESS_LOCATION": "Entrez l'emplacement de votre entreprise", 
+        "BUSINESS_IMAGE_UPLOAD": "Téléchargez l'image de votre entreprise", 
+        "BUSINESS_IMAGE_CHANGE": "Modifiez l'image de votre entreprise", 
+        "BUSINESS_IMAGE_LOADING": "Chargement de l'image", 
+        "BUSINESS_PHONE_NUMBER": "Entrez le numéro de téléphone de votre entreprise", 
+        "BUSINESS_EMAIL_ADDRESS": "Entrez l'adresse e-mail de votre entreprise" 
+      }, 
+      "VALIDATIONS": { 
+        "BUSINESS_NAME": "Le nom de l'entreprise est  requis", 
+        "BUSINESS_DESCRIPTION": "La description de l'entreprise est requise", 
+        "BUSINESS_TYPE": "Le type d'entreprise est requis", 
+        "BUSINESS_LOCATION": "L'adresse de l'entreprise est requise", 
+        "BUSINESS_IMAGES": "L'entreprise doit avoir une image associée", 
+        "BUSINESS_PHONE_NUMBER": "Un numéro de téléphone professionnel est requis", 
+        "BUSINESS_EMAIL_ADDRESS": "Une adresse e-mail professionnelle est requise" 
+      }, 
+      "BUTTONS": { 
+        "MENU": "Menu", 
+        "LOYALTY_STAMPS": "Timbres de fidélité", 
+        "BUSINESS_PHOTOS":  "Photos professionnelles", 
+        "QR_CODE": "Obtenir le code QR", 
+        "CONFIRM": "Confirmer les paramètres professionnels", 
+        "UNDER_CONSTRUCTION": "Cette fonctionnalité n'est pas encore entièrement créée" 
+      } 
+    }, 
+    "CONFIGURATION": { 
+      "ÉTIQUETTES": { 
+        "SHOP_NAME": "Nom de la boutique", 
+        "MENU": "Menu",
+        "ACCEPT_ORDERS_WITHOUT_PAYMENT_MESSAGE": "Accepter les commandes sans paiement", 
+        "ACCEPT_PI_TRANSACTIONS_MESSAGE": "Accepter les transactions Pi" 
+      }, 
+      "ADD_PRODUCT_MENU": { 
+        "LABELS": { 
+          "ADD_PRODUCT_INTO_SHOP_MESSAGE": "Ajouter un produit à votre boutique", 
+          "PRODUCT_NAME": "Produit  Name", 
+          "PRODUCT_IMAGES": "Images du produit", 
+          "ADD_IMAGE": "Ajouter une image", 
+          "PRICE": "Prix", 
+          "DESCRIPTION": "Description", 
+          "FOOD_SERVICE": { 
+            "TIME_PREPARATION_MESSAGE": "Combien de temps  préparer ce repas ?"  
+          } 
+        }, 
+        "BUTTONS": { 
+          "LOADING": "Chargement en cours..", 
+          "CONFIRM": "Confirmer" 
+        } 
+      } 
+    }, 
+    "ADD_PRODUCT": { 
+      "LABELS": { 
+        "PRODUCT_NAME": "Nom du produit", 
+        "PRODUCT_DESCRIPTION  ": "Description du produit", 
+        "PRODUCT_IMAGES": "Images du produit", 
+        "PRODUCT_PRICE": "Prix du produit", 
+        "PRODUCT_QUANTITY": "Quantité du produit", 
+        "SHIPPING_TYPE": "Type d'expédition" 
+      }, 
+      "PLACEHOLDERS": { 
+        "PRODUCT_IMAGES": "Télécharger des images de produits", 
+        "PRODUCT_IMAGES_MAX": "Images de produits (Limite : 3)" 
+      }, 
+      "VALIDATIONS": { 
+        "PRODUCT_IMAGES": "Aucune image de produit sélectionnée" 
+      }, 
+      "OPTIONS": { 
+        "SHIPPING_TYPES":  { 
+          "FREE_SHIPPING": "Livraison gratuite", 
+          "PAID_SHIPPING": "Livraison payante", 
+          "PICKUP": "Retrait", 
+          "PAY_ON_DELIVERY": "Payer à la livraison" 
+        } 
+      }, 
+      "BUTTONS": { 
+        "SUBMIT": "Soumettre" 
+      } 
+    } 
+  }, 
+  "SHOPPING": { 
+    "ORDER_SCREEN": { 
+      "MENU": "Menu", 
+      "HIGHLIGHT_MESSAGE": "Vous pouvez commander en ligne et payer en personne", 
+      "BUY_NOW_MESSAGE": "Acheter maintenant", 
+      "NO_PRODUCTS_MESSAGE"  : "Cette entreprise n'a aucun produit."  
+    } 
+  }, 
+  "PRIVACY_POLICY": { 
+    "TITLE": "Politique de confidentialité", 
+    "LAST_UPDATED": "Dernière mise à jour", 
+    "EMAIL_ADDRESS": "Adresse e-mail", 
+    "SECTIONS": { 
+      "HEADER_1": "Introduction", 
+      "CONTENT_1  " : "Bienvenue dans l'application Map of Pi, développée par l'équipe Map of Pi en collaboration avec la communauté Pi. Cette politique de confidentialité décrit la manière dont nous collectons, utilisons, divulguons et protégeons vos informations personnelles lorsque vous utilisez notre application mobile.",
+      
+      "HEADER_2": "Informations que nous collectons",
+      "SUBHEADER_2_1": "Informations utilisateur",
+      "CONTENT_2_1_1": "Lorsque vous vous inscrivez en tant qu'utilisateur, nous pouvons collecter votre nom, votre adresse e-mail, votre nom d'utilisateur et d'autres informations pertinentes.",
+      "CONTENT_2_1_2": "Nous pouvons collecter des informations sur votre appareil, notamment le type d'appareil, le système d'exploitation et les identifiants uniques de l'appareil.",
+      "SUBHEADER_2_2": "Informations sur le fournisseur",
+      "CONTENT_2_2_1": "Les fournisseurs qui s'inscrivent sur la plateforme peuvent être tenus de  fournir des informations commerciales, y compris le nom de l'entreprise, l'emplacement et les coordonnées.",
+  
+      "HEADER_3": "Comment nous utilisons vos informations",
+      "SUBHEADER_3_1": "Fournir des services",
+      "CONTENT_3_1_1": "Nous utilisons vos informations pour fournir et améliorer  les services de l'application Map of Pi, y compris les fonctionnalités utilisateur et fournisseur.",
+      "SUBHEADER_3_2": "Communications",
+      "CONTENT_3_2_1": "Nous pouvons utiliser vos informations de contact pour vous envoyer des mises à jour, des notifications et des messages promotionnels liés à la Map of Pi  app.",
+      "SUBHEADER_3_3": "Analyses",
+      "CONTENT_3_3_1": "Nous collectons et analysons des données pour améliorer les performances, les fonctionnalités et les fonctionnalités de l'application.",
+  
+      "HEADER_4": "Partage de vos informations",
+      "SUBHEADER_4_1": "Avec les fournisseurs",
+      "CONTENT_4_1_1": "Les informations utilisateur peuvent être partagées avec les fournisseurs à des fins de traitement des commandes et de communication.",
+      "SUBHEADER_4_2": "Avec des tiers",
+      "CONTENT_4_2_1": "Nous pouvons partager des informations avec des tiers  fournisseurs de services pour les fonctionnalités des applications, l'analyse et le traitement des paiements.",
+  
+      "HEADER_5": "Mesures de sécurité",
+      "CONTENT_5_1": "Nous utilisons des mesures de sécurité conformes aux normes de l'industrie pour protéger vos informations.  Cependant, aucune méthode de transmission sur Internet ou de stockage électronique n'est totalement sécurisée.",
+  
+      "HEADER_6": "Vos choix",
+      "CONTENT_6_1": "Vous pouvez mettre à jour ou supprimer les informations de votre compte via les paramètres de l'application. Vous pouvez également vous désinscrire des communications promotionnelles.",
+  
+      "HEADER_7": "Modifications apportées à cette politique de confidentialité",
+      "CONTENT_7_1": "Nous pouvons mettre à jour cette politique de confidentialité si  nécessaire. La dernière version sera publiée sur notre site Web ou dans l'application.",
+  
+      "HEADER_8": "Contactez-nous",
+      "CONTENT_8_1": "Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité, veuillez nous contacter "
+    }
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Conditions d'utilisation",
+    "LAST_UPDATED": "Dernière mise à jour",
+    "EMAIL_ADDRESS": "Adresse e-mail",
+    "SECTIONS": {
+      "HEADER_1": "Acceptation des conditions",
+      "CONTENT_1_1": "Bienvenue dans l'application Map of Pi, développée par l'équipe Map of Pi en collaboration avec la communauté Pi. En utilisant cette application, vous acceptez de respecter ces conditions d'utilisation, ainsi que notre politique de confidentialité.",
+  
+      "HEADER_2": "Utilisation de l'application",
+      "CONTENT_2_1": "Vous acceptez d'utiliser l'application Map of Pi conformément à toutes les lois et réglementations applicables.",
+      "CONTENT_2_2": "Vous ne devez pas utiliser l'application à des fins illégales.  ou à des fins interdites, ou de quelque manière que ce soit qui pourrait endommager, désactiver, surcharger ou détériorer l'application.",
+  
+      "HEADER_3": "Propriété intellectuelle",
+      "CONTENT_3_1": "L'application Map of Pi et tout le contenu, les caractéristiques et les fonctionnalités  sont la propriété de Map of Pi et sont protégés par les droits d'auteur, les marques commerciales et d'autres lois sur la propriété intellectuelle.",
+  
+      "HEADER_4": "Limitation de responsabilité",
+      "CONTENT_4_1": "Map of Pi ne sera pas responsable de tout dommage direct, indirect,  dommages accessoires, spéciaux ou consécutifs résultant de ou liés de quelque manière que ce soit à l'utilisation de l'application Map of Pi.",
+  
+      "HEADER_5": "Indemnisation",
+      "CONTENT_5_1": "Vous acceptez d'indemniser et de dégager Map of Pi de toute responsabilité.  et ses sociétés affiliées, dirigeants, administrateurs, employés et agents de toute réclamation, responsabilité, dommage, perte ou dépense (y compris les honoraires d'avocat) découlant de ou liés de quelque manière que ce soit à votre utilisation de l'application Map of Pi. ",
+  
+      "HEADER_6": "Loi applicable",
+      "CONTENT_6_1": "Ces conditions d'utilisation seront régies et interprétées conformément aux lois de notre juridiction définie, sans égard à ses dispositions en matière de conflit de lois.",
+  
+      "HEADER_7": "Modifications de ces conditions",
+      "CONTENT_7_1": "Nous nous réservons le droit de mettre à jour ou de modifier ces conditions d'utilisation à tout moment et sans préavis.  La dernière version sera publiée sur notre site Web ou dans l'application."
+    }
+  }
+}
