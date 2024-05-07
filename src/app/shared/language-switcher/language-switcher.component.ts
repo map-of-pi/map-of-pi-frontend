@@ -26,6 +26,7 @@ export class LanguageSwitcherComponent {
   protected readonly languages: LangMenuItem[] = [
     { code: 'en', label: 'EN', name: 'English', translation: 'English', imageUrl: '../../../assets/images/shared/language/en.svg' },
     { code: 'es', label: 'ES', name: 'Spanish', translation: 'Español', imageUrl: '../../../assets/images/shared/language/es.svg' },
+    { code: 'fr', label: 'FR', name: 'French', translation: 'Français', imageUrl: '../../../assets/images/shared/language/fr.svg' },
     { code: 'ko', label: 'KO', name: 'Korean', translation: '한국어', imageUrl: '../../../assets/images/shared/language/ko.svg' },
     { code: 'ng_hau', label: 'NG/HAU', name: 'Nigerian Hausa', translation: 'Hausa', imageUrl: '../../../assets/images/shared/language/ng.svg' },
     { code: 'ng_ibo', label: 'NG/IBO', name: 'Nigerian Igbo', translation: 'Igbo', imageUrl: '../../../assets/images/shared/language/ng.svg' },
