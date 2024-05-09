@@ -12,7 +12,7 @@ import { ShopService } from '../../core/service/shop.service';
 import { SnackService } from '../../core/service/snack.service';
 
 @Component({
-  selector: 'app-business-settings',  
+  selector: 'app-business-settings',
   standalone: true,
   templateUrl: './business-settings.component.html',
   styleUrls: ['./business-settings.component.scss'],
@@ -42,20 +42,21 @@ export class BusinessSettingsComponent {
   });
 
   constructor(
-    private snackService: SnackService, 
-    private shopServices: ShopService, 
+    private snackService: SnackService,
+    private shopServices: ShopService,
     private logger: NGXLogger,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   onFileChange(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
-    let file: File | null = element.files ? element.files[0] : null;
+    const file: File | null = element.files ? element.files[0] : null;
 
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       this.isLoadingPreview = true;
+      this.image = file;
 
       reader.onload = () => {
         this.imagePreview = reader.result as string;
@@ -63,18 +64,16 @@ export class BusinessSettingsComponent {
         this.isPreviewAvailable = true;
         this.testUpload = true;
         this.registerShopForm.get('shopImage')?.markAsTouched();
-        this.changeDetectorRef.markForCheck();  // Manually trigger change detection
+        this.changeDetectorRef.markForCheck();
       };
 
       reader.onerror = () => {
-        this.logger.error("Failed to read file!");
-        // Optionally reset image loading state and handle the error visually in UI
+        this.logger.error('Failed to read file!');
         this.isLoadingPreview = false;
-        this.changeDetectorRef.markForCheck();  // Ensure UI updates on error
+        this.changeDetectorRef.markForCheck();
       };
     } else {
       this.logger.log('No file selected or file could not be read');
-      // Handle the case where no file is selected
     }
   }
 
@@ -107,16 +106,16 @@ export class BusinessSettingsComponent {
           throw new Error(`Server responded with status: ${response.status}`);
         }
       } catch (error) {
-          this.snackService.showError('Something went wrong. Please try again later.');
-          this.logger.error('Error while registering shop:', error);
+        this.snackService.showError('Something went wrong. Please try again later.');
+        this.logger.error('Error while registering shop:', error);
       } finally {
-          this.isRegistering = false;
+        this.isRegistering = false;
       }
     } else {
-        this.registerShopForm.markAllAsTouched();
-        this.snackService.showError('Please fill in all required fields.');
-        this.logger.warn('Invalid data logged');
-        this.logger.info(this.registerShopForm.value);
+      this.registerShopForm.markAllAsTouched();
+      this.snackService.showError('Please fill in all required fields.');
+      this.logger.warn('Invalid data logged');
+      this.logger.info(this.registerShopForm.value);
     }
   }
 
