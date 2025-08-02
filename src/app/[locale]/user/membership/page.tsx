@@ -26,7 +26,7 @@ export default function MembershipPage() {
   const SUBHEADER = 'font-bold mb-2';
 
   useEffect(() => {
-    const loadMembership = async () => {
+    const loadMembership = async () => { 
       if (!currentUser?.pi_uid) return;
       try {
         const subList = await fetchMembershipList();
@@ -35,6 +35,7 @@ export default function MembershipPage() {
         const data = await fetchMembership(currentUser.pi_uid);
         setMembershipData(data);
         setUserMembership(data? data?.membership_class: userMembership);
+        setSelectedMembership(data?.membership_class || userMembership);
       } catch {
         showAlert("Could not load membership data");
       }
@@ -46,6 +47,7 @@ export default function MembershipPage() {
     logger.info('Membership placed successfully:', data);
     setMembershipData(data.membership);
     setUserMembership(data.membership.membership_class);
+    setSelectedMembership(data.membership.membership_class);
     showAlert('Membership placed successfully');
   }
   
