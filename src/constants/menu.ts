@@ -39,6 +39,14 @@ export const menu = {
       },
       {
         id: 5,
+        code: 'de',
+        label: 'DE',
+        title: 'German',
+        translation: 'Deutsch',
+        icon: '',
+      },
+      {
+        id: 6,
         code: 'ar',
         label: 'AR',
         title: 'Arabic',
@@ -46,7 +54,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 6,
+        id: 7,
         code: 'zh-CN',
         label: 'ZH/CN',
         title: 'Simplified Chinese',
@@ -54,7 +62,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 7,
+        id: 8,
         code: 'zh-TW',
         label: 'ZH/TW',
         title: 'Traditional Chinese',
@@ -62,7 +70,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 8,
+        id: 9,
         code: 'ja',
         label: 'JA',
         title: 'Japanese',
@@ -70,7 +78,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 9,
+        id: 10,
         code: 'ko',
         label: 'KO',
         title: 'Korean',
@@ -78,7 +86,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 10,
+        id: 11,
         code: 'vi',
         label: 'VI',
         title: 'Vietnamese',
@@ -86,7 +94,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 11,
+        id: 12,
         code: 'hau-NG',
         label: 'NG/HAU',
         title: 'Nigerian Hausa',
@@ -94,7 +102,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 12,
+        id: 13,
         code: 'yor-NG',
         label: 'NG/YOR',
         title: 'Nigerian Yoruba',
@@ -102,7 +110,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 13,
+        id: 14,
         code: 'ewe-BJ',
         label: 'BJ/EWE',
         title: 'Benin Ewe',
@@ -110,11 +118,19 @@ export const menu = {
         icon: '',
       },
       {
-        id: 14,
+        id: 15,
         code: 'fon-BJ',
         label: 'BJ/FON',
         title: 'Benin Fon',
         translation: 'Fɔngbè',
+        icon: '',
+      },
+      {
+        id: 16,
+        code: 'ak-TW',
+        label: 'AK/TW',
+        title: 'Akan Twi',
+        translation: 'Twi',
         icon: '',
       }
     ],

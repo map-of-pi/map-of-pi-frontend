@@ -3,12 +3,24 @@ import { INotification } from '@/constants/types';
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
-export const getNotifications = async ({pi_uid, skip, limit}: {pi_uid: string, skip: number, limit: number}) => {
+export const getNotifications = async (
+  {pi_uid, skip, limit, status}: 
+  {pi_uid: string, skip: number, limit: number, status?: 'cleared' | 'uncleared'}) => {
   try {
     const headers = getMultipartFormDataHeaders();
-    const response = await axiosClient.get(`/notifications/${pi_uid}?skip=${skip}&limit=${limit}`, {
-      headers,
+
+    const queryParams = new URLSearchParams({
+      skip: skip.toString(),
+      limit: limit.toString(),
     });
+    if (status) {
+      queryParams.append('status', status);
+    }
+    
+    const response = await axiosClient.get(`/notifications/${pi_uid}?${queryParams.toString()}`, {
+      headers
+    });
+    
     if (response.status === 200) {
       logger.info(`Get notifications successful with Status ${response.status}`, {
         data: response.data

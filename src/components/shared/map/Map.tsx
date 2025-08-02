@@ -56,6 +56,7 @@ const Map = ({
   searchQuery,
   isSearchClicked,
   searchResults,
+  onMapReady,
 }: {
   center: LatLngExpression | null;
   zoom: number;
@@ -63,6 +64,7 @@ const Map = ({
   searchQuery: string;
   isSearchClicked: boolean;
   searchResults: ISeller[];
+  onMapReady?: () => void;
 }) => {
   const t = useTranslations();
   const { isSigningInUser } = useContext(AppContext);
@@ -175,6 +177,7 @@ const Map = ({
   useEffect(() => {
     if (mapRef.current) {
       fetchInitialCoordinates();  // Fetch sellers when map is ready
+      onMapReady?.(); // Notify parent that map is ready
     }
   }, [mapRef.current]);
 

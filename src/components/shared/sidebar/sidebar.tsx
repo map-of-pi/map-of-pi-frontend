@@ -441,6 +441,24 @@ function Sidebar(props: any) {
             </div>
           )}
 
+          <div className="mb-2">
+            <Link href={`/${locale}/notification`}>
+              <Button
+                label={t('View Notifications')} // Stay consistent with 'View Orders'; TODO - Apply language translation
+                styles={{
+                  color: '#ffc153',
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  fontSize: '18px',
+                }}
+                onClick={() => {
+                  props.setToggleDis(false); // Close sidebar on click
+                }}
+              />
+            </Link>              
+          </div>
+
           {/* user settings form fields */}
           <div className="flex flex-col justify-items-center mx-auto text-center gap-1">
             <Input

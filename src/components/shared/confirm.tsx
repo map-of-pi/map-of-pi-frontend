@@ -4,7 +4,7 @@ import React, { SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import { IoMdClose } from 'react-icons/io';
 
-const ConfirmDialog = ({ show, onClose, message, url }:any) => {
+const ConfirmDialog = ({ show, onClose, message, url } : any) => {
   const t = useTranslations();
   const router = useRouter();
     

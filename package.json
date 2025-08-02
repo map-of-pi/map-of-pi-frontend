@@ -52,8 +52,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@pinetwork-js/api-typing": "^0.7.0",
-    "@pinetwork-js/sdk": "^0.7.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.2",
     "@types/js-cookie": "^3.0.6",
