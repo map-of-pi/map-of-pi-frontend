@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '../Forms/Buttons/Buttons';
 import MembershipIcon from '../membership/MembershipIcon';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
+import { MembershipClassType } from '@/constants/membershipClassType';
 import { translateSellerCategory } from '@/utils/translate';
 import logger from '../../../../logger.config.mjs';
 
@@ -41,7 +42,7 @@ const MapMarkerPopup = ({ seller }: { seller: any }) => {
             {truncateChars(seller.name, 12)} {/* Adjust limit as needed */}
           </h2>
           <MembershipIcon 
-            category='triple_gold' 
+            category={ MembershipClassType.TRIPLE_GOLD } 
             styleComponent={{
               display: "inline-block",
               objectFit: "contain",
