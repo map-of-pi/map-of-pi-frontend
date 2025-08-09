@@ -1,0 +1,364 @@
+{
+  "HOME": {
+    "ADD_SELLER": "बेचना",
+    "SEARCH_CENTER_DEFAULT_MESSAGE": "आपका खोज केंद्र वर्तमान में डिफ़ॉल्ट निर्देशांक पर सेट है [0, 0].अपने अनुभव को बढ़ाने के लिए, कृपया अपने खोज केंद्र स्थान को अपडेट करें।",
+    "SEARCH_BAR_PLACEHOLDER": "विक्रेताओं या वस्तुओं के लिए खोजें",
+    "NEW_NOTIFICATIONS_MESSAGE": "आपके पास सूचनाएं हैं",
+    "LOCATION_SERVICES": {
+      "ENABLE_LOCATION_SERVICES_MESSAGE": "इस सुविधा का उपयोग करने के लिए, कृपया अपने डिवाइस सेटिंग्स में स्थान सेवाओं को सक्षम करें।",
+      "DISABLED_LOCATION_SERVICES_MESSAGE": "स्थान सेवाएं अक्षम हैं। कृपया अपने डिवाइस की स्थान सेटिंग सक्षम करें."
+    },
+    "AUTHENTICATION": {
+      "SUCCESSFUL_LOGIN_MESSAGE": "सफल लॉगिन",
+      "UNSUCCESSFUL_LOGIN_MESSAGE": "लॉगिन विफल",
+      "PI_INFORMATION_NOT_FOUND_MESSAGE": "पाई जानकारी नहीं मिली"
+    }
+  },
+  "SIDE_NAVIGATION": {
+    "VIEW_ORDERS_LABEL": "आदेश देखें",
+    "USER_PREFERENCES_HEADER": "उपयोगकर्ता वरीयताएँ",
+    "PERSONALIZATION_SUBHEADER": "निजीकरण",
+    "LANGUAGES": "भाषाएँ",
+    "ABOUT": {
+      "ABOUT_MAP_OF_PI": "पाई के मानचित्र के बारे में",
+      "APP_VERSION": "ऐप संस्करण",
+      "PRIVACY_POLICY": "गोपनीयता नीति",
+      "TERMS_OF_SERVICE": "सेवा की शर्तें"
+    },
+    "FIND_ME_PREFERENCE_LABEL": "मुझे वरीयता खोजें",
+    "FIND_ME_OPTIONS": {
+      "PREFERRED_AUTO": "स्वयं-चालित",
+      "PREFERRED_DEVICE_GPS": "मेरे डिवाइस जीपीएस का उपयोग करें",
+      "PREFERRED_SEARCH_CENTER": "खोज केंद्र का उपयोग करें"
+    },
+    "SEARCH_FILTERS_SUBHEADER": "खोज फ़िल्टर",
+    "SEARCH_FILTERS": {
+      "INCLUDE_ACTIVE_SELLERS": "सक्रिय विक्रेता",
+      "INCLUDE_INACTIVE_SELLERS": "निष्क्रिय विक्रेता",
+      "INCLUDE_TEST_SELLERS": "टेस्ट विक्रेता"
+    },
+    "CONTACT_MAP_OF_PI": "पाई का संपर्क मानचित्र",
+    "VALIDATION": {
+      "SUCCESSFUL_PREFERENCES_SUBMISSION": "वरीयताएँ सफल",
+      "UNSUCCESSFUL_PREFERENCES_SUBMISSION": "वरीयताएँ सहेजने में त्रुटि"
+    }
+  },
+  "SCREEN": {
+    "SELLER_REGISTRATION": {
+      "SELLER_REGISTRATION_HEADER": "विक्रेता प्रशासन",
+      "SELLER_RESTRICTION_MESSAGE": "आपका विक्रय केंद्र ऐसे क्षेत्र में है जो Pi Network द्वारा प्रतिबंधित है, इसलिए आपका मानचित्र मार्कर सभी उपयोगकर्ताओं से छिपा रहेगा",
+      "SELLER_DETAILS_LABEL": "विक्रेता विवरण",
+      "EMAIL_LABEL": "ईमेल पता",
+      "PHONE_NUMBER_LABEL": "फ़ोन नंबर",
+      "CONTACT_PUBLIC_NOTE": "ईमेल पता और फ़ोन नंबर सार्वजनिक रूप से दिखाई देंगे.",
+      "SELLER_DETAILS_PLACEHOLDER": "मैं पाई के साथ भुगतान के माध्यम से बेचता हूं।",
+      "REVIEWS_SUMMARY_LABEL": "समीक्षा सारांश",
+      "REVIEWS_SCORE_LABEL": "समीक्षा स्कोर",
+      "SELLER_NAME": "विक्रेता का नाम",
+      "SELLER_TYPE": {
+        "SELLER_TYPE_LABEL": "विक्रेता का प्रकार",
+        "SELLER_TYPE_OPTIONS": {
+          "ACTIVE_SELLER": "सक्रिय विक्रेता",
+          "INACTIVE_SELLER": "निष्क्रिय विक्रेता",
+          "TEST_SELLER": "टेस्ट विक्रेता",
+          "RESTRICTED_SELLER": "प्रतिबंधित विक्रेता"
+        }
+      },
+      "SELLER_ADVANCED_SETTINGS_LABEL": "उन्नत विक्रेता सेटिंग्स",
+      "SELLER_RETAIL_OUTLET_NAME": "खुदरा आउटलेट का नाम",
+      "SELLER_ADDRESS_LOCATION_LABEL": "पता या कहां बिक रहा है",
+      "SELLER_ADDRESS_LOCATION_PLACEHOLDER": "मेरा नक़्शा मार्कर दिखाता है कि मैं कहां बेच रहा हूं",
+      "SELLER_SETTINGS_LABEL": "विक्रेता सेटिंग्स",
+      "SELLER_SELL_CENTER": "सेल सेंटर सेट करें",
+      "SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL": "ऑनलाइन ख़रीदारी | बिक्री के लिए आइटम सूचीबद्ध करें",
+      "SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL": "ऑनलाइन शॉपिंग | ऑर्डर पूर्ति",
+      "MAPPI_ALLOWANCE_LABEL": "मापपी भत्ता शेष",
+      "FULFILLMENT_METHOD_TYPE": {
+        "FULFILLMENT_METHOD_TYPE_LABEL": "पूर्ति विधि",
+        "FULFILLMENT_METHOD_TYPE_OPTIONS": {
+          "COLLECTION_BY_BUYER": "ख़रीदार द्वारा संग्रह",
+          "DELIVERED_TO_BUYER": "ख़रीदार को दिया गया"
+        }
+      },
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_LABEL": "ख़रीदार को विक्रेता की पूर्ति के निर्देश",
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_PLACEHOLDER": "संग्रह विक्रेता के पते से है। यदि डिलीवरी चुनी गई है, तो कृपया ख़रीदार का पता दर्ज करें।",
+      "BUYER_TO_SELLER_FULFILLMENT_DETAILS_LABEL": "ख़रीदार की पूर्ति का विवरण",
+      "VALIDATION": {
+        "EMAIL_VALIDATION": "कृपया एक वैध ईमेल पता दर्ज करें",
+        "SUCCESSFUL_REGISTRATION_SUBMISSION": "पंजीकरण सफल",
+        "FAILED_REGISTRATION_SUBMISSION": "पंजीकरण सहेजने में त्रुटि",
+        "REGISTRATION_FAILED_USER_NOT_AUTHENTICATED": "पंजीकरण विफल क्योंकि उपयोगकर्ता प्रमाणित नहीं है",
+        "UNINITIALIZED_SELL_CENTER": "कृपया अपना सेल सेंटर सेट करें",
+        "SUCCESSFUL_SELLER_ITEM_SAVED": "विक्रेता आइटम सफलतापूर्वक सहेजा गया",
+        "SUCCESSFUL_SELLER_ITEM_DELETED": "विक्रेता आइटम सफलतापूर्वक हटा दिया गया",
+        "FAILED_SELLER_ITEM_SAVE": "विक्रेता वस्तु को सहेजने में त्रुटि",
+        "FAILED_SELLER_ITEM_DELETE": "विक्रेता वस्तु को हटाने में त्रुटि",
+        "SELLER_ITEM_NOT_FOUND": "Seller item not found",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "सफलतापूर्वक सहेजें। मैपी भत्ता का उपयोग किया गया {mappi_count}",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "असफल सहेजें। अपर्याप्त मैपी भत्ता उपलब्ध है"
+      },
+      "SELLER_ITEMS_FEATURE": {
+        "ITEM_LABEL": "आइटम",
+        "PRICE_LABEL": "मूल्य",
+        "STOCK_LABEL": "स्टॉक स्तर",
+        "DESCRIPTION_LABEL": "विवरण",
+        "PHOTO": "फ़ोटो",
+        "SELLING_DURATION_LABEL": "हफ्तों में बिक्री की अवधि",
+        "SELLING_STATUS_OPTIONS": {
+          "ACTIVE": "सक्रिय", 
+          "EXPIRED": "समाप्त हो गया"
+        },
+        "STOCK_LEVEL_OPTIONS": {
+          "AVAILABLE_1": "1 उपलब्ध",
+          "AVAILABLE_2": "2 उपलब्ध",
+          "AVAILABLE_3": "3 उपलब्ध",
+          "MANY": "कई उपलब्ध",
+          "MADE_TO_ORDER": "आदेशानुसार तैयार",
+          "ONGOING_SERVICE": "चल रही सेवा",
+          "SOLD": "बिक गया"  
+        },
+        "SELLING_EXPIRATION_DATE": "द्वारा बेचें {expired_by_date}",
+        "VALIDATION": {
+          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "बिक्री अवधि को कम नहीं किया जा सकता है {spent_weeks} सप्ताह पहले ही बीत चुके हैं"
+        }
+      }
+    },
+    "SELLER_ORDER_FULFILLMENT": {
+      "ORDER_LIST_HEADER": "आदेश सूची",
+      "VIEW_ORDER_HEADER": "आदेश देखें",
+      "SELLER_ORDER_FULFILLMENT_HEADER": "विक्रेता के आदेश की पूर्ति",
+      "ORDER_SUBHEADER": "ऑर्डर हेडर",
+      "ORDERED_ITEMS_SUBHEADER": "ऑर्डर की गई वस्तुएं",
+      "ORDER_HEADER_ITEMS_FEATURE": {
+        "SELLER_LABEL": "विक्रेता",
+        "TOTAL_PRICE_LABEL": "कुल क़ीमत",
+        "TIME_OF_ORDER_LABEL": "आदेश का समय",
+        "STATUS_LABEL": "स्थिति"
+      },
+      "STATUS_TYPE": {
+        "INITIALIZED": "आरंभ किया गया",
+        "PENDING": "विचाराधीन",
+        "COMPLETED": "पूर्ण",
+        "CANCELED": "रद्द",
+        "REFUNDED": "रिफंड किया गया",
+        "FULFILLED": "पूर्ण"
+      },
+      "ORDER_COMPLETED_LABEL": "आदेश पूरा हुआ",
+      "ORDER_DISPATCHED_COLLECTED_LABEL": "आदेश भेजा गया/संग्रहित"
+    },
+    "BUY_FROM_SELLER": {
+      "BUY_FROM_SELLER_HEADER": "विक्रेता से ख़रीदें",
+      "SELLER_DETAILS_LABEL": "विक्रेता विवरण",
+      "SELLER_ADDRESS_POSITION_LABEL": "विक्रेता का पता या स्थिति",
+      "LEAVE_A_REVIEW_MESSAGE": "एक समीक्षा छोड़ दो",
+      "FACE_SELECTION_REVIEW_MESSAGE": "उस चेहरे का चयन करें जो दिखाता है कि आप उपरोक्त विक्रेता के बारे में कैसा महसूस करते हैं",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "यहाँ अतिरिक्त टिप्पणियाँ दर्ज करें",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "फीडबैक फ़ोटो अपलोड",
+      "REVIEWS_SUMMARY_LABEL": "समीक्षा सारांश",
+      "REVIEWS_SCORE_MESSAGE": "समीक्षा स्कोर: {seller_review_rating} 5.0 में से",
+      "SELLER_CONTACT_DETAILS_LABEL": "विक्रेता संपर्क विवरण",
+      "SELLER_USERNAME_LABEL": "उपयोगकर्ता नाम",
+      "SELLER_PHONE_NUMBER_LABEL": "फ़ोन नंबर",
+      "SELLER_EMAIL_ADDRESS_LABEL": "ईमेल पता",
+      "ONLINE_SHOPPING": {
+        "SELLER_ITEMS_FEATURE": {
+          "ITEM_LABEL": "आइटम",
+          "PRICE_LABEL": "मूल्य",
+          "DESCRIPTION_LABEL": "विवरण",
+          "PHOTO": "फ़ोटो",
+          "BUYING_QUANTITY_LABEL": "बड़ी तादाद",
+          "PICK_LABEL": "चुनना",
+          "UNPICK_LABEL": "अनपिक"
+        }
+      },
+      "ORDER_SUCCESSFUL_MESSAGE": "ऑर्डर सफलतापूर्वक रखा गया",
+      "ORDER_FAILED_MESSAGE": "नया ऑर्डर देने में विफल"
+    },
+    "REVIEWS": {
+      "REVIEWS_HEADER": "समीक्षा",
+      "GIVE_REVIEW_SECTION_HEADER": "इस अग्रणी को समीक्षा दें",
+      "REVIEWS_GIVEN_SECTION_HEADER": "इस अग्रणी द्वारा दी गई समीक्षाएं",
+      "REVIEWS_RECEIVED_SECTION_HEADER": "इस अग्रणी द्वारा प्राप्त समीक्षाएं",
+      "VALIDATION": {
+        "NO_REVIEWS_FOUND": "पायनियर के लिए कोई समीक्षा नहीं मिली {search_value}",
+        "NO_PIONEER_FOUND": "अग्रणी {search_value} नहीं मिला"  
+      }
+    },
+    "CHECK_REVIEWS_FEEDBACK": {
+      "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "के लिए कोई समीक्षा नहीं {seller_id}",
+      "CHECK_REVIEWS_FEEDBACK_HEADER": "के लिए छोड़ी गई समीक्षाओं की सूची {seller_id}",
+      "BY_REVIEWER": "तक {buyer_id}"
+    },
+    "REPLY_TO_REVIEW": {
+      "REPLY_TO_REVIEW_STATIC_HEADER": "समीक्षा का जवाब दें",
+      "REPLY_TO_REVIEW_SUBHEADER": "जिस समीक्षा का आप जवाब दे रहे हैं",
+      "GIVE_REPLY_TO_REVIEW_SUBHEADER": "समीक्षा के लिए उत्तर दें",
+      "REPLY_TO_REVIEW_HEADER": "के लिए छोड़ दिया समीक्षा करने के लिए उत्तर दें  {seller_id}",
+      "BY_REVIEWER": "तक {buyer_id}",
+      "REPLY_TO_REVIEW_MESSAGE": "उपरोक्त समीक्षा के लिए अपना उत्तर छोड़ दें",
+      "FACE_SELECTION_REVIEW_MESSAGE": "उस चेहरे का चयन करें जो दिखाता है कि आप इस अग्रणी के साथ अपनी बातचीत के बारे में कैसा महसूस करते हैं",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "यहाँ अतिरिक्त टिप्पणियाँ दर्ज करें",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "फीडबैक फ़ोटो अपलोड",
+      "VALIDATION": {
+        "LOADING_REVIEW_FAILURE": "समीक्षा लोड करने में त्रुटि",
+        "SELF_REVIEW_NOT_POSSIBLE": "स्व-समीक्षा संभव नहीं है"
+      }
+    },
+    "NOTIFICATIONS": {
+      "NOTIFICATIONS_HEADER": "सूचनाएं",
+      "NO_NOTIFICATIONS_SUBHEADER": "आपके पास अभी तक कोई सूचना नहीं है",
+      "NOTIFICATION_SECTION": {
+        "NOTIFICATION_LABEL": "अधिसूचना",
+        "NOTIFICATION_TIME_LABEL": "अधिसूचना का समय",
+        "NOTIFICATION_STATUS": {
+          "READ": "साफ़",
+          "UNREAD": "ग़ैर-स्पष्ट" 
+        }
+      }
+    }
+  },
+  "POPUP": {
+    "MAP_MARKER": {
+      "SELLER_SALE_ITEMS_FIELD": "बिक्री के लिए विक्रेता आइटम",
+      "DISTANCE_MESSAGE": "दूरी: XXX किमी दूर"
+    },
+    "APP_VERSION_INFO": {
+      "REPORTING_MESSAGE": "कृपया दोषों की रिपोर्ट करें"
+    },
+    "PRIVACY_POLICY_INFO": {
+      "TITLE": "गोपनीयता नीति",
+      "LAST_UPDATED": "अंतिम बार अपडेट किया गया",
+      "EMAIL_ADDRESS": "ईमेल पता",
+      "SECTIONS": {
+        "HEADER_1": "प्रस्तुति",
+        "CONTENT_1": "पाई समुदाय के सहयोग से मैप ऑफ़ पाई टीम द्वारा विकसित मैप ऑफ़ पाई ऐप में आपका स्वागत है। यह गोपनीयता नीति बताती है कि जब आप हमारे मोबाइल एप्लिकेशन का उपयोग करते हैं तो हम आपकी व्यक्तिगत जानकारी को कैसे एकत्र करते हैं, उपयोग करते हैं, प्रकट करते हैं और संरक्षित करते हैं।",
+        "HEADER_2": "जानकारी जो हम एकत्र करते हैं",
+        "SUBHEADER_2_1": "उपयोगकर्ता जानकारी",
+        "CONTENT_2_1_1": "जब आप एक उपयोगकर्ता के रूप में पंजीकरण करते हैं, तो हम आपका नाम, ईमेल पता, उपयोगकर्ता नाम और अन्य प्रासंगिक विवरण एकत्र कर सकते हैं.",
+        "CONTENT_2_1_2": "हम आपके डिवाइस के बारे में जानकारी एकत्र कर सकते हैं, जिसमें डिवाइस का प्रकार, ऑपरेटिंग सिस्टम और अद्वितीय डिवाइस पहचानकर्ता शामिल हैं।",
+        "SUBHEADER_2_2": "विक्रेता की जानकारी",
+        "CONTENT_2_2_1": "प्लेटफ़ॉर्म पर पंजीकरण करने वाले विक्रेताओं को विक्रेता का नाम, स्थान और संपर्क विवरण सहित विक्रेता की जानकारी प्रदान करने की आवश्यकता हो सकती है।",
+        "CONTENT_2_2_2": "एक विक्रेता एक व्यवसाय या एक निजी व्यक्ति हो सकता है।",
+        "HEADER_3": "हम आपकी जानकारी का उपयोग कैसे करते हैं",
+        "SUBHEADER_3_1": "सेवाएं प्रदान करना",
+        "CONTENT_3_1_1": "हम आपकी जानकारी का उपयोग उपयोगकर्ता और विक्रेता की कार्यक्षमता सहित पाई ऐप सेवाओं के मानचित्र को प्रदान करने और बढ़ाने के लिए करते हैं.",
+        "SUBHEADER_3_2": "संचार",
+        "CONTENT_3_2_1": "हम आपकी संपर्क जानकारी का उपयोग आपको मैप ऑफ़ पाई ऐप से संबंधित अपडेट, सूचनाएं और प्रचार संदेश भेजने के लिए कर सकते हैं।",
+        "SUBHEADER_3_3": "विश्लेषण",
+        "CONTENT_3_3_1": "हम ऐप के प्रदर्शन, सुविधाओं और कार्यक्षमता को बेहतर बनाने के लिए डेटा एकत्र और विश्लेषण करते हैं।",
+        "HEADER_4": "अपनी जानकारी साझा करना",
+        "SUBHEADER_4_1": "विक्रेताओं के साथ",
+        "CONTENT_4_1_1": "ऑर्डर पूर्ति और संचार उद्देश्यों के लिए उपयोगकर्ता जानकारी विक्रेताओं के साथ साझा की जा सकती है।",
+        "SUBHEADER_4_2": "तीसरे पक्ष के साथ",
+        "CONTENT_4_2_1": "हम ऐप की कार्यक्षमता, विश्लेषण और भुगतान प्रसंस्करण के लिए तृतीय-पक्ष सेवा प्रदाताओं के साथ जानकारी साझा कर सकते हैं।",
+        "HEADER_5": "सुरक्षा उपाय",
+        "CONTENT_5_1": "हम आपकी जानकारी की सुरक्षा के लिए उद्योग-मानक सुरक्षा उपायों को नियोजित करते हैं। हालांकि, इंटरनेट या इलेक्ट्रॉनिक स्टोरेज पर ट्रांसमिशन का कोई भी तरीक़ा पूरी तरह से सुरक्षित नहीं है।",
+        "HEADER_6": "आपके विकल्प",
+        "CONTENT_6_1": "आप ऐप सेटिंग्स के माध्यम से अपनी खाता जानकारी अपडेट कर सकते हैं। आप अपने पीआई नेटवर्क खाते को हटाकर अपने मैप ऑफ़ पीआई खाते को हटा सकते हैं और फिर अगली बार जब आप मैप ऑफ़ पाई एक्सेस करते हैं तो अपने मैप ऑफ़ पाई डेटा को हटाने का विकल्प चुन सकते हैं। आप प्रचार संचार से बाहर निकल सकते हैं।",
+        "HEADER_7": "इस गोपनीयता नीति में परिवर्तन",
+        "CONTENT_7_1": "हम आवश्यकतानुसार इस गोपनीयता नीति को अपडेट कर सकते हैं। नवीनतम संस्करण हमारी वेबसाइट पर या ऐप के भीतर पोस्ट किया जाएगा।",
+        "HEADER_8": "हमसे संपर्क करें",
+        "CONTENT_8_1": "यदि आपके पास इस गोपनीयता नीति के बारे में कोई प्रश्न या चिंता है, तो कृपया एक ईमेल भेजकर हमसे संपर्क करें"
+      }
+    },
+    "TERMS_OF_SERVICE_INFO": {
+      "TITLE": "सेवा की शर्तें",
+      "LAST_UPDATED": "अंतिम बार अपडेट किया गया",
+      "EMAIL_ADDRESS": "ईमेल पता",
+      "SECTIONS": {
+        "HEADER_1": "शर्तों की स्वीकृति",
+        "CONTENT_1_1": "पाई समुदाय के सहयोग से मैप ऑफ़ पाई टीम द्वारा विकसित मैप ऑफ़ पाई ऐप में आपका स्वागत है। इस ऐप का उपयोग करके, आप इन सेवा शर्तों के साथ-साथ हमारी गोपनीयता नीति का पालन करने के लिए सहमत हैं।",
+        "HEADER_2": "ऐप का उपयोग करें",
+        "CONTENT_2_1": "आप सभी लागू क़ानूनों और विनियमों के अनुपालन में मैप ऑफ़ पाई ऐप का उपयोग करने के लिए सहमत हैं।",
+        "CONTENT_2_2": "आप ऐप का उपयोग किसी भी ग़ैरक़ानूनी या निषिद्ध उद्देश्य के लिए नहीं करेंगे, या किसी भी तरह से जो ऐप को नुक़सान पहुंचा सकता है, अक्षम कर सकता है, अधिभारित कर सकता है, या ख़राब कर सकता है।",
+        "CONTENT_2_3": "Pi के मानचित्र का उपयोग करने के लिए आपको Pi नेटवर्क के अग्रणी उपयोगकर्ता के रूप में पंजीकृत होना चाहिए।",
+        "HEADER_3": "बौद्धिक सम्पदा",
+        "CONTENT_3_1": "मैप ऑफ़ पाई ऐप और सभी सामग्री, विशेषताएं और कार्यक्षमता मैप ऑफ़ पाई के स्वामित्व में हैं और कॉपीराइट, ट्रेडमार्क और अन्य बौद्धिक संपदा क़ानूनों द्वारा संरक्षित हैं।",
+        "HEADER_4": "दायित्व की सीमा",
+        "CONTENT_4_1": "मैप ऑफ़ पाई ऐप के उपयोग से उत्पन्न होने वाले किसी भी प्रत्यक्ष, अप्रत्यक्ष, आकस्मिक, विशेष या परिणामी क्षति के लिए उत्तरदायी नहीं होगा।",
+        "HEADER_5": "क्षतिपूर्ति",
+        "CONTENT_5_1": "आप पीआई और उसके सहयोगियों, अधिकारियों, निदेशकों, कर्मचारियों और एजेंटों के मानचित्र को किसी भी और सभी दावों, देनदारियों, क्षति, हानि, या व्यय (वकीलों की फीस सहित) से उत्पन्न होने वाले या किसी भी तरह से उत्पन्न होने वाले या किसी भी तरह से पीआई ऐप के मानचित्र से क्षतिपूर्ति करने और हानिरहित रखने के लिए सहमत हैं।",
+        "HEADER_6": "शासी क़ानून",
+        "CONTENT_6_1": "सेवा की ये शर्तें इंग्लैंड और वेल्स के क़ानून के अनुसार शासित और व्याख्या की जाएंगी, क़ानून के प्रावधानों के उनके संघर्ष की परवाह किए बिना, जिसमें उनके विषय वस्तु या गठन (ग़ैर-संविदात्मक विवादों या दावों सहित) के संबंध में उत्पन्न होने वाले किसी भी विवाद या दावे शामिल हैं।",
+        "HEADER_7": "इन शर्तों में परिवर्तन",
+        "CONTENT_7_1": "हम बिना किसी पूर्व सूचना के किसी भी समय इन सेवा शर्तों को अपडेट या संशोधित करने का अधिकार सुरक्षित रखते हैं। नवीनतम संस्करण हमारी वेबसाइट पर या ऐप के भीतर पोस्ट किया जाएगा।"
+      }
+    }
+  },
+  "SHARED": {
+    "PIONEER_LABEL": "अग्रणी",
+    "PIONEER_ID_LABEL": "पायनियर आईडी",
+    "BUY": "ख़रीदें",
+    "RESET": "रीसेट करें",
+    "REFUND": "रिफंड",
+    "FULFILL": "पूरा करें",
+    "FULFILLED": "पूर्ण",
+    "PENDING": "विचाराधीन",
+    "NAVIGATE": "नेविगेट करें",
+    "NO_COMMENT": "कोई टिप्पणी प्रदान नहीं की गई",
+    "SEARCH_CENTER": "खोज केंद्र सेट करें",
+    "CHECK_REVIEWS": "समीक्षा देखें",
+    "SEARCH_REVIEWS": "समीक्षा खोजें",
+    "SEARCH_LOADING": "खोज लोड हो रहा है...",
+    "VIEW_NOTIFICATIONS": "सूचनाएं देखें",
+    "REPLY": "उत्तर",
+    "ADD_ITEM": "आइटम जोड़ें",
+    "CHECKOUT": "भुगतान-स्थल",
+    "DELETE": "मिटाएं",
+    "CONFIRM_DELETE": "क्या आप वास्तव में इस आइटम को हटाना चाहते हैं? इस क्रिया को पूर्ववत नहीं किया जा सकता है।",
+    "SAVE": "बचाओ",
+    "CONFIRM": "सुदृढ़ करना",
+    "CONFIRM_DIALOG": "आपके पास सहेजे गए परिवर्तन नहीं हैं। क्या तुम सच में जाना चाहते हो?",
+    "USER_INFORMATION": {
+      "PI_USERNAME_LABEL": "पीआई उपयोगकर्ता नाम",
+      "NAME_LABEL": "ख्याति",
+      "PHONE_NUMBER_LABEL": "फ़ोन नंबर",
+      "EMAIL_LABEL": "ई-मेल"
+    },
+    "PHOTO": {
+      "UPLOAD_PHOTO_LABEL": "फ़ोटो अपलोड करें",
+      "UPLOAD_PHOTO_PLACEHOLDER": "ख़रीदारों को आकर्षित करने में मदद करने के लिए छवि अपलोड करें (PNG, JPG, JPEG, WEBP)",
+      "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Uअपनी समीक्षा का समर्थन करने के लिए एक छवि अपलोड करें (PNG, JPG, JPEG, WEBP)",
+      "IMAGE_DROP_UPLOAD_MESSAGE": "अपनी छवि यहाँ छोड़ें या ब्राउज़ करें",
+      "SUPPORTS_FILE_MESSAGE": "समर्थन करता है: PNG, JPG, JPEG, WEBP",
+      "MISC_LABELS": {
+        "USER_PREFERENCES_LABEL": "प्रोफ़ाइल छवि",
+        "SELLER_IMAGE_LABEL": "विक्रेता की छवि",
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "छवि की समीक्षा करें"
+      }
+    },
+    "REACTION_RATING": {
+      "UNSAFE": "असुरक्षित",
+      "TRUSTWORTHY": "विश्वास-योग्य",
+      "EMOTIONS": {
+        "DESPAIR": "निराशा",
+        "SAD": "बुरा",
+        "OKAY": "ठीक है",
+        "HAPPY": "प्रसन्न",
+        "DELIGHT": "आनंद"
+      },
+      "VALIDATION": {
+        "SUCCESSFUL_REVIEW_SUBMISSION": "समीक्षा सफलतापूर्वक सबमिट की गई",
+        "UNSUCCESSFUL_REVIEW_SUBMISSION": "समीक्षा प्रस्तुत करने में विफल",
+        "SELECT_EMOJI_EXPRESSION": "कृपया इमोजी एक्सप्रेशन चुनें"
+      }
+    },
+    "MAP_CENTER": {
+      "SEARCH_BAR_PLACEHOLDER": "स्थान, शहर या पता खोजें",
+      "VALIDATION": {
+        "MAP_CENTER_SUCCESS_MESSAGE": "आपका केंद्र सफलतापूर्वक सहेजा गया है",
+        "SELL_CENTER_SANCTIONED_MESSAGE": "Yहमारा चयनित स्थान एक स्वीकृत क्षेत्र में प्रतीत होता है। यदि पुष्टि की जाती है, तो आपका बिक्री मार्कर मानचित्र से हटाया जा सकता है."
+      }
+    },
+    "LOADING_SCREEN_MESSAGE": "लोड हो रहा है ...",
+    "SAVING_SCREEN_MESSAGE": "बचत ...",
+    "VALIDATION": {
+      "SUBMISSION_FAILED_USER_NOT_AUTHENTICATED": "सबमिशन विफल रहा क्योंकि उपयोगकर्ता प्रमाणित नहीं है",
+      "UNEXPECTED_ERROR_MESSAGE": "अप्रत्याशित त्रुटि हुई"
+    }
+  },
+  "ERROR": {
+    "PAGE_NOT_FOUND_HEADER": "पृष्ठ नहीं मिला",
+    "PAGE_NOT_FOUND_MESSAGE": "Sओरी, आप जिस पृष्ठ की तलाश कर रहे हैं वह मौजूद नहीं है."
+  }
+}
