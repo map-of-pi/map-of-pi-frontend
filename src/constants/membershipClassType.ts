@@ -25,9 +25,9 @@ export const dumyList: MembershipOption[] = [
   },
   {
     value: MembershipClassType.SINGLE,
-    mappi_allowance: 10,
+    mappi_allowance: 1,
     cost: 0.2,
-    duration: 2,
+    duration: 0,
   },
   {
     value: MembershipClassType.WHITE,

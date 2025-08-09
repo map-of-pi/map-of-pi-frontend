@@ -116,7 +116,7 @@ export default function MembershipPage() {
                   <div className="p-1 bg-yellow-400 rounded"></div>                  
                 )
               }
-              {`${option.value} membership (${option.duration} weeks)`} 
+              {`${option.value}  ${option.value===MembershipClassType.SINGLE? "mappi" : "membership (" + option.duration + ") weeks"}`} 
               
               <MembershipIcon 
                 category={option.value} 
