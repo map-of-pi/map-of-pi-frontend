@@ -6,7 +6,7 @@ import { MembershipClassType, MembershipOption } from "@/constants/membershipCla
 export const fetchMembershipList = async (): Promise<MembershipOption[] | null> => {
   try {
     logger.info(`Fetching membership list`);
-    const response = await axiosClient.get("/user-membership/membership-list");
+    const response = await axiosClient.get("/memberships/membership-list");
     if (response.status === 200) {
       logger.info(`Fetch membership list successful with Status ${response.status}`, {
         data: response.data
@@ -26,7 +26,7 @@ export const fetchMembershipList = async (): Promise<MembershipOption[] | null> 
 export const fetchMembership = async (membership_id: string): Promise<IMembership | null> => {
   try {
     logger.info(`Fetching user membership: ${membership_id}`);
-    const response = await axiosClient.get("/user-membership");
+    const response = await axiosClient.get("/memberships");
     if (response.status === 200) {
       logger.info(`Fetch user membership successful with Status ${response.status}`, {
         data: response.data
@@ -46,7 +46,7 @@ export const fetchMembership = async (membership_id: string): Promise<IMembershi
 export const manageMembership = async (membership_class: MembershipClassType): Promise<IMembership | null> => {
   try {
     logger.info(`Initializing membership subscription to class: ${membership_class}`);
-    const response = await axiosClient.put("/user-membership/manage", {membership_class});
+    const response = await axiosClient.put("/memberships/manage", {membership_class});
     if (response.status === 200) {
       logger.info(`update user membership successful with Status ${response.status}`, {
         data: response.data
