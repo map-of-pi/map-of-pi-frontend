@@ -41,23 +41,3 @@ export const fetchMembership = async (membership_id: string): Promise<IMembershi
     throw new Error('Failed to fetch user membership. Please try again later.');
   }
 };
-
-// Upgrade or create membership
-export const manageMembership = async (membership_class: MembershipClassType): Promise<IMembership | null> => {
-  try {
-    logger.info(`Initializing membership subscription to class: ${membership_class}`);
-    const response = await axiosClient.put("/memberships/manage", {membership_class});
-    if (response.status === 200) {
-      logger.info(`update user membership successful with Status ${response.status}`, {
-        data: response.data
-      });
-      return response.data;
-    } else {
-      logger.error(`update user membership failed with Status ${response.status}`);
-      return null;
-    }
-  } catch (error) {
-    logger.error('update user membership encountered an error:', error);
-    throw new Error('Failed to fetch user membership. Please try again later.');
-  }
-};
