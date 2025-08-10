@@ -97,7 +97,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
         ...originalReview,
         rating: rating!,
         comment,
-        image,
+        image: image || '',
       });
       setIsSaveEnabled(false);
     } catch (err) {

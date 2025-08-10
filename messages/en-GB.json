@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Seller Administration",
+      "SELLER_RESTRICTION_MESSAGE": "Your Sell Centre is in a region sanctioned by Pi Network, so your map marker will be hidden from all users",
       "SELLER_DETAILS_LABEL": "Seller Details",
       "EMAIL_LABEL": "Email address",
       "PHONE_NUMBER_LABEL": "Phone number",

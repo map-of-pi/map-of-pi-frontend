@@ -20,7 +20,7 @@ import { ListOrder } from '@/components/shared/Seller/OrderList';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { itemData } from '@/constants/demoAPI';
-import { IUserSettings, ISeller, FulfillmentType } from '@/constants/types';
+import { IUserSettings, ISeller, FulfillmentType, SellerType } from '@/constants/types';
 import { fetchSellerRegistration, registerSeller } from '@/services/sellerApi';
 import { fetchUserSettings } from '@/services/userSettingsApi';
 import { fetchToggle } from '@/services/toggleApi';
@@ -337,8 +337,16 @@ const SellerRegistrationForm = () => {
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
           </h1>
-          <p className="text-gray-400 text-sm">
-            {dbSeller ? translateSellerCategory(dbSeller.seller_type, t) : ''}
+          <p className="text-gray-400 text-sm text-center">
+            {dbSeller ? (
+              dbSeller.isRestricted ? (
+                t('SCREEN.SELLER_REGISTRATION.SELLER_RESTRICTION_MESSAGE')
+              ) : (
+                translateSellerCategory(dbSeller.seller_type, t)
+              )
+            ) : (
+              ''
+            )}
           </p>
         </div>
 

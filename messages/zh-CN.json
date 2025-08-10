@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "卖家管理",
+      "SELLER_RESTRICTION_MESSAGE": "您的销售中心位于 Pi Network 制裁的区域，因此您的地图标记将对所有用户隐藏",
       "SELLER_DETAILS_LABEL": "卖家详情",
       "EMAIL_LABEL": "电子邮件地址",
       "PHONE_NUMBER_LABEL": "电话号码",

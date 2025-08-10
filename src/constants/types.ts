@@ -82,13 +82,13 @@ export interface ISeller {
   order_online_enabled_pref: boolean;
   fulfillment_method: FulfillmentType;
   fulfillment_description?: string;
+  isRestricted: boolean;
 };
 
 export enum SellerType {
   active_seller = 'activeSeller', 
   inactive_seller = 'inactiveSeller', 
   test_seller = 'testSeller',
-  restrictedSeller = 'restrictedSeller'
 };
 
 // Combined interface representing a seller with selected user settings

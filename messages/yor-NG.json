@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Isakoso Onisowo",
+      "SELLER_RESTRICTION_MESSAGE": "Ile-iṣẹ tita rẹ wà ní agbègbè tí Pi Network ti ṣe àtìlẹyìn sí, nítorí náà a máa títìpa ami àtẹ̀jáde rẹ látinú maapu fún gbogbo àwọn onílo",
       "SELLER_DETAILS_LABEL": "Awọn alaye Olutaja",
       "EMAIL_LABEL": "Adirẹsi imeeli",
       "PHONE_NUMBER_LABEL": "Nọmba foonu re",
