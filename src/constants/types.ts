@@ -51,7 +51,7 @@ type MembershipPaymentMetadataType = {
 export interface IMembership {
   _id: string;
   membership_id: string;
-  membership_expiration: string | null;
+  membership_expiry_date: string | null;
   mappi_balance: number;
   mappi_used_to_date?: number;
   membership_class: MembershipClassType;
@@ -267,8 +267,12 @@ export interface PaymentDTO {
   user_uid: string,
   created_at: string,
   identifier: string,
-  metadata: Object,
   memo: string,
+  metadata: {
+    payment_type: PaymentType,
+    OrderPayment?: OrderPaymentMetadataType,
+    MembershipPayment?: MembershipPaymentMetadataType
+  },
   status: {
     developer_approved: boolean,
     transaction_verified: boolean,
