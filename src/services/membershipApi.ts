@@ -23,9 +23,9 @@ export const fetchMembershipList = async (): Promise<MembershipOption[] | null> 
 };
 
 // Fetch current user’s membership
-export const fetchMembership = async (membership_id: string): Promise<IMembership | null> => {
+export const fetchMembership = async (): Promise<IMembership | null> => {
   try {
-    logger.info(`Fetching user membership: ${membership_id}`);
+    logger.info(`Fetching user membership`);
     const response = await axiosClient.get("/memberships");
     if (response.status === 200) {
       logger.info(`Fetch user membership successful with Status ${response.status}`, {
