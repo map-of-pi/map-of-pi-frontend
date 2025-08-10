@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { toast } from 'react-toastify';
 
 import { IReviewFeedback } from '@/constants/types';
-import { createReview } from '@/services/reviewsApi';
+import { createReview, updateReview } from '@/services/reviewsApi';
 import removeUrls from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
@@ -32,15 +32,38 @@ export default function EmojiPicker(props: any) {
 
   const [dbReviewFeedback, setDbReviewFeedback] = useState<IReviewFeedback | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string>(dbReviewFeedback?.image || '');
+  const [previewImage, setPreviewImage] = useState<string>(props.initialImage || '');
+
   const [isSaveEnabled, setIsSaveEnabled] = useState<boolean>(false);
-  const [comments, setComments] = useState('');
+  // Initialize from props.initialComment if provided
+const [comments, setComments] = useState(props.initialComment || '');
+
   const [reviewEmoji, setReviewEmoji] = useState<number | null>(null);
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
 
-  const { showAlert, setAlertMessage, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
+ const { showAlert, setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
 
-  // function preview image upload
+
+  // function preview image upload 
+  useEffect(() => {
+  if (props.initialRating !== undefined && props.initialRating !== null) {
+    setReviewEmoji(props.initialRating);
+    setSelectedEmoji(props.initialRating);
+  }
+}, [props.initialRating]);
+
+  useEffect(() => {
+  if (props.initialImage !== undefined) {
+    setPreviewImage(props.initialImage);
+  }
+}, [props.initialImage]);
+
+  useEffect(() => {
+  if (props.initialComment !== undefined) {
+    setComments(props.initialComment);
+  }
+}, [props.initialComment]);
+
   useEffect(() => {
     if (!file) return;
     const objectUrl = URL.createObjectURL(file);
@@ -95,58 +118,61 @@ export default function EmojiPicker(props: any) {
     props.setIsSaveEnabled(false);
   }
 
-  const handleSave = async () => {
-    try {
-      if (props.currentUser) {
-        if (props.currentUser.pi_uid === props.userId) {
-          logger.warn(`Attempted self review by user ${props.currentUser.pi_uid}`);
-          return toast.error(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.SELF_REVIEW_NOT_POSSIBLE'));
-        }
-        if (reviewEmoji === null) {
-          logger.warn('Attempted to save review without selecting an emoji.');
-          return toast.warn(t('SHARED.REACTION_RATING.VALIDATION.SELECT_EMOJI_EXPRESSION'));
-        } else {
-          setIsSaveEnabled(false);
-          setIsSaveLoading(true);
-          setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
+const handleSave = async () => {
+  try {
+    if (props.currentUser) {
+      if (props.currentUser.pi_uid === props.userId) {
+        logger.warn(`Attempted self review by user ${props.currentUser.pi_uid}`);
+        return toast.error(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.SELF_REVIEW_NOT_POSSIBLE'));
+      }
+      if (reviewEmoji === null) {
+        logger.warn('Attempted to save review without selecting an emoji.');
+        return toast.warn(t('SHARED.REACTION_RATING.VALIDATION.SELECT_EMOJI_EXPRESSION'));
+      } else {
+        setIsSaveEnabled(false);
+        setIsSaveLoading(true);
+        setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
+
+        // 🆕 If editing, call updateReview
+if (props.isEditMode && props.reviewId) {
+  await updateReview(props.reviewId, {
+    rating: reviewEmoji,
+    comment: removeUrls(comments),
+    image: file || null
+  });
+
+  setReload(true); // 🔄 trigger parent components to refetch reviews
+
+  toast.success(t('SCREEN.REVIEWS.EDIT.SAVE_SUCCESS'));
+} else {
+          // ✅ Otherwise create new review
           const formDataToSend = new FormData();
           formDataToSend.append('comment', removeUrls(comments));
           formDataToSend.append('rating', reviewEmoji.toString());
           formDataToSend.append('review_receiver_id', props.userId);
           formDataToSend.append('reply_to_review_id', props.replyToReviewId || '');
-
-          // add the image if it exists
           if (file) {
             formDataToSend.append('image', file);
           } else {
             formDataToSend.append('image', '');
           }
-
-          logger.info('Review Feedback form data:', { formDataToSend });
-
-          const newReview = await createReview(formDataToSend);
-          if (newReview) {
-            setAlertMessage(null);
-            resetReview();
-            props.setReload(true);
-            props.refresh();
-            logger.info('Review submitted successfully');
-          } else {
-            setAlertMessage(t('SHARED.REACTION_RATING.VALIDATION.UNSUCCESSFUL_REVIEW_SUBMISSION'));
-          }
-          resetReview();
+          await createReview(formDataToSend);
         }
-      } else {
-        logger.warn('Unable to submit review; user not authenticated.');
-        toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+
+        resetReview();
       }
-    } catch (error) {
-      logger.error('Error saving review:', error);
-    } finally {
-      setIsSaveLoading(false);
-      setAlertMessage(null);
+    } else {
+      logger.warn('Unable to submit review; user not authenticated.');
+      toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
     }
-  };
+  } catch (error) {
+    logger.error('Error saving review:', error);
+  } finally {
+    setIsSaveLoading(false);
+    setAlertMessage(null);
+  }
+};
+
   
   // Function to handle the click of an emoji
   const handleEmojiClick = (emojiValue: number) => {
