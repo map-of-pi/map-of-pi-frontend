@@ -151,7 +151,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
          <EmojiPicker
           currentUser={currentUser}
           replyToReviewId={reviewId}
-          userId={originalReview.receiverId}
+          userId={originalReview.review_receiver_id}
           initialRating={rating}
           initialComment={originalReview.comment || ''}
           initialImage={originalReview.image || null}
