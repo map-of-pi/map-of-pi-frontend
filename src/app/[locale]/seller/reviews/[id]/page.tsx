@@ -224,6 +224,7 @@ function SellerReviews({
                       </span>
                     </p>
                     <p className="text-md break-words">{review.heading}</p>
+
                   </div>
 
                   {/* Right content */}
@@ -246,13 +247,24 @@ function SellerReviews({
                         {review.unicode}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${review.giver}`}>
-                        <OutlineBtn label={t('SHARED.REPLY')} />
-                      </Link>
-                    </div>
+                    
                   </div>
                 </div>
+                {/* Bottom row with Edit left, Reply right */}
+<div className="flex justify-between items-center mt-2 w-full">
+  <Link
+    href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}
+  >
+    <OutlineBtn label="Edit" />
+  </Link>
+
+  <Link
+    href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${review.giver}`}
+  >
+    <OutlineBtn label={t('SHARED.REPLY')} />
+  </Link>
+</div>
+
               </div>
             ))
           }
@@ -295,11 +307,12 @@ function SellerReviews({
                       {review.unicode}
                     </p>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?seller_name=${review.giver}`}>
-                      <OutlineBtn label={t('SHARED.REPLY')} />
-                    </Link>
-                  </div>
+                 <div className="flex justify-between items-center gap-2">
+        
+     <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${review.giver}`}>
+        <OutlineBtn label={t('SHARED.REPLY')} />
+     </Link>
+       </div>
                 </div>
               </div>
             </div>
