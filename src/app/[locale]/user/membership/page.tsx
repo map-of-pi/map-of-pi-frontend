@@ -25,34 +25,31 @@ export default function MembershipPage() {
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
 
-  useEffect(() => {
-    const loadMembership = async () => { 
-      if (!currentUser?.pi_uid) return;
-      try {
-        const subList = await fetchMembershipList();
-        setMembershipList(subList);
+  const loadMembership = async () => { 
+    if (!currentUser?.pi_uid) return;
+    try {
+      const subList = await fetchMembershipList();
+      setMembershipList(subList);
 
-        const data = await fetchMembership(currentUser.pi_uid);
-        setMembershipData(data);
-        setUserMembership(data? data?.membership_class: userMembership);
-        setSelectedMembership(data?.membership_class || userMembership);
-      } catch {
-        showAlert("Could not load membership data");
-      }
-    };
+      const data = await fetchMembership();
+      setMembershipData(data);
+      setUserMembership(data? data?.membership_class: userMembership);
+      setSelectedMembership(data?.membership_class || userMembership);
+    } catch {
+      showAlert("Could not load membership data");
+    }
+  };
+
+  useEffect(() => {
     loadMembership();
   }, [currentUser]);
 
-  const onPaymentComplete = (data:any) => {
-    logger.info('Membership placed successfully:', data);
-    setMembershipData(data.membership);
-    setUserMembership(data.membership.membership_class);
-    setSelectedMembership(data.membership.membership_class);
+  const onPaymentComplete = async (data:any) => {
     showAlert('Membership placed successfully');
+    await loadMembership();    
   }
   
   const onPaymentError = (error: Error) => {
-    logger.error("Error paying for membership", error.message);
     showAlert("Error paying for membership")
   }
   
@@ -87,8 +84,8 @@ export default function MembershipPage() {
       <div className="mb-5">
         <h2 className={SUBHEADER}>Current Membership End Date:</h2>
         <p className="text-gray-600 text-xs mt-1">
-          {membershipData?.membership_expiration
-            ? new Date(membershipData.membership_expiration).toLocaleString()
+          {membershipData?.membership_expiry_date
+            ? new Date(membershipData.membership_expiry_date).toLocaleString()
             : "No active membership"}
         </p>
       </div>

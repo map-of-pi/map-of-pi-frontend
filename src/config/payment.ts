@@ -16,10 +16,10 @@ export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, er
 
   const onReadyForServerCompletion = (paymentId: string, txid: string) => {
     axiosClient.post('/payments/complete', { paymentId, txid }, config).then((res) => {
-      // logger.info('Payment completed successfully: ', res.data);
+      logger.info('Payment completed successfully: ', res.data);
       onComplete(res.data);
     }).catch((err) => {
-      // logger.error('Error completing payment: ', err);
+      logger.error('Error completing payment: ', err);
       error(err);
     });
 
