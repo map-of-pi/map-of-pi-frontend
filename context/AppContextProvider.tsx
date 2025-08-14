@@ -13,6 +13,7 @@ import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
 import { IUser } from '@/constants/types';
+import { getNotificationsCount } from '@/services/notificationApi';
 
 import logger from '../logger.config.mjs';
 
@@ -30,6 +31,10 @@ interface IAppContextProps {
   isSaveLoading: boolean;
   setIsSaveLoading: React.Dispatch<SetStateAction<boolean>>;
   adsSupported: boolean;
+  toggleNotification: boolean;
+  setToggleNotification: React.Dispatch<SetStateAction<boolean>>;
+  setNotificationsCount: React.Dispatch<SetStateAction<number>>;
+  notificationsCount: number;
 }
 
 const initialState: IAppContextProps = {
@@ -45,7 +50,11 @@ const initialState: IAppContextProps = {
   setReload: () => {},
   isSaveLoading: false,
   setIsSaveLoading: () => {},
-  adsSupported: false
+  adsSupported: false,
+  toggleNotification: false,
+  setToggleNotification: () => {},
+  setNotificationsCount: () => {},
+  notificationsCount: 0
 };
 
 export const AppContext = createContext<IAppContextProps>(initialState);
@@ -62,6 +71,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [adsSupported, setAdsSupported] = useState(false);
+  const [toggleNotification, setToggleNotification] = useState<boolean>(true);
+  const [notificationsCount, setNotificationsCount] = useState(0);
+
+
+  useEffect(() => {
+  if (currentUser) {
+    fetchNotificationsCount(); // ⬅️ Run whenever currentUser changes
+  }
+}, [currentUser]);
 
   const showAlert = (message: string) => {
     setAlertMessage(message);
@@ -69,6 +87,18 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       setAlertMessage(null); // Clear alert after 5 seconds
     }, 5000);
   };
+
+ const fetchNotificationsCount = async () => {
+  try {
+    const count = await getNotificationsCount();
+    setNotificationsCount(count);
+    console.log("Fetched notification count:", count);
+  } catch (error) {
+    logger.error('Failed to fetch notification count:', error);
+    setNotificationsCount(0);
+    setToggleNotification(false);
+  }
+};
 
   /* Register User via Pi SDK */
   const registerUser = async () => {
@@ -175,7 +205,13 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setAlertMessage, 
         isSaveLoading, 
         setIsSaveLoading, 
-        adsSupported
+        adsSupported,
+        toggleNotification,
+        setToggleNotification,
+        setNotificationsCount,
+        notificationsCount
+        
+    
       }}
     >
       {children}

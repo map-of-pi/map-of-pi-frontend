@@ -25,7 +25,12 @@ function Navbar() {
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
 
-  const {isSigningInUser, reload, alertMessage, isSaveLoading} = useContext(AppContext);
+  const {isSigningInUser, reload, alertMessage, isSaveLoading } = useContext(AppContext);
+  const { notificationsCount } = useContext(AppContext);
+
+  useEffect(() => {
+  console.log("Navbar saw notification count:", notificationsCount);
+}, [notificationsCount]);
 
   // check if the current page is the homepage
   useEffect(() => {
@@ -118,14 +123,21 @@ function Navbar() {
                 }
               }}
             >
-              {sidebarToggle && !isSigningInUser && !isSaveLoading ? (
-                <IoMdClose size={24} className="text-secondary" />
-              ) : (
-                <FiMenu
-                  size={24}
-                  className={`${isSigningInUser || isSaveLoading ? 'text-tertiary cursor-not-allowed' : 'text-secondary'}`}
-                />
-              )}
+              <div className="relative">
+                {sidebarToggle && !isSigningInUser && !isSaveLoading ? (
+                  <IoMdClose size={24} className="text-secondary" />
+                ) : (
+                  <>
+                    <FiMenu
+                      size={24}
+                      className={`${isSigningInUser || isSaveLoading ? 'text-tertiary cursor-not-allowed' : 'text-secondary'}`}
+                    />
+                    {notificationsCount > 0 && (
+                      <span className="absolute top-[-6px] right-[-6px] w-[10px] h-[10px] bg-red-500 rounded-full animate-pulse" />
+                    )}
+                  </>
+                )}
+              </div>
             </Link>
           </div>
         </div>

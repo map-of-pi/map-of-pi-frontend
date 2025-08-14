@@ -9,12 +9,15 @@ import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { getNotifications, updateNotification } from '@/services/notificationApi';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+import { getNotificationsCount } from '@/services/notificationApi';
 
 export default function NotificationPage() {
   const t = useTranslations();
   const { currentUser } = useContext(AppContext);
 
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const { setNotificationsCount, setToggleNotification } = useContext(AppContext);
+
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(5);
@@ -32,27 +35,40 @@ export default function NotificationPage() {
   };
 
   const handleUpdateNotification = async (id: string) => {
-    const prev = notifications.find((n) => n._id === id);
-    if (!prev) return;
+  const prev = notifications.find((n) => n._id === id);
+  if (!prev) return;
 
+  setNotifications((prevList) =>
+    prevList.map((n) =>
+      n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
+    )
+  );
+
+  try {
+    await updateNotification(id);
+
+    // Re-fetch fresh notifications to get accurate state
+    const fresh = await getNotifications({
+      skip: 0,
+      limit: 1000,
+    });
+
+    setNotifications(fresh);
+
+    const count = await getNotificationsCount();
+    setNotificationsCount(count);
+
+  } catch (error) {
+    logger.error('Error updating notification:', error);
+
+    // Rollback
     setNotifications((prevList) =>
       prevList.map((n) =>
-        n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
+        n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
       )
     );
-
-    try {
-      await updateNotification(id);
-    } catch (error) {
-      logger.error('Error updating notification:', error);
-      // Rollback
-      setNotifications((prevList) =>
-        prevList.map((n) =>
-          n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
-        )
-      );
-    }
-  };
+  }
+};
 
   const sortNotifications = (
     current: NotificationType[],
@@ -69,7 +85,6 @@ export default function NotificationPage() {
 
     try {
       const newNotifications = await getNotifications({
-        pi_uid: currentUser.pi_uid,
         skip,
         limit
       });

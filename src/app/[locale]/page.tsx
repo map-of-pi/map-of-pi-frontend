@@ -93,7 +93,6 @@ export default function Page({ params }: { params: { locale: string } }) {
       
       try {
         const notifications = await getNotifications({
-          pi_uid: currentUser.pi_uid,
           skip: 0,
           limit: 0,
           status: 'uncleared'

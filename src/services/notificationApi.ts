@@ -3,9 +3,15 @@ import { INotification } from '@/constants/types';
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
-export const getNotifications = async (
-  {pi_uid, skip, limit, status}: 
-  {pi_uid: string, skip: number, limit: number, status?: 'cleared' | 'uncleared'}) => {
+export const getNotifications = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'cleared' | 'uncleared';
+}) => {
   try {
     const headers = getMultipartFormDataHeaders();
 
@@ -16,14 +22,14 @@ export const getNotifications = async (
     if (status) {
       queryParams.append('status', status);
     }
-    
-    const response = await axiosClient.get(`/notifications/${pi_uid}?${queryParams.toString()}`, {
-      headers
+
+    const response = await axiosClient.get(`/notifications?${queryParams.toString()}`, {
+      headers,
     });
-    
+
     if (response.status === 200) {
       logger.info(`Get notifications successful with Status ${response.status}`, {
-        data: response.data
+        data: response.data,
       });
       return response.data;
     } else {
@@ -35,6 +41,7 @@ export const getNotifications = async (
     throw new Error('Failed to get notifications. Please try again later.');
   }
 };
+
 
 export const buildNotification = async (data: INotification) => {
   try {
@@ -69,5 +76,20 @@ export const updateNotification = async (notification_id: string) => {
   } catch (error) {
     logger.error('Update notification encountered an error:', error);
     throw new Error('Failed to update notification. Please try again later.');
+  }
+};
+
+export const getNotificationsCount = async (): Promise<number> => {
+  try {
+    const response = await axiosClient.get('/notifications/count?status=uncleared');
+    if (response.status === 200) {
+      logger.info('Get notification count successful', { data: response.data });
+      return response.data.count;
+    }
+    logger.error(`Get notification count failed with status ${response.status}`);
+    return 0;
+  } catch (error) {
+    logger.error('Get notification count error:', error);
+    return 0;
   }
 };
