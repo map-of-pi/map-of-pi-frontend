@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Quản Lý Người Bán",
+      "SELLER_RESTRICTION_MESSAGE": "Trung tâm bán hàng của bạn nằm trong khu vực bị Pi Network cấm, vì vậy dấu bản đồ của bạn sẽ bị ẩn với tất cả người dùng",
       "SELLER_DETAILS_LABEL": "Thông tin người bán",
       "EMAIL_LABEL": "Địa chỉ email",
       "PHONE_NUMBER_LABEL": "Số điện thoại",

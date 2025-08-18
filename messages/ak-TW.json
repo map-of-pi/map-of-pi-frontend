@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Atɔnfoɔ Din Kɔm",
+      "SELLER_RESTRICTION_MESSAGE": "Wo Sell Center no wɔ ɔman a Pi Network akyiw no mu, enti w’afidie a ɛda mapa so no bɛkata afi nnipa nyinaa ani so",
       "SELLER_DETAILS_LABEL": "Atɔnfoɔ Nsɛm",
       "EMAIL_LABEL": "Email adresɛ",
       "PHONE_NUMBER_LABEL": "Fon nɔma",

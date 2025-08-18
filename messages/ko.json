@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "판매자 관리",
+      "SELLER_RESTRICTION_MESSAGE": "귀하의 판매 센터가 Pi Network에서 제재한 지역에 있으므로 지도 표시가 모든 사용자에게 숨겨집니다",
       "SELLER_DETAILS_LABEL": "판매자 세부 정보",
       "EMAIL_LABEL": "이메일 주소",
       "PHONE_NUMBER_LABEL": "전화번호",

@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "إدارة البائع",
+      "SELLER_RESTRICTION_MESSAGE": "مركز البيع الخاص بك يقع في منطقة خاضعة للعقوبات من Pi Network، لذلك سيتم إخفاء علامتك على الخريطة عن جميع المستخدمين",
       "SELLER_DETAILS_LABEL": "تفاصيل البائع",
       "EMAIL_LABEL": "البريد الإلكتروني",
       "PHONE_NUMBER_LABEL": "رقم الهاتف",

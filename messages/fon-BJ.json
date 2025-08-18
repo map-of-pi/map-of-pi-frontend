@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Dohwɛ ƒɛnu",
+      "SELLER_RESTRICTION_MESSAGE": "Wɛ́n nɔn nu wɛ̀ gbà lɛ yì Pi Network tɔ́n sèsin wɛ̀, ɖe ɖò ɖò wɛ́n ɖò sù mapa xó xò wɛ̀ nɔn ɖokàn mì",
       "SELLER_DETAILS_LABEL": "Nǔsátɔ́ sín gbigbajemin",
       "EMAIL_LABEL": "Adrɛsi Email mittɔn",
       "PHONE_NUMBER_LABEL": "Alokan numɛro miton",

@@ -107,8 +107,6 @@ export const translateSellerCategory = (category: string, t: (key: string) => st
       return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.INACTIVE_SELLER');
     case SellerType.test_seller:
       return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.TEST_SELLER');
-    case SellerType.restrictedSeller:
-      return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.RESTRICTED_SELLER');
     default:
       return '';
   }

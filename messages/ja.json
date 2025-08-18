@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "販売者管理",
+      "SELLER_RESTRICTION_MESSAGE": "あなたの販売センターはPi Networkによって制裁された地域にあるため、あなたの地図のマーカーはすべてのユーザーから非表示になります",
       "SELLER_DETAILS_LABEL": "販売者の詳細",
       "EMAIL_LABEL": "メールアドレス",
       "PHONE_NUMBER_LABEL": "電話番号",
