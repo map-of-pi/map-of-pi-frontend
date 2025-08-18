@@ -411,7 +411,6 @@ function Sidebar(props: any) {
                     fontSize: '18px',
                   }}
                   onClick={() => {
-                    // router.push(`/${locale}/user/order-review`);
                     props.setToggleDis(false); // Close sidebar on click
                   }}
                 />
@@ -433,7 +432,6 @@ function Sidebar(props: any) {
                     fontSize: '18px',
                   }}
                   onClick={() => {
-                    // router.push(`/${locale}/user/membership`);
                     props.setToggleDis(false); // Close sidebar on click
                   }}
                 />

@@ -2,15 +2,16 @@
 
 import { useTranslations } from "next-intl";
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../../../../context/AppContextProvider";
-import { IMembership, PaymentDataType, PaymentType } from "@/constants/types"
-import { MembershipClassType, MembershipOption, membershipBuyOptions, MembershipBuyType, dumyList } from "@/constants/membershipClassType"
-import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input } from "@/components/shared/Forms/Inputs/Inputs";
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
-import logger from "../../../../../logger.config.mjs"
+import { IMembership, PaymentDataType, PaymentType } from "@/constants/types"
+import { MembershipClassType, MembershipOption, membershipBuyOptions, MembershipBuyType, dumyList } from "@/constants/membershipClassType"
+import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
+
+import { AppContext } from "../../../../../context/AppContextProvider";
+import logger from "../../../../../logger.config.mjs";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership } = useContext(AppContext);
@@ -28,6 +29,7 @@ export default function MembershipPage() {
   const loadMembership = async () => { 
     if (!currentUser?.pi_uid) return;
     try {
+      logger.info(`Loading membership data for: ${currentUser.pi_uid}`);
       const subList = await fetchMembershipList();
       setMembershipList(subList);
 

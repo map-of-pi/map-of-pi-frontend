@@ -1,13 +1,12 @@
 export enum MembershipClassType {
-  CASUAL = "Casual",
   SINGLE = "Single",
+  CASUAL = "Casual",
   WHITE = "White",
   GREEN = "Green",
   GOLD = "Gold",
   DOUBLE_GOLD = "Double Gold",
   TRIPLE_GOLD = "Triple Gold",
 }
-
 
 export interface MembershipOption {
   value: MembershipClassType;

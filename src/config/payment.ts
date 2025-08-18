@@ -9,7 +9,6 @@ export const onIncompletePaymentFound = (payment: PaymentDTO) => {
 }
 
 export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, error:any) => {
-  
   const onReadyForServerApproval = (paymentId: string) => {
     axiosClient.post('/payments/approve', {paymentId}, config);
   }
@@ -18,11 +17,10 @@ export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, er
     axiosClient.post('/payments/complete', { paymentId, txid }, config).then((res) => {
       logger.info('Payment completed successfully: ', res.data);
       onComplete(res.data);
-    }).catch((err) => {
-      logger.error('Error completing payment: ', err);
-      error(err);
+    }).catch((error) => {
+      logger.error('Error completing payment: ', error);
+      error(error);
     });
-
   }
 
   const onCancel = (paymentId: string) => {

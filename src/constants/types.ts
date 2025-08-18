@@ -50,14 +50,14 @@ type MembershipPaymentMetadataType = {
 
 export interface IMembership {
   _id: string;
+  user?: string;
   membership_id: string;
   membership_expiry_date: string | null;
+  membership_class: MembershipClassType;
   mappi_balance: number;
   mappi_used_to_date?: number;
-  membership_class: MembershipClassType;
-  user?: string;
   createdAt?: string;
-}
+};
 
 // ========================
 // SELLER MODELS

@@ -7,7 +7,10 @@ import DoubleGoldIcon from "../../../../public/images/membership/Member_icon_dou
 import TripleGoldIcon from "../../../../public/images/membership/Member_icon_triple_gold.svg"
 import { MembershipClassType } from '@/constants/membershipClassType'
 
-function MembershipIcon({ category, className, styleComponent }: { category: MembershipClassType, className?: string, styleComponent?: any }) {
+function MembershipIcon({ category, className, styleComponent }: { 
+  category: MembershipClassType, 
+  className?: string, 
+  styleComponent?: any }) {
   const HandleMembership = (category: MembershipClassType) => {
     switch (category) {
       case MembershipClassType.TRIPLE_GOLD:

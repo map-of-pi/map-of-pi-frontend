@@ -1,7 +1,7 @@
 import axiosClient from "@/config/client";
+import { MembershipOption } from "@/constants/membershipClassType";
 import { IMembership } from "@/constants/types";
 import logger from "../../logger.config.mjs"
-import { MembershipClassType, MembershipOption } from "@/constants/membershipClassType";
 
 export const fetchMembershipList = async (): Promise<MembershipOption[] | null> => {
   try {
