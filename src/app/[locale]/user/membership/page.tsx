@@ -163,19 +163,27 @@ export default function MembershipPage() {
         </div>
       </div>
 
-      <div className="mb-5 mt-3 ml-auto w-min">
-        <Button
-          label={selectedMethod === MembershipBuyType.ADS ? "Watch" : "Buy"}
-          styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
-          }}
-          onClick={handleBuy}
-        />
-      </div>
+      <div className="mb-5 mt-3 flex justify-between">
+      <Button
+        label="Watch Ads"
+        styles={{
+          color: '#ffc153',
+          height: '40px',
+          padding: '10px 15px',
+        }}
+        onClick={"handleWatchAdsClick"}
+      />
 
-      
+      <Button
+        label="Buy"
+        styles={{
+          color: '#ffc153',
+          height: '40px',
+          padding: '10px 15px',
+        }}
+        onClick={handleBuy}
+      />
     </div>
+  </div>
   );
 }
