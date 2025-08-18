@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Verkäuferverwaltung",
+      "SELLER_RESTRICTION_MESSAGE": "Dein Verkaufszentrum befindet sich in einer von Pi Network sanktionierten Region, daher wird deine Kartenmarkierung für alle Nutzer verborgen",
       "SELLER_DETAILS_LABEL": "Verkäuferdetails",
       "EMAIL_LABEL": "E-Mail-Adresse",
       "PHONE_NUMBER_LABEL": "Telefonnummer",

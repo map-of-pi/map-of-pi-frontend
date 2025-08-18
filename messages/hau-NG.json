@@ -46,6 +46,7 @@
   "SCREEN": {
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Gudanar da Mai Sayarwa",
+      "SELLER_RESTRICTION_MESSAGE": "Cibiyar kasuwancinka tana cikin yanki da Pi Network ta takaita, don haka alamarka a taswira za a ɓoye daga duk masu amfani",
       "SELLER_DETAILS_LABEL": "Bayanin mai sayarwa",
       "EMAIL_LABEL": "Adireshin imel",
       "PHONE_NUMBER_LABEL": "Lambar waya",
