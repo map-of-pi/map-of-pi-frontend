@@ -11,9 +11,8 @@ import {
 } from 'react';
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
-import { MembershipClassType } from '@/constants/mock';
 import { AuthResult } from '@/constants/pi';
-import { IUser } from '@/constants/types';
+import { IUser, MembershipClassType } from '@/constants/types';
 import logger from '../logger.config.mjs';
 
 interface IAppContextProps {

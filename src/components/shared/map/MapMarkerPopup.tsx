@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '../Forms/Buttons/Buttons';
 import MembershipIcon from '../membership/MembershipIcon';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
-import { MembershipClassType } from '@/constants/mock';
+import { MembershipClassType } from '@/constants/types';
 import { translateSellerCategory } from '@/utils/translate';
 import logger from '../../../../logger.config.mjs';
 

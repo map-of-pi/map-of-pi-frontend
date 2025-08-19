@@ -5,7 +5,7 @@ import GreenIcon from "../../../../public/images/membership/Member_icon_green.sv
 import GoldIcon from "../../../../public/images/membership/Member_icon_gold.svg"
 import DoubleGoldIcon from "../../../../public/images/membership/Member_icon_double_gold.svg"
 import TripleGoldIcon from "../../../../public/images/membership/Member_icon_triple_gold.svg"
-import { MembershipClassType } from '@/constants/mock'
+import { MembershipClassType } from '@/constants/types'
 
 function MembershipIcon({ category, className, styleComponent }: { 
   category: MembershipClassType, 
