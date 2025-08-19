@@ -44,6 +44,22 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Adhésion",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Classe d’adhésion actuelle",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Date de fin d’adhésion actuelle",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Aucune adhésion active",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Solde Mappi restant",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Choisissez l’adhésion ou Mappi à acheter",
+      "PICK_BUY_METHOD_LABEL": "Choisissez la méthode d’achat",
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Entrez le code du bon",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Adhésion activée avec succès",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Échec du chargement des données d’adhésion",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Échec du paiement de l’adhésion",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "L’utilisateur doit être connecté pour effectuer un paiement"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administration du Vendeur",
       "SELLER_RESTRICTION_MESSAGE": "Votre centre de vente se trouve dans une région sanctionnée par Pi Network, votre repère sur la carte sera donc caché pour tous les utilisateurs",
@@ -289,6 +305,7 @@
     "PIONEER_LABEL": "Pionnier",
     "PIONEER_ID_LABEL": "identifianf du Pionnier",
     "BUY": "Acheter",
+    "WATCH": "Regarder",
     "RESET": "Réinitialiser",
     "REFUND": "Remboursement",
     "FULFILL": "Exécuter",

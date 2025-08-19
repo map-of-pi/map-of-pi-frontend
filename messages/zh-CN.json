@@ -44,6 +44,22 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "会员",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "当前会员等级",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "当前会员结束日期",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "没有有效的会员资格",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "剩余的Mappi额度",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "选择要购买的会员或Mappi",
+      "PICK_BUY_METHOD_LABEL": "选择购买方式",
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "输入优惠码",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "会员激活成功",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "无法加载会员数据",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "会员支付失败",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "用户必须登录才能进行支付"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "卖家管理",
       "SELLER_RESTRICTION_MESSAGE": "您的销售中心位于 Pi Network 制裁的区域，因此您的地图标记将对所有用户隐藏",
@@ -289,6 +305,7 @@
     "PIONEER_LABEL": "先锋",
     "PIONEER_ID_LABEL": "先锋 ID",
     "BUY": "购买",
+    "WATCH": "观看",
     "RESET": "重置",
     "REFUND": "退款",
     "FULFILL": "完成",

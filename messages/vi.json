@@ -44,6 +44,22 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Tư cách thành viên",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Hạng thành viên hiện tại",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ngày kết thúc tư cách thành viên hiện tại",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Không có tư cách thành viên đang hoạt động",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Số dư Mappi còn lại",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Chọn tư cách thành viên hoặc Mappi để mua",
+      "PICK_BUY_METHOD_LABEL": "Chọn phương thức mua",
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Nhập mã voucher",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Kích hoạt hội viên thành công",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Không tải được dữ liệu hội viên",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Thanh toán hội viên thất bại",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Người dùng phải đăng nhập để thực hiện thanh toán"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Quản Lý Người Bán",
       "SELLER_RESTRICTION_MESSAGE": "Trung tâm bán hàng của bạn nằm trong khu vực bị Pi Network cấm, vì vậy dấu bản đồ của bạn sẽ bị ẩn với tất cả người dùng",
@@ -289,6 +305,7 @@
     "PIONEER_LABEL": "Tiên phong",
     "PIONEER_ID_LABEL": "Mã Pioneer",
     "BUY": "Mua",
+    "WATCH": "Xem",
     "RESET": "Đặt lại",
     "REFUND": "Hoàn tiền",
     "FULFILL": "Hoàn thành",

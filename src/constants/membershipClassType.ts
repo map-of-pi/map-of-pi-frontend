@@ -8,6 +8,12 @@ export enum MembershipClassType {
   TRIPLE_GOLD = "Triple Gold",
 }
 
+export enum MembershipBuyType {
+  BUY = "Buy",
+  ADS = "Watch ads (free)",
+  VOUCHER = "Use a voucher code (free)",
+}
+
 export interface MembershipOption {
   value: MembershipClassType;
   cost: number;
@@ -15,7 +21,18 @@ export interface MembershipOption {
   mappi_allowance: number;
 }
 
-export const dumyList: MembershipOption[] = [  
+export interface MembershipBuyOption {
+  value: MembershipBuyType; // same as back-end
+  label: string;
+}
+
+export const membershipBuyOptions: MembershipBuyOption[] = [
+  { value: MembershipBuyType.BUY, label: "Pay with pi" },
+  { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
+  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
+];
+
+export const dummyList: MembershipOption[] = [  
   {
     value: MembershipClassType.CASUAL,
     mappi_allowance: 0,
@@ -40,7 +57,7 @@ export const dumyList: MembershipOption[] = [
     cost: 1.5,
     duration: 4,
   },
-   {
+  {
     value: MembershipClassType.GOLD,
     mappi_allowance: 100,
     cost: 5,
@@ -58,22 +75,4 @@ export const dumyList: MembershipOption[] = [
     cost: 20,
     duration: 50,
   }
-]
-
-
-export enum MembershipBuyType {
-  BUY = "buy",
-  ADS = "Watch ads (free)",
-  VOUCHER = "Use a voucher code (free)",
-}
-
-export interface MembershipBuyOption {
-  value: MembershipBuyType; // same as back-end
-  label: string;
-}
-
-export const membershipBuyOptions: MembershipBuyOption[] = [
-  { value: MembershipBuyType.BUY, label: "Pay with pi" },
-  { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
-  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
 ];
