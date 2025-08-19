@@ -35,8 +35,9 @@ export default function MembershipPage() {
       setMembershipData(data);
       setUserMembership(data? data?.membership_class: userMembership);
       setSelectedMembership(data?.membership_class || userMembership);
-    } catch {
+    } catch(error) {
       showAlert("Could not load membership data");
+      logger.error("error loading membership", {error})
     }
   };
 
