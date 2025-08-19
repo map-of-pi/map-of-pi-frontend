@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "No hay membresía activa",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Asignación de Mappi restante",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Elija membresía o Mappi para comprar",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membresía ({duration} semanas)",
       "PICK_BUY_METHOD_LABEL": "Elija método de compra",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Pagar con π",
+        "WATCH_ADS": "Ver anuncios (gratis)",
+        "USE_VOUCHER": "Usar código de cupón (gratis)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Ingrese código de cupón",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Tu membresía se ha activado con éxito",

@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Không có tư cách thành viên đang hoạt động",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Số dư Mappi còn lại",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Chọn tư cách thành viên hoặc Mappi để mua",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "thành viên ({duration} tuần)",
       "PICK_BUY_METHOD_LABEL": "Chọn phương thức mua",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Thanh toán bằng π",
+        "WATCH_ADS": "Xem quảng cáo (miễn phí)",
+        "USE_VOUCHER": "Sử dụng mã voucher (miễn phí)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Nhập mã voucher",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Kích hoạt hội viên thành công",

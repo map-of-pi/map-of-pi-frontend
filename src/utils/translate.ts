@@ -1,6 +1,7 @@
 import { 
   DeviceLocationType,
-  FulfillmentType, 
+  FulfillmentType,
+  MembershipBuyType, 
   OrderItemStatus, 
   OrderStatusType, 
   SellerType, 
@@ -135,6 +136,19 @@ export const translateOrderItemStatusType = (status: string, t: (key: string) =>
       return t('SCREEN.SELLER_ORDER_FULFILLMENT.STATUS_TYPE.FULFILLED');
     case OrderItemStatus.Pending:
       return t('SCREEN.SELLER_ORDER_FULFILLMENT.STATUS_TYPE.PENDING');
+    default:
+      return '';
+  }
+};
+
+export const translatePurchaseOptions = (option: MembershipBuyType, t: (key: string) => string): string => {
+  switch (option) {
+    case MembershipBuyType.BUY:
+      return t('SCREEN.MEMBERSHIP.PURCHASE_OPTIONS.PAY_WITH_PI');
+    case MembershipBuyType.ADS:
+      return t('SCREEN.MEMBERSHIP.PURCHASE_OPTIONS.WATCH_ADS');
+    case MembershipBuyType.VOUCHER:
+      return t('SCREEN.MEMBERSHIP.PURCHASE_OPTIONS.USE_VOUCHER');
     default:
       return '';
   }

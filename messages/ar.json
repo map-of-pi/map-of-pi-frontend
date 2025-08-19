@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "لا توجد عضوية نشطة",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "رصيد Mappi المتبقي",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو Mappi للشراء",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
       "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "الدفع بواسطة π",
+        "WATCH_ADS": "شاهد الإعلانات (مجاني)",
+        "USE_VOUCHER": "استخدم رمز القسيمة (مجاني)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "أدخل رمز القسيمة",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "تم تفعيل العضوية بنجاح",

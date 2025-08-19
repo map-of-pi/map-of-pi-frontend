@@ -6,9 +6,18 @@ import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input } from "@/components/shared/Forms/Inputs/Inputs";
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
-import { IMembership, PaymentDataType, PaymentType } from "@/constants/types"
-import { MembershipClassType, MembershipOption, membershipBuyOptions, MembershipBuyType, dummyList } from "@/constants/membershipClassType"
+import { dummyList } from "@/constants/mock"
+import { 
+  IMembership,
+  MembershipClassType, 
+  MembershipOption, 
+  membershipBuyOptions, 
+  MembershipBuyType,
+  PaymentDataType, 
+  PaymentType 
+} from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
+import { translatePurchaseOptions } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
@@ -114,7 +123,7 @@ export default function MembershipPage() {
         </h2>
 
         <div className="">
-          {membershipList && membershipList.length>0 && membershipList.map((option, index) => (
+          {membershipList && membershipList.length> 0 && membershipList.map((option, index) => (
             <div
               key={index}
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
@@ -128,7 +137,10 @@ export default function MembershipPage() {
                   <div className="p-1 bg-yellow-400 rounded"></div>                  
                 )
               }
-              {`${option.value}  ${option.value === MembershipClassType.SINGLE? "Mappi" : "membership (" + option.duration + ") weeks"}`} 
+              {`${option.value}  ${option.value === MembershipClassType.SINGLE 
+                ? "Mappi" 
+                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration })
+              }`} 
               
               <MembershipIcon 
                 category={option.value} 
@@ -155,15 +167,14 @@ export default function MembershipPage() {
             <div
               key={index}
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-              onClick={() => setSelectedMethod(option.value)}>
-              {                                       
-                selectedMethod === option.value ? (
-                  <div className="p-1 bg-green-700 rounded"></div>
-                  ) : (
-                  <div className="p-1 bg-yellow-400 rounded"></div>                  
-                )
-              }
-              {option.label}
+              onClick={() => setSelectedMethod(option.value)}
+            >
+              {selectedMethod === option.value ? (
+                <div className="p-1 bg-green-700 rounded"></div>
+              ) : (
+                <div className="p-1 bg-yellow-400 rounded"></div>                  
+              )}
+              {translatePurchaseOptions(option.value, t)}
             </div>
           ))}
           {selectedMethod === MembershipBuyType.VOUCHER && (

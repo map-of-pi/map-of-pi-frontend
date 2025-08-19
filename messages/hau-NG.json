@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Babu rajistar da take aiki",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ragowar Mappi",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Zaɓi ƙungiya ko Mappi don siya",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "memba ({duration} makonni)",
       "PICK_BUY_METHOD_LABEL": "Zaɓi hanyar siya",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Biya da π",
+        "WATCH_ADS": "Kalli talla (kyauta)",
+        "USE_VOUCHER": "Yi amfani da lambar voucher (kyauta)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Shigar da lambar voucher",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "An kunna memba cikin nasara",

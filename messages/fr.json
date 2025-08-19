@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Aucune adhésion active",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Solde Mappi restant",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Choisissez l’adhésion ou Mappi à acheter",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "adhésion ({duration} semaines)",
       "PICK_BUY_METHOD_LABEL": "Choisissez la méthode d’achat",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Payer avec π",
+        "WATCH_ADS": "Regarder les publicités (gratuit)",
+        "USE_VOUCHER": "Utiliser un code voucher (gratuit)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Entrez le code du bon",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Adhésion activée avec succès",

@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ko si ìdárúpọ̀ tó ń ṣiṣẹ́",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ìyókù Mappi",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Yan ìṣọkan tàbí Mappi láti rà",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "ìmọ̀lára ({duration} ọ̀sẹ̀)",
       "PICK_BUY_METHOD_LABEL": "Yan ọ̀nà rira",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Sanwo pẹlu π",
+        "WATCH_ADS": "Wo ìpolówó (fẹ́fẹ́)",
+        "USE_VOUCHER": "Lo koodu voucher (fẹ́fẹ́)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Tẹ kóòdù voucher",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Ìforúkọsílẹ̀ ọmọ ẹgbẹ́ ti ṣàkóso ní àṣeyọrí",

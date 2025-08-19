@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ɔyɛfoɔ nni hɔ",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi a aka no",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa Mappi a wopɛ sɛ wotɔ",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "abɔntenkɔmu ({duration} nna nsia)",
       "PICK_BUY_METHOD_LABEL": "Paw sɔ adeɛ kwan",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Tua π so",
+        "WATCH_ADS": "Hwɛ ads (free)",
+        "USE_VOUCHER": "Fa voucher code (free)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Bɔ voucher code",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship no ayɛ active yie",

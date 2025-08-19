@@ -1,5 +1,5 @@
 import axiosClient from "@/config/client";
-import { MembershipOption } from "@/constants/membershipClassType";
+import { MembershipOption } from "@/constants/mock";
 import { IMembership } from "@/constants/types";
 import logger from "../../logger.config.mjs"
 

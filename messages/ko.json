@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "활성 멤버십 없음",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "남은 Mappi 한도",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "구매할 멤버십 또는 Mappi 선택",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "멤버십 ({duration}주)",
       "PICK_BUY_METHOD_LABEL": "구매 방법 선택",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "π로 결제",
+        "WATCH_ADS": "광고 보기 (무료)",
+        "USE_VOUCHER": "바우처 코드 사용 (무료)"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "바우처 코드 입력",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "멤버십이 성공적으로 활성화되었습니다",

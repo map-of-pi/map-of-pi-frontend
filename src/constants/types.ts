@@ -1,5 +1,3 @@
-import { MembershipClassType } from "@/constants/membershipClassType"
-
 // ========================
 // USER MODELS
 // ========================
@@ -44,6 +42,22 @@ export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'email' | 'p
 // ========================
 // MEMBERSHIP MODELS
 // ========================
+export enum MembershipClassType {
+  SINGLE = "Single",
+  CASUAL = "Casual",
+  WHITE = "White",
+  GREEN = "Green",
+  GOLD = "Gold",
+  DOUBLE_GOLD = "Double Gold",
+  TRIPLE_GOLD = "Triple Gold",
+};
+
+export enum MembershipBuyType {
+  BUY = "Buy",
+  ADS = "Watch ads (free)",
+  VOUCHER = "Use a voucher code (free)",
+};
+
 type MembershipPaymentMetadataType = {
   membership_class: MembershipClassType
 };
@@ -58,6 +72,24 @@ export interface IMembership {
   mappi_used_to_date?: number;
   createdAt?: string;
 };
+
+export interface MembershipOption {
+  value: MembershipClassType;
+  cost: number;
+  duration: number | null; // in weeks
+  mappi_allowance: number;
+}
+
+export interface MembershipBuyOption {
+  value: MembershipBuyType; // same as back-end
+  label: string;
+}
+
+export const membershipBuyOptions: MembershipBuyOption[] = [
+  { value: MembershipBuyType.BUY, label: "Pay with pi" },
+  { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
+  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
+];
 
 // ========================
 // SELLER MODELS

@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "有効なメンバーシップはありません",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "残りのMappi利用枠",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "購入するメンバーシップまたはMappiを選択",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "メンバーシップ（{duration} 週間）",
       "PICK_BUY_METHOD_LABEL": "購入方法を選択",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "πで支払う",
+        "WATCH_ADS": "広告を見る（無料）",
+        "USE_VOUCHER": "バウチャーコードを使用（無料）"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "バウチャーコードを入力",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "メンバーシップが正常に有効化されました",

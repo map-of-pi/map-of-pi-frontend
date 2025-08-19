@@ -51,7 +51,13 @@
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "沒有有效的會員資格",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "剩餘的Mappi額度",
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "選擇要購買的會員或Mappi",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "會員資格（{duration} 週）",
       "PICK_BUY_METHOD_LABEL": "選擇購買方式",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "使用 π 付款",
+        "WATCH_ADS": "觀看廣告（免費）",
+        "USE_VOUCHER": "使用優惠券代碼（免費）"
+      },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "輸入優惠碼",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "會員啟用成功",
