@@ -160,8 +160,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
     }
 
     const newOrderData = {    
-      buyerId: currentUser.pi_uid,
-      sellerId: sellerId,        
+      sellerPiUid: sellerId,        
       paymentId: null,
       totalAmount: totalAmount,
       status: OrderStatusType.Pending,
