@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "العضوية",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "فئة العضوية الحالية",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "تاريخ انتهاء العضوية الحالية",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "لا توجد عضوية نشطة",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "رصيد Mappi المتبقي",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو Mappi للشراء",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
+      "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "الدفع بواسطة π",
+        "WATCH_ADS": "شاهد الإعلانات (مجاني)",
+        "USE_VOUCHER": "استخدم رمز القسيمة (مجاني)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "أدخل رمز القسيمة",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "تم تفعيل العضوية بنجاح",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "فشل في تحميل بيانات العضوية",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "فشل دفع رسوم العضوية",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "يجب أن يقوم المستخدم بتسجيل الدخول لإجراء الدفع"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "إدارة البائع",
       "SELLER_RESTRICTION_MESSAGE": "مركز البيع الخاص بك يقع في منطقة خاضعة للعقوبات من Pi Network، لذلك سيتم إخفاء علامتك على الخريطة عن جميع المستخدمين",
@@ -287,8 +309,10 @@
   },
   "SHARED": {
     "PIONEER_LABEL": "رائد",
-    "PIONEER_ID_LABEL": "معرف المستخدم", 
+    "PIONEER_ID_LABEL": "معرف المستخدم",
+    "MEMBERSHIP": "العضوية",
     "BUY": "شراء",
+    "WATCH": "شاهد",
     "RESET": "إعادة تعيين",
     "REFUND": "استرداد",
     "FULFILL": "تنفيذ",

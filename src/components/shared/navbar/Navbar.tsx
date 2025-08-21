@@ -12,7 +12,7 @@ import { IoMdArrowBack, IoMdClose } from 'react-icons/io';
 import { MdHome } from 'react-icons/md';
 
 import styles from './Navbar.module.css';
-import MembershipIcon from '../membership/MembershipIcon';
+import MembershipIcon from '@/components/shared/membership/MembershipIcon'; 
 import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
@@ -25,7 +25,7 @@ function Navbar() {
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
 
-  const {isSigningInUser, reload, alertMessage, isSaveLoading} = useContext(AppContext);
+  const {isSigningInUser, reload, alertMessage, isSaveLoading, userMembership} = useContext(AppContext);
 
   // check if the current page is the homepage
   useEffect(() => {
@@ -76,7 +76,7 @@ function Navbar() {
           )}
         </div>
           <div className="flex-1">
-            <MembershipIcon category='triple_gold' />
+            <MembershipIcon category={userMembership} />
           </div>
         </div>
 

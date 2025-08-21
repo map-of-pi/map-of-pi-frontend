@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Ƙungiya",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Ajin ƙungiya na yanzu",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ranar ƙarewar ƙungiya ta yanzu",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Babu rajistar da take aiki",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ragowar Mappi",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Zaɓi ƙungiya ko Mappi don siya",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "memba ({duration} makonni)",
+      "PICK_BUY_METHOD_LABEL": "Zaɓi hanyar siya",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Biya da π",
+        "WATCH_ADS": "Kalli talla (kyauta)",
+        "USE_VOUCHER": "Yi amfani da lambar voucher (kyauta)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Shigar da lambar voucher",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "An kunna memba cikin nasara",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "An kasa loda bayanan memba",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Biyan memba ya gaza",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Mai amfani dole ne ya shiga kafin yin biyan kuɗi"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Gudanar da Mai Sayarwa",
       "SELLER_RESTRICTION_MESSAGE": "Cibiyar kasuwancinka tana cikin yanki da Pi Network ta takaita, don haka alamarka a taswira za a ɓoye daga duk masu amfani",
@@ -288,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pioneer",
     "PIONEER_ID_LABEL": "ID na Pioneer",
+    "MEMBERSHIP": "Ƙungiya",
     "BUY": "Saya",
+    "WATCH": "Kalli",
     "RESET": "Sake saiti",
     "REFUND": "Mayar da kudi",
     "FULFILL": "Cika",
