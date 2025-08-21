@@ -11,6 +11,7 @@ import { Input } from "@/components/shared/Forms/Inputs/Inputs";
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
 import logger from "../../../../../logger.config.mjs"
+import { useRouter } from 'next/navigation';
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership } = useContext(AppContext);
@@ -21,6 +22,7 @@ export default function MembershipPage() {
   const [loading, setLoading] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
 
+  const router = useRouter();
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
@@ -171,7 +173,7 @@ export default function MembershipPage() {
           height: '40px',
           padding: '10px 15px',
         }}
-        onClick={"handleWatchAdsClick"}
+onClick={() => router.push(`/user/watch-ads`)}
       />
 
       <Button
