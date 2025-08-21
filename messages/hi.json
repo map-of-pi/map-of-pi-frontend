@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "सदस्यता",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "वर्तमान सदस्यता श्रेणी",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "वर्तमान सदस्यता समाप्ति तिथि",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "कोई सक्रिय सदस्यता नहीं",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "शेष Mappi भत्ता",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "सदस्यता या Mappi खरीदें चुनें",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "सदस्यता ({duration} सप्ताह)",
+      "PICK_BUY_METHOD_LABEL": "खरीदने की विधि चुनें",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "π के साथ भुगतान करें",
+        "WATCH_ADS": "विज्ञापन देखें (फ्री)",
+        "USE_VOUCHER": "वाउचर कोड का उपयोग करें (फ्री)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "वाउचर कोड दर्ज करें",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "सदस्यता सफलतापूर्वक सक्रिय कर दी गई है",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "सदस्यता डेटा लोड करने में विफल",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "सदस्यता का भुगतान विफल",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "भुगतान करने के लिए उपयोगकर्ता को लॉगिन करना आवश्यक है"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "विक्रेता प्रशासन",
       "SELLER_RESTRICTION_MESSAGE": "आपका विक्रय केंद्र ऐसे क्षेत्र में है जो Pi Network द्वारा प्रतिबंधित है, इसलिए आपका मानचित्र मार्कर सभी उपयोगकर्ताओं से छिपा रहेगा",
@@ -288,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "अग्रणी",
     "PIONEER_ID_LABEL": "पायनियर आईडी",
+    "MEMBERSHIP": "सदस्यता",
     "BUY": "ख़रीदें",
+    "WATCH": "देखें",
     "RESET": "रीसेट करें",
     "REFUND": "रिफंड",
     "FULFILL": "पूरा करें",

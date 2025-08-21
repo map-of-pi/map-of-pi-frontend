@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Membership",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Current membership class",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Current membership end date",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "No active membership",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi allowance remaining",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Pick membership or Mappi to buy",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membership ({duration} weeks)",
+      "PICK_BUY_METHOD_LABEL": "Pick buy method",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Pay with π",
+        "WATCH_ADS": "Watch ads (free)",
+        "USE_VOUCHER": "Use a voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Enter voucher code",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membership activated successfully",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Failed to load membership data",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Failed membership payment",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "User must be logged in to make a payment"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Seller Administration",
       "SELLER_RESTRICTION_MESSAGE": "Your Sell Center is in a region sanctioned by Pi Network so your map marker will be hidden to all users",
@@ -288,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pioneer",
     "PIONEER_ID_LABEL": "Pioneer ID",
+    "MEMBERSHIP": "Membership",
     "BUY": "Buy",
+    "WATCH": "Watch",
     "RESET": "Reset",
     "REFUND": "Refund",
     "FULFILL": "Fulfill",
@@ -300,7 +324,7 @@
     "CHECK_REVIEWS": "Check Reviews",
     "SEARCH_REVIEWS": "Search Reviews",
     "SEARCH_LOADING": "Search loading...",
-    "VIEW_NOTIFICATIONS": "See notifications",
+    "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",

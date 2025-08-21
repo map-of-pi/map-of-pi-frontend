@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Abɔdeɛ mu",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Seisei abɔdeɛ mu akyɛdeɛ",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Seisei abɔdeɛ mu awieeɛ da",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ɔyɛfoɔ nni hɔ",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi a aka no",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa Mappi a wopɛ sɛ wotɔ",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "abɔntenkɔmu ({duration} nna nsia)",
+      "PICK_BUY_METHOD_LABEL": "Paw sɔ adeɛ kwan",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Tua π so",
+        "WATCH_ADS": "Hwɛ ads (free)",
+        "USE_VOUCHER": "Fa voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Bɔ voucher code",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship no ayɛ active yie",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Ɛyɛɛ mfomso wɔ membɛship data no so",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Membɛship ka no wɔ mfomso",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ɛsɛ sɛ ɔdehye no hyɛ mu ansa na ɔtumi yɛ sika so ka"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Atɔnfoɔ Din Kɔm",
       "SELLER_RESTRICTION_MESSAGE": "Wo Sell Center no wɔ ɔman a Pi Network akyiw no mu, enti w’afidie a ɛda mapa so no bɛkata afi nnipa nyinaa ani so",
@@ -288,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pioneer",
     "PIONEER_ID_LABEL": "Pioneer ahyɛnsodeɛ",
+    "MEMBERSHIP": "Abɔdeɛ mu",
     "BUY": "Tɔ",
+    "WATCH": "Hwɛ",
     "RESET": "San hyɛ bio",
     "REFUND": "San sika no",
     "FULFILL": "Di dwuma no so",
