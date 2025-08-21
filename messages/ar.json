@@ -309,7 +309,8 @@
   },
   "SHARED": {
     "PIONEER_LABEL": "رائد",
-    "PIONEER_ID_LABEL": "معرف المستخدم", 
+    "PIONEER_ID_LABEL": "معرف المستخدم",
+    "MEMBERSHIP": "العضوية",
     "BUY": "شراء",
     "WATCH": "شاهد",
     "RESET": "إعادة تعيين",

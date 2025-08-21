@@ -310,6 +310,7 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionnier",
     "PIONEER_ID_LABEL": "identifianf du Pionnier",
+    "MEMBERSHIP": "Adhésion",
     "BUY": "Acheter",
     "WATCH": "Regarder",
     "RESET": "Réinitialiser",
