@@ -159,7 +159,7 @@ export default function MembershipPage() {
 
       <div className="mb-5">
         <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP."PICK_BUY_METHOD_LABEL') + ': '}
+          {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
         </h2>
 
         <div className="">
