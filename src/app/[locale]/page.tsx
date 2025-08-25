@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { locale: string } }) {
     setSearchCenterPopup(false);
     checkAndAutoLoginUser(currentUser, autoLoginUser);
 
-    const getUserSettingsData = async () => {
+    const getUserSettingsData = async (): Promise<{ needsSearchCenter: boolean }> => {
       try {
         const data = await fetchUserSettings();
         if (data) {
@@ -71,18 +71,23 @@ export default function Page({ params }: { params: { locale: string } }) {
               lng: coordinates[0],
             };
             setSearchCenter(searchMapCenter);
-            if (searchMapCenter.lat === 0 && searchMapCenter.lng === 0) {
-              setSearchCenterPopup(true);
-            }
+            const needs = searchMapCenter.lat === 0 && searchMapCenter.lng === 0;
+            if (needs) setSearchCenterPopup(true);
+            return { needsSearchCenter: needs };
           }
         } else {
           logger.warn('User Settings not found.');
           setDbUserSettings(null);
           setSearchCenter(null);
+          // If no settings, we need the user to set search center
+          setSearchCenterPopup(true);
+          return { needsSearchCenter: true };
         }
       } catch (error) {
         logger.error('Error fetching user settings data:', error);
       }
+      // Default: no need
+      return { needsSearchCenter: false };
     };
 
     const checkUnclearedNotifications = async () => {
@@ -113,9 +118,16 @@ export default function Page({ params }: { params: { locale: string } }) {
       }
     };
 
-    // Only proceed once currentUser is defined with a valid pi_uid
-    getUserSettingsData();
-    checkUnclearedNotifications();
+    // First resolve user settings and prioritize search center requirement.
+    (async () => {
+      const res = await getUserSettingsData();
+      // If search centre is required, do NOT check notifications
+      if (!res?.needsSearchCenter) {
+        await checkUnclearedNotifications();
+      } else {
+        setShowNotificationPopup(false);
+      }
+    })();
   }, [currentUser, reload]);
 
   useEffect(() => {
@@ -228,15 +240,15 @@ export default function Page({ params }: { params: { locale: string } }) {
         </div>
         {showSearchCenterPopup && (
           <ConfirmDialog
-            show={setSearchCenterPopup}
+            show={showSearchCenterPopup}
             onClose={() => setSearchCenterPopup(false)}
             message={t('HOME.SEARCH_CENTER_DEFAULT_MESSAGE')}
             url={`/map-center?entryType=search`}
           />
         )}
       </div>
-     
-      {showNotificationPopup &&  (
+      
+      {!showSearchCenterPopup && showNotificationPopup &&  (
         <NotificationDialog
           setShowDialog={setShowNotificationPopup}
           onClose={() => setShowNotificationPopup(false)}
