@@ -15,8 +15,8 @@ const ConfirmDialog = ({ show, onClose, message, url } : any) => {
   if (!show) return null;
 
   return createPortal(
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative">
+    <div className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-50 pb-[18vh] sm:pb-[14vh]">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative shadow-lg">
         <button
           onClick={onClose}
           className="absolute top-3 right-3"
@@ -44,8 +44,8 @@ export const ConfirmDialogX = ({ toggle, handleClicked, message }:any) => {
   const t = useTranslations();
   
   return createPortal(
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative">
+    <div className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-50 pb-[18vh] sm:pb-[14vh]">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative shadow-lg">
         <button
           onClick={toggle}
           className="absolute top-3 right-3"
@@ -80,8 +80,8 @@ export const Notification:React.FC<{
   }
 
   return (
-    <div className={`absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 ${!showDialog? 'hidden': ''}`}>
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative">
+    <div className={`absolute inset-0 flex items-end justify-center bg-black bg-opacity-50 z-20 pb-[18vh] sm:pb-[14vh] ${!showDialog? 'hidden': ''}`}>
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative shadow-lg">
         <button
           onClick={onClose}
           className="absolute top-3 right-3"
