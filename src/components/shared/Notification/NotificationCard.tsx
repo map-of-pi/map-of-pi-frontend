@@ -40,13 +40,19 @@ export default function NotificationCard({
     >
       <div className="p-3">
         <div className="mb-3">
-          <Input
+          <div className="relative">
+            <label className="block text-[17px] text-[#333333]">{t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL')}:</label>
+            <div className={`mt-1 p-[10px] block w-full rounded-xl h-auto min-h-[48px] border-[#BDBDBD] bg-transparent outline-0 border-[2px] mb-4 select-none`}>
+              {notification.reason}
+            </div>
+          </div>
+          {/* <Input
             label={`${t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL')}:`}
             name="reason"
             type="text"
             value={notification.reason}
             disabled
-          />
+          /> */}
         </div>
 
         <div className="flex gap-x-4">
