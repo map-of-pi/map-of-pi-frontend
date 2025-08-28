@@ -23,10 +23,10 @@ import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
 
 export default function MembershipPage() {
-  const { currentUser, showAlert, userMembership, setUserMembership } = useContext(AppContext);
+  const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
   const [membershipData, setMembershipData] = useState<IMembership | null>(null);
   const [membershipList, setMembershipList] = useState<MembershipOption[] | null>(dummyList);
-  const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(userMembership);
+  const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
 
@@ -55,13 +55,19 @@ export default function MembershipPage() {
     loadMembership();
   }, [currentUser]);
 
+  const isSingleMappi = (newClass: MembershipClassType) => { 
+    return newClass === MembershipClassType.SINGLE
+  };
+
   const onPaymentComplete = async (data:any) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE'));
-    await loadMembership();    
+    await loadMembership();  
+    setIsSaveLoading(false);  
   }
   
   const onPaymentError = (error: Error) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_MEMBERSHIP_PAYMENT_MESSAGE'));
+    setIsSaveLoading(false);
   }
   
   const handleBuy = async () => {
@@ -70,10 +76,11 @@ export default function MembershipPage() {
     }
     
     if (selectedMethod !== MembershipBuyType.BUY) return
+    setIsSaveLoading(true)
   
     const paymentData: PaymentDataType = {
       amount: totalAmount,
-      memo: `Map of Pi payment for ${selectedMembership} membership`,
+      memo: `Map of Pi payment for ${selectedMembership} ${isSingleMappi(selectedMembership) ? 'Mappi' : 'Membership' }`,
       metadata: { 
         payment_type: PaymentType.Membership,
         MembershipPayment: {
@@ -137,7 +144,7 @@ export default function MembershipPage() {
                   <div className="p-1 bg-yellow-400 rounded"></div>                  
                 )
               }
-              {`${option.value}  ${option.value === MembershipClassType.SINGLE 
+              {`${option.value}  ${isSingleMappi(option.value)
                 ? "Mappi" 
                 : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration })
               }`} 
@@ -194,6 +201,7 @@ export default function MembershipPage() {
         <Button
           label={selectedMethod === MembershipBuyType.ADS ? 
             t('SHARED.WATCH') : t('SHARED.BUY')}
+          disabled={isSaveLoading || totalAmount <= 0}
           styles={{
             color: '#ffc153',
             height: '40px',
