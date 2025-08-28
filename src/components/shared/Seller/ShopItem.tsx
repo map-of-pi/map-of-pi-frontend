@@ -236,7 +236,6 @@ export const ShopItem: React.FC<{
   };
 
   const handleSave = async () => {
-    setIsSaveLoading(true);
     const duration = Number(formData.duration);
     const today = new Date();
 
@@ -255,6 +254,8 @@ export const ShopItem: React.FC<{
         return null;
       }
     }
+    
+    setIsSaveLoading(true);
 
     const formDataToSend = new FormData();
     // Prepare form data
