@@ -310,6 +310,7 @@
   "SHARED": {
     "PIONEER_LABEL": "先锋",
     "PIONEER_ID_LABEL": "先锋 ID",
+    "MEMBERSHIP": "会员",
     "BUY": "购买",
     "WATCH": "观看",
     "RESET": "重置",

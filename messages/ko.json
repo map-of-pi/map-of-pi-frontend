@@ -310,6 +310,7 @@
   "SHARED": {
     "PIONEER_LABEL": "개척자",
     "PIONEER_ID_LABEL": "파이오니어 ID",
+    "MEMBERSHIP": "멤버십",
     "BUY": "구매",
     "WATCH": "보기",
     "RESET": "재설정",

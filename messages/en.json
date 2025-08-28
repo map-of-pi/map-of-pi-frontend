@@ -310,6 +310,7 @@
   "SHARED": {
     "PIONEER_LABEL": "Pioneer",
     "PIONEER_ID_LABEL": "Pioneer ID",
+    "MEMBERSHIP": "Membership",
     "BUY": "Buy",
     "WATCH": "Watch",
     "RESET": "Reset",
@@ -323,7 +324,7 @@
     "CHECK_REVIEWS": "Check Reviews",
     "SEARCH_REVIEWS": "Search Reviews",
     "SEARCH_LOADING": "Search loading...",
-    "VIEW_NOTIFICATIONS": "See notifications",
+    "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
