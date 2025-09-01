@@ -44,6 +44,28 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Nudɔwɔlaƒe",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Ƒe nudɔwɔlaƒe klasi si le egbe",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ƒe nudɔwɔlaƒe gbeɖeɖe ƒe ɣeyiɣi",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Míele nyaɖe me le ɖoɖo la ta",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi si gblɔ na wo kple kple le",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Tia nudɔwɔlaƒe alo Mappi be nàɖɔ",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "dzidzɔla ({duration} kɔsiɖa)",
+      "PICK_BUY_METHOD_LABEL": "Tia ɖɔɖɔ nu vovotɔ",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Tɔ π",
+        "WATCH_ADS": "Kɔ ads (free)",
+        "USE_VOUCHER": "Tɔ voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Ɖe voucher kɔda me",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship la wótsɔ ɖe eme gɔ̃ hã",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Membeshiip data la akpɔm le eme",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Membɛship ka no antumi anyi",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ɛsɛ be ƒeɖeɖe la nà log in abe alea nàtsɔ ka"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "ƒeƒeɖoɖoɖoɖo ƒe Nyɔnu",
       "SELLER_RESTRICTION_MESSAGE": "Wo ƒe Sell Center le region si Pi Network le be nye be menya ɖe, eye wò map marker la katã be ɖo ɖe amedzrowo nu",
@@ -288,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionier",
     "PIONEER_ID_LABEL": "Mɔɖela Pionier ƒe ID",
+    "MEMBERSHIP": "Nudɔwɔlaƒe",
     "BUY": "Gbe",
+    "WATCH": "Ɖe asi le",
     "RESET": "Dɔwɔ ɖo to",
     "REFUND": "Zɔmɛ na nu",
     "FULFILL": "Dzraɖeɖe",

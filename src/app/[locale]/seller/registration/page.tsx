@@ -43,7 +43,7 @@ const SellerRegistrationForm = () => {
   const t = useTranslations();
   const placeholderSeller = itemData.seller;
 
-  const { currentUser, autoLoginUser, showAlert } = useContext(AppContext);
+  const { currentUser, autoLoginUser, showAlert, userMembership } = useContext(AppContext);
 
   type IFormData = {
     sellerName: string;
@@ -325,7 +325,7 @@ const SellerRegistrationForm = () => {
           <h3 className="text-gray-400 text-sm flex items-center">
             {dbSeller ? dbSeller.name : ''} 
             <MembershipIcon 
-              category='triple_gold' 
+              category={userMembership} 
               className="ml-1"
               styleComponent={{
                 display: "inline-block",
