@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import NotificationCard from '@/components/shared/Notification/NotificationCard';
 import Skeleton from '@/components/skeleton/skeleton';
 import { NotificationType } from '@/constants/types';
+import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { getNotifications, updateNotification } from '@/services/notificationApi';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
@@ -14,13 +15,21 @@ export default function NotificationPage() {
   const { currentUser } = useContext(AppContext);
 
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [skip, setSkip] = useState(0);
-  const [limit] = useState(10);
+  const [limit] = useState(5);
   const [isLoading, setLoading] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-  const container = useRef<HTMLDivElement[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
-  const loadMoreObserver = useRef<IntersectionObserver | null>(null);
+  
+  const handleShopItemRef = (node: HTMLElement | null) => {
+    if (node && observer.current) {
+      observer.current.observe(node);
+    }
+  };
 
   const handleUpdateNotification = async (id: string) => {
     const prev = notifications.find((n) => n._id === id);
@@ -56,8 +65,7 @@ export default function NotificationPage() {
   };
 
   const fetchNotifications = async () => {
-    if (isLoading || !currentUser?.pi_uid) return;
-    setLoading(true);
+    if (isLoading || !currentUser?.pi_uid || !hasMore) return;
 
     try {
       const newNotifications = await getNotifications({
@@ -71,60 +79,39 @@ export default function NotificationPage() {
       if (newNotifications.length > 0) {
         const sorted = sortNotifications(notifications, newNotifications);
         setNotifications(sorted);
-        setSkip((prev) => prev + limit);
+        setSkip(skip + limit);
+      }
+
+      if (newNotifications.length < limit) {
+        setHasMore(false); // No more pages
       }
     } catch (error) {
       logger.error('Error fetching notifications:', error);
     } finally {
+      setHasFetched(true);
       setLoading(false);
     }
   };
 
   useEffect(() => {
     if (!currentUser?.pi_uid) return;
+
     setNotifications([]);
     setSkip(0);
     fetchNotifications();
   }, [currentUser?.pi_uid]);
 
-  useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-    if (loadMoreObserver.current) loadMoreObserver.current.disconnect();
-
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle('show', entry.isIntersecting);
-          if (entry.isIntersecting) observer.current?.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    container.current.forEach((el) => {
-      if (el) observer.current?.observe(el);
-    });
-
-    loadMoreObserver.current = new IntersectionObserver(
-      (entries) => {
-        const lastEntry = entries[0];
-        if (lastEntry?.isIntersecting) {
-          fetchNotifications();
-          loadMoreObserver.current?.unobserve(lastEntry.target);
-        }
-      },
-      { threshold: 1 }
-    );
-
-    const lastItem = container.current[container.current.length - 1];
-    if (lastItem) loadMoreObserver.current.observe(lastItem);
-
-    return () => {
-      observer.current?.disconnect();
-      loadMoreObserver.current?.disconnect();
-    };
-  }, [notifications]);
-
+  useScrollablePagination({
+    containerRef: scrollContainerRef,
+    loadMoreRef,
+    fetchNextPage: async () => {
+      setLoading(true);
+      await fetchNotifications();
+    },
+    hasMore,
+    isLoading,
+  });
+  
   return (
     <div className="w-full md:w-[500px] md:mx-auto p-4">
       <div className="text-center mb-7">
@@ -134,8 +121,12 @@ export default function NotificationPage() {
       </div>
 
       {/* Notifications */}
-      <div>
-        {!isLoading && notifications.length === 0 ? (
+      <div
+        ref={scrollContainerRef}
+        id="notification-scroll-container"
+        className="max-h-[600px] overflow-y-auto p-1 mb-7 mt-3"
+      >
+        {!isLoading && hasFetched && notifications.length === 0 ? (
           <h2 className="font-bold mb-2 text-center">
             {t('SCREEN.NOTIFICATIONS.NO_NOTIFICATIONS_SUBHEADER')}
           </h2>
@@ -145,15 +136,15 @@ export default function NotificationPage() {
               key={notify._id}
               notification={notify}
               onToggleClear={handleUpdateNotification}
-              forwardedRef={(el) => {
-                if (el) container.current[index] = el;
-              }}
+              refCallback={handleShopItemRef} // Attach observer
             />
           ))
         )}
+        
+        {/* Load more trigger */}
+        {isLoading && <Skeleton type="notification" />}
+        <div ref={loadMoreRef} className="h-[20px]" />        
       </div>
-
-      {isLoading && <Skeleton type="notification" />}
     </div>
   );
 }

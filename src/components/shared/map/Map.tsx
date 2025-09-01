@@ -56,6 +56,7 @@ const Map = ({
   searchQuery,
   isSearchClicked,
   searchResults,
+  onMapReady,
 }: {
   center: LatLngExpression | null;
   zoom: number;
@@ -63,6 +64,7 @@ const Map = ({
   searchQuery: string;
   isSearchClicked: boolean;
   searchResults: ISeller[];
+  onMapReady?: () => void;
 }) => {
   const t = useTranslations();
   const { isSigningInUser } = useContext(AppContext);
@@ -175,6 +177,7 @@ const Map = ({
   useEffect(() => {
     if (mapRef.current) {
       fetchInitialCoordinates();  // Fetch sellers when map is ready
+      onMapReady?.(); // Notify parent that map is ready
     }
   }, [mapRef.current]);
 
@@ -358,12 +361,13 @@ const Map = ({
       )}
       {isSigningInUser ? (
         <div className="w-full flex-1 fixed bottom-0 h-[calc(100vh-76.19px)] left-0 right-0 bg-[#f5f1e6] ">
-          <div className="flex justify-center items-center w-full h-full">
+          <div className="flex justify-center items-start w-full h-full pt-[16vh] sm:pt-[18vh]">
             <Image 
               src="/default.png" 
-              width={120} 
-              height={140} 
+              width={150} 
+              height={176} 
               alt="splashscreen" 
+              priority
             />
           </div>
         </div>

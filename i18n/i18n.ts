@@ -1,6 +1,8 @@
 // Can be imported from a shared config
 export const locales = [
-  'ar', 
+  'ak-TW',
+  'ar',
+  'de', 
   'en', 
   'en-GB', 
   'es', 
@@ -9,6 +11,7 @@ export const locales = [
   'fr', 
   'hau-NG',
   'yor-NG',
+  'hi',
   'ja', 
   'ko',
   'vi',

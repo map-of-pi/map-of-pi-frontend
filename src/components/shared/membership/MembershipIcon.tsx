@@ -5,19 +5,23 @@ import GreenIcon from "../../../../public/images/membership/Member_icon_green.sv
 import GoldIcon from "../../../../public/images/membership/Member_icon_gold.svg"
 import DoubleGoldIcon from "../../../../public/images/membership/Member_icon_double_gold.svg"
 import TripleGoldIcon from "../../../../public/images/membership/Member_icon_triple_gold.svg"
+import { MembershipClassType } from '@/constants/types'
 
-function MembershipIcon({ category, className, styleComponent }: { category: string, className?: string, styleComponent?: any }) {
-  const HandleMembership = (category: string) => {
+function MembershipIcon({ category, className, styleComponent }: { 
+  category: MembershipClassType, 
+  className?: string, 
+  styleComponent?: any }) {
+  const HandleMembership = (category: MembershipClassType) => {
     switch (category) {
-      case "triple_gold":
+      case MembershipClassType.TRIPLE_GOLD:
         return TripleGoldIcon
-      case "double_gold":
+      case MembershipClassType.DOUBLE_GOLD:
         return DoubleGoldIcon
-      case "gold":
+      case MembershipClassType.GOLD:
         return GoldIcon
-      case "green":
+      case MembershipClassType.GREEN:
         return GreenIcon
-      case "white":
+      case MembershipClassType.WHITE:
         return WhiteIcon
       default:
         return null

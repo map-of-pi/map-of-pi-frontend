@@ -400,8 +400,49 @@ function Sidebar(props: any) {
           {/* review order button */}
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
+              <Link href={`/${locale}/user/order-review`}>
+                <Button
+                  label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+
+          {/* membership button */}
+          {isOnlineShoppingEnabled && (
+            <div className="mb-2">
+              <Link href={`/${locale}/user/membership`}>
+                <Button
+                  label={t('SHARED.MEMBERSHIP')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+
+          <div className="mb-2">
+            <Link href={`/${locale}/notification`}>
               <Button
-                label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                label={t('SHARED.VIEW_NOTIFICATIONS')} // Stay consistent with 'View Orders'; TODO - Apply language translation
                 styles={{
                   color: '#ffc153',
                   width: '100%',
@@ -410,12 +451,11 @@ function Sidebar(props: any) {
                   fontSize: '18px',
                 }}
                 onClick={() => {
-                  router.push(`/${locale}/user/order-review`);
                   props.setToggleDis(false); // Close sidebar on click
                 }}
               />
-            </div>
-          )}
+            </Link>              
+          </div>
 
           {/* user settings form fields */}
           <div className="flex flex-col justify-items-center mx-auto text-center gap-1">
