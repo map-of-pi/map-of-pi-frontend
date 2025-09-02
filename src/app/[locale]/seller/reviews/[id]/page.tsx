@@ -1,5 +1,4 @@
 'use client';
-import { fetchUserSettings } from '@/services/userSettingsApi';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,13 +13,12 @@ import { IReviewOutput, ReviewInt } from '@/constants/types';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
 import { fetchReviews } from '@/services/reviewsApi';
+import { fetchUserSettings } from '@/services/userSettingsApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
 import { resolveDate } from '@/utils/date';
+import { getImageSrc } from '@/utils/image';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
-
-
-
 
 function SellerReviews({
   params,
@@ -42,10 +40,27 @@ function SellerReviews({
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const { currentUser, reload, setReload, autoLoginUser } = useContext(AppContext);
   
-
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchBarValue, setSearchBarValue] = useState('');
   const [toUser, setToUser] = useState('');
+
+  useEffect(() => {
+    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    fetchUserReviews(userId);
+
+    const loadUserImage = async () => {
+      try {
+        const settings = await fetchUserSettings();
+        if (settings?.image) {
+          setUserFallbackImage(settings.image);
+        }
+      } catch (error) {
+        logger.warn('Could not fetch fallback user image', error);
+      }
+    };
+
+    loadUserImage();
+  }, [userId, currentUser]);
 
   // Reusable function to process and filter reviews
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
@@ -110,25 +125,6 @@ function SellerReviews({
     }
   };
 
- useEffect(() => {
-  checkAndAutoLoginUser(currentUser, autoLoginUser);
-  fetchUserReviews(userId);
-
-  const loadUserImage = async () => {
-    try {
-      const settings = await fetchUserSettings();
-      if (settings?.image) {
-        setUserFallbackImage(settings.image);
-      }
-    } catch (error) {
-      logger.warn('Could not fetch fallback user image.', error);
-    }
-  };
-
-  loadUserImage();
-}, [userId, currentUser]);
-
-
   // Handle search logic
   const handleSearch = async () => {
     setReload(true);
@@ -180,11 +176,6 @@ function SellerReviews({
     logger.info('Loading seller reviews..');
     return <Skeleton type='seller_review' />;
   }
-  const getImageSrc = (img?: string | null): string => {
-  if (!img) return ''; // ensures the src is never null
-  if (img.startsWith('http')) return img;
-  return `${process.env.NEXT_PUBLIC_BASE_URL}/${img}`;
-};
 
   return (
     <>
@@ -258,13 +249,18 @@ function SellerReviews({
                       <p>{review.time}</p>
                     </div>
                     <div className="flex gap-2 items-center">
-                <Image
-                  src={getImageSrc(review.image || userFallbackImage || '')}
-                   alt="review image"
-                     width={50}
-                      height={50}
-                     className="object-cover rounded-md"
-                      />
+                      {(() => {
+                        const imgSrc = getImageSrc(review.image, userFallbackImage);
+                        return imgSrc ? (
+                          <Image
+                            src={imgSrc}
+                            alt="review image"
+                            width={50}
+                            height={50}
+                            className="object-cover rounded-md"
+                          />
+                        ) : null;
+                      })()}
                       <p className="text-xl max-w-[50px]" title={review.reaction}>
                         {review.unicode}
                       </p>
@@ -305,17 +301,22 @@ function SellerReviews({
                     <p>{review.time}</p>
                   </div>
                   <div className="flex gap-2 items-center">
-                <Image
-                  src={getImageSrc(review.image || userFallbackImage || '')}
-                  alt="review image"
-                   width={50}
-                      height={50}
-                      className="object-cover rounded-md"
-                         />
-                       <p className="text-xl max-w-[50px]" title={review.reaction}>
-                       {review.unicode}
-                         </p>
-                       </div>
+                    {(() => {
+                      const imgSrc = getImageSrc(review.image, userFallbackImage);
+                      return imgSrc ? (
+                        <Image
+                          src={imgSrc}
+                          alt="review image"
+                          width={50}
+                          height={50}
+                          className="object-cover rounded-md"
+                        />
+                      ) : null;
+                    })()}
+                    <p className="text-xl max-w-[50px]" title={review.reaction}>
+                      {review.unicode}
+                    </p>
+                  </div>
                   <div className="flex justify-between items-center">
                     <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?seller_name=${review.giver}`}>
                       <OutlineBtn label={t('SHARED.REPLY')} />
