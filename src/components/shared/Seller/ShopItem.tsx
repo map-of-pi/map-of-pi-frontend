@@ -278,6 +278,8 @@ export const ShopItem: React.FC<{
     } catch (error) {
       logger.error('Error saving seller item:', error);
       showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_SAVE'));
+      setDialogueMessage("Failed to save item. Check mappi balance and try again");
+        setShowDialog(true);
     } finally {
       setIsSaveLoading(false);
     }
