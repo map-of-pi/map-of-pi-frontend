@@ -10,8 +10,10 @@ import EmojiPicker from '@/components/shared/Review/emojipicker';
 import Skeleton from '@/components/skeleton/skeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
 import { fetchSingleReview } from '@/services/reviewsApi';
+import { fetchUserSettings } from '@/services/userSettingsApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
 import { resolveDate } from '@/utils/date';
+import { getImageSrc } from '@/utils/image';
 import { resolveRating } from '../../util/ratingUtils';
 import { AppContext } from '../../../../../../../context/AppContextProvider';
 import logger from '../../../../../../../logger.config.mjs';
@@ -38,6 +40,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const { currentUser, autoLoginUser, reload, setReload } = useContext(AppContext);
 
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
@@ -89,7 +92,19 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
       }
     };
 
+    const loadUserImage = async () => {
+      try {
+        const settings = await fetchUserSettings();
+        if (settings?.image) {
+          setUserFallbackImage(settings.image);
+        }
+      } catch (error) {
+        logger.warn('Could not fetch fallback user image', error);
+      }
+    };
+
     getReviewData();
+    loadUserImage();
   }, [reviewId, currentUser, reload]);
 
   // Scroll functions
@@ -132,7 +147,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                     {/* Left content */}
                     <div className="flex-grow">
                       <p className="text-primary text-sm">
-                        {review.giver} {' -> '}
+                        {review.giver} {' → '}
                         <span className="text-primary text-sm">{review.receiver}</span>
                       </p>
                       <p className="text-md break-words">{review.heading}</p>
@@ -145,15 +160,18 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                         <p>{review.time}</p>
                       </div>
                       <div className="flex gap-2 items-center">
-                        {review.image ? (
-                          <Image
-                            src={review.image}
-                            alt="emoji image"
-                            width={50}
-                            height={50}
-                            className="object-cover rounded-md"
-                          />
-                        ) : null}
+                        {(() => {
+                          const imgSrc = getImageSrc(review.image, userFallbackImage);
+                          return imgSrc ? (
+                            <Image
+                              src={imgSrc}
+                              alt="review image"
+                              width={50}
+                              height={50}
+                              className="object-cover rounded-md"
+                            />
+                          ) : null;
+                        })()}
                         <p className="text-xl max-w-[50px]" title={review.reaction}>
                           {review.unicode}
                         </p>
