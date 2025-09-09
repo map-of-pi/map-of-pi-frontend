@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Mɔ_pionnier {search_value} a"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Ṣeto Àyẹ̀wò",
+      "REVIEW_GIVEN_TO_LABEL": "Àyẹ̀wò fún",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ọjọ́ àti àkókò tí a ṣe àyẹ̀wò náà"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Xóɖɔɖókpɔ́ ɖěbǔ de nú we a {seller_id} ǎ",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Xóɖɔɖókpɔ́ e kpò nú {seller_id} é sín wěma",

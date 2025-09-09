@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "未找到先锋 {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "编辑评论",
+      "REVIEW_GIVEN_TO_LABEL": "评论对象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "评论日期和时间"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "没有 {seller_id} 的评论",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} 的评论列表",

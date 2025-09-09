@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionnier {search_value} non trouvé"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Modifier l'avis",
+      "REVIEW_GIVEN_TO_LABEL": "Avis donné à",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Date et heure de l'avis"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Aucun avis sur {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Liste des avis laissés sur {seller_id}",

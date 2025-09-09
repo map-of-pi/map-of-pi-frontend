@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Không tìm thấy Pioneer {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Chỉnh sửa đánh giá",
+      "REVIEW_GIVEN_TO_LABEL": "Đánh giá được gửi đến",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ngày và giờ gửi đánh giá"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Không có đánh giá cho {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Các đánh giá để lại cho {seller_id}",

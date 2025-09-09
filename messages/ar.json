@@ -205,7 +205,12 @@
         "NO_REVIEWS_FOUND": "لم يتم العثور على تقييمات للمستخدم {search_value}", 
         "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}" 
       } 
-    }, 
+    },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "تعديل التقييم",
+      "REVIEW_GIVEN_TO_LABEL": "التقييم الممنوح لـ",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "تاريخ ووقت تقديم التقييم"
+    },
     "CHECK_REVIEWS_FEEDBACK": { 
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "لا توجد تقييمات لـ {seller_id}", 
       "CHECK_REVIEWS_FEEDBACK_HEADER": "قائمة التقييمات المتروكة لـ {seller_id}", 

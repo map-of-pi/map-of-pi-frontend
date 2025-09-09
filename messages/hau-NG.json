@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Ba a sami Mai-tushen {search_value} ba"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Gyara Bita",
+      "REVIEW_GIVEN_TO_LABEL": "Bita da aka bai wa",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Rana da lokaci da aka bayar da bita"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Babu bita don {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Jerin Ra'ayoyin da aka bari na {seller_id}",

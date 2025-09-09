@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "अग्रणी {search_value} नहीं मिला"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "समीक्षा संपादित करें",
+      "REVIEW_GIVEN_TO_LABEL": "समीक्षा दी गई",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "समीक्षा देने की तिथि और समय"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "के लिए कोई समीक्षा नहीं {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "के लिए छोड़ी गई समीक्षाओं की सूची {seller_id}",

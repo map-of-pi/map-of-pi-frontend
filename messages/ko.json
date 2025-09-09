@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "개척자 {search_value}를 찾을 수 없습니다"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "리뷰 수정",
+      "REVIEW_GIVEN_TO_LABEL": "리뷰 대상",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "리뷰 작성 일시"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰가 없습니다",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰 목록",

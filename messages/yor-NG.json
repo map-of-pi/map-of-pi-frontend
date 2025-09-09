@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionnier a kò rí aṣáájú-ọ̀nà {search_value}"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Ṣatúnṣe Atunyẹwo",
+      "REVIEW_GIVEN_TO_LABEL": "Atunyẹwo ti a fun",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ọjọ́ ati àsìkò ti a fun atunyẹwo"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Ko si awọn awotẹlẹ fun {seller_id}", 
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Kò sí àwọn àyẹ̀wò fún {seller_id}",

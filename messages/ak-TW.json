@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Yennyae Pioneer a ɔyɛ {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Sesaa Adwene",
+      "REVIEW_GIVEN_TO_LABEL": "Adwene a wɔmaa",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Da ne bere a wɔmaa adwene no"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Nsɛnkɔm biara nni hɔ ma {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Nsɛnkɔm a wɔde maa {seller_id}",

@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pioneer {search_value} not found"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Edit Review",
+      "REVIEW_GIVEN_TO_LABEL": "Review given to",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Date and time review given"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "No reviews for {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "List of Reviews left for {seller_id}",

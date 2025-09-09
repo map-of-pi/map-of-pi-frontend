@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "未找到先鋒 {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "編輯評論",
+      "REVIEW_GIVEN_TO_LABEL": "評論對象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "評論日期與時間"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "沒有 {seller_id} 的評論",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} 的評論列表",

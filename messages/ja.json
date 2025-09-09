@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "レビューを編集",
+      "REVIEW_GIVEN_TO_LABEL": "レビュー対象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "レビュー日時"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id} に対するレビューはありません",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} に残されたレビューの一覧",
