@@ -131,7 +131,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
                 <div className="mb-4 flex flex-col gap-3">
                   <div>
                     <label className="block text-black mb-1">
-                      {t('SCREEN.EDIT_REVIEW.REVIEW_GIVEN_TO_LABEL')}
+                      {t('SCREEN.EDIT_REVIEW.REVIEW_GIVEN_TO_LABEL') + ': '}
                     </label>
                     <div className="border rounded p-2 bg-gray-100 text-green-600">
                       {originalReview.receiver}
@@ -139,7 +139,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
                   </div>
                   <div>
                     <label className="block text-black mb-1">
-                      {t('SCREEN.EDIT_REVIEW.DATE_TIME_REVIEW_GIVEN_LABEL')}
+                      {t('SCREEN.EDIT_REVIEW.DATE_TIME_REVIEW_GIVEN_LABEL') + ': '}
                     </label>
                     <div className="border rounded p-2 bg-gray-100 text-green-600">
                       {date}, {time}
