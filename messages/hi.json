@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "ई-मेल"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "फ़ोटो अपलोड करें",
+      "UPLOAD_PHOTO_LABEL": "छवि अपलोड करें",
       "UPLOAD_PHOTO_PLACEHOLDER": "ख़रीदारों को आकर्षित करने में मदद करने के लिए छवि अपलोड करें (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Uअपनी समीक्षा का समर्थन करने के लिए एक छवि अपलोड करें (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "अपनी छवि यहाँ छोड़ें या ब्राउज़ करें",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "प्रोफ़ाइल छवि",
         "SELLER_IMAGE_LABEL": "विक्रेता की छवि",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "छवि की समीक्षा करें"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "छवि की समीक्षा करें",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "छवि अपडेट करें"
       }
     },
     "REACTION_RATING": {

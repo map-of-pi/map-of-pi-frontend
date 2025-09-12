@@ -66,7 +66,7 @@ function SellerReviews({
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     const reviews = data
       .map((feedback: IReviewOutput) => {
-        const { date, time } = resolveDate(feedback.review_date);
+        const { date, time } = resolveDate(feedback.review_date, locale);
         const { reaction, unicode } = resolveRating(feedback.rating) || {};
         return {
           heading: feedback.comment,

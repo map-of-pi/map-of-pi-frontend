@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Correo electrónico"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Subir foto",
+      "UPLOAD_PHOTO_LABEL": "Subir imagen",
       "UPLOAD_PHOTO_PLACEHOLDER": "Sube una imagen para ayudar a atraer compradores (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Sube una imagen para respaldar tu reseña (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Suelta tu imagen aquí o busca",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Imagen de perfil",
         "SELLER_IMAGE_LABEL": "Imagen del vendedor",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Imagen de reseña"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Imagen de reseña",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Actualizar imagen"
       }
     },
     "REACTION_RATING": {

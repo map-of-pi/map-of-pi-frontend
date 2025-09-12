@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "البريد الإلكتروني"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "تحميل صورة",
+      "UPLOAD_PHOTO_LABEL": "رفع الصورة",
       "UPLOAD_PHOTO_PLACEHOLDER": "تحميل صورة للمساعدة في جذب المشترين (PNG، JPG، JPEG، WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "تحميل صورة لدعم تقييمك (PNG، JPG، JPEG، WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "أسقط صورتك هنا أو تصفح",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "صورة الملف الشخصي",
         "SELLER_IMAGE_LABEL": "صورة البائع",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "صورة التقييم"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "صورة التقييم",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "تحديث الصورة"
       }
     },
     "REACTION_RATING": {

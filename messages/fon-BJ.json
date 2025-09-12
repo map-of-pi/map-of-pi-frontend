@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Emai miton"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Ɖo fɔto ɔ ji",
+      "UPLOAD_PHOTO_LABEL": "Lɔ wɛ",
       "UPLOAD_PHOTO_PLACEHOLDER": "Mi ze ɖiɖe ɔ do bo na dɔn nuxɔtɔ́ lɛ (PNG‚ JPG‚ JPEG‚ WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Zé ɖiɖe ɖe ɖ'ayi bo na dó nɔ gudo nú nukpɔn mitɔn (PNG‚ JPG‚ JPEG‚ WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Zé ɖiɖe towe ɖó fí aló kpɔ́n",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Ɖiɖe mɛɖesunɔ tɔn",
         "SELLER_IMAGE_LABEL": "Nɔsatɔ sin ɖiɖe",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Kpɔ́n ɖiɖe ɔ"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Kpɔ́n ɖiɖe ɔ",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Sè ɖa wɛ"
       }
     },
     "REACTION_RATING": {

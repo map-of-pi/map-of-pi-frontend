@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Hoton bayanin martaba",
         "SELLER_IMAGE_LABEL": "Hoton mai sayarwa",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Hoton bita"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Hoton bita",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Sabunta hoto"
       }
     },
     "REACTION_RATING": {

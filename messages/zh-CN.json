@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "电子邮件"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "上传照片",
+      "UPLOAD_PHOTO_LABEL": "上传图片",
       "UPLOAD_PHOTO_PLACEHOLDER": "上传图片以吸引买家（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "上传图片以支持您的评论（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "将图片拖放到此处或浏览",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "个人资料图片",
         "SELLER_IMAGE_LABEL": "卖家图片",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "更新图片"
       }
     },
     "REACTION_RATING": {

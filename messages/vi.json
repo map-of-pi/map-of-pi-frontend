@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Tải ảnh lên",
+      "UPLOAD_PHOTO_LABEL": "Tải hình ảnh lên",
       "UPLOAD_PHOTO_PLACEHOLDER": "Tải ảnh lên để thu hút người mua (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Tải ảnh lên để hỗ trợ đánh giá của bạn (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Kéo thả ảnh của bạn vào đây hoặc duyệt",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Ảnh hồ sơ",
         "SELLER_IMAGE_LABEL": "Ảnh người bán",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Ảnh đánh giá"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Ảnh đánh giá",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Cập nhật hình ảnh"
       }
     },
     "REACTION_RATING": {

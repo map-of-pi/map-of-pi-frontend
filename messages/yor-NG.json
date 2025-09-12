@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Imeeli"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Irùsókè Fọto re",
+      "UPLOAD_PHOTO_LABEL": "Gbe aworan soke",
       "UPLOAD_PHOTO_PLACEHOLDER": "Ṣirùsókè aworan lati ṣe iranlọwọ lati fa awọn oluraja (PNG, JPG, JPEG, WEBP)", 
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Ṣe agbejade aworan lati ṣe atilẹyin atunyẹwo rẹ (PNG, JPG, JPEG, WEBP)", 
       "IMAGE_DROP_UPLOAD_MESSAGE": "Fi aworan rẹ silẹ nibi tabi ṣawari",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Aworan profaili",
         "SELLER_IMAGE_LABEL": "Aworan eniti o ta ọja",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Ṣe imudojuiwọn aworan"
       }
     },
     "REACTION_RATING": {

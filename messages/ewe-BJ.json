@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Emɛl nɔfɛ"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Ɖe ŋutɔ vinyo",
+      "UPLOAD_PHOTO_LABEL": "Fa mɔkɔ naɖe",
       "UPLOAD_PHOTO_PLACEHOLDER": "Zu fɛnyɔwo kple vɔs ɖe amegãwo me fia wò (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Dɔ ƒe gbegblẽ nyuie si akpe vovovɔ (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Kpɔ siwo be ɖe ƒe ɣe ŋutɔ foto alo tɔkɔ",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Nutsɛnu wɔwɔme",
         "SELLER_IMAGE_LABEL": "Eƒe ɖeka ƒe anyi",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Nuŋlɔm wɔwɔme"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Nuŋlɔm wɔwɔme",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Dzɔ mɔkɔ naɖe"
       }
     },
     "REACTION_RATING": {

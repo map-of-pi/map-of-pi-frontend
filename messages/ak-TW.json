@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Fa foto no to so",
+      "UPLOAD_PHOTO_LABEL": "To mfonini no",
       "UPLOAD_PHOTO_PLACEHOLDER": "Fa mfonini to so sɛnea ɛbɛboa ma agyenkwafoɔ",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Fa mfonini to so na ɛboa wo review no",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Bɔ wo mfonini ha anaa kɔ fa so",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profaili mfonini",
         "SELLER_IMAGE_LABEL": "Tɔfo mfonini",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review mfonini"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review mfonini",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "San mfonini no"
       }
     },
     "REACTION_RATING": {

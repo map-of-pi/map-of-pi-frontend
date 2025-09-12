@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "이메일"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "사진 업로드",
+      "UPLOAD_PHOTO_LABEL": "이미지 업로드",
       "UPLOAD_PHOTO_PLACEHOLDER": "구매자의 관심을 끌기 위해 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "리뷰를 지원하는 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "여기에 이미지를 드롭하거나 찾아보기",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "프로필 이미지",
         "SELLER_IMAGE_LABEL": "판매자 이미지",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "이미지 업데이트"
       }
     },
     "REACTION_RATING": {

@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "メール"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "写真をアップロード",
+      "UPLOAD_PHOTO_LABEL": "画像をアップロード",
       "UPLOAD_PHOTO_PLACEHOLDER": "画像をアップロードして購入者を引き付ける（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "レビューをサポートするための画像をアップロード（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "ここに画像をドロップするか、参照してください",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "プロフィール画像",
         "SELLER_IMAGE_LABEL": "販売者画像",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "画像を更新"
       }
     },
     "REACTION_RATING": {

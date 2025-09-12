@@ -345,7 +345,7 @@
       "EMAIL_LABEL": "Die E-Mail"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Foto hochladen",
+      "UPLOAD_PHOTO_LABEL": "Bild hochladen",
       "UPLOAD_PHOTO_PLACEHOLDER": "Bild hochladen, um Käufer zu gewinnen (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Laden Sie ein Bild hoch, um Ihre Bewertung zu unterstützen (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Lassen Sie Ihr Bild hier fallen oder stöbern Sie",
@@ -353,7 +353,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profilbild",
         "SELLER_IMAGE_LABEL": "Bild des Verkäufers",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Bild überprüfen"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Bild überprüfen",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Bild aktualisieren"
       }
     },
     "REACTION_RATING": {

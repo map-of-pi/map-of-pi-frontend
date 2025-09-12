@@ -245,10 +245,10 @@ if (props.isEditMode && props.reviewId) {
       </div>
       <div className="mb-2">
         <FileInput 
-          label={t('SHARED.PHOTO.MISC_LABELS.REVIEW_FEEDBACK_IMAGE_LABEL')}
           describe={t('SHARED.PHOTO.UPLOAD_PHOTO_REVIEW_PLACEHOLDER')} 
           imageUrl={previewImage} 
-          handleAddImage={handleAddImage} 
+          handleAddImage={handleAddImage}
+          isEditMode={props.isEditMode} 
         />
       </div>
 
