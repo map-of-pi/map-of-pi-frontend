@@ -2,11 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, useContext } from 'react';
-import { toast } from 'react-toastify';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import Skeleton from '@/components/skeleton/skeleton';
 import { IReviewOutput } from '@/constants/types';
-import { fetchSingleReview, updateReview } from '@/services/reviewsApi';
+import { fetchSingleReview } from '@/services/reviewsApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
 import { resolveDate } from '@/utils/date';
 import { AppContext } from '../../../../../../../context/AppContextProvider';
@@ -27,7 +26,6 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
   const [image, setImage] = useState<string | null>(null);
 
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
-  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, autoLoginUser);
@@ -68,42 +66,6 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
 
     setIsSaveEnabled(hasChanges);
   }, [rating, comment, image, originalReview]);
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleSave = async () => {
-    if (!originalReview) return;
-
-    setSaving(true);
-    try {
-      await updateReview(reviewId, {
-        rating,
-        comment,
-        image,
-      });
-      toast.success(t('SCREEN.REVIEWS.EDIT.SAVE_SUCCESS'));
-      setOriginalReview({
-        ...originalReview,
-        rating: rating!,
-        comment,
-        image: image || '',
-      });
-      setIsSaveEnabled(false);
-    } catch (err) {
-      logger.error('Error updating review', err);
-      toast.error(t('SCREEN.REVIEWS.EDIT.SAVE_ERROR'));
-    } finally {
-      setSaving(false);
-    }
-  };
 
   if (loading) {
     logger.info('Loading seller reviews edit..');

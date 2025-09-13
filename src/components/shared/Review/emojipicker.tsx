@@ -33,36 +33,32 @@ export default function EmojiPicker(props: any) {
   const [dbReviewFeedback, setDbReviewFeedback] = useState<IReviewFeedback | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>(props.initialImage || '');
-
   const [isSaveEnabled, setIsSaveEnabled] = useState<boolean>(false);
   // Initialize from props.initialComment if provided
-const [comments, setComments] = useState(props.initialComment || '');
-
+  const [comments, setComments] = useState(props.initialComment || '');
   const [reviewEmoji, setReviewEmoji] = useState<number | null>(null);
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
-
- const { showAlert, setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
-
+  const { showAlert, setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
 
   // function preview image upload 
   useEffect(() => {
-  if (props.initialRating !== undefined && props.initialRating !== null) {
-    setReviewEmoji(props.initialRating);
-    setSelectedEmoji(props.initialRating);
-  }
-}, [props.initialRating]);
+    if (props.initialRating !== undefined && props.initialRating !== null) {
+      setReviewEmoji(props.initialRating);
+      setSelectedEmoji(props.initialRating);
+    }
+  }, [props.initialRating]);
 
   useEffect(() => {
-  if (props.initialImage !== undefined) {
-    setPreviewImage(props.initialImage);
-  }
-}, [props.initialImage]);
+    if (props.initialImage !== undefined) {
+      setPreviewImage(props.initialImage);
+    }
+  }, [props.initialImage]);
 
   useEffect(() => {
-  if (props.initialComment !== undefined) {
-    setComments(props.initialComment);
-  }
-}, [props.initialComment]);
+    if (props.initialComment !== undefined) {
+      setComments(props.initialComment);
+    }
+  }, [props.initialComment]);
 
   useEffect(() => {
     if (!file) return;
@@ -86,7 +82,6 @@ const [comments, setComments] = useState(props.initialComment || '');
     setIsSaveEnabled(!noReview);
     props.setIsSaveEnabled(!noReview)
   }, [comments, reviewEmoji, file]);
-
 
   const handleCommentsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComments(e.target.value);
@@ -118,61 +113,68 @@ const [comments, setComments] = useState(props.initialComment || '');
     props.setIsSaveEnabled(false);
   }
 
-const handleSave = async () => {
-  try {
-    if (props.currentUser) {
-      if (props.currentUser.pi_uid === props.userId) {
-        logger.warn(`Attempted self review by user ${props.currentUser.pi_uid}`);
-        return toast.error(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.SELF_REVIEW_NOT_POSSIBLE'));
-      }
-      if (reviewEmoji === null) {
-        logger.warn('Attempted to save review without selecting an emoji.');
-        return toast.warn(t('SHARED.REACTION_RATING.VALIDATION.SELECT_EMOJI_EXPRESSION'));
-      } else {
-        setIsSaveEnabled(false);
-        setIsSaveLoading(true);
-        setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
-
-        // 🆕 If editing, call updateReview
-if (props.isEditMode && props.reviewId) {
-  await updateReview(props.reviewId, {
-    rating: reviewEmoji,
-    comment: removeUrls(comments),
-    image: file || null
-  });
-
-  setReload(true); // 🔄 trigger parent components to refetch reviews
-
-  toast.success(t('SCREEN.REVIEWS.EDIT.SAVE_SUCCESS'));
-} else {
-          // ✅ Otherwise create new review
-          const formDataToSend = new FormData();
-          formDataToSend.append('comment', removeUrls(comments));
-          formDataToSend.append('rating', reviewEmoji.toString());
-          formDataToSend.append('review_receiver_id', props.userId);
-          formDataToSend.append('reply_to_review_id', props.replyToReviewId || '');
-          if (file) {
-            formDataToSend.append('image', file);
-          } else {
-            formDataToSend.append('image', '');
-          }
-          await createReview(formDataToSend);
-        }
-
-        resetReview();
-      }
+  const buildFormData = (isEdit: boolean): FormData => {
+    const formData = new FormData();
+    formData.append('comment', removeUrls(comments));
+    formData.append('rating', reviewEmoji!.toString());
+    if (file) {
+      formData.append('image', file);
     } else {
+      formData.append('image', '');
+    }
+
+    if (!isEdit) {
+      formData.append('review_receiver_id', props.userId);
+      formData.append('reply_to_review_id', props.replyToReviewId || '');
+    }
+    return formData;
+  };
+
+  const validate = () => {
+    if (!props.currentUser) {
       logger.warn('Unable to submit review; user not authenticated.');
       toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+      return false;
     }
-  } catch (error) {
-    logger.error('Error saving review:', error);
-  } finally {
-    setIsSaveLoading(false);
-    setAlertMessage(null);
-  }
-};
+    if (props.currentUser.pi_uid === props.userId) {
+      logger.warn(`Attempted self review by user ${props.currentUser.pi_uid}`);
+      toast.error(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.SELF_REVIEW_NOT_POSSIBLE'));
+      return false;
+    }
+    if (reviewEmoji === null) {
+      logger.warn('Attempted to save review without selecting an emoji.');
+      toast.warn(t('SHARED.REACTION_RATING.VALIDATION.SELECT_EMOJI_EXPRESSION'));
+      return false;
+    }
+    return true;
+  };
 
+  const handleSave = async () => {
+    if (!validate()) return;
+
+    try {
+      setIsSaveEnabled(false);
+      setIsSaveLoading(true);
+      setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
+
+      const formData = buildFormData(props.isEditMode);
+
+      if (props.isEditMode && props.reviewId) {
+        await updateReview(props.reviewId, formData);
+        setReload(true);
+        toast.success(t('SCREEN.REVIEWS.EDIT.SAVE_SUCCESS'));
+      } else {
+        await createReview(formData);
+      }
+
+      resetReview();
+    } catch (error) {
+      logger.error('Error saving review:', error);
+    } finally {
+      setIsSaveLoading(false);
+      setAlertMessage(null);
+    }
+  };
   
   // Function to handle the click of an emoji
   const handleEmojiClick = (emojiValue: number) => {
@@ -194,7 +196,9 @@ if (props.isEditMode && props.reviewId) {
     }
     return undefined;
   };
+
   const emojiBtnClass = 'rounded-md w-full outline outline-[0.5px] flex justify-center items-center cursor-pointer p-1'
+  
   return (
     <div className="mb-3">
         <p>{t('SCREEN.REPLY_TO_REVIEW.FACE_SELECTION_REVIEW_MESSAGE')}</p>

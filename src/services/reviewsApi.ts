@@ -68,25 +68,14 @@ export const createReview = async (formData: FormData) => {
 };
 
 // Update an existing review
-export const updateReview = async (review_id: string, updatedData: any) => {
+export const updateReview = async (review_id: string, formData: FormData) => {
   try {
-    logger.info(`Updating review with ID: ${review_id}`, updatedData);
-
+    logger.info(`Updating review with ID: ${review_id}`, formData);
     const headers = getMultipartFormDataHeaders();
-    const formDataToSend = new FormData();
-
-    // Append fields
-    formDataToSend.append('comment', updatedData.comment || '');
-    formDataToSend.append('rating', updatedData.rating?.toString() || '');
-    if (updatedData.image) {
-      formDataToSend.append('image', updatedData.image);
-    } else {
-      formDataToSend.append('image', '');
-    }
 
     const response = await axiosClient.put(
       `/review-feedback/update/${review_id}`,
-      formDataToSend,
+      formData,
       { headers }
     );
 
@@ -100,7 +89,7 @@ export const updateReview = async (review_id: string, updatedData: any) => {
       return null;
     }
   } catch (error) {
-    logger.error(`Error updating review ${review_id}:`, error);
+    logger.error(`Update review for reviewID ${review_id} encountered an error:`, error);
     throw new Error('Failed to update review. Please try again later.');
   }
 };
