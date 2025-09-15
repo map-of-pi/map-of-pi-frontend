@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Mitgliedschaft",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Aktuelle Mitgliedsklasse",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Enddatum der aktuellen Mitgliedschaft",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Keine aktive Mitgliedschaft",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Verbleibendes Mappi-Guthaben",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Mitgliedschaft oder Mappi zum Kauf auswählen",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "Mitgliedschaft ({duration} Wochen)",
+      "PICK_BUY_METHOD_LABEL": "Kaufmethode auswählen",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Mit π bezahlen",
+        "WATCH_ADS": "Werbung ansehen (kostenlos)",
+        "USE_VOUCHER": "Gutscheincode verwenden (kostenlos)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Gutscheincode eingeben",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Mitgliedschaft erfolgreich aktiviert",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Mitgliedsdaten konnten nicht geladen werden",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Mitgliedschaftszahlung fehlgeschlagen",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Der Benutzer muss angemeldet sein, um eine Zahlung vorzunehmen"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Verkäuferverwaltung",
+      "SELLER_RESTRICTION_MESSAGE": "Dein Verkaufszentrum befindet sich in einer von Pi Network sanktionierten Region, daher wird deine Kartenmarkierung für alle Nutzer verborgen",
       "SELLER_DETAILS_LABEL": "Verkäuferdetails",
       "EMAIL_LABEL": "E-Mail-Adresse",
       "PHONE_NUMBER_LABEL": "Telefonnummer",
@@ -287,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionier",
     "PIONEER_ID_LABEL": "Pionier-ID",
+    "MEMBERSHIP": "Mitgliedschaft",
     "BUY": "Kaufen",
+    "WATCH": "Ansehen",
     "RESET": "Neu setzen",
     "REFUND": "Rückerstattung",
     "FULFILL": "Erfüllen",

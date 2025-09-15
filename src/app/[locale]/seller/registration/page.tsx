@@ -337,8 +337,16 @@ const SellerRegistrationForm = () => {
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
           </h1>
-          <p className="text-gray-400 text-sm">
-            {dbSeller ? translateSellerCategory(dbSeller.seller_type, t) : ''}
+          <p className="text-gray-400 text-sm text-center">
+            {dbSeller ? (
+              dbSeller.isRestricted ? (
+                t('SCREEN.SELLER_REGISTRATION.SELLER_RESTRICTION_MESSAGE')
+              ) : (
+                translateSellerCategory(dbSeller.seller_type, t)
+              )
+            ) : (
+              ''
+            )}
           </p>
         </div>
 

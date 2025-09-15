@@ -411,7 +411,6 @@ function Sidebar(props: any) {
                     fontSize: '18px',
                   }}
                   onClick={() => {
-                    // router.push(`/${locale}/user/order-review`);
                     props.setToggleDis(false); // Close sidebar on click
                   }}
                 />
@@ -424,7 +423,7 @@ function Sidebar(props: any) {
             <div className="mb-2">
               <Link href={`/${locale}/user/membership`}>
                 <Button
-                  label={'Membership'}
+                  label={t('SHARED.MEMBERSHIP')}
                   styles={{
                     color: '#ffc153',
                     width: '100%',
@@ -433,7 +432,6 @@ function Sidebar(props: any) {
                     fontSize: '18px',
                   }}
                   onClick={() => {
-                    // router.push(`/${locale}/user/membership`);
                     props.setToggleDis(false); // Close sidebar on click
                   }}
                 />
@@ -444,7 +442,7 @@ function Sidebar(props: any) {
           <div className="mb-2">
             <Link href={`/${locale}/notification`}>
               <Button
-                label={t('View Notifications')} // Stay consistent with 'View Orders'; TODO - Apply language translation
+                label={t('SHARED.VIEW_NOTIFICATIONS')} // Stay consistent with 'View Orders'; TODO - Apply language translation
                 styles={{
                   color: '#ffc153',
                   width: '100%',

@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Lidantɔ",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Xɔsu lidantɔ to yì",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Xɔsu lidantɔ to yì ɖeɖe",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Asi kpɔxɔ nɔ we ɖe",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi tó yì ɖeɖe",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Wɛ lidantɔ alo Mappi tó nɔ hɔn",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "lɛsinɔ ({duration} ɖon)",
+      "PICK_BUY_METHOD_LABEL": "Wɛ hɔn ɖoɖo tɔn",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Sɔn π",
+        "WATCH_ADS": "Wɛ ads (free)",
+        "USE_VOUCHER": "Wɛ voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Sɔ voucher kódo",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Mɛmbɛship gán hɛ̀ wá nù",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Mɛmbɛship dàtá hɛ̀ wá nù",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Mɛmbɛship dàtá hɛ̀ wá nù",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Sɛ́sɛnɔ gbɛtɔ yì yí log in ɖò wɛ nɔ hɛn nu ka"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Dohwɛ ƒɛnu",
+      "SELLER_RESTRICTION_MESSAGE": "Wɛ́n nɔn nu wɛ̀ gbà lɛ yì Pi Network tɔ́n sèsin wɛ̀, ɖe ɖò ɖò wɛ́n ɖò sù mapa xó xò wɛ̀ nɔn ɖokàn mì",
       "SELLER_DETAILS_LABEL": "Nǔsátɔ́ sín gbigbajemin",
       "EMAIL_LABEL": "Adrɛsi Email mittɔn",
       "PHONE_NUMBER_LABEL": "Alokan numɛro miton",
@@ -287,7 +310,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionnier",
     "PIONEER_ID_LABEL": "Pioneer ID Towe",
+    "MEMBERSHIP": "Lidantɔ",
     "BUY": "Xɔ nu",
+    "WATCH": "Wɛ",
     "RESET": "Wɛ to",
     "REFUND": "Zɔ na azɔ",
     "FULFILL": "Hɔnɔ",
