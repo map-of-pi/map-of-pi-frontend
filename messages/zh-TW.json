@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "未找到先鋒 {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "編輯評論",
+      "REVIEW_GIVEN_TO_LABEL": "評論對象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "評論日期與時間"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "沒有 {seller_id} 的評論",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} 的評論列表",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "搜索加载中...",
     "VIEW_NOTIFICATIONS": "查看通知",
     "REPLY": "回复",
+    "EDIT": "編輯",
     "ADD_ITEM": "新增項目",
     "CHECKOUT": "結帳",
     "DELETE": "刪除",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "电子邮件"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "上传照片",
+      "UPLOAD_PHOTO_LABEL": "上傳圖片",
       "UPLOAD_PHOTO_PLACEHOLDER": "上传图片以吸引买家（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "上传图片以支持您的评论（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "将图片拖放到此处或浏览",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "个人资料图片",
         "SELLER_IMAGE_LABEL": "卖家图片",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "更新圖片"
       }
     },
     "REACTION_RATING": {

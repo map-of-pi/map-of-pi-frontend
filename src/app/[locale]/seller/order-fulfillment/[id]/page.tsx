@@ -7,6 +7,7 @@ import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
 import { fetchOrderById, updateOrderStatus, updateOrderItemStatus } from "@/services/orderApi";
+import { resolveDate } from "@/utils/date";
 import { 
   getFulfillmentMethodOptions, 
   translateSellerCategory 
@@ -89,6 +90,8 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
     }
   };
 
+  const orderDateTime = resolveDate(currentOrder?.createdAt, locale);
+
   return (
     <div className="w-full md:w-[500px] md:mx-auto p-4">
       <div className="text-center mb-5">
@@ -137,21 +140,14 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
           </div>
           <div className="flex items-center gap-4 w-full mt-1">
             <div
-            className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 focus:border-[#1d724b] border-[2px] w-full`}
+              className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 focus:border-[#1d724b] border-[2px] w-full`}
             >
-              {currentOrder?.createdAt && (
+              {orderDateTime.date && (
                 <label className="text-[14px] text-[#333333]">
-                  { new Intl.DateTimeFormat(locale || 'en-US', {
-                    day: '2-digit',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                  }).format(new Date(currentOrder.createdAt))}
+                  {orderDateTime.date}, {orderDateTime.time}
                 </label>
               )}
-            </div>                
+            </div>
           </div>
         </div>
       </div>}

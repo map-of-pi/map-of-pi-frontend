@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Ba a sami Mai-tushen {search_value} ba"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Gyara Bita",
+      "REVIEW_GIVEN_TO_LABEL": "Bita da aka bai wa",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Rana da lokaci da aka bayar da bita"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Babu bita don {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Jerin Ra'ayoyin da aka bari na {seller_id}",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "Ana ɗora bincike...",
     "VIEW_NOTIFICATIONS": "Duba sanarwa",
     "REPLY": "Amsa",
+    "EDIT": "Gyara",
     "ADD_ITEM": "Ƙara abu",
     "CHECKOUT": "Biya kuɗi",
     "DELETE": "Goge",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Hoton bayanin martaba",
         "SELLER_IMAGE_LABEL": "Hoton mai sayarwa",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Hoton bita"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Hoton bita",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Sabunta hoto"
       }
     },
     "REACTION_RATING": {

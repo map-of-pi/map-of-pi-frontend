@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "개척자 {search_value}를 찾을 수 없습니다"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "리뷰 수정",
+      "REVIEW_GIVEN_TO_LABEL": "리뷰 대상",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "리뷰 작성 일시"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰가 없습니다",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰 목록",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "검색 로딩 중...",
     "VIEW_NOTIFICATIONS": "알림 보기",
     "REPLY": "답장",
+    "EDIT": "편집",
     "ADD_ITEM": "항목 추가",
     "CHECKOUT": "결제하기",
     "DELETE": "삭제",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "이메일"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "사진 업로드",
+      "UPLOAD_PHOTO_LABEL": "이미지 업로드",
       "UPLOAD_PHOTO_PLACEHOLDER": "구매자의 관심을 끌기 위해 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "리뷰를 지원하는 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "여기에 이미지를 드롭하거나 찾아보기",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "프로필 이미지",
         "SELLER_IMAGE_LABEL": "판매자 이미지",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "이미지 업데이트"
       }
     },
     "REACTION_RATING": {
