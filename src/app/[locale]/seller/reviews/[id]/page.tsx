@@ -66,7 +66,7 @@ function SellerReviews({
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     const reviews = data
       .map((feedback: IReviewOutput) => {
-        const { date, time } = resolveDate(feedback.review_date);
+        const { date, time } = resolveDate(feedback.review_date, locale);
         const { reaction, unicode } = resolveRating(feedback.rating) || {};
         return {
           heading: feedback.comment,
@@ -240,6 +240,7 @@ function SellerReviews({
                       </span>
                     </p>
                     <p className="text-md break-words">{review.heading}</p>
+
                   </div>
 
                   {/* Right content */}
@@ -265,13 +266,26 @@ function SellerReviews({
                         {review.unicode}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${review.giver}`}>
-                        <OutlineBtn label={t('SHARED.REPLY')} />
-                      </Link>
-                    </div>
+                    
                   </div>
                 </div>
+                {/* Bottom row with Edit left, Reply right */}
+                <div className="flex justify-between items-center mt-2 w-full">
+                  {review.giverId === currentUser?.pi_uid && (
+                    <Link
+                      href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}
+                    >
+                      <OutlineBtn label={t('SHARED.EDIT')} />
+                    </Link>
+                  )}
+
+                  <Link
+                    href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}
+                  >
+                    <OutlineBtn label={t('SHARED.REPLY')} />
+                  </Link>
+                </div>
+
               </div>
             ))
           }
@@ -317,8 +331,8 @@ function SellerReviews({
                       {review.unicode}
                     </p>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?seller_name=${review.giver}`}>
+                  <div className="flex justify-between items-center gap-2">
+                    <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
                       <OutlineBtn label={t('SHARED.REPLY')} />
                     </Link>
                   </div>

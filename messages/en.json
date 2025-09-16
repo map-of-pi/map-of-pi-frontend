@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pioneer {search_value} not found"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Edit Review",
+      "REVIEW_GIVEN_TO_LABEL": "Review given to",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Date and time review given"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "No reviews for {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "List of Reviews left for {seller_id}",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "Search loading...",
     "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
+    "EDIT": "Edit",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
     "DELETE": "Delete",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Upload photo",
+      "UPLOAD_PHOTO_LABEL": "Upload image",
       "UPLOAD_PHOTO_PLACEHOLDER": "Upload image to help attract buyers (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Upload an image to support your review (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Drop your image here or browse",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profile image",
         "SELLER_IMAGE_LABEL": "Seller image",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review image"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review image",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Update image"
       }
     },
     "REACTION_RATING": {
