@@ -1,5 +1,5 @@
 import styles from './sidebar.module.css';
-
+import {TextArea } from '@/components/shared/Forms/Inputs/Inputs';
 import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -78,6 +78,7 @@ function Sidebar(props: any) {
     image: string;
     findme: string;
     trust_meter_rating: number;
+    wallet_address?: string;
   }>({
     user_name: '',
     image: '',
@@ -151,6 +152,7 @@ function Sidebar(props: any) {
         image: dbUserSettings.image || '',
         findme: dbUserSettings.findme || getFindMeOptions(t)[0].value,
         trust_meter_rating: dbUserSettings.trust_meter_rating,
+        wallet_address: dbUserSettings.wallet_address, // optional, may be undefined
       });
     }
   }, [dbUserSettings]);
@@ -298,11 +300,14 @@ function Sidebar(props: any) {
       logger.warn('Form submission failed: User not authenticated.');
       return toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
     }
-
+  console.log("FormData state before sending:", formData);
     const formDataToSend = new FormData();
     formDataToSend.append('user_name', removeUrls(formData.user_name));
     formDataToSend.append('findme', formData.findme);
 
+     if (formData.wallet_address) {
+       formDataToSend.append('wallet_address', formData.wallet_address);
+}
     // add the image if it exists
     if (file) {
       formDataToSend.append('image', file);
@@ -552,7 +557,31 @@ function Sidebar(props: any) {
                     handleAddImage={handleAddImage}
                   />
                 </div>
-
+              <TextArea
+                label="Wallet Address"
+                placeholder="Enter your Pi wallet address"
+                name="wallet_address"
+                style={{
+                  width: "400px",         
+                  height: "400px",        
+                  padding: "16px",
+                  borderRadius: "12px",
+                  fontSize: "16px",
+                  fontFamily: "monospace",
+                  textAlign: "left",
+                  lineHeight: "1.8",
+                  wordBreak: "break-all",   
+                  overflowWrap: "break-word",
+                  resize: "none",           
+                  overflow: "visible", 
+              }}
+              value={formData.wallet_address || ""}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+             // Remove all spaces and convert to uppercase
+              const sanitizedValue = e.target.value.replace(/\s+/g, "").toUpperCase();
+              handleChange({ name: "wallet_address", value: sanitizedValue });
+              }}
+              />
                 <Select
                   label={t('SIDE_NAVIGATION.FIND_ME_PREFERENCE_LABEL')}
                   name="findme"
