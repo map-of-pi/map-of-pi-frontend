@@ -78,10 +78,18 @@ export default function EmojiPicker(props: any) {
 
   // function to toggle save button
   useEffect(() => {
-    const noReview = comments === '' && reviewEmoji === null && file === null;
-    setIsSaveEnabled(!noReview);
-    props.setIsSaveEnabled(!noReview)
-  }, [comments, reviewEmoji, file]);
+    // Compare current state with initial values
+    const hasChanges =
+      comments !== (props.initialComment || '') ||
+      reviewEmoji !== props.initialRating ||
+      previewImage !== (props.initialImage || '');
+
+    setIsSaveEnabled(hasChanges);
+    props.setIsSaveEnabled(hasChanges);
+  }, [comments,
+    reviewEmoji,
+    previewImage,
+  ]);
 
   const handleCommentsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComments(e.target.value);
@@ -162,7 +170,7 @@ export default function EmojiPicker(props: any) {
       if (props.isEditMode && props.reviewId) {
         await updateReview(props.reviewId, formData);
         setReload(true);
-        toast.success(t('SCREEN.REVIEWS.EDIT.SAVE_SUCCESS'));
+        toast.success(t('SHARED.REACTION_RATING.VALIDATION.SUCCESSFUL_REVIEW_SUBMISSION'));
       } else {
         await createReview(formData);
       }
