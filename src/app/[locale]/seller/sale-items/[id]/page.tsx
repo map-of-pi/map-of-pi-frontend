@@ -320,7 +320,16 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
                 }}
                 onClick={()=>checkoutOrder()}
               />
-            </div>
+            </div>          
+           <div className="mb-4 mt-3">
+           <h2 className={SUBHEADER}>Make payment to this Wallet Address:</h2>
+           <TextArea
+              name="wallet_address"
+              type="text"
+              value={sellerSettings?.wallet_address || "wallet not provided"}
+              disabled
+           />
+          </div>
           </ToggleCollapse>
         )}
 
