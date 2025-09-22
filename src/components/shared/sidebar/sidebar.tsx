@@ -152,7 +152,7 @@ function Sidebar(props: any) {
         image: dbUserSettings.image || '',
         findme: dbUserSettings.findme || getFindMeOptions(t)[0].value,
         trust_meter_rating: dbUserSettings.trust_meter_rating,
-        wallet_address: dbUserSettings.wallet_address, // optional, may be undefined
+       wallet_address: dbUserSettings.wallet_address ?? undefined,
       });
     }
   }, [dbUserSettings]);
