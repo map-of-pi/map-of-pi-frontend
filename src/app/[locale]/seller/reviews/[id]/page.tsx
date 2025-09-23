@@ -272,20 +272,15 @@ function SellerReviews({
                 {/* Bottom row with Edit left, Reply right */}
                 <div className="flex justify-between items-center mt-2 w-full">
                   {review.giverId === currentUser?.pi_uid && (
-                    <Link
-                      href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}
-                    >
+                    <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
                       <OutlineBtn label={t('SHARED.EDIT')} />
                     </Link>
                   )}
 
-                  <Link
-                    href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}
-                  >
+                  <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
                     <OutlineBtn label={t('SHARED.REPLY')} />
                   </Link>
                 </div>
-
               </div>
             ))
           }
@@ -331,12 +326,20 @@ function SellerReviews({
                       {review.unicode}
                     </p>
                   </div>
-                  <div className="flex justify-between items-center gap-2">
-                    <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
-                      <OutlineBtn label={t('SHARED.REPLY')} />
-                    </Link>
-                  </div>
+
                 </div>
+              </div>
+              {/* Bottom row with Edit left, Reply right */}
+              <div className="flex justify-between items-center mt-2 w-full">
+                {review.giverId === currentUser?.pi_uid && (
+                  <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
+                    <OutlineBtn label={t('SHARED.EDIT')} />
+                  </Link>
+                )}
+
+                <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
+                  <OutlineBtn label={t('SHARED.REPLY')} />
+                </Link>
               </div>
             </div>
           ))
