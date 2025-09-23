@@ -7,6 +7,7 @@ export default function WatchAdsPage() {
   const ready = useRef(false);
   const [log, setLog] = useState<string[]>([]);
   const push = (m: string) => setLog(prev => [m, ...prev].slice(0, 60));
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -30,6 +31,22 @@ export default function WatchAdsPage() {
           push('Pi.authenticate OK');
         } catch {
           push('User skipped auth; rewarded may not show.');
+        }
+
+        // Call backend to initiate session
+        try {
+          const res = await fetch('/api/v1/watch-ads/session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (!res.ok) throw new Error(`Init session failed: ${res.status}`);
+          const data = await res.json();
+          push(`Session initiated: ${JSON.stringify(data)}`);
+
+          if (data?._id) setSessionId(data._id);
+        } catch (err: any) {
+          push(`Error initiating session: ${err?.message}`);
         }
 
         ready.current = true;
@@ -65,6 +82,11 @@ export default function WatchAdsPage() {
   return (
     <div className="p-6 max-w-xl mx-auto">
       <h1 className="text-xl font-bold mb-4">Watch Ads (Test)</h1>
+      {sessionId && (
+        <div className="mb-4 text-sm text-gray-700">
+          Active Session ID: <span className="font-mono">{sessionId}</span>
+        </div>
+      )}
       <button className="px-4 py-2 bg-blue-600 text-white rounded mb-4" onClick={showRewarded}>
         Show Rewarded
       </button>
