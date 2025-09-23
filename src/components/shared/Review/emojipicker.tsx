@@ -170,7 +170,6 @@ export default function EmojiPicker(props: any) {
       if (props.isEditMode && props.reviewId) {
         await updateReview(props.reviewId, formData);
         setReload(true);
-        toast.success(t('SHARED.REACTION_RATING.VALIDATION.SUCCESSFUL_REVIEW_SUBMISSION'));
       } else {
         await createReview(formData);
       }
