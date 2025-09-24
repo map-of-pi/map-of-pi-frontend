@@ -9,7 +9,6 @@ import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { getNotifications, updateNotification } from '@/services/notificationApi';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { getNotificationsCount } from '@/services/notificationApi';
 
 export default function NotificationPage() {
   const t = useTranslations();
@@ -38,6 +37,7 @@ export default function NotificationPage() {
   const prev = notifications.find((n) => n._id === id);
   if (!prev) return;
 
+  // optimistic update
   setNotifications((prevList) =>
     prevList.map((n) =>
       n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
@@ -47,21 +47,14 @@ export default function NotificationPage() {
   try {
     await updateNotification(id);
 
-    // Re-fetch fresh notifications to get accurate state
-    const fresh = await getNotifications({
-      skip: 0,
-      limit: 1000,
-    });
-
-    setNotifications(fresh);
-
-    const count = await getNotificationsCount();
+    // fetch only first page (not 1000!)
+    const { items, count } = await getNotifications({ skip: 0, limit: limit });
+    setNotifications(items);
     setNotificationsCount(count);
 
   } catch (error) {
     logger.error('Error updating notification:', error);
-
-    // Rollback
+    // rollback
     setNotifications((prevList) =>
       prevList.map((n) =>
         n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
@@ -81,32 +74,31 @@ export default function NotificationPage() {
   };
 
   const fetchNotifications = async () => {
-    if (isLoading || !currentUser?.pi_uid || !hasMore) return;
+  if (isLoading || !currentUser?.pi_uid || !hasMore) return;
 
-    try {
-      const newNotifications = await getNotifications({
-        skip,
-        limit
-      });
+  try {
+    const { items, count } = await getNotifications({ skip, limit });
 
-      logger.info('Fetched notifications:', newNotifications);
+    logger.info('Fetched notifications:', { itemsLength: items.length, count });
 
-      if (newNotifications.length > 0) {
-        const sorted = sortNotifications(notifications, newNotifications);
-        setNotifications(sorted);
-        setSkip(skip + limit);
-      }
-
-      if (newNotifications.length < limit) {
-        setHasMore(false); // No more pages
-      }
-    } catch (error) {
-      logger.error('Error fetching notifications:', error);
-    } finally {
-      setHasFetched(true);
-      setLoading(false);
+    if (items.length > 0) {
+      const sorted = sortNotifications(notifications, items);
+      setNotifications(sorted);
+      setSkip(skip + limit);
     }
-  };
+
+    if (items.length < limit) {
+      setHasMore(false);
+    }
+
+    setNotificationsCount(count); // sync badge
+  } catch (error) {
+    logger.error('Error fetching notifications:', error);
+  } finally {
+    setHasFetched(true);
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     if (!currentUser?.pi_uid) return;
