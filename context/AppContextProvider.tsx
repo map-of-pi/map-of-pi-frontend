@@ -13,7 +13,7 @@ import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
 import { IUser } from '@/constants/types';
-import { getNotificationsCount } from '@/services/notificationApi';
+import { getNotifications } from '@/services/notificationApi';
 
 import logger from '../logger.config.mjs';
 
@@ -77,7 +77,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   useEffect(() => {
   if (currentUser) {
-    fetchNotificationsCount(); // ⬅️ Run whenever currentUser changes
+    fetchNotificationsCount();
   }
 }, [currentUser]);
 
@@ -90,15 +90,20 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
  const fetchNotificationsCount = async () => {
   try {
-    const count = await getNotificationsCount();
+    const { count } = await getNotifications({
+      skip: 0,
+      limit: 1,
+      status: 'uncleared'
+    });
     setNotificationsCount(count);
-    console.log("Fetched notification count:", count);
+    setToggleNotification(count > 0);
   } catch (error) {
     logger.error('Failed to fetch notification count:', error);
     setNotificationsCount(0);
     setToggleNotification(false);
   }
 };
+
 
   /* Register User via Pi SDK */
   const registerUser = async () => {
