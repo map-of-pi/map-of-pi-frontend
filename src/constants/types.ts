@@ -305,8 +305,8 @@ export type NotificationType = {
   pi_uid: string;
   is_cleared: boolean;
   reason: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export interface INotification {
