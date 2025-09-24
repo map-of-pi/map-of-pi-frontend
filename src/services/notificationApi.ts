@@ -1,5 +1,5 @@
 import axiosClient from '@/config/client';
-import { INotification } from '@/constants/types';
+import { NotificationType } from '@/constants/types';
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
@@ -11,7 +11,7 @@ export const getNotifications = async ({
   skip: number;
   limit: number;
   status?: 'cleared' | 'uncleared';
-}) => {
+}): Promise<{ items: NotificationType[]; count: number }> => {
   try {
     const headers = getMultipartFormDataHeaders();
 
@@ -23,18 +23,19 @@ export const getNotifications = async ({
       queryParams.append('status', status);
     }
 
-    const response = await axiosClient.get(`/notifications?${queryParams.toString()}`, {
+    const response = await axiosClient.get(`/notifications?${queryParams}`, {
       headers,
     });
 
     if (response.status === 200) {
-      logger.info(`Get notifications successful with Status ${response.status}`, {
-        data: response.data,
-      });
-      return response.data;
+      const { items, count } = response.data;
+
+      return {
+        items: items as NotificationType[], // cast API response
+        count,
+      };
     } else {
-      logger.error(`Get notifications failed with Status ${response.status}`);
-      return null;
+      return { items: [], count: 0 };
     }
   } catch (error) {
     logger.error('Get notifications encountered an error:', error);
@@ -42,8 +43,7 @@ export const getNotifications = async ({
   }
 };
 
-
-export const buildNotification = async (data: INotification) => {
+export const buildNotification = async (data: NotificationType) => {
   try {
     const response = await axiosClient.post(`/notifications`, data);
     if (response.status === 200) {
@@ -76,20 +76,5 @@ export const updateNotification = async (notification_id: string) => {
   } catch (error) {
     logger.error('Update notification encountered an error:', error);
     throw new Error('Failed to update notification. Please try again later.');
-  }
-};
-
-export const getNotificationsCount = async (): Promise<number> => {
-  try {
-    const response = await axiosClient.get('/notifications/count?status=uncleared');
-    if (response.status === 200) {
-      logger.info('Get notification count successful', { data: response.data });
-      return response.data.count;
-    }
-    logger.error(`Get notification count failed with status ${response.status}`);
-    return 0;
-  } catch (error) {
-    logger.error('Get notification count error:', error);
-    return 0;
   }
 };
