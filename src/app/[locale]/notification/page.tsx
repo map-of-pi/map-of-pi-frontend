@@ -37,24 +37,29 @@ export default function NotificationPage() {
   const prev = notifications.find((n) => n._id === id);
   if (!prev) return;
 
-  // optimistic update
+  // optimistic local update
   setNotifications((prevList) =>
     prevList.map((n) =>
       n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
     )
   );
+  if (!prev.is_cleared) {
+    setNotificationsCount((c) => Math.max(0, c - 1)); // optimistic badge update
+  } else {
+    setNotificationsCount((c) => c + 1); // restoring if it was uncleared before
+  }
 
   try {
     await updateNotification(id);
 
-    // fetch only first page (not 1000!)
-    const { items, count } = await getNotifications({ skip: 0, limit: limit });
-    setNotifications(items);
+    // background sync with BE (optional, to avoid drift)
+    const { count } = await getNotifications({ skip: 0, limit: 1, status: 'uncleared' });
     setNotificationsCount(count);
 
   } catch (error) {
     logger.error('Error updating notification:', error);
-    // rollback
+
+    // rollback local changes if API fails
     setNotifications((prevList) =>
       prevList.map((n) =>
         n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
