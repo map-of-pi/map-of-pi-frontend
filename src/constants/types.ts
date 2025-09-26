@@ -42,9 +42,54 @@ export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'email' | 'p
 // ========================
 // MEMBERSHIP MODELS
 // ========================
-type MembershipPaymentMetadataType = {
-  membership_id: string
+export enum MembershipClassType {
+  SINGLE = "Single",
+  CASUAL = "Casual",
+  WHITE = "White",
+  GREEN = "Green",
+  GOLD = "Gold",
+  DOUBLE_GOLD = "Double Gold",
+  TRIPLE_GOLD = "Triple Gold",
 };
+
+export enum MembershipBuyType {
+  BUY = "Buy",
+  ADS = "Watch ads (free)",
+  VOUCHER = "Use a voucher code (free)",
+};
+
+type MembershipPaymentMetadataType = {
+  membership_class: MembershipClassType
+};
+
+export interface IMembership {
+  _id: string;
+  user?: string;
+  membership_id: string;
+  membership_expiry_date: string | null;
+  membership_class: MembershipClassType;
+  mappi_balance: number;
+  mappi_used_to_date?: number;
+  createdAt?: string;
+};
+
+export interface MembershipOption {
+  value: MembershipClassType;
+  cost: number;
+  duration: number | null; // in weeks
+  mappi_allowance: number;
+}
+
+export interface MembershipBuyOption {
+  value: MembershipBuyType; // same as back-end
+  label: string;
+}
+
+export const membershipBuyOptions: MembershipBuyOption[] = [
+  { value: MembershipBuyType.BUY, label: "Pay with pi" },
+  { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
+  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
+];
 
 // ========================
 // SELLER MODELS
@@ -82,13 +127,13 @@ export interface ISeller {
   order_online_enabled_pref: boolean;
   fulfillment_method: FulfillmentType;
   fulfillment_description?: string;
+  isRestricted: boolean;
 };
 
 export enum SellerType {
   active_seller = 'activeSeller', 
   inactive_seller = 'inactiveSeller', 
   test_seller = 'testSeller',
-  restrictedSeller = 'restrictedSeller'
 };
 
 // Combined interface representing a seller with selected user settings
@@ -254,8 +299,12 @@ export interface PaymentDTO {
   user_uid: string,
   created_at: string,
   identifier: string,
-  metadata: Object,
   memo: string,
+  metadata: {
+    payment_type: PaymentType,
+    OrderPayment?: OrderPaymentMetadataType,
+    MembershipPayment?: MembershipPaymentMetadataType
+  },
   status: {
     developer_approved: boolean,
     transaction_verified: boolean,

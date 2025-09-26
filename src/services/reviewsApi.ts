@@ -66,3 +66,30 @@ export const createReview = async (formData: FormData) => {
     throw new Error('Failed to create review. Please try again later.');
   }
 };
+
+// Update an existing review
+export const updateReview = async (review_id: string, formData: FormData) => {
+  try {
+    logger.info(`Updating review with ID: ${review_id}`, formData);
+    const headers = getMultipartFormDataHeaders();
+
+    const response = await axiosClient.put(
+      `/review-feedback/update/${review_id}`,
+      formData,
+      { headers }
+    );
+
+    if (response.status === 200) {
+      logger.info(`Update review successful with Status ${response.status}`, {
+        data: response.data
+      });
+      return response.data;
+    } else {
+      logger.error(`Update review failed with Status ${response.status}`);
+      return null;
+    }
+  } catch (error) {
+    logger.error(`Update review for reviewID ${review_id} encountered an error:`, error);
+    throw new Error('Failed to update review. Please try again later.');
+  }
+};

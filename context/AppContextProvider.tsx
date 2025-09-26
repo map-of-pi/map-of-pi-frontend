@@ -12,9 +12,8 @@ import {
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
-import { IUser } from '@/constants/types';
+import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
-
 import logger from '../logger.config.mjs';
 
 interface IAppContextProps {
@@ -22,6 +21,8 @@ interface IAppContextProps {
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
   registerUser: () => void;
   autoLoginUser: () => void;
+  userMembership: MembershipClassType;
+  setUserMembership: React.Dispatch<SetStateAction<MembershipClassType>>;
   isSigningInUser: boolean;
   reload: boolean;
   alertMessage: string | null;
@@ -43,6 +44,8 @@ const initialState: IAppContextProps = {
   registerUser: () => {},
   autoLoginUser: () => {},
   isSigningInUser: false,
+  userMembership: MembershipClassType.CASUAL,
+  setUserMembership: () => {},
   reload: false,
   alertMessage: null,
   setAlertMessage: () => {},
@@ -67,6 +70,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const t = useTranslations();
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [isSigningInUser, setIsSigningInUser] = useState(false);
+  const [userMembership, setUserMembership] = useState<MembershipClassType>(MembershipClassType.CASUAL);
   const [reload, setReload] = useState(false);
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
@@ -132,6 +136,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         if (res.status === 200) {
           setAuthToken(res.data?.token);
           setCurrentUser(res.data.user);
+          setUserMembership(res.data.membership_class);
           logger.info('User authenticated successfully.');
         } else {
           setCurrentUser(null);
@@ -156,7 +161,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
       if (res.status === 200) {
         logger.info('Auto-login successful.');
-        setCurrentUser(res.data);
+        setCurrentUser(res.data.user);
+        setUserMembership(res.data.membership_class);
       } else {
         logger.warn('Auto-login failed.');
         setCurrentUser(null);
@@ -203,6 +209,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         registerUser, 
         autoLoginUser, 
         isSigningInUser, 
+        userMembership,
+        setUserMembership,
         reload, 
         setReload, 
         showAlert, 

@@ -1,22 +1,27 @@
-import { parseISO, format } from 'date-fns';
-import { toZonedTime } from 'date-fns-tz';
-
-// Function to format the date
-export const resolveDate = (dateString: string | undefined): { date: string; time: string } => {
-  if (!dateString) return { date: '', time: '' };
+// Function to format the date and time; accepts both string and Date.
+export const resolveDate = (
+  dateString?: string | Date, 
+  locale: string = 'en-US'
+): { date: string; time: string } => {
   
-  const date = parseISO(dateString);
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const localDate = toZonedTime(date, timeZone);
+  if (!dateString) return { date: '', time: '' };
 
-  const formattedDate = format(localDate, 'dd MMM. yyyy');
-  const formattedTime = format(localDate, 'HH:mma').toLowerCase();
+  // Normalize to Date
+  const dateObj = dateString instanceof Date ? dateString : new Date(dateString);
+
+  // Localized date formatting
+  const formattedDate = new Intl.DateTimeFormat(locale, {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  }).format(dateObj);
+
+  // Localized time formatting
+  const formattedTime = new Intl.DateTimeFormat(locale, {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true, // automatically adapts for locale
+  }).format(dateObj);
 
   return { date: formattedDate, time: formattedTime };
 };
-
-// Example usage
-// const gmtDateString = '2024-07-06T12:34:56.78Z';
-// const localDateTime = resolveDate(gmtDateString);
-// console.log(`Date: ${localDateTime.date}`); // Outputs the formatted local date
-// console.log(`Time: ${localDateTime.time}`); // Outputs the formatted local time

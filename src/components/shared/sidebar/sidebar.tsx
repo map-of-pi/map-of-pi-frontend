@@ -402,20 +402,42 @@ function Sidebar(props: any) {
           {/* review order button */}
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
-              <Button
-                label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  fontSize: '18px',
-                }}
-                onClick={() => {
-                  router.push(`/${locale}/user/order-review`);
-                  props.setToggleDis(false); // Close sidebar on click
-                }}
-              />
+              <Link href={`/${locale}/user/order-review`}>
+                <Button
+                  label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+
+          {/* membership button */}
+          {isOnlineShoppingEnabled && (
+            <div className="mb-2">
+              <Link href={`/${locale}/user/membership`}>
+                <Button
+                  label={t('SHARED.MEMBERSHIP')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
             </div>
           )}
 
@@ -423,7 +445,7 @@ function Sidebar(props: any) {
             <Link href={`/${locale}/notification`}>
               <div className="relative">
                 <Button
-                  label={t('View Notifications')}
+                  label={t('SHARED.VIEW_NOTIFICATIONS')}
                   styles={{
                     color: '#ffc153',
                     width: '100%',

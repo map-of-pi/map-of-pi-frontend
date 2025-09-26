@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "멤버십",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "현재 멤버십 등급",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "현재 멤버십 종료일",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "활성 멤버십 없음",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "남은 Mappi 한도",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "구매할 멤버십 또는 Mappi 선택",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "멤버십 ({duration}주)",
+      "PICK_BUY_METHOD_LABEL": "구매 방법 선택",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "π로 결제",
+        "WATCH_ADS": "광고 보기 (무료)",
+        "USE_VOUCHER": "바우처 코드 사용 (무료)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "바우처 코드 입력",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "멤버십이 성공적으로 활성화되었습니다",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "멤버십 데이터 로드 실패",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "멤버십 결제에 실패했습니다",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "결제를 하려면 사용자가 로그인해야 합니다"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "판매자 관리",
+      "SELLER_RESTRICTION_MESSAGE": "귀하의 판매 센터가 Pi Network에서 제재한 지역에 있으므로 지도 표시가 모든 사용자에게 숨겨집니다",
       "SELLER_DETAILS_LABEL": "판매자 세부 정보",
       "EMAIL_LABEL": "이메일 주소",
       "PHONE_NUMBER_LABEL": "전화번호",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "개척자 {search_value}를 찾을 수 없습니다"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "리뷰 수정",
+      "REVIEW_GIVEN_TO_LABEL": "리뷰 대상",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "리뷰 작성 일시"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰가 없습니다",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id}에 대한 리뷰 목록",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "개척자",
     "PIONEER_ID_LABEL": "파이오니어 ID",
+    "MEMBERSHIP": "멤버십",
     "BUY": "구매",
+    "WATCH": "보기",
     "RESET": "재설정",
     "REFUND": "환불",
     "FULFILL": "완료하다",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "검색 로딩 중...",
     "VIEW_NOTIFICATIONS": "알림 보기",
     "REPLY": "답장",
+    "EDIT": "편집",
     "ADD_ITEM": "항목 추가",
     "CHECKOUT": "결제하기",
     "DELETE": "삭제",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "이메일"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "사진 업로드",
+      "UPLOAD_PHOTO_LABEL": "이미지 업로드",
       "UPLOAD_PHOTO_PLACEHOLDER": "구매자의 관심을 끌기 위해 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "리뷰를 지원하는 이미지를 업로드하세요 (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "여기에 이미지를 드롭하거나 찾아보기",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "프로필 이미지",
         "SELLER_IMAGE_LABEL": "판매자 이미지",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "리뷰 이미지",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "이미지 업데이트"
       }
     },
     "REACTION_RATING": {

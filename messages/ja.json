@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "メンバーシップ",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "現在のメンバーシップクラス",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "現在のメンバーシップ終了日",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "有効なメンバーシップはありません",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "残りのMappi利用枠",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "購入するメンバーシップまたはMappiを選択",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "メンバーシップ（{duration} 週間）",
+      "PICK_BUY_METHOD_LABEL": "購入方法を選択",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "πで支払う",
+        "WATCH_ADS": "広告を見る（無料）",
+        "USE_VOUCHER": "バウチャーコードを使用（無料）"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "バウチャーコードを入力",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "メンバーシップが正常に有効化されました",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "メンバーシップデータの読み込みに失敗しました",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "メンバーシップの支払いに失敗しました",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "支払いを行うにはユーザーがログインしている必要があります"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "販売者管理",
+      "SELLER_RESTRICTION_MESSAGE": "あなたの販売センターはPi Networkによって制裁された地域にあるため、あなたの地図のマーカーはすべてのユーザーから非表示になります",
       "SELLER_DETAILS_LABEL": "販売者の詳細",
       "EMAIL_LABEL": "メールアドレス",
       "PHONE_NUMBER_LABEL": "電話番号",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "レビューを編集",
+      "REVIEW_GIVEN_TO_LABEL": "レビュー対象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "レビュー日時"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id} に対するレビューはありません",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} に残されたレビューの一覧",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "パイオニア",
     "PIONEER_ID_LABEL": "パイオニアID",
+    "MEMBERSHIP": "メンバーシップ",
     "BUY": "購入",
+    "WATCH": "見る",
     "RESET": "リセット",
     "REFUND": "返金",
     "FULFILL": "完了する",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "検索中...",
     "VIEW_NOTIFICATIONS": "通知を見る",
     "REPLY": "返信",
+    "EDIT": "編集",
     "ADD_ITEM": "アイテムを追加",
     "CHECKOUT": "お会計",
     "DELETE": "削除",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "メール"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "写真をアップロード",
+      "UPLOAD_PHOTO_LABEL": "画像をアップロード",
       "UPLOAD_PHOTO_PLACEHOLDER": "画像をアップロードして購入者を引き付ける（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "レビューをサポートするための画像をアップロード（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "ここに画像をドロップするか、参照してください",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "プロフィール画像",
         "SELLER_IMAGE_LABEL": "販売者画像",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "画像を更新"
       }
     },
     "REACTION_RATING": {
