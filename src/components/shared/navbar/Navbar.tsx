@@ -1,5 +1,7 @@
 'use client';
 
+import styles from './Navbar.module.css';
+
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -11,7 +13,6 @@ import { ImSpinner2 } from 'react-icons/im';
 import { IoMdArrowBack, IoMdClose } from 'react-icons/io';
 import { MdHome } from 'react-icons/md';
 
-import styles from './Navbar.module.css';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon'; 
 import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
@@ -22,63 +23,52 @@ function Navbar() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
+
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
 
-  const {isSigningInUser, reload, alertMessage, isSaveLoading, userMembership, notificationsCount } = useContext(AppContext);
-
-  useEffect(() => {
-  console.log("Navbar saw notification count:", notificationsCount);
-}, [notificationsCount]);
+  const {
+    isSigningInUser, 
+    reload, 
+    alertMessage, 
+    isSaveLoading, 
+    userMembership, 
+    notificationsCount 
+  } = useContext(AppContext);
 
   // check if the current page is the homepage
   useEffect(() => {
-    const checkHomePage = () => {
-      if (pathname === '/' || pathname === `/${locale}`) {
-        setIsHomePage(true);
-      } else {
-        logger.info(`HomePage Pathname is ${pathname}`);
-        setIsHomePage(false);
-      }
-    };
-    checkHomePage();
-  }, [pathname]);
+    setIsHomePage(pathname === '/' || pathname === `/${locale}`);
+    if (!isHomePage) logger.info(`HomePage Pathname is ${pathname}`);
+  }, [pathname, locale]);
 
-  const handleBackBtn = () => {
-    router.back();
-  };
-
-  const handleMenu = () => {
-    setSidebarToggle(!sidebarToggle);
-  };
-
+  const handleBackBtn = () => router.back();
+  const handleMenu = () => setSidebarToggle(prev => !prev);
   const handleClick = (e: any) => {
     e.preventDefault();
     window.open("https://mapofpi.zapier.app", "_blank", "noopener, noreferrer");
   };
 
+  // Helper JSX for main label in header
+  const headerLabel = alertMessage ? (
+    <div className="alert-message flex items-center justify-center">{alertMessage}</div>
+  ) : isSigningInUser || reload ? (
+    <div className="flex items-center justify-center">
+      <ImSpinner2 className="animate-spin mr-2 ml-1" />
+      {t('SHARED.LOADING_SCREEN_MESSAGE')}
+    </div>
+  ) : (
+    "Map of Pi"
+  );
+
   return (
     <>
       <div className="w-full h-[76.19px] z-500 px-[16px] py-[5px] bg-primary fixed top-0 left-0 right-0">
         <div className="w-full flex justify-between items-center">
-          <div className="flex-1"></div>
+          <div className="flex-1" />
           <div className="text-center text-secondary text-[1.3rem] whitespace-nowrap flex-1">
-          {/* Display alert message with spinner if present, otherwise display 'Map of Pi' */}
-          {alertMessage ? (
-            <div className="alert-message flex items-center justify-center">
-              {alertMessage}
-            </div>
-          ) : (
-            isSigningInUser || reload ? (
-              <div className="flex items-center justify-center">
-                <ImSpinner2 className="animate-spin mr-2 ml-1" /> {/* Spinner Icon */}
-                {t('SHARED.LOADING_SCREEN_MESSAGE')}
-              </div>
-            ) : (
-              "Map of Pi"
-            )
-          )}
-        </div>
+            { headerLabel }
+          </div>
           <div className="flex-1">
             <MembershipIcon category={userMembership} />
           </div>
@@ -141,6 +131,7 @@ function Navbar() {
           </div>
         </div>
       </div>
+
       {sidebarToggle && !isSigningInUser && !isSaveLoading && (
         <Sidebar toggle={sidebarToggle} setToggleDis={setSidebarToggle} />
       )}

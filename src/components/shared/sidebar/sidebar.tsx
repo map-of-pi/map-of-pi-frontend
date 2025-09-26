@@ -457,17 +457,17 @@ function Sidebar(props: any) {
                     props.setToggleDis(false);
                   }}
                 />
-                  {notificationsCount > 0 && (
-                    <span
-                      className={clsx(
-                        'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
-                        'rounded-full min-w-[22px] text-center',
-                        notificationsCount > 99 && 'px-[4px] min-w-[28px]'
-                      )}
-                    >
-                      {notificationsCount > 99 ? '99+' : notificationsCount}
-                    </span>
-                  )}
+                {notificationsCount > 0 && (
+                  <span
+                    className={clsx(
+                      'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
+                      'rounded-full min-w-[22px] text-center',
+                      notificationsCount > 99 && 'px-[4px] min-w-[28px]'
+                    )}
+                  >
+                    {notificationsCount > 99 ? '99+' : notificationsCount}
+                  </span>
+                )}
               </div>
             </Link>
           </div>

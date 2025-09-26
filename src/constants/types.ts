@@ -357,8 +357,3 @@ export type NotificationType = {
   createdAt: string;
   updatedAt: string;
 };
-
-export interface INotification {
-  is_cleared?: boolean;
-  reason: string;
-};

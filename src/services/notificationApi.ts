@@ -29,7 +29,6 @@ export const getNotifications = async ({
 
     if (response.status === 200) {
       const { items, count } = response.data;
-
       return {
         items: items as NotificationType[], // cast API response
         count,
