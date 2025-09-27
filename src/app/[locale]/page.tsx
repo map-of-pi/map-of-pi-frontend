@@ -100,7 +100,7 @@ export default function Page({ params }: { params: { locale: string } }) {
 
         console.log('Uncleared notifications response:', notifications);
         
-        if (notifications?.length > 0) {
+        if (notifications?.items?.length > 0) {
           setShowNotificationPopup(true);
           sessionStorage.setItem('notificationShown', 'true');
         } else {
