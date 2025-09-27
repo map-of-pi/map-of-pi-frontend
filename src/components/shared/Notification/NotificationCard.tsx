@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import { NotificationType } from '@/constants/types';
+import { resolveDate } from '@/utils/date';
 
 type NotificationCardProps = {
   notification: NotificationType;
@@ -20,14 +21,7 @@ export default function NotificationCard({
   const t = useTranslations();
   const locale = useLocale();
 
-  const formattedDate = new Intl.DateTimeFormat(locale || 'en-US', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  }).format(new Date(notification.createdAt));
+  const { date, time } = resolveDate(notification.createdAt, locale);
 
   return (
     <div
@@ -55,7 +49,7 @@ export default function NotificationCard({
               label={`${t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_TIME_LABEL')}:`}
               name="createdAt"
               type="text"
-              value={formattedDate}
+              value={`${date}, ${time}`}
               disabled
             />
           </div>

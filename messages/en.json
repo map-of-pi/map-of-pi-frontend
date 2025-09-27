@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Membership",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Current membership class",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Current membership end date",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "No active membership",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi allowance remaining",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Pick membership or Mappi to buy",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membership ({duration} weeks)",
+      "PICK_BUY_METHOD_LABEL": "Pick buy method",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Pay with π",
+        "WATCH_ADS": "Watch ads (free)",
+        "USE_VOUCHER": "Use a voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Enter voucher code",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membership activated successfully",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Failed to load membership data",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Failed membership payment",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "User must be logged in to make a payment"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Seller Administration",
+      "SELLER_RESTRICTION_MESSAGE": "Your Sell Center is in a region sanctioned by Pi Network so your map marker will be hidden to all users",
       "SELLER_DETAILS_LABEL": "Seller Details",
       "EMAIL_LABEL": "Email address",
       "PHONE_NUMBER_LABEL": "Phone number",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pioneer {search_value} not found"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Edit Review",
+      "REVIEW_GIVEN_TO_LABEL": "Review given to",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Date and time review given"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "No reviews for {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "List of Reviews left for {seller_id}",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pioneer",
     "PIONEER_ID_LABEL": "Pioneer ID",
+    "MEMBERSHIP": "Membership",
     "BUY": "Buy",
+    "WATCH": "Watch",
     "RESET": "Reset",
     "REFUND": "Refund",
     "FULFILL": "Fulfill",
@@ -299,8 +329,9 @@
     "CHECK_REVIEWS": "Check Reviews",
     "SEARCH_REVIEWS": "Search Reviews",
     "SEARCH_LOADING": "Search loading...",
-    "VIEW_NOTIFICATIONS": "See notifications",
+    "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
+    "EDIT": "Edit",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
     "DELETE": "Delete",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Upload photo",
+      "UPLOAD_PHOTO_LABEL": "Upload image",
       "UPLOAD_PHOTO_PLACEHOLDER": "Upload image to help attract buyers (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Upload an image to support your review (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Drop your image here or browse",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profile image",
         "SELLER_IMAGE_LABEL": "Seller image",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review image"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review image",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Update image"
       }
     },
     "REACTION_RATING": {

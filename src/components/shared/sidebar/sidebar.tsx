@@ -402,20 +402,42 @@ function Sidebar(props: any) {
           {/* review order button */}
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
-              <Button
-                label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  fontSize: '18px',
-                }}
-                onClick={() => {
-                  router.push(`/${locale}/user/order-review`);
-                  props.setToggleDis(false); // Close sidebar on click
-                }}
-              />
+              <Link href={`/${locale}/user/order-review`}>
+                <Button
+                  label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
+            </div>
+          )}
+
+          {/* membership button */}
+          {isOnlineShoppingEnabled && (
+            <div className="mb-2">
+              <Link href={`/${locale}/user/membership`}>
+                <Button
+                  label={t('SHARED.MEMBERSHIP')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false); // Close sidebar on click
+                  }}
+                />
+              </Link>
             </div>
           )}
 
@@ -423,7 +445,7 @@ function Sidebar(props: any) {
             <Link href={`/${locale}/notification`}>
               <div className="relative">
                 <Button
-                  label={t('View Notifications')}
+                  label={t('SHARED.VIEW_NOTIFICATIONS')}
                   styles={{
                     color: '#ffc153',
                     width: '100%',
@@ -435,17 +457,17 @@ function Sidebar(props: any) {
                     props.setToggleDis(false);
                   }}
                 />
-                  {notificationsCount > 0 && (
-                    <span
-                      className={clsx(
-                        'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
-                        'rounded-full min-w-[22px] text-center',
-                        notificationsCount > 99 && 'px-[4px] min-w-[28px]'
-                      )}
-                    >
-                      {notificationsCount > 99 ? '99+' : notificationsCount}
-                    </span>
-                  )}
+                {notificationsCount > 0 && (
+                  <span
+                    className={clsx(
+                      'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
+                      'rounded-full min-w-[22px] text-center',
+                      notificationsCount > 99 && 'px-[4px] min-w-[28px]'
+                    )}
+                  >
+                    {notificationsCount > 99 ? '99+' : notificationsCount}
+                  </span>
+                )}
               </div>
             </Link>
           </div>

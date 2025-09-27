@@ -7,6 +7,7 @@ import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import Skeleton from '@/components/skeleton/skeleton';
 import { PartialOrderType, OrderStatusType } from '@/constants/types';
 import { fetchBuyerOrders } from '@/services/orderApi';
+import { resolveDate } from '@/utils/date';
 import { translateOrderStatusType } from '@/utils/translate';
 
 import { AppContext } from '../../../../../context/AppContextProvider';
@@ -40,7 +41,7 @@ export default function OrderReviewPage() {
     };
     
     getOrderList(currentUser?.pi_uid as string);
-  }, [currentUser?.pi_uid]); 
+  }, [currentUser?.pi_uid]);
 
   // loading condition
   if (loading) {
@@ -108,18 +109,14 @@ export default function OrderReviewPage() {
                     <div
                       className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 focus:border-[#1d724b] border-[2px] w-full mb-2`}
                     >
-                      {item?.createdAt && (
-                        <label className="text-[14px] text-[#333333]">
-                          { new Intl.DateTimeFormat(locale || 'en-US', {
-                            day: '2-digit',
-                            month: 'long',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            hour12: true,
-                          }).format(new Date(item.createdAt))}
-                        </label>
-                      )}
+                      {item?.createdAt && (() => {
+                        const { date, time } = resolveDate(item.createdAt, locale);
+                        return (
+                          <label className="text-[14px] text-[#333333]">
+                            {date}, {time}
+                          </label>
+                        );
+                      })()}
                     </div>
                   </div>
                   <div className="flex-auto w-32">

@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Lidantɔ",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Xɔsu lidantɔ to yì",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Xɔsu lidantɔ to yì ɖeɖe",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Asi kpɔxɔ nɔ we ɖe",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi tó yì ɖeɖe",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Wɛ lidantɔ alo Mappi tó nɔ hɔn",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "lɛsinɔ ({duration} ɖon)",
+      "PICK_BUY_METHOD_LABEL": "Wɛ hɔn ɖoɖo tɔn",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Sɔn π",
+        "WATCH_ADS": "Wɛ ads (free)",
+        "USE_VOUCHER": "Wɛ voucher code (free)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Sɔ voucher kódo",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Mɛmbɛship gán hɛ̀ wá nù",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Mɛmbɛship dàtá hɛ̀ wá nù",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Mɛmbɛship dàtá hɛ̀ wá nù",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Sɛ́sɛnɔ gbɛtɔ yì yí log in ɖò wɛ nɔ hɛn nu ka"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Dohwɛ ƒɛnu",
+      "SELLER_RESTRICTION_MESSAGE": "Wɛ́n nɔn nu wɛ̀ gbà lɛ yì Pi Network tɔ́n sèsin wɛ̀, ɖe ɖò ɖò wɛ́n ɖò sù mapa xó xò wɛ̀ nɔn ɖokàn mì",
       "SELLER_DETAILS_LABEL": "Nǔsátɔ́ sín gbigbajemin",
       "EMAIL_LABEL": "Adrɛsi Email mittɔn",
       "PHONE_NUMBER_LABEL": "Alokan numɛro miton",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "Mɔ_pionnier {search_value} a"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Ṣeto Àyẹ̀wò",
+      "REVIEW_GIVEN_TO_LABEL": "Àyẹ̀wò fún",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ọjọ́ àti àkókò tí a ṣe àyẹ̀wò náà"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Xóɖɔɖókpɔ́ ɖěbǔ de nú we a {seller_id} ǎ",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Xóɖɔɖókpɔ́ e kpò nú {seller_id} é sín wěma",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionnier",
     "PIONEER_ID_LABEL": "Pioneer ID Towe",
+    "MEMBERSHIP": "Lidantɔ",
     "BUY": "Xɔ nu",
+    "WATCH": "Wɛ",
     "RESET": "Wɛ to",
     "REFUND": "Zɔ na azɔ",
     "FULFILL": "Hɔnɔ",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "Biba ɖo yiyi wɛ...",
     "VIEW_NOTIFICATIONS": "Kpɔ̀wé dɔ̀",
     "REPLY": "Xósin",
+    "EDIT": "Sɛ̀n",
     "ADD_ITEM": "Gɔ́ nǔ ɖévo nu nǔ ɔ",
     "CHECKOUT": "Gbé wɛ gbà",
     "DELETE": "Súnsún",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "Emai miton"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Ɖo fɔto ɔ ji",
+      "UPLOAD_PHOTO_LABEL": "Lɔ wɛ",
       "UPLOAD_PHOTO_PLACEHOLDER": "Mi ze ɖiɖe ɔ do bo na dɔn nuxɔtɔ́ lɛ (PNG‚ JPG‚ JPEG‚ WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Zé ɖiɖe ɖe ɖ'ayi bo na dó nɔ gudo nú nukpɔn mitɔn (PNG‚ JPG‚ JPEG‚ WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Zé ɖiɖe towe ɖó fí aló kpɔ́n",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Ɖiɖe mɛɖesunɔ tɔn",
         "SELLER_IMAGE_LABEL": "Nɔsatɔ sin ɖiɖe",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Kpɔ́n ɖiɖe ɔ"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Kpɔ́n ɖiɖe ɔ",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Sè ɖa wɛ"
       }
     },
     "REACTION_RATING": {

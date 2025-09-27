@@ -42,7 +42,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
   const locale = useLocale();
   const sellerId = params.id; 
   
-  const { currentUser, autoLoginUser, reload, setReload, showAlert } = useContext(AppContext);
+  const { currentUser, autoLoginUser, reload, setReload, showAlert, userMembership } = useContext(AppContext);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [sellerShopInfo, setSellerShopInfo] = useState<ISeller | null>(null);
@@ -160,8 +160,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
     }
 
     const newOrderData = {    
-      buyerId: currentUser.pi_uid,
-      sellerId: sellerId,        
+      sellerPiUid: sellerId,        
       paymentId: null,
       totalAmount: totalAmount,
       status: OrderStatusType.Pending,
@@ -211,7 +210,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
             <h2 className="font-bold text-[18px] mb-2 flex items-center">
               {sellerShopInfo.name} 
               <MembershipIcon 
-                category='triple_gold' 
+                category={userMembership} 
                 className="ml-1"
                 styleComponent={{
                   display: "inline-block",

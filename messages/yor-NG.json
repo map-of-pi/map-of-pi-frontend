@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Ìṣọkan",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Ìpele ìṣọkan lọ́wọ́lọ́wọ́",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ọjọ́ ìparí ìṣọkan lọ́wọ́lọ́wọ́",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ko si ìdárúpọ̀ tó ń ṣiṣẹ́",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ìyókù Mappi",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Yan ìṣọkan tàbí Mappi láti rà",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "ìmọ̀lára ({duration} ọ̀sẹ̀)",
+      "PICK_BUY_METHOD_LABEL": "Yan ọ̀nà rira",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Sanwo pẹlu π",
+        "WATCH_ADS": "Wo ìpolówó (fẹ́fẹ́)",
+        "USE_VOUCHER": "Lo koodu voucher (fẹ́fẹ́)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Tẹ kóòdù voucher",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Ìforúkọsílẹ̀ ọmọ ẹgbẹ́ ti ṣàkóso ní àṣeyọrí",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "A kò lè gbé data ọmọ ẹgbẹ́ wọlé",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Ìsanwó ìforúkọsílẹ̀ ọmọ ẹgbẹ́ kọ̀ ló ṣàṣeyọrí",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Olùmúlò gbọ́dọ̀ wọlé kí ó tó lè ṣe ìsanwó"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Isakoso Onisowo",
+      "SELLER_RESTRICTION_MESSAGE": "Ile-iṣẹ tita rẹ wà ní agbègbè tí Pi Network ti ṣe àtìlẹyìn sí, nítorí náà a máa títìpa ami àtẹ̀jáde rẹ látinú maapu fún gbogbo àwọn onílo",
       "SELLER_DETAILS_LABEL": "Awọn alaye Olutaja",
       "EMAIL_LABEL": "Adirẹsi imeeli",
       "PHONE_NUMBER_LABEL": "Nọmba foonu re",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionnier a kò rí aṣáájú-ọ̀nà {search_value}"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Ṣatúnṣe Atunyẹwo",
+      "REVIEW_GIVEN_TO_LABEL": "Atunyẹwo ti a fun",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ọjọ́ ati àsìkò ti a fun atunyẹwo"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Ko si awọn awotẹlẹ fun {seller_id}", 
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Kò sí àwọn àyẹ̀wò fún {seller_id}",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionier",
     "PIONEER_ID_LABEL": "ID aṣáájú-ọnà",
+    "MEMBERSHIP": "Ìṣọkan",
     "BUY": "Ra oja",
+    "WATCH": "Wo",
     "RESET": "Tunṣe",
     "REFUND": "Ìsanwó pada",
     "FULFILL": "Ṣeé ṣe",
@@ -300,7 +330,8 @@
     "SEARCH_REVIEWS": "Awọn atunwo wiwa", 
     "SEARCH_LOADING": "Ṣawari nlo...",
     "VIEW_NOTIFICATIONS": "Wo ìkìlọ̀",
-    "REPLY": "E te pada", 
+    "REPLY": "E te pada",
+    "EDIT": "Ṣatunkọ",
     "ADD_ITEM": "Fikun un Item",
     "CHECKOUT": "Sanwo",
     "DELETE": "Pàdánù",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "Imeeli"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Irùsókè Fọto re",
+      "UPLOAD_PHOTO_LABEL": "Gbe aworan soke",
       "UPLOAD_PHOTO_PLACEHOLDER": "Ṣirùsókè aworan lati ṣe iranlọwọ lati fa awọn oluraja (PNG, JPG, JPEG, WEBP)", 
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Ṣe agbejade aworan lati ṣe atilẹyin atunyẹwo rẹ (PNG, JPG, JPEG, WEBP)", 
       "IMAGE_DROP_UPLOAD_MESSAGE": "Fi aworan rẹ silẹ nibi tabi ṣawari",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Aworan profaili",
         "SELLER_IMAGE_LABEL": "Aworan eniti o ta ọja",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Ṣe imudojuiwọn aworan"
       }
     },
     "REACTION_RATING": {

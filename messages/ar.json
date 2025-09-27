@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "العضوية",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "فئة العضوية الحالية",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "تاريخ انتهاء العضوية الحالية",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "لا توجد عضوية نشطة",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "رصيد Mappi المتبقي",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو Mappi للشراء",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
+      "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "الدفع بواسطة π",
+        "WATCH_ADS": "شاهد الإعلانات (مجاني)",
+        "USE_VOUCHER": "استخدم رمز القسيمة (مجاني)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "أدخل رمز القسيمة",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "تم تفعيل العضوية بنجاح",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "فشل في تحميل بيانات العضوية",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "فشل دفع رسوم العضوية",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "يجب أن يقوم المستخدم بتسجيل الدخول لإجراء الدفع"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "إدارة البائع",
+      "SELLER_RESTRICTION_MESSAGE": "مركز البيع الخاص بك يقع في منطقة خاضعة للعقوبات من Pi Network، لذلك سيتم إخفاء علامتك على الخريطة عن جميع المستخدمين",
       "SELLER_DETAILS_LABEL": "تفاصيل البائع",
       "EMAIL_LABEL": "البريد الإلكتروني",
       "PHONE_NUMBER_LABEL": "رقم الهاتف",
@@ -182,7 +205,12 @@
         "NO_REVIEWS_FOUND": "لم يتم العثور على تقييمات للمستخدم {search_value}", 
         "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}" 
       } 
-    }, 
+    },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "تعديل التقييم",
+      "REVIEW_GIVEN_TO_LABEL": "التقييم الممنوح لـ",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "تاريخ ووقت تقديم التقييم"
+    },
     "CHECK_REVIEWS_FEEDBACK": { 
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "لا توجد تقييمات لـ {seller_id}", 
       "CHECK_REVIEWS_FEEDBACK_HEADER": "قائمة التقييمات المتروكة لـ {seller_id}", 
@@ -286,8 +314,10 @@
   },
   "SHARED": {
     "PIONEER_LABEL": "رائد",
-    "PIONEER_ID_LABEL": "معرف المستخدم", 
+    "PIONEER_ID_LABEL": "معرف المستخدم",
+    "MEMBERSHIP": "العضوية",
     "BUY": "شراء",
+    "WATCH": "شاهد",
     "RESET": "إعادة تعيين",
     "REFUND": "استرداد",
     "FULFILL": "تنفيذ",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "جارٍ تحميل البحث...",
     "VIEW_NOTIFICATIONS": "عرض الإشعارات",
     "REPLY": "رد",
+    "EDIT": "تعديل",
     "ADD_ITEM": "إضافة منتج",
     "CHECKOUT": "الدفع",
     "DELETE": "حذف",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "البريد الإلكتروني"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "تحميل صورة",
+      "UPLOAD_PHOTO_LABEL": "رفع الصورة",
       "UPLOAD_PHOTO_PLACEHOLDER": "تحميل صورة للمساعدة في جذب المشترين (PNG، JPG، JPEG، WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "تحميل صورة لدعم تقييمك (PNG، JPG، JPEG، WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "أسقط صورتك هنا أو تصفح",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "صورة الملف الشخصي",
         "SELLER_IMAGE_LABEL": "صورة البائع",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "صورة التقييم"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "صورة التقييم",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "تحديث الصورة"
       }
     },
     "REACTION_RATING": {

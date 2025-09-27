@@ -34,76 +34,93 @@ export default function NotificationPage() {
   };
 
   const handleUpdateNotification = async (id: string) => {
-  const prev = notifications.find((n) => n._id === id);
-  if (!prev) return;
+    const prev = notifications.find((n) => n._id === id);
+    if (!prev) return;
 
-  // optimistic local update
-  setNotifications((prevList) =>
-    prevList.map((n) =>
-      n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
-    )
-  );
-  if (!prev.is_cleared) {
-    setNotificationsCount((c) => Math.max(0, c - 1)); // optimistic badge update
-  } else {
-    setNotificationsCount((c) => c + 1); // restoring if it was uncleared before
-  }
-
-  try {
-    await updateNotification(id);
-
-    // background sync with BE (optional, to avoid drift)
-    const { count } = await getNotifications({ skip: 0, limit: 1, status: 'uncleared' });
-    setNotificationsCount(count);
-
-  } catch (error) {
-    logger.error('Error updating notification:', error);
-
-    // rollback local changes if API fails
+    // optimistic local update
     setNotifications((prevList) =>
       prevList.map((n) =>
-        n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
+        n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
       )
     );
-  }
-};
+    if (!prev.is_cleared) {
+      setNotificationsCount((c) => Math.max(0, c - 1)); // optimistic badge update
+    } else {
+      setNotificationsCount((c) => c + 1); // restoring if it was uncleared before
+    }
+
+    try {
+      await updateNotification(id);
+
+      // background sync with BE (optional, to avoid drift)
+      const { count } = await getNotifications({ skip: 0, limit: 1, status: 'uncleared' });
+      setNotificationsCount(count);
+
+    } catch (error) {
+      logger.error('Error updating notification:', error);
+
+      // rollback local changes if API fails
+      setNotifications((prevList) =>
+        prevList.map((n) =>
+          n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
+        )
+      );
+    }
+  };
 
   const sortNotifications = (
     current: NotificationType[],
     incoming: NotificationType[]
   ): NotificationType[] => {
-    const merged = [...current, ...incoming];
-    const notCleared = merged.filter((n) => !n.is_cleared);
-    const cleared = merged.filter((n) => n.is_cleared);
+    const seen = new Set<string>();
+    const notCleared: NotificationType[] = [];
+    const cleared: NotificationType[] = [];
+
+    for (const n of [...current, ...incoming]) {
+      if (seen.has(n._id)) continue;
+      seen.add(n._id);
+  
+      if (!n.is_cleared) {
+        notCleared.push(n);
+      } else {
+        cleared.push(n);
+      }
+    }
+
     return [...notCleared, ...cleared];
   };
 
   const fetchNotifications = async () => {
-  if (isLoading || !currentUser?.pi_uid || !hasMore) return;
+    if (isLoading || !currentUser?.pi_uid || !hasMore) return;
 
-  try {
-    const { items, count } = await getNotifications({ skip, limit });
+    setLoading(true);
 
-    logger.info('Fetched notifications:', { itemsLength: items.length, count });
+    try {
+      const { items, count } = await getNotifications({ skip, limit });
 
-    if (items.length > 0) {
-      const sorted = sortNotifications(notifications, items);
-      setNotifications(sorted);
-      setSkip(skip + limit);
+      logger.info('Fetched notifications:', { itemsLength: items.length, count });
+
+      if (items.length > 0) {
+        // Merge and sort notifications; uncleared then cleared
+        setNotifications((prev) => sortNotifications(prev, items));
+        
+        // Increment skip by number of new items
+        const newSkip = skip + items.length;
+        setSkip(newSkip);
+
+        // Determine if there are more notifications
+        setHasMore(newSkip < count);
+      } else {
+        // No items returned → no more notifications
+        setHasMore(false);
+      }
+    } catch (error) {
+      logger.error('Error fetching notifications:', error);
+    } finally {
+      setHasFetched(true);
+      setLoading(false);
     }
-
-    if (items.length < limit) {
-      setHasMore(false);
-    }
-
-    setNotificationsCount(count); // sync badge
-  } catch (error) {
-    logger.error('Error fetching notifications:', error);
-  } finally {
-    setHasFetched(true);
-    setLoading(false);
-  }
-};
+  };
 
   useEffect(() => {
     if (!currentUser?.pi_uid) return;

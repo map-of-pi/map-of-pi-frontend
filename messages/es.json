@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Membresía",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Clase de membresía actual",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Fecha de finalización de la membresía actual",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "No hay membresía activa",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Asignación de Mappi restante",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Elija membresía o Mappi para comprar",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membresía ({duration} semanas)",
+      "PICK_BUY_METHOD_LABEL": "Elija método de compra",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Pagar con π",
+        "WATCH_ADS": "Ver anuncios (gratis)",
+        "USE_VOUCHER": "Usar código de cupón (gratis)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Ingrese código de cupón",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Tu membresía se ha activado con éxito",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Error al cargar los datos de membresía",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Pago de membresía fallido",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "El usuario debe iniciar sesión para realizar un pago"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administración del Vendedor",
+      "SELLER_RESTRICTION_MESSAGE": "Tu centro de ventas está en una región sancionada por Pi Network, por lo que tu marcador en el mapa estará oculto para todos los usuarios",
       "SELLER_DETAILS_LABEL": "Detalles del vendedor",
       "EMAIL_LABEL": "Dirección de correo electrónico",
       "PHONE_NUMBER_LABEL": "Número de teléfono",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionero {search_value} no encontrado"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Editar reseña",
+      "REVIEW_GIVEN_TO_LABEL": "Reseña dada a",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Fecha y hora en que se dio la reseña"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "No hay reseñas para {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Lista de Reseñas dejadas para {seller_id}",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "Pionero",
     "PIONEER_ID_LABEL": "ID de Pionero",
+    "MEMBERSHIP": "Membresía",
     "BUY": "Comprar",
+    "WATCH": "Ver",
     "RESET": "Restablecer",
     "REFUND": "Reembolso",
     "FULFILL": "Cumplir",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "Cargando búsqueda...",
     "VIEW_NOTIFICATIONS": "Ver notificaciones",
     "REPLY": "Responder",
+    "EDIT": "Editar",
     "ADD_ITEM": "Agregar artículo",
     "CHECKOUT": "Pagar",
     "DELETE": "Eliminar",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "Correo electrónico"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Subir foto",
+      "UPLOAD_PHOTO_LABEL": "Subir imagen",
       "UPLOAD_PHOTO_PLACEHOLDER": "Sube una imagen para ayudar a atraer compradores (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Sube una imagen para respaldar tu reseña (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Suelta tu imagen aquí o busca",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Imagen de perfil",
         "SELLER_IMAGE_LABEL": "Imagen del vendedor",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Imagen de reseña"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Imagen de reseña",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Actualizar imagen"
       }
     },
     "REACTION_RATING": {

@@ -18,8 +18,8 @@ function NotificationDialog({ setShowDialog, onClose, message, url } : any) {
   }
  
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative">
+    <div className="fixed inset-0 flex items-end justify-center bg-black bg-opacity-50 z-50 pb-[20vh] sm:pb-[20vh]">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-6 sm:mx-auto relative shadow-lg">
         <button 
           onClick={handleClose} 
           className="absolute top-3 right-3"

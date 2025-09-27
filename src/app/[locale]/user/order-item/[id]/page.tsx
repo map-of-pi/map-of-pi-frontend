@@ -11,6 +11,7 @@ import {
   PartialOrderType 
 } from "@/constants/types";
 import { fetchOrderById } from "@/services/orderApi";
+import { resolveDate } from "@/utils/date";
 import { 
   getFulfillmentMethodOptions, 
   translateOrderItemStatusType, 
@@ -56,6 +57,8 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
     
     getOrder(orderId);
   }, [orderId]);
+
+  const orderDateTime = resolveDate(currentOrder?.createdAt, locale);
 
   // loading condition
   if (loading) {
@@ -116,16 +119,9 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
               <div
                 className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 focus:border-[#1d724b] border-[2px] w-full mb-2`}
               >
-                {currentOrder?.createdAt && (
+                {orderDateTime.date && (
                   <label className="text-[14px] text-[#333333]">
-                    { new Intl.DateTimeFormat(locale || 'en-US', {
-                      day: '2-digit',
-                      month: 'long',
-                      year: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true,
-                    }).format(new Date(currentOrder.createdAt))}
+                    {orderDateTime.date}, {orderDateTime.time}
                   </label>
                 )}
               </div>

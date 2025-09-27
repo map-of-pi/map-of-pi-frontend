@@ -44,8 +44,31 @@
     }
   },
   "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "会员",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "当前会员等级",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "当前会员结束日期",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "没有有效的会员资格",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "剩余的Mappi额度",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "选择要购买的会员或Mappi",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "会员资格（{duration} 周）",
+      "PICK_BUY_METHOD_LABEL": "选择购买方式",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "使用 π 支付",
+        "WATCH_ADS": "观看广告（免费）",
+        "USE_VOUCHER": "使用优惠码（免费）"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "输入优惠码",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "会员激活成功",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "无法加载会员数据",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "会员支付失败",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "用户必须登录才能进行支付"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "卖家管理",
+      "SELLER_RESTRICTION_MESSAGE": "您的销售中心位于 Pi Network 制裁的区域，因此您的地图标记将对所有用户隐藏",
       "SELLER_DETAILS_LABEL": "卖家详情",
       "EMAIL_LABEL": "电子邮件地址",
       "PHONE_NUMBER_LABEL": "电话号码",
@@ -183,6 +206,11 @@
         "NO_PIONEER_FOUND": "未找到先锋 {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "编辑评论",
+      "REVIEW_GIVEN_TO_LABEL": "评论对象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "评论日期和时间"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "没有 {seller_id} 的评论",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} 的评论列表",
@@ -287,7 +315,9 @@
   "SHARED": {
     "PIONEER_LABEL": "先锋",
     "PIONEER_ID_LABEL": "先锋 ID",
+    "MEMBERSHIP": "会员",
     "BUY": "购买",
+    "WATCH": "观看",
     "RESET": "重置",
     "REFUND": "退款",
     "FULFILL": "完成",
@@ -301,6 +331,7 @@
     "SEARCH_LOADING": "搜索加载中...",
     "VIEW_NOTIFICATIONS": "查看通知",
     "REPLY": "回复",
+    "EDIT": "编辑",
     "ADD_ITEM": "添加项目",
     "CHECKOUT": "结账",
     "DELETE": "删除",
@@ -315,7 +346,7 @@
       "EMAIL_LABEL": "电子邮件"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "上传照片",
+      "UPLOAD_PHOTO_LABEL": "上传图片",
       "UPLOAD_PHOTO_PLACEHOLDER": "上传图片以吸引买家（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "上传图片以支持您的评论（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "将图片拖放到此处或浏览",
@@ -323,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "个人资料图片",
         "SELLER_IMAGE_LABEL": "卖家图片",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "评论图片",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "更新图片"
       }
     },
     "REACTION_RATING": {
