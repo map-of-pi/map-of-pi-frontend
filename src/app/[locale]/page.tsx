@@ -98,7 +98,6 @@ export default function Page({ params }: { params: { locale: string } }) {
       
       try {
         const notifications = await getNotifications({
-          pi_uid: currentUser.pi_uid,
           skip: 0,
           limit: 0,
           status: 'uncleared'
@@ -106,7 +105,7 @@ export default function Page({ params }: { params: { locale: string } }) {
 
         console.log('Uncleared notifications response:', notifications);
         
-        if (notifications?.length > 0) {
+        if (notifications?.items?.length > 0) {
           setShowNotificationPopup(true);
           sessionStorage.setItem('notificationShown', 'true');
         } else {
