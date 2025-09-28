@@ -15,6 +15,8 @@ export default function NotificationPage() {
   const { currentUser } = useContext(AppContext);
 
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const { setNotificationsCount, setToggleNotification } = useContext(AppContext);
+
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const [skip, setSkip] = useState(0);
   const [limit] = useState(5);
@@ -35,17 +37,29 @@ export default function NotificationPage() {
     const prev = notifications.find((n) => n._id === id);
     if (!prev) return;
 
+    // optimistic local update
     setNotifications((prevList) =>
       prevList.map((n) =>
         n._id === id ? { ...n, is_cleared: !n.is_cleared } : n
       )
     );
+    if (!prev.is_cleared) {
+      setNotificationsCount((c) => Math.max(0, c - 1)); // optimistic badge update
+    } else {
+      setNotificationsCount((c) => c + 1); // restoring if it was uncleared before
+    }
 
     try {
       await updateNotification(id);
+
+      // background sync with BE (optional, to avoid drift)
+      const { count } = await getNotifications({ skip: 0, limit: 1, status: 'uncleared' });
+      setNotificationsCount(count);
+
     } catch (error) {
       logger.error('Error updating notification:', error);
-      // Rollback
+
+      // rollback local changes if API fails
       setNotifications((prevList) =>
         prevList.map((n) =>
           n._id === id ? { ...n, is_cleared: prev.is_cleared } : n
@@ -58,32 +72,47 @@ export default function NotificationPage() {
     current: NotificationType[],
     incoming: NotificationType[]
   ): NotificationType[] => {
-    const merged = [...current, ...incoming];
-    const notCleared = merged.filter((n) => !n.is_cleared);
-    const cleared = merged.filter((n) => n.is_cleared);
+    const seen = new Set<string>();
+    const notCleared: NotificationType[] = [];
+    const cleared: NotificationType[] = [];
+
+    for (const n of [...current, ...incoming]) {
+      if (seen.has(n._id)) continue;
+      seen.add(n._id);
+  
+      if (!n.is_cleared) {
+        notCleared.push(n);
+      } else {
+        cleared.push(n);
+      }
+    }
+
     return [...notCleared, ...cleared];
   };
 
   const fetchNotifications = async () => {
     if (isLoading || !currentUser?.pi_uid || !hasMore) return;
 
+    setLoading(true);
+
     try {
-      const newNotifications = await getNotifications({
-        pi_uid: currentUser.pi_uid,
-        skip,
-        limit
-      });
+      const { items, count } = await getNotifications({ skip, limit });
 
-      logger.info('Fetched notifications:', newNotifications);
+      logger.info('Fetched notifications:', { itemsLength: items.length, count });
 
-      if (newNotifications.length > 0) {
-        const sorted = sortNotifications(notifications, newNotifications);
-        setNotifications(sorted);
-        setSkip(skip + limit);
-      }
+      if (items.length > 0) {
+        // Merge and sort notifications; uncleared then cleared
+        setNotifications((prev) => sortNotifications(prev, items));
+        
+        // Increment skip by number of new items
+        const newSkip = skip + items.length;
+        setSkip(newSkip);
 
-      if (newNotifications.length < limit) {
-        setHasMore(false); // No more pages
+        // Determine if there are more notifications
+        setHasMore(newSkip < count);
+      } else {
+        // No items returned → no more notifications
+        setHasMore(false);
       }
     } catch (error) {
       logger.error('Error fetching notifications:', error);
