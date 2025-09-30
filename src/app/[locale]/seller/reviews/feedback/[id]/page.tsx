@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useContext } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
@@ -29,6 +29,7 @@ interface ReplyToReviewPageProps {
 
 export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
 
   const reviewId = params.id;
@@ -45,7 +46,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
 
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     return data.map((feedback) => {
-      const { date, time } = resolveDate(feedback.review_date);
+      const { date, time } = resolveDate(feedback.review_date, locale);
       const { reaction = 'No Reaction', unicode = '😐' } = resolveRating(feedback.rating) || {};
       
       return {
