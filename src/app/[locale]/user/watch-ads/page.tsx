@@ -6,7 +6,7 @@ declare const Pi: any;
 export default function WatchAdsPage() {
   const ready = useRef(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [earnedSecs, setEarnedSecs] = useState<string>("");
+  const [earnedSecs, setEarnedSecs] = useState<number>(0);
   const [status, setStatus]= useState<string>("");
 
   useEffect(() => {
@@ -69,8 +69,25 @@ const showRewarded = async () => {
     }
 
     const show = await Pi.Ads.showAd('rewarded'); // { result, adId? }
-    if (show.result === 'AD_REWARDED') {
-    // later: call /segment-complete with { adId }
+      if (show.result === 'AD_REWARDED' && sessionId) {
+      // later: call /segment-complete with { adId }
+      try {
+        const res = await fetch(`/api/v1/watch-ads/session/${sessionId}/segment-complete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adId: show.adId}),
+
+        });
+
+        if (!res.ok) throw new Error(`Segment complete failed: ${res.status}`)
+        const updated = await res.json();
+
+        // Update FE state with new progress
+        setEarnedSecs(Number(updated.earnedSecs ?? 0));
+        setStatus(updated.status ?? "unknown");
+      } catch (err: any) {
+        console.error('Error reporting ad completion', err);
+      }
     }
   } catch (e: any) {
     console.error('showRewarded error', e);
