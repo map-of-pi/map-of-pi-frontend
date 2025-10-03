@@ -6,6 +6,8 @@ declare const Pi: any;
 export default function WatchAdsPage() {
   const ready = useRef(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [earnedSecs, setEarnedSecs] = useState<string>("");
+  const [status, setStatus]= useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -35,6 +37,12 @@ export default function WatchAdsPage() {
 
         if (!res.ok) throw new Error(`Init session failed: ${res.status}`);
         const data = await res.json();
+
+        if (data?._id) {
+          setSessionId(data._id);
+          setEarnedSecs(data.earnedSecs ?? 0);
+          setStatus(data.status ?? "unknown");
+        }
 
         if (data?._id) setSessionId(data._id);
       } catch (err: any) {
@@ -75,8 +83,10 @@ return (
     {sessionId && (
       <div className="mb-4 text-sm text-gray-700">
         Active Session ID: <span className="font-mono">{sessionId}</span>
+        <div>Status: <span className="font-mono">{status}</span></div>
+        <div>Minutes earned: {Math.floor(Number(earnedSecs) / 60)}</div>
       </div>
-      )}
+    )}
       <button
         className="px-4 py-2 bg-blue-600 text-white rounded mb-4"
         onClick={showRewarded}
