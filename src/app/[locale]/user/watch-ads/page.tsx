@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 
 declare const Pi: any;
 
@@ -95,21 +96,66 @@ const showRewarded = async () => {
 };
 
 return (
-  <div className="p-6 max-w-xl mx-auto">
-    <h1 className="text-xl font-bold mb-4">Watch Ads</h1>
-    {sessionId && (
-      <div className="mb-4 text-sm text-gray-700">
-        Active Session ID: <span className="font-mono">{sessionId}</span>
-        <div>Status: <span className="font-mono">{status}</span></div>
-        <div>Minutes earned: {Math.floor(Number(earnedSecs) / 60)}</div>
-      </div>
-    )}
-      <button
-        className="px-4 py-2 bg-blue-600 text-white rounded mb-4"
+  <main className="mx-auto w-full max-w-[335px] rounded-[6px] border border-tertiary bg-background p-4 text-center" >
+    {/* Top accent bar */}
+    <div aria-hidden className="-mx-4 -mt-4 mb-4 h-[6px] rounded-t-[6px] bg-primary" />
+
+    {/* Page title */}
+    <h1 className="text-[17px] font-bold text-[#1e1e1e] mb-4">
+      Watch Ads to Buy Membership
+    </h1>
+
+    <section className="mb-6">
+      <p className="text-[15px] font-semibold text-[#333333] mb-3">
+        How many ad minutes do I need:
+      </p>
+
+      <ul className="space-y-2">
+        {[
+          ['Single mappi', 'Watch ads for 10 minutes', ''],
+          ['White membership', 'Watch ads for 50 minutes', '✔'],
+          ['Green membership', 'Watch ads for 1 hour and 40 minutes', '✔'],
+          ['Gold membership', 'Watch ads for 4 hours and 10 minutes', '✔'],
+          ['Double Gold membership', 'Watch ads for 8 hours and 20 minutes', '✔✔'],
+          ['Triple Gold membership', 'Watch ads for 16 hours and 40 minutes', '✔✔✔'],
+        ].map(([title, desc, check], i) => (
+          <li key={i}>
+            <div className="font-semibold text-[#1e1e1e]">
+              {title}{' '}
+              {check && <span className="text-secondary">{check}</span>}
+            </div>
+            <p className="text-[13px] text-[#6b6b6b]">{desc}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <p className="text-[12px] text-[#6b6b6b] mb-4">
+      Ads are presented in 10 minute blocks
+    </p>
+
+    <div className="mb-6 flex justify-center">
+      <Button
+        label="Watch Ad Block"
+        styles={{
+          color: '#ffc153',
+          backgroundColor: 'var(--default-primary-color)',
+          height: '40px',
+          padding: '10px 15px',
+        }}
         onClick={showRewarded}
-      >
-        Show Rewarded
-      </button>
+      />
     </div>
-  );
+
+    <p className="text-[13px] text-[#333333]">
+      Ad minutes watched so far
+      <br />
+      <span className="text-[13px] text-[#6b6b6b]">
+        {Math.floor(Number(earnedSecs) / 3600)} hours and{' '}
+        {Math.floor((Number(earnedSecs) / 60) % 60)} minutes
+      </span>
+    </p>
+  </main>
+);
+
 }
