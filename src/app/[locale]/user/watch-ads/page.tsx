@@ -124,13 +124,13 @@ return (
               {title}{' '}
               {check && <span className="text-secondary">{check}</span>}
             </div>
-            <p className="text-[13px] text-[#6b6b6b]">{desc}</p>
+            <p className="text-[12px] text-[#6b6b6b]">{desc}</p>
           </li>
         ))}
       </ul>
     </section>
 
-    <p className="text-[12px] text-[#6b6b6b] mb-4">
+    <p className="text-[14px] font-2xl mb-4">
       Ads are presented in 10 minute blocks
     </p>
 
@@ -147,7 +147,7 @@ return (
       />
     </div>
 
-    <p className="text-[13px] text-[#333333]">
+    <p className="text-[14px] text-[#333333]">
       Ad minutes watched so far
       <br />
       <span className="text-[13px] text-[#6b6b6b]">
