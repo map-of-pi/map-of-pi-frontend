@@ -27,16 +27,45 @@ function MembershipIcon({ category, className, styleComponent }: {
         return null
     }
   }
-
+  
   const icon = HandleMembership(category);
 
   if (!icon) return null; // Don't render anything for casual members
 
-  return (
-    <div className={`w-7 h-5 relative float-right ${className || ''}`} style={styleComponent}>
-      <Image src={icon} alt={category} fill style={{ objectFit: 'contain' }}/>
+   return (
+    <div
+      className={`relative ${className || ''}`}
+      style={{
+        display: 'inline-block',
+        width:
+          category === MembershipClassType.TRIPLE_GOLD
+            ? '30px'
+            : category === MembershipClassType.DOUBLE_GOLD
+            ? '25px'
+            : '20px',
+        height:
+          category === MembershipClassType.TRIPLE_GOLD
+            ? '30px'
+            : category === MembershipClassType.DOUBLE_GOLD
+            ? '25px'
+            : '20px',
+        verticalAlign: 'middle',
+        ...styleComponent,
+      }}
+    >
+      <Image
+        src={icon}
+        alt={category}
+        fill
+        style={{
+          objectFit: 'contain',
+          width: '100%',
+          height: '100%',
+        }}
+        sizes="auto"
+      />
     </div>
-  )
+  );
 }
 
 export default MembershipIcon
