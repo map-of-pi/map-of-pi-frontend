@@ -1,6 +1,17 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
+import MembershipIcon from '@/components/shared/membership/MembershipIcon';
+import { MembershipClassType } from '@/constants/types';
+
+const tiers: [string, string, MembershipClassType | null][] = [
+  ['Single mappi', 'Watch ads for 10 minutes', null],
+  ['White membership', 'Watch ads for 50 minutes', MembershipClassType.WHITE],
+  ['Green membership', 'Watch ads for 1 hour and 40 minutes', MembershipClassType.GREEN],
+  ['Gold membership', 'Watch ads for 4 hours and 10 minutes', MembershipClassType.GOLD],
+  ['Double Gold membership', 'Watch ads for 8 hours and 20 minutes', MembershipClassType.DOUBLE_GOLD],
+  ['Triple Gold membership', 'Watch ads for 16 hours and 40 minutes', MembershipClassType.TRIPLE_GOLD],
+];
 
 declare const Pi: any;
 
@@ -110,24 +121,38 @@ return (
         How many ad minutes do I need:
       </p>
 
-      <ul className="space-y-2">
-        {[
-          ['Single mappi', 'Watch ads for 10 minutes', ''],
-          ['White membership', 'Watch ads for 50 minutes', '✔'],
-          ['Green membership', 'Watch ads for 1 hour and 40 minutes', '✔'],
-          ['Gold membership', 'Watch ads for 4 hours and 10 minutes', '✔'],
-          ['Double Gold membership', 'Watch ads for 8 hours and 20 minutes', '✔✔'],
-          ['Triple Gold membership', 'Watch ads for 16 hours and 40 minutes', '✔✔✔'],
-        ].map(([title, desc, check], i) => (
-          <li key={i}>
-            <div className="font-semibold text-[#1e1e1e]">
-              {title}{' '}
-              {check && <span className="text-secondary">{check}</span>}
-            </div>
-            <p className="text-[12px] text-[#6b6b6b]">{desc}</p>
-          </li>
-        ))}
-      </ul>
+        <ul className="space-y-2">
+          {tiers.map(([title, desc, tier], i) => (
+            <li key={i}>
+              <div className="flex items-center justify-center gap-2 font-semibold text-[#1e1e1e]">
+                <span className="whitespace-nowrap">{title}</span>
+                {tier && (
+                  <MembershipIcon
+                    category={tier}
+                    className="inline-block align-middle"
+                    styleComponent={{
+                      width:
+                        tier === MembershipClassType.TRIPLE_GOLD
+                          ? '28px'
+                          : tier === MembershipClassType.DOUBLE_GOLD
+                          ? '24px'
+                          : '20px',
+                      height:
+                        tier === MembershipClassType.TRIPLE_GOLD
+                          ? '28px'
+                          : tier === MembershipClassType.DOUBLE_GOLD
+                          ? '24px'
+                          : '20px',
+                      objectFit: 'contain',
+                      verticalAlign: 'middle',
+                    }}
+                  />
+                )}
+              </div>
+              <p className="text-[12px] text-[#6b6b6b]">{desc}</p>
+            </li>
+          ))}
+        </ul>
     </section>
 
     <p className="text-[14px] font-2xl mb-4">
