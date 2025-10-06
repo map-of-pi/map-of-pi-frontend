@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { MembershipClassType } from '@/constants/types';
+import { createWatchAdsSession, completeWatchAdsSegment } from'../../../../services/watchAdsApi'
 
 const tiers: [string, string, MembershipClassType | null][] = [
   ['Single mappi', 'Watch ads for 10 minutes', null],
@@ -19,112 +20,78 @@ export default function WatchAdsPage() {
   const ready = useRef(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [earnedSecs, setEarnedSecs] = useState<number>(0);
-  const [status, setStatus]= useState<string>("");
+  const [status, setStatus] = useState<string>("");
 
   useEffect(() => {
     (async () => {
-      if (typeof window === 'undefined' || !window.Pi) {
-        return;
-      }
+      if (typeof window === 'undefined' || !window.Pi) return;
+
       try {
         await Pi.init({ version: '2.0' });
-
         const feats = await Pi.nativeFeaturesList();
-        if (!feats.includes('ad_network')) {
-          return;
-        }
+        if (!feats.includes('ad_network')) return;
 
         try {
-          await Pi.authenticate(); // no payment callbacks
+          await Pi.authenticate();
         } catch {
-        // user skipped auth
-      } 
+          console.warn('User skipped authentication.');
+        }
 
-      // Call backend to initiate session
-      try {
-        const res = await fetch('/api/v1/watch-ads/session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (!res.ok) throw new Error(`Init session failed: ${res.status}`);
-        const data = await res.json();
-
+        // Create backend watch-ads session
+        const data = await createWatchAdsSession();
         if (data?._id) {
           setSessionId(data._id);
           setEarnedSecs(data.earnedSecs ?? 0);
           setStatus(data.status ?? "unknown");
         }
 
-        if (data?._id) setSessionId(data._id);
+        ready.current = true;
       } catch (err: any) {
-        console.error('Error initiating session', err);
-    }
-
-      ready.current = true;
-    } catch (e: any) {
-      console.error('Init/Auth error', e);
-    }
-  })();
-}, []);
-
-const showRewarded = async () => {
-  if (!ready.current) return;
-  try {
-    const isReady = await Pi.Ads.isAdReady('rewarded');
-
-    if (!isReady.ready) {
-      const req = await Pi.Ads.requestAd('rewarded');
-      if (req.result !== 'AD_LOADED') {
-        return;
+        console.error('Initialization error:', err);
       }
-    }
+    })();
+  }, []);
 
-    const show = await Pi.Ads.showAd('rewarded'); // { result, adId? }
+  const showRewarded = async () => {
+    if (!ready.current) return;
+    try {
+      const isReady = await Pi.Ads.isAdReady('rewarded');
+      if (!isReady.ready) {
+        const req = await Pi.Ads.requestAd('rewarded');
+        if (req.result !== 'AD_LOADED') return;
+      }
+
+      const show = await Pi.Ads.showAd('rewarded');
       if (show.result === 'AD_REWARDED' && sessionId) {
-      // later: call /segment-complete with { adId }
-      try {
-        const res = await fetch(`/api/v1/watch-ads/session/${sessionId}/segment-complete`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ adId: show.adId}),
-
-        });
-
-        if (!res.ok) throw new Error(`Segment complete failed: ${res.status}`)
-        const updated = await res.json();
-
-        // Update FE state with new progress
-        setEarnedSecs(Number(updated.earnedSecs ?? 0));
-        setStatus(updated.status ?? "unknown");
-      } catch (err: any) {
-        console.error('Error reporting ad completion', err);
+        // Complete segment
+        const updated = await completeWatchAdsSegment(sessionId, show.adId);
+        if (updated) {
+          setEarnedSecs(Number(updated.earnedSecs ?? 0));
+          setStatus(updated.status ?? "unknown");
+        }
       }
+    } catch (err: any) {
+      console.error('Error showing ad:', err);
     }
-  } catch (e: any) {
-    console.error('showRewarded error', e);
-  }
-};
+  };
 
-return (
-  <main className="mx-auto w-full max-w-[335px] rounded-[6px] border border-tertiary bg-background p-4 text-center" >
-    {/* Top accent bar */}
-    <div aria-hidden className="-mx-4 -mt-4 mb-4 h-[6px] rounded-t-[6px] bg-primary" />
+  return (
+    <main className="mx-auto w-full max-w-[335px] rounded-[6px] border border-tertiary bg-background p-4 text-center">
+      <div aria-hidden className="-mx-4 -mt-4 mb-4 h-[6px] rounded-t-[6px] bg-primary" />
 
-    {/* Page title */}
-    <h1 className="text-[17px] font-bold text-[#1e1e1e] mb-4">
-      Watch Ads to Buy Membership
-    </h1>
+      <h1 className="text-[17px] font-bold text-[#1e1e1e] mb-4">
+        Watch Ads to Buy Membership
+      </h1>
 
-    <section className="mb-6">
-      <p className="text-[15px] font-semibold text-[#333333] mb-3">
-        How many ad minutes do I need:
-      </p>
+      <section className="mb-6">
+        <p className="text-[15px] font-semibold text-[#333333] mb-3">
+          How many ad minutes do I need:
+        </p>
 
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {tiers.map(([title, desc, tier], i) => (
             <li key={i}>
-              <div className="flex items-center justify-center gap-2 font-semibold text-[#1e1e1e]">
+              <div className="flex items-center justify-center gap-2 text-[#1e1e1e]">
                 <span className="whitespace-nowrap">{title}</span>
                 {tier && (
                   <MembershipIcon
@@ -153,34 +120,33 @@ return (
             </li>
           ))}
         </ul>
-    </section>
+      </section>
 
-    <p className="text-[14px] font-2xl mb-4">
-      Ads are presented in 10 minute blocks
-    </p>
+      <p className="text-[14px] font-2xl mb-4">
+        Ads are presented in 10 minute blocks
+      </p>
 
-    <div className="mb-6 flex justify-center">
-      <Button
-        label="Watch Ad Block"
-        styles={{
-          color: '#ffc153',
-          backgroundColor: 'var(--default-primary-color)',
-          height: '40px',
-          padding: '10px 15px',
-        }}
-        onClick={showRewarded}
-      />
-    </div>
+      <div className="mb-6 flex justify-center">
+        <Button
+          label="Watch Ad Block"
+          styles={{
+            color: '#ffc153',
+            backgroundColor: 'var(--default-primary-color)',
+            height: '40px',
+            padding: '10px 15px',
+          }}
+          onClick={showRewarded}
+        />
+      </div>
 
-    <p className="text-[14px] text-[#333333]">
-      Ad minutes watched so far
-      <br />
-      <span className="text-[13px] text-[#6b6b6b]">
-        {Math.floor(Number(earnedSecs) / 3600)} hours and{' '}
-        {Math.floor((Number(earnedSecs) / 60) % 60)} minutes
-      </span>
-    </p>
-  </main>
-);
-
+      <p className="text-[14px] text-[#333333] text-gray-800">
+        Ad minutes watched so far
+        <br />
+        <span className="text-[13px] text-[#6b6b6b]">
+          {Math.floor(Number(earnedSecs) / 3600)} hours and{' '}
+          {Math.floor((Number(earnedSecs) / 60) % 60)} minutes
+        </span>
+      </p>
+    </main>
+  );
 }
