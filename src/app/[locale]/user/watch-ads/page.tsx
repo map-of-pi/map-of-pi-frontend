@@ -76,7 +76,7 @@ export default function WatchAdsPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-[335px] rounded-[6px] border border-tertiary bg-background p-4 text-center">
+    <main className="mx-auto w-full max-w-[335px] border border-tertiary bg-background p-4 mt-8 text-center">
       <div aria-hidden className="-mx-4 -mt-4 mb-4 h-[6px] rounded-t-[6px] bg-primary" />
 
       <h1 className="text-[17px] font-bold text-[#1e1e1e] mb-4">
@@ -143,8 +143,9 @@ export default function WatchAdsPage() {
         Ad minutes watched so far
         <br />
         <span className="text-[13px] text-[#6b6b6b]">
-          {Math.floor(Number(earnedSecs) / 3600)} hours and{' '}
-          {Math.floor((Number(earnedSecs) / 60) % 60)} minutes
+          {Math.floor(Number(earnedSecs) / 3600)} hours,{' '}
+          {Math.floor((Number(earnedSecs) / 60) % 60)} min and{' '}
+          {Math.floor(Number(earnedSecs) % 60)} seconds
         </span>
       </p>
     </main>
