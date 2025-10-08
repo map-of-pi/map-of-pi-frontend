@@ -1,5 +1,5 @@
 import axiosClient from "@/config/client";
-import { PickedItems } from "@/constants/types";
+import { PickedItems, OrderType } from "@/constants/types";
 import logger from '../../logger.config.mjs';
 
 // Create and update an Order
@@ -120,5 +120,41 @@ export const updateOrderItemStatus = async (itemId: string, itemStatus: string) 
   } catch (error) {
     logger.error('Update order item status encountered an error:', error);
     throw new Error('Failed to update order item. Please try again later.');
+  }
+};
+
+// Add this function after the existing imports
+export const getOrders = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'pending' | 'completed' | 'cancelled';
+}): Promise<{ items: OrderType[]; count: number }> => {
+  try {
+    const queryParams = new URLSearchParams({
+      skip: skip.toString(),
+      limit: limit.toString(),
+    });
+    if (status) {
+      queryParams.append('status', status);
+    }
+
+    const response = await axiosClient.get(`/orders?${queryParams}`);
+
+    if (response.status === 200) {
+      const { items, count } = response.data;
+      return {
+        items: items as OrderType[],
+        count,
+      };
+    } else {
+      return { items: [], count: 0 };
+    }
+  } catch (error) {
+    logger.error('Get orders encountered an error:', error);
+    throw new Error('Failed to get orders. Please try again later.');
   }
 };

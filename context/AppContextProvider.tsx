@@ -14,6 +14,7 @@ import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
 import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
+import { getOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
 
 interface IAppContextProps {
@@ -36,6 +37,8 @@ interface IAppContextProps {
   setToggleNotification: React.Dispatch<SetStateAction<boolean>>;
   setNotificationsCount: React.Dispatch<SetStateAction<number>>;
   notificationsCount: number;
+  ordersCount: number;
+  setOrdersCount: React.Dispatch<SetStateAction<number>>;
 };
 
 const initialState: IAppContextProps = {
@@ -57,7 +60,9 @@ const initialState: IAppContextProps = {
   toggleNotification: false,
   setToggleNotification: () => {},
   setNotificationsCount: () => {},
-  notificationsCount: 0
+  notificationsCount: 0,
+  ordersCount: 0,
+  setOrdersCount: () => {},
 };
 
 export const AppContext = createContext<IAppContextProps>(initialState);
@@ -77,6 +82,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [adsSupported, setAdsSupported] = useState(false);
   const [toggleNotification, setToggleNotification] = useState<boolean>(true);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
 
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
@@ -113,6 +119,26 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     };
   
     fetchNotificationsCount();
+  }, [currentUser, reload]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const fetchOrdersCount = async () => {
+      try {
+        const { count } = await getOrders({
+          skip: 0,
+          limit: 1,
+          status: 'pending'
+        });
+        setOrdersCount(count);
+      } catch (error) {
+        logger.error('Failed to fetch orders count:', error);
+        setOrdersCount(0);
+      }
+    };
+
+    fetchOrdersCount();
   }, [currentUser, reload]);
 
   const showAlert = (message: string) => {
@@ -220,7 +246,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         toggleNotification,
         setToggleNotification,
         setNotificationsCount,
-        notificationsCount
+        notificationsCount,
+        ordersCount,
+        setOrdersCount,
       }}
     >
       {children}
