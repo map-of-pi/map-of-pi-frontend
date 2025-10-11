@@ -2,16 +2,17 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
-import { fetchOrderById, updateOrderStatus, updateOrderItemStatus } from "@/services/orderApi";
+import { fetchOrderById, updateOrderStatus, updateOrderItemStatus, getOrders } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
 import { 
   getFulfillmentMethodOptions, 
   translateSellerCategory 
 } from "@/utils/translate";
+import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
 
 export default function OrderItemPage({ params, searchParams }: { params: { id: string }, searchParams: { seller_name: string, seller_type: string } }) {
@@ -20,6 +21,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   
   const locale = useLocale();
   const t = useTranslations();
+  const { setOrdersCount } = useContext(AppContext);
 
   const orderId = params.id;
   const sellerName = searchParams.seller_name;
@@ -72,6 +74,17 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   };
 
   const handleCompleted = async (status: OrderStatusType) => {
+    const prev = currentOrder;
+    if (!prev) return;
+
+    // Optimistic local update
+    setIsCompleted(true);
+    
+    // If the previous status was Pending and now it's Completed, decrement the counter
+    if (prev.status === OrderStatusType.Pending && status === OrderStatusType.Completed) {
+      setOrdersCount((c) => Math.max(0, c - 1)); // optimistic badge update
+    }
+
     try {
       logger.info(`Updating order status to ${status} with id: ${orderId}`);
       const data = await updateOrderStatus(orderId, status);
@@ -80,9 +93,14 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         setCurrentOrder(data.order);
         setOrderItems(data.orderItems);
         setBuyerName(data.pi_username);
-        setIsCompleted(true);
+
+        // Background sync with BE (optional, to avoid drift)
+        const { count } = await getOrders({ skip: 0, limit: 1, status: 'pending' });
+        setOrdersCount(count);
       } else {
         logger.warn("Failed to update completed order on the server.");
+        // Rollback if API fails
+        setIsCompleted(false);
       }
     }
     catch (error) {
