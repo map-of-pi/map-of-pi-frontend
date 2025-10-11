@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Không tìm thấy Pioneer {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Chỉnh sửa đánh giá",
+      "REVIEW_GIVEN_TO_LABEL": "Đánh giá được gửi đến",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ngày và giờ gửi đánh giá"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Không có đánh giá cho {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Các đánh giá để lại cho {seller_id}",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "Đang tải tìm kiếm...",
     "VIEW_NOTIFICATIONS": "Xem thông báo",
     "REPLY": "Trả lời",
+    "EDIT": "Chỉnh sửa",
     "ADD_ITEM": "Thêm mục",
     "CHECKOUT": "Thanh toán",
     "DELETE": "Xóa",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Tải ảnh lên",
+      "UPLOAD_PHOTO_LABEL": "Tải hình ảnh lên",
       "UPLOAD_PHOTO_PLACEHOLDER": "Tải ảnh lên để thu hút người mua (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Tải ảnh lên để hỗ trợ đánh giá của bạn (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Kéo thả ảnh của bạn vào đây hoặc duyệt",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Ảnh hồ sơ",
         "SELLER_IMAGE_LABEL": "Ảnh người bán",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Ảnh đánh giá"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Ảnh đánh giá",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Cập nhật hình ảnh"
       }
     },
     "REACTION_RATING": {

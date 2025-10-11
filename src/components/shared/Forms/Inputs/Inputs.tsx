@@ -65,14 +65,21 @@ export const TextArea = (props: any) => {
 
 export const FileInput = (props: any) => {
   const t = useTranslations();
+  const isEditMode = props.isEditMode ?? false; // default false
   const isImageUploaded = props.imageUrl && props.imageUrl.trim() !== ""; // Check if an image has been uploaded
-  const imageLabel = isImageUploaded ? props.label : t('SHARED.PHOTO.UPLOAD_PHOTO_LABEL');
+  
+  // Dynamic label logic
+  const imageLabel = isEditMode
+    ? t('SHARED.PHOTO.MISC_LABELS.EDIT_REVIEW_FEEDBACK_IMAGE_LABEL') // "Update Image" in edit mode
+    : isImageUploaded
+    ? props.label
+    : t('SHARED.PHOTO.UPLOAD_PHOTO_LABEL'); // "Upload Image" in read mode
 
   return (
     <div className="">
-      {props.label && (
-        <label className="block text-[17px] text-[#333333] font-bold">{imageLabel}</label>
-      )}
+      <label className="block text-[17px] text-[#333333] font-bold">
+        {imageLabel}
+      </label>
       {props.describe && (
         <label className="block pb-3 text-sm text-gray-400">{props.describe}</label>
       )}

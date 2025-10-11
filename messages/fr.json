@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionnier {search_value} non trouvé"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Modifier l'avis",
+      "REVIEW_GIVEN_TO_LABEL": "Avis donné à",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Date et heure de l'avis"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Aucun avis sur {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Liste des avis laissés sur {seller_id}",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "Chargement de la recherche...",
     "VIEW_NOTIFICATIONS": "Voir les notifications",
     "REPLY": "Répondre",
+    "EDIT": "Modifier",
     "ADD_ITEM": "Ajouter un article",
     "CHECKOUT": "Paiement",
     "DELETE": "Supprimer",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "E-mail"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Télécharger une photo",
+      "UPLOAD_PHOTO_LABEL": "Téléverser l'image",
       "UPLOAD_PHOTO_PLACEHOLDER": "Téléchargez une photo pour attirer les acheteurs (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Téléchargez une photo pour illustrer votre avis (PNG, JPG, JPEG, WEBP)",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Déposez votre photo ici ou parcourez",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profil de votre phote",
         "SELLER_IMAGE_LABEL": "Photo du vendeur",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Photo d;illustration de votre avis"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Photo d;illustration de votre avis",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Mettre à jour l'image"
       }
     },
     "REACTION_RATING": {

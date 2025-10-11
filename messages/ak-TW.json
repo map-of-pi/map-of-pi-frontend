@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Yennyae Pioneer a ɔyɛ {search_value}"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Sesaa Adwene",
+      "REVIEW_GIVEN_TO_LABEL": "Adwene a wɔmaa",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Da ne bere a wɔmaa adwene no"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Nsɛnkɔm biara nni hɔ ma {seller_id}",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Nsɛnkɔm a wɔde maa {seller_id}",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "Search rehyɛ...",
     "VIEW_NOTIFICATIONS": "Hwɛ nsɛm no",
     "REPLY": "Ka",
+    "EDIT": "Sesã",
     "ADD_ITEM": "Ka Item",
     "CHECKOUT": "Tua ka",
     "DELETE": "Popa",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "Email"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Fa foto no to so",
+      "UPLOAD_PHOTO_LABEL": "To mfonini no",
       "UPLOAD_PHOTO_PLACEHOLDER": "Fa mfonini to so sɛnea ɛbɛboa ma agyenkwafoɔ",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Fa mfonini to so na ɛboa wo review no",
       "IMAGE_DROP_UPLOAD_MESSAGE": "Bɔ wo mfonini ha anaa kɔ fa so",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Profaili mfonini",
         "SELLER_IMAGE_LABEL": "Tɔfo mfonini",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review mfonini"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Review mfonini",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "San mfonini no"
       }
     },
     "REACTION_RATING": {
