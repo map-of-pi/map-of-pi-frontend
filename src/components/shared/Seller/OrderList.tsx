@@ -16,23 +16,26 @@ export const ListOrder: React.FC<{
   const locale = useLocale();
   const t = useTranslations();
 
-  const [orderList, setOrderList] = useState<PartialOrderType[] >([]);
+  const [orderList, setOrderList] = useState<PartialOrderType[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
 
    useEffect(() => {
-    const getOrderList= async (id: string) => {
+    const getOrderList= async () => {
       try {
-        const data = await fetchSellerOrders(id);
-        if (data) {
-          setOrderList(data);
+        const { items, count } = await fetchSellerOrders({ skip: 0, limit: 50 });
+        if (items) {
+          setOrderList(items as PartialOrderType[]);
+          setTotalCount(count);
         } else {
           setOrderList([]);
+          setTotalCount(0);
         }
       } catch (error) {
-        logger.error('Error fetching order items data:', error);
+        logger.error('Error fetching seller order items data:', error);
       }
     };
     
-    getOrderList(user_id);
+    getOrderList();
   }, [user_id]); 
 
   return (
