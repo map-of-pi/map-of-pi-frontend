@@ -2,11 +2,12 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
-import React, { useEffect, useState, useContext, } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import Skeleton from '@/components/skeleton/skeleton';
 import { PartialOrderType, OrderStatusType } from '@/constants/types';
-import { fetchBuyerOrders } from '@/services/orderApi';
+import { getOrders } from '@/services/orderApi';
+import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { resolveDate } from '@/utils/date';
 import { translateOrderStatusType } from '@/utils/translate';
 
@@ -19,37 +20,97 @@ export default function OrderReviewPage() {
 
   const HEADER = 'font-bold text-lg md:text-2xl';
 
-  const { currentUser } = useContext(AppContext);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [orderList, setOrderList] = useState<PartialOrderType[] >([]);
-  
-  useEffect(() => {
-    const getOrderList= async (id: string) => {
-      setLoading(true);
-      try {
-        const data = await fetchBuyerOrders(id);
-        if (data) {
-          setOrderList(data);
-        } else {
-          setOrderList([]);
-        }
-      } catch (error) {
-        logger.error('Error fetching buyer data:', error);
-      } finally {
-        setLoading(false);
+  const { currentUser, setOrdersCount } = useContext(AppContext);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [orderList, setOrderList] = useState<PartialOrderType[]>([]);
+  const [skip, setSkip] = useState(0);
+  const [limit] = useState(5);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const handleOrderItemRef = (node: HTMLElement | null) => {
+    if (node && observer.current) {
+      observer.current.observe(node);
+    }
+  };
+
+  const sortOrders = (
+    current: PartialOrderType[],
+    incoming: PartialOrderType[]
+  ): PartialOrderType[] => {
+    const seen = new Set<string>();
+    const pending: PartialOrderType[] = [];
+    const others: PartialOrderType[] = [];
+
+    for (const order of [...current, ...incoming]) {
+      if (seen.has(order._id)) continue;
+      seen.add(order._id);
+
+      if (order.status === OrderStatusType.Pending) {
+        pending.push(order);
+      } else {
+        others.push(order);
       }
-    };
-    
-    getOrderList(currentUser?.pi_uid as string);
+    }
+
+    return [...pending, ...others];
+  };
+
+  const fetchOrders = async () => {
+    if (loading || !currentUser?.pi_uid || !hasMore) return;
+
+    setLoading(true);
+
+    try {
+      const { items, count } = await getOrders({ skip, limit });
+
+      logger.info('Fetched orders:', { itemsLength: items.length, count });
+
+      if (items.length > 0) {
+        // Merge and sort orders; pending first, then others
+        setOrderList((prev) => sortOrders(prev, items as PartialOrderType[]));
+
+        // Increment skip by number of new items
+        const newSkip = skip + items.length;
+        setSkip(newSkip);
+
+        // Determine if there are more orders
+        setHasMore(newSkip < count);
+      } else {
+        // No items returned → no more orders
+        setHasMore(false);
+      }
+    } catch (error) {
+      logger.error('Error fetching orders:', error);
+    } finally {
+      setHasFetched(true);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!currentUser?.pi_uid) return;
+
+    setOrderList([]);
+    setSkip(0);
+    setHasMore(true);
+    fetchOrders();
   }, [currentUser?.pi_uid]);
 
-  // loading condition
-  if (loading) {
-    logger.info('Loading seller data..');
-    return (
-      <Skeleton type="seller_review" />
-    );
-  }
+  useScrollablePagination({
+    containerRef: scrollContainerRef,
+    loadMoreRef,
+    fetchNextPage: async () => {
+      setLoading(true);
+      await fetchOrders();
+    },
+    hasMore,
+    isLoading: loading,
+  });
 
   return (
     <>
@@ -64,10 +125,20 @@ export default function OrderReviewPage() {
       </div>
 
       {/* Review Order | Online Shopping */}
-      <div>
-        {orderList && orderList.length>0 && orderList.map((item, index)=>(
-          <Link href={`/${locale}/user/order-item/${item._id}?user_name=${currentUser?.user_name}`} key={index} > 
+      <div
+        ref={scrollContainerRef}
+        id="order-scroll-container"
+        className="max-h-[600px] overflow-y-auto p-1 mb-7 mt-3"
+      >
+        {!loading && hasFetched && orderList.length === 0 ? (
+          <h2 className="font-bold mb-2 text-center">
+            No orders found
+          </h2>
+        ) : (
+          orderList.map((item, index)=>(
+          <Link href={`/${locale}/user/order-item/${item._id}?user_name=${currentUser?.user_name}`} key={item._id} > 
             <div
+              ref={handleOrderItemRef}
               data-id={item._id}            
               className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 
                 ${item.status === OrderStatusType.Completed ? 'bg-yellow-100' : item.status === OrderStatusType.Cancelled ? 
@@ -133,7 +204,12 @@ export default function OrderReviewPage() {
               </div>
             </div>
           </Link>
-        ))}      
+        ))
+        )}
+
+        {/* Load more trigger */}
+        {loading && <Skeleton type="seller_review" />}
+        <div ref={loadMoreRef} className="h-[20px]" />
       </div>
     </div>  
     </>
