@@ -6,7 +6,7 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import Skeleton from '@/components/skeleton/skeleton';
 import { PartialOrderType, OrderStatusType } from '@/constants/types';
-import { getOrders } from '@/services/orderApi';
+import { fetchBuyerOrders } from '@/services/orderApi';
 import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { resolveDate } from '@/utils/date';
 import { translateOrderStatusType } from '@/utils/translate';
@@ -66,9 +66,9 @@ export default function OrderReviewPage() {
     setLoading(true);
 
     try {
-      const { items, count } = await getOrders({ skip, limit });
+      const { items, count } = await fetchBuyerOrders({ skip, limit });
 
-      logger.info('Fetched orders:', { itemsLength: items.length, count });
+      logger.info('Fetched buyer orders:', { itemsLength: items.length, count });
 
       if (items.length > 0) {
         // Merge and sort orders; pending first, then others
@@ -85,7 +85,7 @@ export default function OrderReviewPage() {
         setHasMore(false);
       }
     } catch (error) {
-      logger.error('Error fetching orders:', error);
+      logger.error('Error fetching buyer orders:', error);
     } finally {
       setHasFetched(true);
       setLoading(false);

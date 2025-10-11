@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
 interface ScrollablePaginationOptions {
-  containerRef: React.RefObject<HTMLElement>;
-  loadMoreRef: React.RefObject<HTMLElement>;
+  containerRef: React.RefObject<HTMLElement | null>;
+  loadMoreRef: React.RefObject<HTMLElement | null>;
   fetchNextPage: () => Promise<void>;
   hasMore: boolean;
   isLoading: boolean;
