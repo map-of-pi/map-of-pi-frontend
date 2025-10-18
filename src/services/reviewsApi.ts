@@ -93,3 +93,24 @@ export const updateReview = async (review_id: string, formData: FormData) => {
     throw new Error('Failed to update review. Please try again later.');
   }
 };
+// Apply Trust Protect to a review
+export const applyTrustProtect = async (review_id: string) => {
+  try {
+    logger.info(`Applying Trust Protect to review with ID: ${review_id}`);
+
+    const response = await axiosClient.put(`/review-feedback/trust-protect/${review_id}`);
+
+    if (response.status === 200) {
+      logger.info(`Trust Protect applied successfully with Status ${response.status}`, {
+        data: response.data
+      });
+      return response.data;
+    } else {
+      logger.error(`Trust Protect failed with Status ${response.status}`);
+      return null;
+    }
+  } catch (error) {
+    logger.error(`Trust Protect for reviewID ${review_id} encountered an error:`, error);
+    throw new Error('Failed to apply Trust Protect. Please try again later.');
+  }
+};
