@@ -78,43 +78,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [toggleNotification, setToggleNotification] = useState<boolean>(true);
   const [notificationsCount, setNotificationsCount] = useState(0);
 
-  useEffect(() => {
-    logger.info('AppContextProvider mounted.');
-
-    autoLoginUser();
-
-    // attempt to load and initialize Pi SDK in parallel
-    loadPiSdk()
-      .then(Pi => {
-        Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
-        return Pi.nativeFeaturesList();
-      })
-      .then(features => setAdsSupported(features.includes("ad_network")))
-      .catch(err => logger.error('Pi SDK load/ init error:', err));
-  }, []);
-
-  useEffect(() => {
-    if (!currentUser) return;
-
-    const fetchNotificationsCount = async () => {
-      try {
-        const { count } = await getNotifications({
-          skip: 0,
-          limit: 1,
-          status: 'uncleared'
-        });
-        setNotificationsCount(count);
-        setToggleNotification(count > 0);
-      } catch (error) {
-        logger.error('Failed to fetch notification count:', error);
-        setNotificationsCount(0);
-        setToggleNotification(false);
-      }
-    };
-  
-    fetchNotificationsCount();
-  }, [currentUser, reload]);
-
   const showAlert = (message: string) => {
     setAlertMessage(message);
     setTimeout(() => {
@@ -198,6 +161,43 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       document.head.appendChild(script);
     });
   };
+
+  useEffect(() => {
+    logger.info('AppContextProvider mounted.');
+    if (isSigningInUser || currentUser) return;
+    // attempt to load and initialize Pi SDK in parallel
+    loadPiSdk()
+      .then(Pi => {
+        Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
+        return Pi.nativeFeaturesList();
+      })
+      .then(features => setAdsSupported(features.includes("ad_network")))
+      .catch(err => logger.error('Pi SDK load/ init error:', err));
+
+    autoLoginUser();
+  }, [isSigningInUser, currentUser]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const fetchNotificationsCount = async () => {
+      try {
+        const { count } = await getNotifications({
+          skip: 0,
+          limit: 1,
+          status: 'uncleared'
+        });
+        setNotificationsCount(count);
+        setToggleNotification(count > 0);
+      } catch (error) {
+        logger.error('Failed to fetch notification count:', error);
+        setNotificationsCount(0);
+        setToggleNotification(false);
+      }
+    };
+  
+    fetchNotificationsCount();
+  }, [currentUser, reload]);
 
   return (
     <AppContext.Provider 
