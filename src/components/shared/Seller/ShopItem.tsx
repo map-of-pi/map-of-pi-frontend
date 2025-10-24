@@ -250,6 +250,8 @@ export const ShopItem: React.FC<{
     // Return early if reduced duration is greater than remaining weeks
     const remainingWeeks = getRemainingWeeks(item);
     const reducedDuration = item.duration - formData.duration;
+    const duration = Number(formData.duration);
+    const today = new Date();
 
     if (reducedDuration > remainingWeeks) {
       setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_SPENT_WEEKS', {
@@ -260,7 +262,6 @@ export const ShopItem: React.FC<{
       return;
     }
 
-    setIsSaveLoading(true);
     const formDataToSend = new FormData();
     formDataToSend.append('name', removeUrls(formData.name || '').trim());
     formDataToSend.append('_id', formData._id || '');
