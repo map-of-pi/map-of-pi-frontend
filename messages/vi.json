@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Bán trước {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Thời gian bán không thể rút ngắn dưới {spent_weeks} tuần đã sử dụng"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Đặt hàng thành công",
-      "ORDER_FAILED_MESSAGE": "Không thể đặt đơn hàng mới"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Đặt hàng không thành công. Vui lòng thử lại và đảm bảo bạn có ít nhất 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Đánh giá",

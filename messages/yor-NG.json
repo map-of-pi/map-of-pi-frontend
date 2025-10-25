@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Títà ní {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Akoko tita ko le dinku ju {spent_weeks} ọsẹ ti a ti lo lọ"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kò le dín àkókò tita kù ju ọ̀sẹ̀ {remaining_weeks} tó ku lọ"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "A ti fiṣẹṣẹ ránṣẹ̀",
-      "ORDER_FAILED_MESSAGE": "Ìfiṣẹṣẹ tuntun kò ṣàṣeyọrí"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "A kò lè ṣe ìṣẹ̀lẹ̀ àṣẹ náà. Jọwọ tún gbìmọ̀ ṣe, kí o sì rí i dájú pé o ní o kere tán 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Atunyẹwo",
