@@ -1,11 +1,17 @@
 import axiosClient from '@/config/client';
-import { INotification } from '@/constants/types';
+import { NotificationType } from '@/constants/types';
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
-export const getNotifications = async (
-  {pi_uid, skip, limit, status}: 
-  {pi_uid: string, skip: number, limit: number, status?: 'cleared' | 'uncleared'}) => {
+export const getNotifications = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'cleared' | 'uncleared';
+}): Promise<{ items: NotificationType[]; count: number }> => {
   try {
     const headers = getMultipartFormDataHeaders();
 
@@ -16,19 +22,19 @@ export const getNotifications = async (
     if (status) {
       queryParams.append('status', status);
     }
-    
-    const response = await axiosClient.get(`/notifications/${pi_uid}?${queryParams.toString()}`, {
-      headers
+
+    const response = await axiosClient.get(`/notifications?${queryParams}`, {
+      headers,
     });
-    
+
     if (response.status === 200) {
-      logger.info(`Get notifications successful with Status ${response.status}`, {
-        data: response.data
-      });
-      return response.data;
+      const { items, count } = response.data;
+      return {
+        items: items as NotificationType[], // cast API response
+        count,
+      };
     } else {
-      logger.error(`Get notifications failed with Status ${response.status}`);
-      return null;
+      return { items: [], count: 0 };
     }
   } catch (error) {
     logger.error('Get notifications encountered an error:', error);
@@ -36,7 +42,7 @@ export const getNotifications = async (
   }
 };
 
-export const buildNotification = async (data: INotification) => {
+export const buildNotification = async (data: NotificationType) => {
   try {
     const response = await axiosClient.post(`/notifications`, data);
     if (response.status === 200) {

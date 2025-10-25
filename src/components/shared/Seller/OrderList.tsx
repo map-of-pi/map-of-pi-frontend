@@ -5,6 +5,7 @@ import { Button } from "../Forms/Buttons/Buttons";
 import { Input } from "../Forms/Inputs/Inputs";
 import { OrderStatusType, PartialOrderType } from "@/constants/types";
 import { fetchSellerOrders } from "@/services/orderApi";
+import { resolveDate } from "@/utils/date";
 import logger from '../../../../logger.config.mjs';
 
 export const ListOrder: React.FC<{
@@ -77,18 +78,14 @@ export const ListOrder: React.FC<{
               <div
                 className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 focus:border-[#1d724b] border-[2px] w-full`}
               >
-                {item?.createdAt && (
-                  <label className="text-[14px] text-[#333333]">
-                    { new Intl.DateTimeFormat(locale || 'en-US', {
-                      day: '2-digit',
-                      month: 'long',
-                      year: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true,
-                    }).format(new Date(item.createdAt))}
-                  </label>
-                )}
+                {item?.createdAt && (() => {
+                  const { date, time } = resolveDate(item.createdAt, locale);
+                  return (
+                    <label className="text-[14px] text-[#333333]">
+                      {date}, {time}
+                    </label>
+                  );
+                })()}
               </div>
               <Link href={seller_type ? 
               `/${locale}/seller/order-fulfillment/${item._id}?seller_name=${user_name}&seller_type=${seller_type}` 

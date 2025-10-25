@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした"
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "レビューを編集",
+      "REVIEW_GIVEN_TO_LABEL": "レビュー対象",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "レビュー日時"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "{seller_id} に対するレビューはありません",
       "CHECK_REVIEWS_FEEDBACK_HEADER": "{seller_id} に残されたレビューの一覧",
@@ -326,6 +331,7 @@
     "SEARCH_LOADING": "検索中...",
     "VIEW_NOTIFICATIONS": "通知を見る",
     "REPLY": "返信",
+    "EDIT": "編集",
     "ADD_ITEM": "アイテムを追加",
     "CHECKOUT": "お会計",
     "DELETE": "削除",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "メール"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "写真をアップロード",
+      "UPLOAD_PHOTO_LABEL": "画像をアップロード",
       "UPLOAD_PHOTO_PLACEHOLDER": "画像をアップロードして購入者を引き付ける（PNG、JPG、JPEG、WEBP）",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "レビューをサポートするための画像をアップロード（PNG、JPG、JPEG、WEBP）",
       "IMAGE_DROP_UPLOAD_MESSAGE": "ここに画像をドロップするか、参照してください",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "プロフィール画像",
         "SELLER_IMAGE_LABEL": "販売者画像",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "レビュー画像",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "画像を更新"
       }
     },
     "REACTION_RATING": {

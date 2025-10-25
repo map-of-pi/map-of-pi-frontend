@@ -8,10 +8,12 @@ import { Button } from "../Forms/Buttons/Buttons";
 import { TextArea, Input, FileInput, Select } from "../Forms/Inputs/Inputs";
 import { ISeller, PickedItems, SellerItem, ShopItemData, StockLevelType } from "@/constants/types";
 import { addOrUpdateSellerItem, deleteSellerItem, fetchSellerItems } from "@/services/sellerApi";
+import { resolveDate } from "@/utils/date";
 import removeUrls from "@/utils/sanitize";
 import { getStockLevelOptions } from "@/utils/translate";
 import { AppContext } from "../../../../context/AppContextProvider";
 import logger from '../../../../logger.config.mjs';
+import { LocaleRouteNormalizer } from "next/dist/server/future/normalizers/locale-route-normalizer";
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
@@ -166,24 +168,17 @@ export const ShopItem: React.FC<{
     if (item?.expired_by) {
       const expiredDate = new Date(item.expired_by);
       const isActive = expiredDate > new Date();
+
       setSellingStatus(
         isActive 
           ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE') 
           : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED')
       );
 
-      setFormattedDate(
-        new Intl.DateTimeFormat(locale || 'en-US', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true,
-        }).format(expiredDate)
-      );
+      const { date, time } = resolveDate(expiredDate, locale);
+      setFormattedDate(`${date}, ${time}`);
     }
-  }, [item]); // ✅ Runs when `item` changes
+  }, [item, locale, t]);
 
   // Handle image upload
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
