@@ -2,17 +2,19 @@
 
 import { useState, SetStateAction, useContext, useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { LocaleRouteNormalizer } from "next/dist/server/future/normalizers/locale-route-normalizer";
 import Image from "next/image";
 import { ConfirmDialogX, Notification } from "../confirm";
 import { Button } from "../Forms/Buttons/Buttons";
 import { TextArea, Input, FileInput, Select } from "../Forms/Inputs/Inputs";
 import { ISeller, PickedItems, SellerItem, ShopItemData, StockLevelType } from "@/constants/types";
 import { addOrUpdateSellerItem, deleteSellerItem, fetchSellerItems } from "@/services/sellerApi";
+import { resolveDate } from "@/utils/date";
+import { getRemainingWeeks } from "@/utils/getSellerItemDuration";
 import removeUrls from "@/utils/sanitize";
 import { getStockLevelOptions } from "@/utils/translate";
 import { AppContext } from "../../../../context/AppContextProvider";
 import logger from '../../../../logger.config.mjs';
-import { getRemainingWeeks } from "@/utils/getSellerItemDuration";
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();

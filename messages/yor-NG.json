@@ -206,6 +206,11 @@
         "NO_PIONEER_FOUND": "Pionnier a kò rí aṣáájú-ọ̀nà {search_value}"  
       }
     },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Ṣatúnṣe Atunyẹwo",
+      "REVIEW_GIVEN_TO_LABEL": "Atunyẹwo ti a fun",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Ọjọ́ ati àsìkò ti a fun atunyẹwo"
+    },
     "CHECK_REVIEWS_FEEDBACK": {
       "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Ko si awọn awotẹlẹ fun {seller_id}", 
       "CHECK_REVIEWS_FEEDBACK_HEADER": "Kò sí àwọn àyẹ̀wò fún {seller_id}",
@@ -325,7 +330,8 @@
     "SEARCH_REVIEWS": "Awọn atunwo wiwa", 
     "SEARCH_LOADING": "Ṣawari nlo...",
     "VIEW_NOTIFICATIONS": "Wo ìkìlọ̀",
-    "REPLY": "E te pada", 
+    "REPLY": "E te pada",
+    "EDIT": "Ṣatunkọ",
     "ADD_ITEM": "Fikun un Item",
     "CHECKOUT": "Sanwo",
     "DELETE": "Pàdánù",
@@ -340,7 +346,7 @@
       "EMAIL_LABEL": "Imeeli"
     },
     "PHOTO": {
-      "UPLOAD_PHOTO_LABEL": "Irùsókè Fọto re",
+      "UPLOAD_PHOTO_LABEL": "Gbe aworan soke",
       "UPLOAD_PHOTO_PLACEHOLDER": "Ṣirùsókè aworan lati ṣe iranlọwọ lati fa awọn oluraja (PNG, JPG, JPEG, WEBP)", 
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Ṣe agbejade aworan lati ṣe atilẹyin atunyẹwo rẹ (PNG, JPG, JPEG, WEBP)", 
       "IMAGE_DROP_UPLOAD_MESSAGE": "Fi aworan rẹ silẹ nibi tabi ṣawari",
@@ -348,7 +354,8 @@
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Aworan profaili",
         "SELLER_IMAGE_LABEL": "Aworan eniti o ta ọja",
-        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo"
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Aworan atunyẹwo",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Ṣe imudojuiwọn aworan"
       }
     },
     "REACTION_RATING": {

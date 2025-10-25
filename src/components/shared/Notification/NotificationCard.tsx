@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import { NotificationType } from '@/constants/types';
+import { resolveDate } from '@/utils/date';
 
 type NotificationCardProps = {
   notification: NotificationType;
@@ -20,14 +21,7 @@ export default function NotificationCard({
   const t = useTranslations();
   const locale = useLocale();
 
-  const formattedDate = new Intl.DateTimeFormat(locale || 'en-US', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  }).format(new Date(notification.createdAt));
+  const { date, time } = resolveDate(notification.createdAt, locale);
 
   return (
     <div
@@ -40,13 +34,19 @@ export default function NotificationCard({
     >
       <div className="p-3">
         <div className="mb-3">
-          <Input
+          <div className="relative">
+            <label className="block text-[17px] text-[#333333]">{t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL')}:</label>
+            <div className={`mt-1 p-[10px] block w-full rounded-xl h-auto min-h-[48px] border-[#BDBDBD] bg-transparent outline-0 border-[2px] mb-4 select-none`}>
+              {notification.reason}
+            </div>
+          </div>
+          {/* <Input
             label={`${t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL')}:`}
             name="reason"
             type="text"
             value={notification.reason}
             disabled
-          />
+          /> */}
         </div>
 
         <div className="flex gap-x-4">
@@ -55,7 +55,7 @@ export default function NotificationCard({
               label={`${t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_TIME_LABEL')}:`}
               name="createdAt"
               type="text"
-              value={formattedDate}
+              value={`${date}, ${time}`}
               disabled
             />
           </div>
