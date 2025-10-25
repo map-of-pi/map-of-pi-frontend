@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Sa ɖo {expired_by_date} mɛ",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Wɛ dɔ gbè tò ɖo doxɔmɛ lè {spent_weeks} sɔ́nù wɛ wɛ́ lɛ"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kpɔ ɖo xóxó ná wá nɔ́ ɖè {remaining_weeks} wékè wɛ̀ lɛ̀ ɖò"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wɛ ɖe wɛ̀ nɔ̀",
-      "ORDER_FAILED_MESSAGE": "Kàkà wɛ̀ ɖe wɛ̀ nɔ̀ tuntun"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Àyẹ̀wò náà kɔ́ sílẹ̀. Jọ̀wọ́, tún gbìmọ̀ ṣe lẹ́ẹ̀kansi kí o sì ríi dájú pé o ní o kere tán 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Kpondewu",

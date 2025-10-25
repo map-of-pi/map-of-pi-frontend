@@ -8,74 +8,72 @@ import { Button } from "../Forms/Buttons/Buttons";
 import { TextArea, Input, FileInput, Select } from "../Forms/Inputs/Inputs";
 import { ISeller, PickedItems, SellerItem, ShopItemData, StockLevelType } from "@/constants/types";
 import { addOrUpdateSellerItem, deleteSellerItem, fetchSellerItems } from "@/services/sellerApi";
-import { resolveDate } from "@/utils/date";
+import { getRemainingWeeks } from "@/utils/selleritem";
 import removeUrls from "@/utils/sanitize";
 import { getStockLevelOptions } from "@/utils/translate";
 import { AppContext } from "../../../../context/AppContextProvider";
 import logger from '../../../../logger.config.mjs';
-import { LocaleRouteNormalizer } from "next/dist/server/future/normalizers/locale-route-normalizer";
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
-
-  const { reload, setReload } = useContext(AppContext);
+  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[]>([]);
   const [isAddItemEnabled, setIsAddItemEnabled] = useState(false);
   const [focusedItemId, setFocusedItemId] = useState<string | null>(null);
   const [isNewItem, setIsNewItem] = useState<boolean>(false);
-  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[] | null>(null)
 
   const observer = useRef<IntersectionObserver | null>(null);
-  
+
   useEffect(() => {
-    // Intersection Observer
     observer.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const itemId = entry.target.getAttribute("data-id");
-            if (itemId) {
-              setFocusedItemId(itemId);
-            }
+            if (itemId) setFocusedItemId(itemId);
           }
         });
       },
-      {
-        threshold: 0.5, // Trigger when 50% of the item is in view
-      }
+      { threshold: 0.5 }
     );
-    return () => {
-      observer.current?.disconnect(); // Clean up observer
-    };
+    return () => observer.current?.disconnect();
   }, []);
-      
+
   const handleShopItemRef = (node: HTMLElement | null) => {
-    if (node && observer.current) {
-      observer.current.observe(node);
-    }
+    if (node && observer.current) observer.current.observe(node);
   };
 
-  // Fetch seller items
+  // Fetch seller items once
   useEffect(() => {
     const getSellerItems = async (seller_id: string) => {
       try {
         const items = await fetchSellerItems(seller_id);
-        if (items) {
-          setDbSellerItems(items);
-        } else {
-          setDbSellerItems(null);
-        }
+        setDbSellerItems(items || []);
       } catch (error) {
         logger.error('Error fetching seller items data:', error);
-      } finally {
-        setReload(false);
-        setIsNewItem(false);
+        setDbSellerItems([]);
       }
     };
-    
-    if (dbSeller) {
-      getSellerItems(dbSeller.seller_id);
-    }
-  }, [dbSeller, reload]); 
+    if (dbSeller) getSellerItems(dbSeller.seller_id);
+  }, [dbSeller]);
+
+  // Update only the affected item
+  const handleUpdateItem = (updatedItem: SellerItem) => {
+    setDbSellerItems((prev) => {
+      // If new item, add to list
+      if (updatedItem && (!updatedItem._id || !prev.some(i => i._id === updatedItem._id))) {
+        return [...prev, updatedItem];
+      }
+      // Otherwise, update in place
+      return prev.map((item) => item._id === updatedItem._id ? updatedItem : item);
+    });
+    setIsNewItem(false);
+  };
+
+  // Remove only the affected item
+  const handleDeleteItem = (itemId: string) => {
+    setDbSellerItems((prev) => prev.filter((item) => item._id !== itemId));
+    setIsNewItem(false);
+  };
 
   const emptyForm: SellerItem = {
     seller_id: dbSeller.seller_id as string,
@@ -86,7 +84,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
     description: "",
     image: "",
     stock_level: StockLevelType.available_1,
-  }
+  };
 
   return (
     <>        
@@ -97,7 +95,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
         <Button
           label={t('SHARED.ADD_ITEM')}
           disabled={isAddItemEnabled}
-          onClick={()=>setIsNewItem(true)}
+          onClick={() => setIsNewItem(true)}
           styles={{
             color: '#ffc153',
             height: '40px',
@@ -107,40 +105,57 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
         />
       </div>
       <div className="overflow-x-auto p-2 gap-x-5 mb-5 w-full flex">
-        {(isNewItem) && 
+        {isNewItem && 
           <ShopItem
-            key={''}
-            item={emptyForm}
+            key={'new'}
+            existingItem={emptyForm}
             isActive={true}
             refCallback={handleShopItemRef} // Attach observer
             setIsAddItemEnabled={setIsAddItemEnabled}
+            onUpdate={handleUpdateItem}
+            onDelete={handleDeleteItem}
+            setIsNewItem={setIsNewItem}
           /> 
         }
-        {dbSellerItems && dbSellerItems.length > 0 && 
-          dbSellerItems.map((item) => (
-            <ShopItem
-              key={item._id}
-              item={item}
-              isActive={focusedItemId === item._id}
-              refCallback={handleShopItemRef} // Attach observer
-              setIsAddItemEnabled={setIsAddItemEnabled}
-            /> 
-          ))            
+        {dbSellerItems.map((item) => (
+          <ShopItem
+            key={item._id}
+            existingItem={item}
+            isActive={focusedItemId === item._id}
+            refCallback={handleShopItemRef} // Attach observer
+            setIsAddItemEnabled={setIsAddItemEnabled}
+            onUpdate={handleUpdateItem}
+            onDelete={handleDeleteItem}
+          /> 
+        ))            
         }
       </div>
     </>
   );
-};
+}
 
+// --- ShopItem: Optimized to call parent handlers ---
 export const ShopItem: React.FC<{
-  item: SellerItem;
+  existingItem: SellerItem;
   isActive: boolean;
   refCallback: (node: HTMLElement | null) => void;
   setIsAddItemEnabled: React.Dispatch<SetStateAction<boolean>>;
-}> = ({ item, isActive, refCallback, setIsAddItemEnabled }) => {
+  onUpdate: (item: SellerItem) => void;
+  onDelete: (itemId: string) => void;
+  setIsNewItem?: (val: boolean) => void;
+}> = ({
+  existingItem,
+  isActive,
+  refCallback,
+  setIsAddItemEnabled,
+  onUpdate,
+  onDelete,
+  setIsNewItem,
+}) => {
   const locale = useLocale();
   const t = useTranslations();
   
+  const [item, setItem] = useState<SellerItem>(existingItem);
   const [formData, setFormData] = useState<ShopItemData>({
     seller_id: item.seller_id || '',
     name: item.name || '',
@@ -160,25 +175,9 @@ export const ShopItem: React.FC<{
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogueMessage, setDialogueMessage] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
-  const { reload, setReload, showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
+  const { showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
   const [sellingStatus, setSellingStatus] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
-
-  useEffect(() => {
-    if (item?.expired_by) {
-      const expiredDate = new Date(item.expired_by);
-      const isActive = expiredDate > new Date();
-
-      setSellingStatus(
-        isActive 
-          ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE') 
-          : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED')
-      );
-
-      const { date, time } = resolveDate(expiredDate, locale);
-      setFormattedDate(`${date}, ${time}`);
-    }
-  }, [item, locale, t]);
 
   // Handle image upload
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -231,29 +230,20 @@ export const ShopItem: React.FC<{
   };
 
   const handleSave = async () => {
-    const duration = Number(formData.duration);
-    const today = new Date();
+    // Return early if reduced duration is greater than remaining weeks
+    const remainingWeeks = getRemainingWeeks(item);
+    const reducedDuration = item.duration - formData.duration;
 
-    if (item.created_at) {
-      const createdAt = new Date(item.created_at);
-        
-      // Calculate spent weeks since created_at
-      const spentWeeks = Math.floor((today.getTime() - createdAt.getTime()) / (7 * 24 * 60 * 60 * 1000));
-
-        // Ensure the new duration is not less than already spent weeks
-      if (duration < spentWeeks) {
-        setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_SPENT_WEEKS', {
-          spent_weeks: spentWeeks
+    if (reducedDuration > remainingWeeks) {
+      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS', {
+        remaining_weeks: remainingWeeks
       }));
-        setShowDialog(true);
-        return null;
-      }
+      setShowDialog(true);
+      return;
     }
-    
-    setIsSaveLoading(true);
 
+    setIsSaveLoading(true);
     const formDataToSend = new FormData();
-    // Prepare form data
     formDataToSend.append('name', removeUrls(formData.name || '').trim());
     formDataToSend.append('_id', formData._id || '');
     formDataToSend.append('description', removeUrls(formData.description || '').trim());
@@ -274,18 +264,21 @@ export const ShopItem: React.FC<{
       const data = await addOrUpdateSellerItem(formDataToSend);
 
       if (data) {
-        logger.info('Saved seller item:', data);
-        setReload(true);
+        setItem(data.sellerItem);
+        onUpdate(data.sellerItem);
         setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT', {
-            mappi_count: '99'
+            mappi_count: data.consumedMappi
         }));
         setShowDialog(true);
         setIsAddItemEnabled(false);
         showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_SAVED'));
+        if (setIsNewItem) setIsNewItem(false);
       }
     } catch (error) {
       logger.error('Error saving seller item:', error);
       showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_SAVE'));
+      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT'));
+        setShowDialog(true);
     } finally {
       setIsSaveLoading(false);
     }
@@ -300,9 +293,10 @@ export const ShopItem: React.FC<{
     try {
       const resp = await deleteSellerItem(item_id);
       if (resp) {
-        setReload(true);
+        onDelete(item_id); // Only remove this item in parent state
         setIsAddItemEnabled(false);
         showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_DELETED'));
+        if (setIsNewItem) setIsNewItem(false);
       }
     } catch (error) {
       logger.error('Error deleting seller item:', error);
@@ -310,6 +304,41 @@ export const ShopItem: React.FC<{
     }
   }
   
+  useEffect(() => {
+    setItem(existingItem);
+    setFormData({
+      seller_id: existingItem.seller_id || '',
+      name: existingItem.name || '',
+      description: existingItem.description || '',
+      duration: existingItem.duration || 1,
+      price: existingItem.price?.$numberDecimal?.toString(),
+      image: existingItem.image || '',
+      stock_level: existingItem.stock_level || getStockLevelOptions(t)[0].name,
+      expired_by: existingItem.expired_by,
+      _id: existingItem._id || ''
+    });
+    if (item?.expired_by) {
+      const expiredDate = new Date(item.expired_by);
+      const isActive = expiredDate > new Date();
+      setSellingStatus(
+        isActive 
+          ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE') 
+          : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED')
+      );
+
+      setFormattedDate(
+        new Intl.DateTimeFormat(locale || 'en-US', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true,
+        }).format(expiredDate)
+      );
+    }
+  }, [existingItem, t]);
+
   return (
     <>
       <div
@@ -387,6 +416,7 @@ export const ShopItem: React.FC<{
                   !isActive || formData.duration <= 1 ? `bg-[grey]` : `bg-primary`
                 }`}
                 onClick={handleDecrement} // Decrement handler
+                disabled={!isActive || formData.duration <= 1}
               >
                 -
               </button>
@@ -405,6 +435,7 @@ export const ShopItem: React.FC<{
                   !isActive ? `bg-[grey]` : `bg-primary`
                 }`}
                 onClick={handleIncrement} // Increment handler
+                disabled={!isActive}
               >
                 +
               </button>
@@ -418,7 +449,7 @@ export const ShopItem: React.FC<{
                 padding: '5px 8px',
                 width: "100%"
               }}
-              onClick={()=>setShowPopup(true)}
+              onClick={() => setShowPopup(true)}
             />
             <Button
               label={t('SHARED.SAVE')}
@@ -447,7 +478,7 @@ export const ShopItem: React.FC<{
       {showPopup && (
         <ConfirmDialogX
           toggle={() => setShowPopup(false)}
-          handleClicked={()=> handleDelete(formData._id)}
+          handleClicked={() => handleDelete(formData._id)}
           message={t('SHARED.CONFIRM_DELETE')}
         />
       )}

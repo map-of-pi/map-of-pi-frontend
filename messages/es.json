@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Vender antes de {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "La duración de venta no puede reducirse por debajo de las {spent_weeks} semanas ya transcurridas"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "La duración de la venta no se puede reducir a menos de {remaining_weeks} semanas"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Pedido realizado con éxito",
-      "ORDER_FAILED_MESSAGE": "No se pudo realizar el nuevo pedido"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "No se pudo procesar el pedido. Por favor, inténtalo de nuevo y asegúrate de tener al menos 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Reseñas",

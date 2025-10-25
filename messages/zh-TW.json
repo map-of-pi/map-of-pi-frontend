@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "{expired_by_date} 前銷售",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "銷售期限不能縮短到低於已用的{spent_weeks}週"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "銷售週期不能少於 {remaining_weeks} 週"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "訂單提交成功",
-      "ORDER_FAILED_MESSAGE": "提交新訂單失敗"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "訂單處理失敗。請重試，並確保您至少擁有 1 Mappi。"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "評論",

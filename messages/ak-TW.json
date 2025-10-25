@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Tɔn ansa na ɛsi {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Wontumi mmua tɔn bere no so sen nnawɔtwe {spent_weeks} a wɔde atɔ dada"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Wontumi nsɔ bere no ase sen nna {remaining_weeks} a aka"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wɔahyɛ hyɛdeɛ no yiye",
-      "ORDER_FAILED_MESSAGE": "Wɔnntumi anhyɛ hyɛdeɛ foforɔ no"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Antumi annye adwuma no. Mesrɛ, san hwɛ bio na hu sɛ wowɔ Mappi baako anaa sen bi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Nsɛnkɔm",

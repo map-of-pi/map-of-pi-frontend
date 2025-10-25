@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "द्वारा बेचें {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "बिक्री अवधि को कम नहीं किया जा सकता है {spent_weeks} सप्ताह पहले ही बीत चुके हैं"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "बिक्री की अवधि {remaining_weeks} सप्ताह से कम नहीं की जा सकती"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "ऑर्डर सफलतापूर्वक रखा गया",
-      "ORDER_FAILED_MESSAGE": "नया ऑर्डर देने में विफल"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "ऑर्डर प्रोसेस नहीं हो सकी। कृपया फिर से प्रयास करें और सुनिश्चित करें कि आपके पास कम से कम 1 Mappi है।"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "समीक्षा",
