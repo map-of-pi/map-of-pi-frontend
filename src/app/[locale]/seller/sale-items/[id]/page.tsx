@@ -21,7 +21,8 @@ import {
   SellerItem,
   StockLevelType,
   OrderStatusType,
-  PickedItems
+  PickedItems,
+  MembershipClassType
 } from '@/constants/types';
 import { createAndUpdateOrder } from '@/services/orderApi';
 import { fetchSellerItems, fetchSingleSeller } from '@/services/sellerApi';
@@ -48,6 +49,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
   const [sellerShopInfo, setSellerShopInfo] = useState<ISeller | null>(null);
   const [sellerSettings, setSellerSettings] = useState<IUserSettings | null>(null);
   const [sellerInfo, setSellerInfo] = useState<IUser | null>(null);
+  const [sellerMembership, setSellerMembership] = useState<MembershipClassType>(MembershipClassType.CASUAL);
   const [dbSellerItems, setDbSellerItems] = useState<SellerItem[] | null>(null)
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [buyerDescription, setBuyerDescription] = useState<string>("");
@@ -77,6 +79,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
         setSellerShopInfo(data.sellerShopInfo);
         setSellerSettings(data.sellerSettings);
         setSellerInfo(data.sellerInfo);
+        setSellerMembership(data.sellerMembership);
 
         if (data.sellerShopInfo) {
           logger.info(`Fetched seller shop info successfully for seller ID: ${sellerId}`);
@@ -210,7 +213,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
             <h2 className="font-bold text-[18px] mb-2 flex items-center">
               {sellerShopInfo.name} 
               <MembershipIcon 
-                category={userMembership} 
+                category={sellerMembership} 
                 className="ml-1"
                 styleComponent={{
                   display: "inline-block",

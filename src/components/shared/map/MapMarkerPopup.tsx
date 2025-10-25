@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { Button } from '../Forms/Buttons/Buttons';
 import MembershipIcon from '../membership/MembershipIcon';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
-import { MembershipClassType } from '@/constants/types';
+import { ISellerWithSettings } from '@/constants/types';
 import { translateSellerCategory } from '@/utils/translate';
 import logger from '../../../../logger.config.mjs';
 
-const MapMarkerPopup = ({ seller }: { seller: any }) => {
+const MapMarkerPopup = ({ seller }: { seller: ISellerWithSettings }) => {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -42,7 +42,7 @@ const MapMarkerPopup = ({ seller }: { seller: any }) => {
             {truncateChars(seller.name, 12)} {/* Adjust limit as needed */}
           </h2>
           <MembershipIcon 
-            category={ MembershipClassType.TRIPLE_GOLD } 
+            category={ seller.membership_class } 
             styleComponent={{
               display: "inline-block",
               objectFit: "contain",
