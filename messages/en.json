@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Sell by {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Selling duration cannot be reduced below the {spent_weeks} weeks already spent"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Selling duration cannot be reduced below the {remaining_weeks} weeks remaining"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Order placed successfully",
-      "ORDER_FAILED_MESSAGE": "Failed to place new order"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Order failed to process. Please try again and ensure you have at least 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Reviews",

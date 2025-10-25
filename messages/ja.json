@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "販売期限 {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "販売期間は、すでに経過した{spent_weeks}週間より短くすることはできません"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "販売期間は {remaining_weeks} 週間未満に短縮できません"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "注文が正常に完了しました",
-      "ORDER_FAILED_MESSAGE": "新しい注文に失敗しました"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "注文を処理できませんでした。もう一度お試しいただき、少なくとも1 Mappiをお持ちであることを確認してください。"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "レビュー",

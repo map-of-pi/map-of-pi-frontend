@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Sayarwa kafin {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {spent_weeks} da aka riga aka yi ba"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {remaining_weeks} ba"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "An yi oda cikin nasara",
-      "ORDER_FAILED_MESSAGE": "Gaza yin sabon oda"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Bai yiwu a sarrafa odar ba. Da fatan za a sake gwadawa kuma ku tabbatar kuna da aƙalla 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Bita",
