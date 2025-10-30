@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Dɔ nu {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Gaƒoɖoe dɔwɔmɛ mètse ɖi o tɔ {spent_weeks} kɔsiwo si wòxɔ alea"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Mele nyɔnu ɖe ɖɔɖɔ la ƒe ŋkeke ƒe ɣeyiɣi kple {remaining_weeks} si le eme o"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wòɖo ɖɔɖɔ laɖoɖo",
-      "ORDER_FAILED_MESSAGE": "Ɖe wòɖo ɖɔɖɔ laɖoɖo fofó me nyɛ"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Adzɔgbe la nɔ nyuie. Mesrɛ, san ɖo edzi kple hu be wòwɔ Mappi ɖeka kple nyuie."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Totoɖemewo",

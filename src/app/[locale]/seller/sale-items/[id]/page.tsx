@@ -153,7 +153,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
 
   const onOrderError = (error: Error) => {
     logger.error("Error creating new order", error.message);
-    setCheckoutStatusMessage("Order checkout failed or 1 mappi is needed");
+    setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE'));
     setShowCheckoutStatus(true);
   }
 

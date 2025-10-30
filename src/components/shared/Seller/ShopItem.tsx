@@ -8,12 +8,11 @@ import { Button } from "../Forms/Buttons/Buttons";
 import { TextArea, Input, FileInput, Select } from "../Forms/Inputs/Inputs";
 import { ISeller, PickedItems, SellerItem, ShopItemData, StockLevelType } from "@/constants/types";
 import { addOrUpdateSellerItem, deleteSellerItem, fetchSellerItems } from "@/services/sellerApi";
-import { resolveDate } from "@/utils/date";
+import { getRemainingWeeks } from "@/utils/selleritem";
 import removeUrls from "@/utils/sanitize";
 import { getStockLevelOptions } from "@/utils/translate";
 import { AppContext } from "../../../../context/AppContextProvider";
 import logger from '../../../../logger.config.mjs';
-import { getRemainingWeeks } from "@/utils/getSellerItemDuration";
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
@@ -109,7 +108,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
         {isNewItem && 
           <ShopItem
             key={'new'}
-            existinItem={emptyForm}
+            existingItem={emptyForm}
             isActive={true}
             refCallback={handleShopItemRef} // Attach observer
             setIsAddItemEnabled={setIsAddItemEnabled}
@@ -121,7 +120,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
         {dbSellerItems.map((item) => (
           <ShopItem
             key={item._id}
-            existinItem={item}
+            existingItem={item}
             isActive={focusedItemId === item._id}
             refCallback={handleShopItemRef} // Attach observer
             setIsAddItemEnabled={setIsAddItemEnabled}
@@ -137,7 +136,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
 
 // --- ShopItem: Optimized to call parent handlers ---
 export const ShopItem: React.FC<{
-  existinItem: SellerItem;
+  existingItem: SellerItem;
   isActive: boolean;
   refCallback: (node: HTMLElement | null) => void;
   setIsAddItemEnabled: React.Dispatch<SetStateAction<boolean>>;
@@ -145,7 +144,7 @@ export const ShopItem: React.FC<{
   onDelete: (itemId: string) => void;
   setIsNewItem?: (val: boolean) => void;
 }> = ({
-  existinItem,
+  existingItem,
   isActive,
   refCallback,
   setIsAddItemEnabled,
@@ -156,7 +155,7 @@ export const ShopItem: React.FC<{
   const locale = useLocale();
   const t = useTranslations();
   
-  const [item, setItem] = useState<SellerItem>(existinItem);
+  const [item, setItem] = useState<SellerItem>(existingItem);
   const [formData, setFormData] = useState<ShopItemData>({
     seller_id: item.seller_id || '',
     name: item.name || '',
@@ -179,22 +178,6 @@ export const ShopItem: React.FC<{
   const { showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
   const [sellingStatus, setSellingStatus] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
-
-  useEffect(() => {
-    if (item?.expired_by) {
-      const expiredDate = new Date(item.expired_by);
-      const isActive = expiredDate > new Date();
-
-      setSellingStatus(
-        isActive 
-          ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE') 
-          : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED')
-      );
-
-      const { date, time } = resolveDate(expiredDate, locale);
-      setFormattedDate(`${date}, ${time}`);
-    }
-  }, [item, locale, t]);
 
   // Handle image upload
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -250,18 +233,16 @@ export const ShopItem: React.FC<{
     // Return early if reduced duration is greater than remaining weeks
     const remainingWeeks = getRemainingWeeks(item);
     const reducedDuration = item.duration - formData.duration;
-    const duration = Number(formData.duration);
-    const today = new Date();
 
     if (reducedDuration > remainingWeeks) {
-      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_SPENT_WEEKS', {
+      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS', {
         remaining_weeks: remainingWeeks
       }));
       setShowDialog(true);
-      // showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.DURATION_EXCEEDS_LIMIT'));
       return;
     }
 
+    setIsSaveLoading(true);
     const formDataToSend = new FormData();
     formDataToSend.append('name', removeUrls(formData.name || '').trim());
     formDataToSend.append('_id', formData._id || '');
@@ -296,7 +277,7 @@ export const ShopItem: React.FC<{
     } catch (error) {
       logger.error('Error saving seller item:', error);
       showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_SAVE'));
-      setDialogueMessage("Failed to save item. Check mappi balance and try again");
+      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT'));
         setShowDialog(true);
     } finally {
       setIsSaveLoading(false);
@@ -324,17 +305,17 @@ export const ShopItem: React.FC<{
   }
   
   useEffect(() => {
-    setItem(existinItem);
+    setItem(existingItem);
     setFormData({
-      seller_id: existinItem.seller_id || '',
-      name: existinItem.name || '',
-      description: existinItem.description || '',
-      duration: existinItem.duration || 1,
-      price: existinItem.price?.$numberDecimal?.toString(),
-      image: existinItem.image || '',
-      stock_level: existinItem.stock_level || getStockLevelOptions(t)[0].name,
-      expired_by: existinItem.expired_by,
-      _id: existinItem._id || ''
+      seller_id: existingItem.seller_id || '',
+      name: existingItem.name || '',
+      description: existingItem.description || '',
+      duration: existingItem.duration || 1,
+      price: existingItem.price?.$numberDecimal?.toString(),
+      image: existingItem.image || '',
+      stock_level: existingItem.stock_level || getStockLevelOptions(t)[0].name,
+      expired_by: existingItem.expired_by,
+      _id: existingItem._id || ''
     });
     if (item?.expired_by) {
       const expiredDate = new Date(item.expired_by);
@@ -356,7 +337,7 @@ export const ShopItem: React.FC<{
         }).format(expiredDate)
       );
     }
-  }, [existinItem, t]);
+  }, [existingItem, t]);
 
   return (
     <>
