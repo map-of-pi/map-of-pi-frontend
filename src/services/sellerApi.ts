@@ -18,8 +18,7 @@ export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string)
     };
     
     if (searchQuery) {
-      // Split the search query into an array of words
-      requestPayload.search_query = searchQuery.split(' ').filter(term => term.length > 0);
+      requestPayload.search_query = searchQuery.trim();
     }
     
     const response = await axiosClient.post('/sellers/fetch', requestPayload);
