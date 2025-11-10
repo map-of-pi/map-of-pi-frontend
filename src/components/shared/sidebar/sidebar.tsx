@@ -1,5 +1,5 @@
 import styles from './sidebar.module.css';
-import {TextArea } from '@/components/shared/Forms/Inputs/Inputs';
+import { TextArea } from '@/components/shared/Forms/Inputs/Inputs';
 import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -22,13 +22,16 @@ import { Button, OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
 import {
   FileInput,
   Input,
-  Select
+  Select,
 } from '@/components/shared/Forms/Inputs/Inputs';
 import { menu } from '@/constants/menu';
 import { IUserSettings } from '@/constants/types';
-import { createUserSettings, fetchUserSettings } from '@/services/userSettingsApi';
+import {
+  createUserSettings,
+  fetchUserSettings,
+} from '@/services/userSettingsApi';
 import { fetchToggle } from '@/services/toggleApi';
-import removeUrls from "@/utils/sanitize";
+import removeUrls from '@/utils/sanitize';
 import { getFindMeOptions } from '@/utils/translate';
 
 import { AppContext } from '../../../../context/AppContextProvider';
@@ -61,17 +64,29 @@ function Sidebar(props: any) {
   const router = useRouter();
 
   const Filters = [
-    { target: 'include_active_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_ACTIVE_SELLERS') },
-    { target: 'include_inactive_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_INACTIVE_SELLERS') },
-    { target: 'include_test_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_TEST_SELLERS') },
-    { target: 'include_trust_level_100', title: 'Trust-o-meter 100%'},
-    { target: 'include_trust_level_80', title: 'Trust-o-meter 80%'},
-    { target: 'include_trust_level_50', title: 'Trust-o-meter 50%'},
-    { target: 'include_trust_level_0', title: 'Trust-o-meter 0%'},
+    {
+      target: 'include_active_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_ACTIVE_SELLERS'),
+    },
+    {
+      target: 'include_inactive_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_INACTIVE_SELLERS'),
+    },
+    {
+      target: 'include_test_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_TEST_SELLERS'),
+    },
+    { target: 'include_trust_level_100', title: 'Trust-o-meter 100%' },
+    { target: 'include_trust_level_80', title: 'Trust-o-meter 80%' },
+    { target: 'include_trust_level_50', title: 'Trust-o-meter 50%' },
+    { target: 'include_trust_level_0', title: 'Trust-o-meter 0%' },
   ];
 
-  const { currentUser, autoLoginUser, setReload, showAlert } = useContext(AppContext);
-  const [dbUserSettings, setDbUserSettings] = useState<IUserSettings | null>(null);
+  const { currentUser, autoLoginUser, setReload, showAlert } =
+    useContext(AppContext);
+  const [dbUserSettings, setDbUserSettings] = useState<IUserSettings | null>(
+    null,
+  );
   // Initialize state with appropriate types
   const [formData, setFormData] = useState<{
     user_name: string;
@@ -93,7 +108,9 @@ function Sidebar(props: any) {
   });
 
   const [file, setFile] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string>(dbUserSettings?.image || '');
+  const [previewImage, setPreviewImage] = useState<string>(
+    dbUserSettings?.image || '',
+  );
   const [showMapCenter] = useState(false);
   const [showInfoModel, setShowInfoModel] = useState(false);
   const [showPrivacyPolicyModel, setShowPrivacyPolicyModel] = useState(false);
@@ -152,7 +169,7 @@ function Sidebar(props: any) {
         image: dbUserSettings.image || '',
         findme: dbUserSettings.findme || getFindMeOptions(t)[0].value,
         trust_meter_rating: dbUserSettings.trust_meter_rating,
-       wallet_address: dbUserSettings.wallet_address ?? undefined,
+        wallet_address: dbUserSettings.wallet_address ?? undefined,
       });
     }
   }, [dbUserSettings]);
@@ -298,16 +315,18 @@ function Sidebar(props: any) {
     // check if user is authenticated and form is valid
     if (!currentUser) {
       logger.warn('Form submission failed: User not authenticated.');
-      return toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+      return toast.error(
+        t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'),
+      );
     }
-  console.log("FormData state before sending:", formData);
+    console.log('FormData state before sending:', formData);
     const formDataToSend = new FormData();
     formDataToSend.append('user_name', removeUrls(formData.user_name));
     formDataToSend.append('findme', formData.findme);
 
-     if (formData.wallet_address) {
-       formDataToSend.append('wallet_address', formData.wallet_address);
-}
+    if (formData.wallet_address) {
+      formDataToSend.append('wallet_address', formData.wallet_address);
+    }
     // add the image if it exists
     if (file) {
       formDataToSend.append('image', file);
@@ -315,7 +334,10 @@ function Sidebar(props: any) {
       formDataToSend.append('image', ''); // set to previous image url if no upload
     }
 
-    logger.info('User Settings form data:', Object.fromEntries(formDataToSend.entries()));
+    logger.info(
+      'User Settings form data:',
+      Object.fromEntries(formDataToSend.entries()),
+    );
 
     try {
       const data = await createUserSettings(formDataToSend);
@@ -323,20 +345,24 @@ function Sidebar(props: any) {
         setDbUserSettings(data.settings);
         setIsSaveEnabled(false);
         logger.info('User Settings saved successfully:', { data });
-        showAlert(t('SIDE_NAVIGATION.VALIDATION.SUCCESSFUL_PREFERENCES_SUBMISSION'));
+        showAlert(
+          t('SIDE_NAVIGATION.VALIDATION.SUCCESSFUL_PREFERENCES_SUBMISSION'),
+        );
         if (pathname === '/' || pathname === `/${locale}`) {
           setReload(true);
         }
       }
     } catch (error) {
       logger.error('Error saving user settings:', error);
-      showAlert(t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'));
+      showAlert(
+        t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'),
+      );
     }
   };
 
   const handleSearchFilter = async (target: string) => {
     if (!dbUserSettings?.search_filters) return;
-    
+
     const updatedFilters = {
       ...dbUserSettings.search_filters,
       [target]:
@@ -349,15 +375,15 @@ function Sidebar(props: any) {
     formDataToSend.append('search_filters', JSON.stringify(updatedFilters));
 
     try {
-      setFilterLoading({...filterLoading, [target]: true});
+      setFilterLoading({ ...filterLoading, [target]: true });
       const data = await createUserSettings(formDataToSend);
       if (data.settings) {
         setDbUserSettings(data.settings);
-        setFilterLoading({...filterLoading, [target]: false});
+        setFilterLoading({ ...filterLoading, [target]: false });
         logger.info('User Settings saved successfully:', { data });
       }
     } catch (error) {
-      setFilterLoading({...filterLoading, [target]: false});
+      setFilterLoading({ ...filterLoading, [target]: false });
       logger.error('Error saving user settings:', error);
       showAlert(
         t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'),
@@ -370,8 +396,7 @@ function Sidebar(props: any) {
       <div className="w-full h-[calc(100vh-74px)] fixed bottom-0 bg-transparent right-0 z-[70]">
         <div
           className="absolute w-full h-full bg-[#82828284]"
-          onClick={() => props.setToggleDis(false)}>
-        </div>
+          onClick={() => props.setToggleDis(false)}></div>
         <div
           className={`absolute bg-white right-0 top-0 z-50 p-[1.2rem] h-[calc(100vh-74px)] sm:w-[350px] w-[250px] overflow-y-auto`}>
           {/* header title */}
@@ -401,7 +426,7 @@ function Sidebar(props: any) {
               }}
             />
           </div>
-          
+
           {/* review order button */}
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
@@ -459,7 +484,7 @@ function Sidebar(props: any) {
                   props.setToggleDis(false); // Close sidebar on click
                 }}
               />
-            </Link>              
+            </Link>
           </div>
 
           {/* user settings form fields */}
@@ -521,26 +546,25 @@ function Sidebar(props: any) {
 
             {/* THIS IS THE THE SEARCH FILTERS */}
             <div className="flex flex-col justify-items-center text-center mx-auto gap-2 mt-4">
-              <ToggleCollapse header={t('SIDE_NAVIGATION.SEARCH_FILTERS_SUBHEADER')}>
+              <ToggleCollapse
+                header={t('SIDE_NAVIGATION.SEARCH_FILTERS_SUBHEADER')}>
                 <div className="h-[110px] overflow-y-scroll overflow-hidden">
                   {Filters.map((filter, index) => (
                     <div
                       key={index}
                       className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
                       onClick={() => handleSearchFilter(filter.target)}>
-                      {
-                        filterLoading[filter.target as keyof typeof filterLoading] ? (
-                          <ImSpinner2 className="animate-spin" />
-                        ) : (                       
-                        dbUserSettings?.search_filters?.[
+                      {filterLoading[
+                        filter.target as keyof typeof filterLoading
+                      ] ? (
+                        <ImSpinner2 className="animate-spin" />
+                      ) : dbUserSettings?.search_filters?.[
                           filter.target as keyof IUserSettings['search_filters']
-                          ] ? (
-                          <IoCheckmark />
-                          ) : (
-                          <IoClose />
-                          )
-                        )
-                      }
+                        ] ? (
+                        <IoCheckmark />
+                      ) : (
+                        <IoClose />
+                      )}
                       {filter.title}
                     </div>
                   ))}
@@ -557,31 +581,35 @@ function Sidebar(props: any) {
                     handleAddImage={handleAddImage}
                   />
                 </div>
-              <TextArea
-                label="Wallet Address"
-                placeholder="Enter your Pi wallet address"
-                name="wallet_address"
-                style={{
-                  width: "400px",         
-                  height: "400px",        
-                  padding: "16px",
-                  borderRadius: "12px",
-                  fontSize: "16px",
-                  fontFamily: "monospace",
-                  textAlign: "left",
-                  lineHeight: "1.8",
-                  wordBreak: "break-all",   
-                  overflowWrap: "break-word",
-                  resize: "none",           
-                  overflow: "visible", 
-              }}
-              value={formData.wallet_address || ""}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-             // Remove all spaces and convert to uppercase
-              const sanitizedValue = e.target.value.replace(/\s+/g, "").toUpperCase();
-              handleChange({ name: "wallet_address", value: sanitizedValue });
-              }}
-              />
+                <TextArea
+                  label={t('WALLET_ADDRESS_LABEL')}
+                  placeholder={t('WALLET_ADDRESS_PLACEHOLDER')}
+                  name="wallet_address"
+                  style={{
+                    width: '100%',
+                    height: '120px',
+                    padding: '12px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontFamily: 'monospace',
+                    textAlign: 'left',
+                    lineHeight: '1.6',
+                    wordBreak: 'break-all',
+                    overflowWrap: 'break-word',
+                    resize: 'none',
+                  }}
+                  value={formData.wallet_address || ''}
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    const sanitizedValue = e.target.value
+                      .replace(/\s+/g, '')
+                      .toUpperCase();
+                    handleChange({
+                      name: 'wallet_address',
+                      value: sanitizedValue,
+                    });
+                  }}
+                />
+
                 <Select
                   label={t('SIDE_NAVIGATION.FIND_ME_PREFERENCE_LABEL')}
                   name="findme"
