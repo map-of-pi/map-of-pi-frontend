@@ -1,5 +1,5 @@
 import axiosClient from "@/config/client";
-import { PickedItems } from "@/constants/types";
+import { PickedItems, OrderType } from "@/constants/types";
 import logger from '../../logger.config.mjs';
 
 // Create and update an Order
@@ -22,19 +22,39 @@ export const createAndUpdateOrder = async (orderData: any, orderItems: PickedIte
   }
 };
 
-// Fetch all orders associated with the seller
-export const fetchSellerOrders = async (sellerId: string) => {
+// Fetch all orders associated with the seller with pagination
+export const fetchSellerOrders = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'pending' | 'completed' | 'cancelled';
+}): Promise<{ items: OrderType[]; count: number }> => {
   try {
-    logger.info(`Fetching seller order list associated with sellerID: ${sellerId}`);
-    const response = await axiosClient.get(`/orders/seller-orders`);
+    const queryParams = new URLSearchParams({
+      skip: skip.toString(),
+      limit: limit.toString(),
+    });
+    if (status) {
+      queryParams.append('status', status);
+    }
+
+    logger.info(`Fetching seller order list with skip: ${skip}, limit: ${limit}`);
+    const response = await axiosClient.get(`/orders/seller-orders?${queryParams}`);
     if (response.status === 200) {
       logger.info(`Fetch seller orders successful with Status ${response.status}`, {
         data: response.data
       });
-      return response.data;
+      const { items, count } = response.data;
+      return {
+        items: items as OrderType[],
+        count,
+      };
     } else {
       logger.error(`Fetch seller orders failed with Status ${response.status}`);
-      return null;
+      return { items: [], count: 0 };
     }
   } catch (error) {
     logger.error('Fetch seller orders encountered an error:', error);
@@ -42,19 +62,39 @@ export const fetchSellerOrders = async (sellerId: string) => {
   }
 };
 
-// Fetch all orders associated with the current buyer
-export const fetchBuyerOrders = async (buyerId: string) => {
+// Fetch all orders associated with the current buyer with pagination
+export const fetchBuyerOrders = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'pending' | 'completed' | 'cancelled';
+}): Promise<{ items: OrderType[]; count: number }> => {
   try {
-    logger.info(`Fetching buyer order list associated with userID: ${buyerId}`);
-    const response = await axiosClient.get(`/orders/review/buyer-orders`);
+    const queryParams = new URLSearchParams({
+      skip: skip.toString(),
+      limit: limit.toString(),
+    });
+    if (status) {
+      queryParams.append('status', status);
+    }
+
+    logger.info(`Fetching buyer order list with skip: ${skip}, limit: ${limit}`);
+    const response = await axiosClient.get(`/orders/review/buyer-orders?${queryParams}`);
     if (response.status === 200) {
       logger.info(`Fetch buyer orders successful with Status ${response.status}`, {
         data: response.data
       });
-      return response.data;
+      const { items, count } = response.data;
+      return {
+        items: items as OrderType[],
+        count,
+      };
     } else {
       logger.error(`Fetch buyer orders failed with Status ${response.status}`);
-      return null;
+      return { items: [], count: 0 };
     }
   } catch (error) {
     logger.error('Fetch buyer orders encountered an error:', error);
@@ -120,5 +160,41 @@ export const updateOrderItemStatus = async (itemId: string, itemStatus: string) 
   } catch (error) {
     logger.error('Update order item status encountered an error:', error);
     throw new Error('Failed to update order item. Please try again later.');
+  }
+};
+
+// Add this function after the existing imports
+export const getOrders = async ({
+  skip,
+  limit,
+  status
+}: {
+  skip: number;
+  limit: number;
+  status?: 'pending' | 'completed' | 'cancelled';
+}): Promise<{ items: OrderType[]; count: number }> => {
+  try {
+    const queryParams = new URLSearchParams({
+      skip: skip.toString(),
+      limit: limit.toString(),
+    });
+    if (status) {
+      queryParams.append('status', status);
+    }
+
+    const response = await axiosClient.get(`/orders?${queryParams}`);
+
+    if (response.status === 200) {
+      const { items, count } = response.data;
+      return {
+        items: items as OrderType[],
+        count,
+      };
+    } else {
+      return { items: [], count: 0 };
+    }
+  } catch (error) {
+    logger.error('Get orders encountered an error:', error);
+    throw new Error('Failed to get orders. Please try again later.');
   }
 };

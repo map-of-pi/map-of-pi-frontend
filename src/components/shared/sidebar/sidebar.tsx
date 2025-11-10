@@ -60,6 +60,7 @@ function Sidebar(props: any) {
   const pathname = usePathname();
   const locale = useLocale();
   const router = useRouter();
+  const { ordersCount } = useContext(AppContext);
 
   const Filters = [
     { target: 'include_active_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_ACTIVE_SELLERS') },
@@ -403,19 +404,32 @@ function Sidebar(props: any) {
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
               <Link href={`/${locale}/user/order-review`}>
-                <Button
-                  label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
-                  styles={{
-                    color: '#ffc153',
-                    width: '100%',
-                    padding: '10px',
-                    borderRadius: '10px',
-                    fontSize: '18px',
-                  }}
-                  onClick={() => {
-                    props.setToggleDis(false); // Close sidebar on click
-                  }}
-                />
+                <div className="relative">
+                  <Button
+                    label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                    styles={{
+                      color: '#ffc153',
+                      width: '100%',
+                      padding: '10px',
+                      borderRadius: '10px',
+                      fontSize: '18px',
+                    }}
+                    onClick={() => {
+                      props.setToggleDis(false);
+                    }}
+                  />
+                  {ordersCount > 0 && (
+                    <span
+                      className={clsx(
+                        'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
+                        'rounded-full min-w-[22px] text-center',
+                        ordersCount > 99 && 'px-[4px] min-w-[28px]'
+                      )}
+                    >
+                      {ordersCount > 99 ? '99+' : ordersCount}
+                    </span>
+                  )}
+                </div>
               </Link>
             </div>
           )}
