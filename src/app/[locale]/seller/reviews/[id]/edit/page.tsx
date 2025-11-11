@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useEffect, useState, useContext } from 'react';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import Skeleton from '@/components/skeleton/skeleton';
@@ -13,12 +13,14 @@ import logger from '../../../../../../../logger.config.mjs';
 
 export default function EditReviewPage({ params }: { params: { id: string } }) {
   const t = useTranslations();
+  const locale = useLocale();
+  
   const reviewId = params.id;
 
-  const { currentUser, autoLoginUser } = useContext(AppContext);
   const [originalReview, setOriginalReview] = useState<IReviewOutput | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { currentUser, reload, setReload, autoLoginUser } = useContext(AppContext);
 
   // Editable fields
   const [rating, setRating] = useState<number | null>(null);
@@ -33,14 +35,14 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
     const getReviewData = async () => {
       try {
         logger.info(`Fetching review data for editing: ${reviewId}`);
+        setLoading(true);
         const data = await fetchSingleReview(reviewId);
 
         if (data.review) {
           setOriginalReview(data.review);
-          const { rating, comment, image } = data.review;
-          setRating(rating);
-          setComment(comment || '');
-          setImage(image || null);
+          setRating(data.review.rating);
+          setComment(data.review.comment || '');
+          setImage(data.review.image || null);
         } else {
           setError('Review not found');
         }
@@ -49,23 +51,12 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
         setError('Error loading review. Please try again later.');
       } finally {
         setLoading(false);
+        setReload(false); // reset reload flag
       }
     };
 
     getReviewData();
-  }, [reviewId, currentUser]);
-
-  // Detect changes
-  useEffect(() => {
-    if (!originalReview) return;
-
-    const hasChanges =
-      rating !== originalReview.rating ||
-      comment !== (originalReview.comment || '') ||
-      image !== (originalReview.image || null);
-
-    setIsSaveEnabled(hasChanges);
-  }, [rating, comment, image, originalReview]);
+  }, [reviewId, currentUser, reload]);
 
   if (loading) {
     logger.info('Loading seller reviews edit..');
@@ -86,7 +77,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
       {originalReview && (
         <div className="mt-2">
           {(() => {
-            const { date, time } = resolveDate(originalReview.review_date);
+            const { date, time } = resolveDate(originalReview.review_date, locale);
             return (
               <>
                 {/* Read-only fields */}

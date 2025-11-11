@@ -19,9 +19,10 @@ import {
   IUserSettings,
   IUser,
   SellerItem,
+  PickedItems,
+  MembershipClassType,
   StockLevelType,
   OrderStatusType,
-  PickedItems,
 } from '@/constants/types';
 import { createAndUpdateOrder } from '@/services/orderApi';
 import { fetchSellerItems, fetchSingleSeller } from '@/services/sellerApi';
@@ -51,8 +52,7 @@ export default function BuyFromSellerForm({
     autoLoginUser,
     reload,
     setReload,
-    showAlert,
-    userMembership,
+    showAlert
   } = useContext(AppContext);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
@@ -61,9 +61,10 @@ export default function BuyFromSellerForm({
     null,
   );
   const [sellerInfo, setSellerInfo] = useState<IUser | null>(null);
-  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[] | null>(null);
-  const [totalAmount, setTotalAmount] = useState<number>(0.0);
-  const [buyerDescription, setBuyerDescription] = useState<string>('');
+  const [sellerMembership, setSellerMembership] = useState<MembershipClassType>(MembershipClassType.CASUAL);
+  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[] | null>(null)
+  const [totalAmount, setTotalAmount] = useState<number>(0.00);
+  const [buyerDescription, setBuyerDescription] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -91,6 +92,7 @@ export default function BuyFromSellerForm({
         setSellerShopInfo(data.sellerShopInfo);
         setSellerSettings(data.sellerSettings);
         setSellerInfo(data.sellerInfo);
+        setSellerMembership(data.sellerMembership);
 
         if (data.sellerShopInfo) {
           logger.info(
@@ -178,7 +180,7 @@ export default function BuyFromSellerForm({
 
   const onOrderError = (error: Error) => {
     logger.error('Error creating new order', error.message);
-    setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_FAILED_MESSAGE'));
+    setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE'));
     setShowCheckoutStatus(true);
   };
 
@@ -247,7 +249,7 @@ export default function BuyFromSellerForm({
                 <h2 className="font-bold text-[18px] mb-2 flex items-center">
                   {sellerShopInfo.name}
                   <MembershipIcon
-                    category={userMembership}
+                    category={sellerMembership}
                     className="ml-1"
                     styleComponent={{
                       display: 'inline-block',

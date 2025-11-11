@@ -38,7 +38,7 @@ export interface IUserSettings {
 };
 
 // Select specific fields from IUserSettings
-export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'email' | 'phone_number' | 'findme' | 'trust_meter_rating'>;
+export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'trust_meter_rating'>;
 
 // ========================
 // MEMBERSHIP MODELS
@@ -92,6 +92,8 @@ export const membershipBuyOptions: MembershipBuyOption[] = [
   { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
 ];
 
+export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
+
 // ========================
 // SELLER MODELS
 // ========================
@@ -137,8 +139,10 @@ export enum SellerType {
   test_seller = 'testSeller',
 };
 
+export type PartialSeller = Pick<ISeller, 'seller_id' | 'name' | 'image' | 'seller_type' | 'sell_map_center' | 'isRestricted' | 'coordinates'>;
+
 // Combined interface representing a seller with selected user settings
-export interface ISellerWithSettings extends ISeller, PartialUserSettings {}
+export interface ISellerWithSettings extends PartialSeller, PartialUserSettings, PartialUserMembership {};
 
 export type SellerItem = {
   _id: string;
@@ -355,11 +359,6 @@ export type NotificationType = {
   pi_uid: string;
   is_cleared: boolean;
   reason: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
-
-export interface INotification {
-  is_cleared?: boolean;
-  reason: string;
+  createdAt: string;
+  updatedAt: string;
 };

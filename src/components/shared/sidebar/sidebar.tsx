@@ -1,5 +1,6 @@
 import styles from './sidebar.module.css';
-import { TextArea } from '@/components/shared/Forms/Inputs/Inputs';
+import clsx from 'clsx';
+
 import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -23,6 +24,7 @@ import {
   FileInput,
   Input,
   Select,
+  TextArea
 } from '@/components/shared/Forms/Inputs/Inputs';
 import { menu } from '@/constants/menu';
 import { IUserSettings } from '@/constants/types';
@@ -126,6 +128,7 @@ function Sidebar(props: any) {
     include_trust_level_0: false,
   });
   const [isOnlineShoppingEnabled, setOnlineShoppingEnabled] = useState(false);
+  const { notificationsCount } = useContext(AppContext);
 
   useEffect(() => {
     if (!currentUser) {
@@ -469,21 +472,34 @@ function Sidebar(props: any) {
             </div>
           )}
 
-          <div className="mb-2">
+          <div className="mb-2 relative">
             <Link href={`/${locale}/notification`}>
-              <Button
-                label={t('SHARED.VIEW_NOTIFICATIONS')} // Stay consistent with 'View Orders'; TODO - Apply language translation
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  fontSize: '18px',
-                }}
-                onClick={() => {
-                  props.setToggleDis(false); // Close sidebar on click
-                }}
-              />
+              <div className="relative">
+                <Button
+                  label={t('SHARED.VIEW_NOTIFICATIONS')}
+                  styles={{
+                    color: '#ffc153',
+                    width: '100%',
+                    padding: '10px',
+                    borderRadius: '10px',
+                    fontSize: '18px',
+                  }}
+                  onClick={() => {
+                    props.setToggleDis(false);
+                  }}
+                />
+                {notificationsCount > 0 && (
+                  <span
+                    className={clsx(
+                      'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
+                      'rounded-full min-w-[22px] text-center',
+                      notificationsCount > 99 && 'px-[4px] min-w-[28px]'
+                    )}
+                  >
+                    {notificationsCount > 99 ? '99+' : notificationsCount}
+                  </span>
+                )}
+              </div>
             </Link>
           </div>
 
