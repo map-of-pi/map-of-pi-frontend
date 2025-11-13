@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Politique de confidentialité",
       "TERMS_OF_SERVICE": "Conditions d'utilisation"
     },
+    "WALLET_ADDRESS_LABEL": "Adresse du portefeuille Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Entrez votre adresse de portefeuille Pi",
     "FIND_ME_PREFERENCE_LABEL": "Préférence FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automatique",
@@ -172,6 +174,7 @@
       "BUY_FROM_SELLER_HEADER": "Acheter chez le vendeur",
       "SELLER_DETAILS_LABEL": "Détails du vendeur",
       "SELLER_ADDRESS_POSITION_LABEL": "Adresse ou position du vendeur",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Effectuer le paiement sur cette adresse de portefeuille",
       "LEAVE_A_REVIEW_MESSAGE": "Partagez votre avis",
       "FACE_SELECTION_REVIEW_MESSAGE": "Quel est votre sentiment vis-a-vis de ce vendeur",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Entrez vos commentaires ici",
@@ -332,6 +335,7 @@
     "VIEW_NOTIFICATIONS": "Voir les notifications",
     "REPLY": "Répondre",
     "EDIT": "Modifier",
+    "COPY": "Copier",
     "ADD_ITEM": "Ajouter un article",
     "CHECKOUT": "Paiement",
     "DELETE": "Supprimer",

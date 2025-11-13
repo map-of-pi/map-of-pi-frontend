@@ -25,7 +25,7 @@
       "PRIVACY_POLICY": "Privacy Policy",
       "TERMS_OF_SERVICE": "Terms of Service"
     },
-    "WALLET_ADDRESS_LABEL": "Wallet Address",
+    "WALLET_ADDRESS_LABEL": "Pi Wallet Address",
     "WALLET_ADDRESS_PLACEHOLDER": "Enter your Pi wallet address",
     "FIND_ME_PREFERENCE_LABEL": "FindMe Preference",
     "FIND_ME_OPTIONS": {
@@ -174,9 +174,7 @@
       "BUY_FROM_SELLER_HEADER": "Buy from Seller",
       "SELLER_DETAILS_LABEL": "Seller Details",
       "SELLER_ADDRESS_POSITION_LABEL": "Seller Address or Position",
-      "MAKE_PAYMENT_LABEL": "Make payment to this Wallet Address:",
-      "COPY_LABEL": "Copy",
-      "WALLET_NOT_PROVIDED": "Wallet not provided",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Make payment to this wallet address",
       "LEAVE_A_REVIEW_MESSAGE": "Leave a Review",
       "FACE_SELECTION_REVIEW_MESSAGE": "Select the face which shows how you feel about the above seller",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Enter additional comments here",
@@ -337,6 +335,7 @@
     "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
     "EDIT": "Edit",
+    "COPY": "Copy",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
     "DELETE": "Delete",

@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "गोपनीयता नीति",
       "TERMS_OF_SERVICE": "सेवा की शर्तें"
     },
+    "WALLET_ADDRESS_LABEL": "Pi वॉलेट पता",
+    "WALLET_ADDRESS_PLACEHOLDER": "अपना Pi वॉलेट पता दर्ज करें",
     "FIND_ME_PREFERENCE_LABEL": "मुझे वरीयता खोजें",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "स्वयं-चालित",
@@ -172,6 +174,7 @@
       "BUY_FROM_SELLER_HEADER": "विक्रेता से ख़रीदें",
       "SELLER_DETAILS_LABEL": "विक्रेता विवरण",
       "SELLER_ADDRESS_POSITION_LABEL": "विक्रेता का पता या स्थिति",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "इस वॉलेट पते पर भुगतान करें",
       "LEAVE_A_REVIEW_MESSAGE": "एक समीक्षा छोड़ दो",
       "FACE_SELECTION_REVIEW_MESSAGE": "उस चेहरे का चयन करें जो दिखाता है कि आप उपरोक्त विक्रेता के बारे में कैसा महसूस करते हैं",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "यहाँ अतिरिक्त टिप्पणियाँ दर्ज करें",
@@ -332,6 +335,7 @@
     "VIEW_NOTIFICATIONS": "सूचनाएं देखें",
     "REPLY": "उत्तर",
     "EDIT": "संपादित करें",
+    "COPY": "कॉपी",
     "ADD_ITEM": "आइटम जोड़ें",
     "CHECKOUT": "भुगतान-स्थल",
     "DELETE": "मिटाएं",

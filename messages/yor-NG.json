@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Ìlànà Ìfipamọ́",     
       "TERMS_OF_SERVICE": "Àwọn Ofin Iṣẹ́"
     },
+    "WALLET_ADDRESS_LABEL": "Adirẹsi Apamọwọ Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Tẹ adirẹsi apamọwọ Pi rẹ sii",
     "FIND_ME_PREFERENCE_LABEL": "Ri-mi feran ju",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Alaifọwọyi",
@@ -172,6 +174,7 @@
       "BUY_FROM_SELLER_HEADER": "Ra oja ni owo olutaja",
       "SELLER_DETAILS_LABEL": "Awọn alaye Olutaja",                  
       "SELLER_ADDRESS_POSITION_LABEL": "Adirẹsi Olutaja tabi Ibi to wa",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Sanwo si adirẹsi apamọwọ yii",
       "LEAVE_A_REVIEW_MESSAGE": "Fi Atunwo kan silẹ",
       "FACE_SELECTION_REVIEW_MESSAGE": "Yan oju ti o ṣe afihan loke ti o fihan bi o ṣe ri lara ohun ti o ntaa", 
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Ẹ fi àfikún ìdáhùn síbí",
@@ -332,6 +335,7 @@
     "VIEW_NOTIFICATIONS": "Wo ìkìlọ̀",
     "REPLY": "E te pada",
     "EDIT": "Ṣatunkọ",
+    "COPY": "Daakọ",
     "ADD_ITEM": "Fikun un Item",
     "CHECKOUT": "Sanwo",
     "DELETE": "Pàdánù",

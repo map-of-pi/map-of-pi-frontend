@@ -398,7 +398,7 @@ export default function BuyFromSellerForm({
                 </div>
                 <div className="mb-4 mt-3">
                   <h2 className={SUBHEADER}>
-                    {t('SCREEN.BUY_FROM_SELLER.MAKE_PAYMENT_LABEL')}
+                    {t('SCREEN.BUY_FROM_SELLER.MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL')}
                   </h2>
 
                   <div className="w-full mb-2">

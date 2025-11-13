@@ -598,8 +598,8 @@ function Sidebar(props: any) {
                   />
                 </div>
                 <TextArea
-                  label={t('WALLET_ADDRESS_LABEL')}
-                  placeholder={t('WALLET_ADDRESS_PLACEHOLDER')}
+                  label={t('SIDE_NAVIGATION.WALLET_ADDRESS_LABEL')}
+                  placeholder={t('SIDE_NAVIGATION.WALLET_ADDRESS_PLACEHOLDER')}
                   name="wallet_address"
                   style={{
                     width: '100%',
