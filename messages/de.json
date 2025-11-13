@@ -175,6 +175,7 @@
       "SELLER_DETAILS_LABEL": "Verkäuferdetails",
       "SELLER_ADDRESS_POSITION_LABEL": "Adresse oder Position des Verkäufers",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Zahle an diese Wallet-Adresse",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Der Verkäufer hat keine Pi-Wallet-Adresse angegeben",
       "LEAVE_A_REVIEW_MESSAGE": "Hinterlasse eine Bewertung",
       "FACE_SELECTION_REVIEW_MESSAGE": "Wählen Sie das Gesicht aus, das zeigt, wie Sie über den oben genannten Verkäufer denken",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Geben Sie hier zusätzliche Kommentare ein",

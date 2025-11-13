@@ -175,6 +175,7 @@
       "SELLER_DETAILS_LABEL": "Bayanin Mai Sayarwa",
       "SELLER_ADDRESS_POSITION_LABEL": "Adireshin Ko Matsayin Mai Sayarwa",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Yi biyan kuɗi zuwa wannan adireshin aljihun",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Mai sayarwa bai bayar da adireshin aljihun Pi ba",
       "LEAVE_A_REVIEW_MESSAGE": "Bar Saƙon Bita",
       "FACE_SELECTION_REVIEW_MESSAGE": "Zaɓi fuskar da ke nuna yadda kake ji game da wannan mai siyarwa na sama",	
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Shigar da karin sharhi a nan",

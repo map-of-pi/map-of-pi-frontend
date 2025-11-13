@@ -175,6 +175,7 @@
       "SELLER_DETAILS_LABEL": "Thông tin người bán",
       "SELLER_ADDRESS_POSITION_LABEL": "Địa chỉ hoặc vị trí người bán",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Thực hiện thanh toán tới địa chỉ ví này",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Người bán chưa cung cấp địa chỉ ví Pi",
       "LEAVE_A_REVIEW_MESSAGE": "Để lại đánh giá",
       "FACE_SELECTION_REVIEW_MESSAGE": "Chọn biểu cảm khuôn mặt để thể hiện cảm xúc của bạn về người bán trên",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Nhập thêm bình luận ở đây",

@@ -57,9 +57,7 @@ export default function BuyFromSellerForm({
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [sellerShopInfo, setSellerShopInfo] = useState<ISeller | null>(null);
-  const [sellerSettings, setSellerSettings] = useState<IUserSettings | null>(
-    null,
-  );
+  const [sellerSettings, setSellerSettings] = useState<IUserSettings | null>(null);
   const [sellerInfo, setSellerInfo] = useState<IUser | null>(null);
   const [sellerMembership, setSellerMembership] = useState<MembershipClassType>(MembershipClassType.CASUAL);
   const [dbSellerItems, setDbSellerItems] = useState<SellerItem[] | null>(null)
@@ -67,12 +65,10 @@ export default function BuyFromSellerForm({
   const [buyerDescription, setBuyerDescription] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   const [pickedItems, setPickedItems] = useState<PickedItems[]>([]);
   const [isOnlineShoppingEnabled, setOnlineShoppingEnabled] = useState(false);
   const [showCheckoutStatus, setShowCheckoutStatus] = useState(false);
-  const [checkoutStatusMessage, setCheckoutStatusMessage] =
-    useState<string>('');
+  const [checkoutStatusMessage, setCheckoutStatusMessage] = useState<string>('');
 
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -95,17 +91,12 @@ export default function BuyFromSellerForm({
         setSellerMembership(data.sellerMembership);
 
         if (data.sellerShopInfo) {
-          logger.info(
-            `Fetched seller shop info successfully for seller ID: ${sellerId}`,
-          );
+          logger.info(`Fetched seller shop info successfully for seller ID: ${sellerId}`);
         } else {
           logger.warn(`No seller shop info found for seller ID: ${sellerId}`);
         }
       } catch (error) {
-        logger.error(
-          `Error fetching seller data for seller ID: ${sellerId}`,
-          error,
-        );
+        logger.error(`Error fetching seller data for seller ID: ${sellerId}`, error);
         setError('Error fetching seller data');
       } finally {
         setLoading(false);
@@ -118,17 +109,12 @@ export default function BuyFromSellerForm({
         const settings = await fetchSingleUserSettings(sellerId);
 
         if (settings) {
-          logger.info(
-            `Fetched seller settings successfully for seller ID: ${sellerId}`,
-          );
+          logger.info(`Fetched seller settings successfully for seller ID: ${sellerId}`);
         } else {
           logger.warn(`No seller settings found for seller ID: ${sellerId}`);
         }
       } catch (error) {
-        logger.error(
-          `Error fetching seller settings for seller ID: ${sellerId}`,
-          error,
-        );
+        logger.error(`Error fetching seller settings for seller ID: ${sellerId}`, error);
         setError('Error fetching seller settings');
       }
     };
@@ -152,9 +138,7 @@ export default function BuyFromSellerForm({
       if (!sellerShopInfo) return;
 
       try {
-        const items: SellerItem[] = await fetchSellerItems(
-          sellerShopInfo.seller_id,
-        );
+        const items: SellerItem[] = await fetchSellerItems(sellerShopInfo.seller_id);
         setDbSellerItems(items.map((item) => ({ ...item })) || null);
         logger.error('Error fetching seller items data:', error);
       } finally {
@@ -168,9 +152,7 @@ export default function BuyFromSellerForm({
   const onOrderComplete = (data: any) => {
     logger.info('Order placed successfully:', data.message);
     showAlert('Order placed successfully');
-    setCheckoutStatusMessage(
-      t('SCREEN.BUY_FROM_SELLER.ORDER_SUCCESSFUL_MESSAGE'),
-    );
+    setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_SUCCESSFUL_MESSAGE'));
     setShowCheckoutStatus(true);
     setPickedItems([]);
     setReload(true);
@@ -292,7 +274,7 @@ export default function BuyFromSellerForm({
               <h2 className={SUBHEADER}>
                 {t('SCREEN.BUY_FROM_SELLER.REVIEWS_SUMMARY_LABEL')}
               </h2>
-              {/* Trust-O-meter */}
+              {/* Trust-o-meter */}
               <div>
                 <TrustMeter
                   ratings={
@@ -406,8 +388,8 @@ export default function BuyFromSellerForm({
                       name="wallet_address"
                       type="text"
                       value={
-                        sellerSettings?.wallet_address ||
-                        t('SCREEN.BUY_FROM_SELLER.WALLET_NOT_PROVIDED')
+                        sellerSettings?.wallet_address?.trim() || 
+                        t('SCREEN.BUY_FROM_SELLER.PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE')
                       }
                       disabled
                     />

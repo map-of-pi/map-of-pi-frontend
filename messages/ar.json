@@ -175,6 +175,7 @@
       "SELLER_DETAILS_LABEL": "تفاصيل البائع",
       "SELLER_ADDRESS_POSITION_LABEL": "عنوان أو مكان البائع",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "قم بالدفع إلى عنوان المحفظة هذا",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "لم يقدّم البائع عنوان محفظة Pi",
       "LEAVE_A_REVIEW_MESSAGE": "اترك تقييمًا",
       "FACE_SELECTION_REVIEW_MESSAGE": "اختر الوجه الذي يعبر عن شعورك حول هذا البائع",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "أدخل تعليقات إضافية هنا",
