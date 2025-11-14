@@ -322,13 +322,12 @@ function Sidebar(props: any) {
         t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'),
       );
     }
-    console.log('FormData state before sending:', formData);
     const formDataToSend = new FormData();
     formDataToSend.append('user_name', removeUrls(formData.user_name));
     formDataToSend.append('findme', formData.findme);
 
     if (formData.wallet_address) {
-      formDataToSend.append('wallet_address', formData.wallet_address);
+      formDataToSend.append('wallet_address', removeUrls(formData.wallet_address));
     }
     // add the image if it exists
     if (file) {
@@ -615,15 +614,7 @@ function Sidebar(props: any) {
                     resize: 'none',
                   }}
                   value={formData.wallet_address || ''}
-                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                    const sanitizedValue = e.target.value
-                      .replace(/\s+/g, '')
-                      .toUpperCase();
-                    handleChange({
-                      name: 'wallet_address',
-                      value: sanitizedValue,
-                    });
-                  }}
+                  onChange={handleChange}
                 />
 
                 <Select

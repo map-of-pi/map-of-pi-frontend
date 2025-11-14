@@ -7,7 +7,7 @@ import Link from 'next/link';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 
 import ConfirmDialog, { Notification } from '@/components/shared/confirm';
-import { Button, OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
+import { Button, CopyButton, OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
 import { Select, TextArea } from '@/components/shared/Forms/Inputs/Inputs';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
@@ -379,49 +379,22 @@ export default function BuyFromSellerForm({
                   />
                 </div>
                 <div className="mb-4 mt-3">
-                  <h2 className={SUBHEADER}>
-                    {t('SCREEN.BUY_FROM_SELLER.MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL')}
-                  </h2>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className={SUBHEADER}>
+                      {t('SCREEN.BUY_FROM_SELLER.MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL')}
+                    </h2>
 
-                  <div className="w-full mb-2">
-                    <TextArea
-                      name="wallet_address"
-                      type="text"
-                      value={
-                        sellerSettings?.wallet_address?.trim() || 
-                        t('SCREEN.BUY_FROM_SELLER.PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE')
-                      }
-                      disabled
-                    />
-
-                    {/* Copy-to-Clipboard Button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (sellerSettings?.wallet_address) {
-                          navigator.clipboard.writeText(
-                            sellerSettings.wallet_address,
-                          );
-                        }
-                      }}
-                      className="mt-2 flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm">
-                      {/* Copy Icon */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.8}
-                        stroke="currentColor"
-                        className="w-5 h-5">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8 16h8M8 12h8m-8-4h8m2 8V6a2 2 0 00-2-2H8a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2z"
-                        />
-                      </svg>
-                      {t('SCREEN.BUY_FROM_SELLER.COPY_LABEL')}
-                    </button>
+                    {/* Copy Button component*/}
+                    <CopyButton textToCopy={sellerSettings?.wallet_address} />
                   </div>
+
+                  <TextArea
+                    placeholder={t('SCREEN.BUY_FROM_SELLER.PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE')}
+                    name="wallet_address"
+                    type="text"
+                    value={sellerSettings?.wallet_address?.trim() || ''}
+                    readOnly
+                  />
                 </div>
               </ToggleCollapse>
             )}
