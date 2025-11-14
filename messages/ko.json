@@ -25,8 +25,6 @@
       "PRIVACY_POLICY": "개인정보 보호정책",
       "TERMS_OF_SERVICE": "서비스 약관"
     },
-    "WALLET_ADDRESS_LABEL": "Pi 지갑 주소",
-    "WALLET_ADDRESS_PLACEHOLDER": "Pi 지갑 주소를 입력하세요",
     "FIND_ME_PREFERENCE_LABEL": "FindMe 선호",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "자동",
@@ -174,8 +172,6 @@
       "BUY_FROM_SELLER_HEADER": "판매자로부터 구매",
       "SELLER_DETAILS_LABEL": "판매자 세부 정보",
       "SELLER_ADDRESS_POSITION_LABEL": "판매자 주소 또는 위치",
-      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "이 지갑 주소로 결제하기",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "판매자가 Pi 지갑 주소를 제공하지 않았습니다",
       "LEAVE_A_REVIEW_MESSAGE": "리뷰 남기기",
       "FACE_SELECTION_REVIEW_MESSAGE": "위 판매자에 대한 당신의 감정을 보여주는 얼굴을 선택하세요",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "추가 의견을 입력하세요",
@@ -336,7 +332,6 @@
     "VIEW_NOTIFICATIONS": "알림 보기",
     "REPLY": "답장",
     "EDIT": "편집",
-    "COPY": "복사",
     "ADD_ITEM": "항목 추가",
     "CHECKOUT": "결제하기",
     "DELETE": "삭제",

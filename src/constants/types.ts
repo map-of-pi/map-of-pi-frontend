@@ -21,7 +21,6 @@ export interface IUserSettings {
   image?: string; 
   findme?: string;
   trust_meter_rating: number;
-  wallet_address?: string | null;
   search_map_center?: {
     type: 'Point';
     coordinates: [number, number];

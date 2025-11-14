@@ -25,8 +25,6 @@
       "PRIVACY_POLICY": "隐私政策",
       "TERMS_OF_SERVICE": "服务条款"
     },
-    "WALLET_ADDRESS_LABEL": "Pi 钱包地址",
-    "WALLET_ADDRESS_PLACEHOLDER": "输入您的 Pi 钱包地址",
     "FIND_ME_PREFERENCE_LABEL": "查找我偏好",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "自动",
@@ -174,8 +172,6 @@
       "BUY_FROM_SELLER_HEADER": "从卖家购买",
       "SELLER_DETAILS_LABEL": "卖家详情",
       "SELLER_ADDRESS_POSITION_LABEL": "卖家地址或位置",
-      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "向此钱包地址付款",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "卖家尚未提供 Pi 钱包地址。",
       "LEAVE_A_REVIEW_MESSAGE": "留下评论",
       "FACE_SELECTION_REVIEW_MESSAGE": "选择表情以表示您对该卖家的感受",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "在此输入附加评论",
@@ -336,7 +332,6 @@
     "VIEW_NOTIFICATIONS": "查看通知",
     "REPLY": "回复",
     "EDIT": "编辑",
-    "COPY": "复制",
     "ADD_ITEM": "添加项目",
     "CHECKOUT": "结账",
     "DELETE": "删除",

@@ -25,8 +25,6 @@
       "PRIVACY_POLICY": "Política de Privacidad",
       "TERMS_OF_SERVICE": "Términos de Servicio"
     },
-    "WALLET_ADDRESS_LABEL": "Dirección de billetera Pi",
-    "WALLET_ADDRESS_PLACEHOLDER": "Introduce tu dirección de billetera Pi",
     "FIND_ME_PREFERENCE_LABEL": "Preferencia de FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automático",
@@ -174,8 +172,6 @@
       "BUY_FROM_SELLER_HEADER": "Comprar del Vendedor",
       "SELLER_DETAILS_LABEL": "Detalles del Vendedor",
       "SELLER_ADDRESS_POSITION_LABEL": "Dirección o Posición del Vendedor",
-      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Realiza el pago a esta dirección de billetera",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "El vendedor no ha proporcionado una dirección de billetera Pi",
       "LEAVE_A_REVIEW_MESSAGE": "Dejar una Reseña",
       "FACE_SELECTION_REVIEW_MESSAGE": "Selecciona la cara que muestra cómo te sientes acerca del vendedor anterior",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Introduce comentarios adicionales aquí",
@@ -336,7 +332,6 @@
     "VIEW_NOTIFICATIONS": "Ver notificaciones",
     "REPLY": "Responder",
     "EDIT": "Editar",
-    "COPY": "Copiar",
     "ADD_ITEM": "Agregar artículo",
     "CHECKOUT": "Pagar",
     "DELETE": "Eliminar",

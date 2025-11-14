@@ -1,9 +1,8 @@
 import styles from './Buttons.module.css';
 
-import { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { RiAddFill } from 'react-icons/ri';
-import { MdArrowForward, MdContentCopy } from 'react-icons/md';
+import { MdArrowForward } from 'react-icons/md';
 
 export const AddButton = (props: any) => {
   return (
@@ -53,37 +52,6 @@ export const YellowBtn = (props: any) => {
         <MdArrowForward className="ms-auto my-auto" />
       </button>
     </div>
-  );
-};
-
-export const CopyButton = (props: { textToCopy?: string | null }) => {
-  const { textToCopy } = props;
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    if (!textToCopy) return;
-
-    navigator.clipboard.writeText(textToCopy);
-    setCopied(true);
-
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <button
-      onClick={handleCopy}
-      disabled={!textToCopy}
-      aria-label='copy wallet address'
-      className={`p-1 rounded-md bg-transparent flex items-center justify-center transition-colors duration-300 ${
-        !textToCopy ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-    >
-      <MdContentCopy
-        className={`w-5 h-5 transition-colors duration-300 ${
-          copied ? 'text-primary' : 'text-black'
-        }`}
-      />
-    </button>
   );
 };
 
