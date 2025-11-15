@@ -175,7 +175,7 @@
       "SELLER_DETAILS_LABEL": "販売者の詳細",
       "SELLER_ADDRESS_POSITION_LABEL": "販売者の住所または位置",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "このウォレットアドレスに送金する",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "販売者は Piウォレットアドレスを提供していません。",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "ウォレットアドレスを依頼するために販売者へ連絡してください",
       "LEAVE_A_REVIEW_MESSAGE": "レビューを残す",
       "FACE_SELECTION_REVIEW_MESSAGE": "上記の販売者について、あなたの気持ちを表す顔を選択してください",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "追加のコメントをここに入力してください",
