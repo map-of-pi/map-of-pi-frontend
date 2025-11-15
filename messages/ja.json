@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "プライバシーポリシー",
       "TERMS_OF_SERVICE": "利用規約"
     },
+    "WALLET_ADDRESS_LABEL": "Piウォレットアドレス",
+    "WALLET_ADDRESS_PLACEHOLDER": "あなたのPiウォレットアドレスを入力してください",
     "FIND_ME_PREFERENCE_LABEL": "FindMe 設定",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "自動",
@@ -172,6 +174,8 @@
       "BUY_FROM_SELLER_HEADER": "販売者から購入",
       "SELLER_DETAILS_LABEL": "販売者の詳細",
       "SELLER_ADDRESS_POSITION_LABEL": "販売者の住所または位置",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "このウォレットアドレスに送金する",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "販売者は Piウォレットアドレスを提供していません。",
       "LEAVE_A_REVIEW_MESSAGE": "レビューを残す",
       "FACE_SELECTION_REVIEW_MESSAGE": "上記の販売者について、あなたの気持ちを表す顔を選択してください",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "追加のコメントをここに入力してください",
@@ -332,6 +336,7 @@
     "VIEW_NOTIFICATIONS": "通知を見る",
     "REPLY": "返信",
     "EDIT": "編集",
+    "COPY": "コピー",
     "ADD_ITEM": "アイテムを追加",
     "CHECKOUT": "お会計",
     "DELETE": "削除",
