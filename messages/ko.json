@@ -175,7 +175,7 @@
       "SELLER_DETAILS_LABEL": "판매자 세부 정보",
       "SELLER_ADDRESS_POSITION_LABEL": "판매자 주소 또는 위치",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "이 지갑 주소로 결제하기",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "판매자가 Pi 지갑 주소를 제공하지 않았습니다",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "지갑 주소를 요청하려면 판매자에게 연락하세요",
       "LEAVE_A_REVIEW_MESSAGE": "리뷰 남기기",
       "FACE_SELECTION_REVIEW_MESSAGE": "위 판매자에 대한 당신의 감정을 보여주는 얼굴을 선택하세요",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "추가 의견을 입력하세요",
