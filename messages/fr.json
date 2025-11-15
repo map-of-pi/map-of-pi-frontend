@@ -175,7 +175,7 @@
       "SELLER_DETAILS_LABEL": "Détails du vendeur",
       "SELLER_ADDRESS_POSITION_LABEL": "Adresse ou position du vendeur",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Effectuer le paiement sur cette adresse de portefeuille",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Le vendeur n’a pas fourni d’adresse de portefeuille Pi",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Contactez le vendeur pour demander l’adresse du portefeuille",
       "LEAVE_A_REVIEW_MESSAGE": "Partagez votre avis",
       "FACE_SELECTION_REVIEW_MESSAGE": "Quel est votre sentiment vis-a-vis de ce vendeur",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Entrez vos commentaires ici",

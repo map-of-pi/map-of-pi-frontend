@@ -175,7 +175,7 @@
       "SELLER_DETAILS_LABEL": "卖家详情",
       "SELLER_ADDRESS_POSITION_LABEL": "卖家地址或位置",
       "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "向此钱包地址付款",
-      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "卖家尚未提供 Pi 钱包地址。",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "请联系卖家以获取钱包地址",
       "LEAVE_A_REVIEW_MESSAGE": "留下评论",
       "FACE_SELECTION_REVIEW_MESSAGE": "选择表情以表示您对该卖家的感受",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "在此输入附加评论",
