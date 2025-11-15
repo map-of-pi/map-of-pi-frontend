@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "{expired_by_date}까지 판매",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "판매 기간은 이미 경과한 {spent_weeks}주보다 줄일 수 없습니다"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "판매 기간은 {remaining_weeks}주 미만으로 줄일 수 없습니다"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "주문이 성공적으로 완료되었습니다",
-      "ORDER_FAILED_MESSAGE": "새 주문을 실패했습니다"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "주문을 처리하지 못했습니다. 다시 시도하고 최소 1 Mappi가 있는지 확인해주세요."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "리뷰",

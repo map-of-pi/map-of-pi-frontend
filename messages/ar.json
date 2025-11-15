@@ -141,7 +141,7 @@
         },
         "SELLING_EXPIRATION_DATE": "يباع بتاريخ صلاحية {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {spent_weeks} أسبوعًا تم قضاؤها بالفعل"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {remaining_weeks} أسابيع"
         }
       }
     },
@@ -194,7 +194,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "تم تقديم الطلب بنجاح",
-      "ORDER_FAILED_MESSAGE": "فشل في تقديم الطلب الجديد"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "فشل معالجة الطلب. الرجاء المحاولة مرة أخرى والتأكد من أن لديك على الأقل 1 Mappi."
     }, 
     "REVIEWS": { 
       "REVIEWS_HEADER": "التقييمات", 
