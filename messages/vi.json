@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Chính sách bảo mật",
       "TERMS_OF_SERVICE": "Điều khoản dịch vụ"
     },
+    "WALLET_ADDRESS_LABEL": "Địa chỉ ví Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Nhập địa chỉ ví Pi của bạn",
     "FIND_ME_PREFERENCE_LABEL": "Tùy chọn FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Tự động",
@@ -172,6 +174,8 @@
       "BUY_FROM_SELLER_HEADER": "Mua từ người bán",
       "SELLER_DETAILS_LABEL": "Thông tin người bán",
       "SELLER_ADDRESS_POSITION_LABEL": "Địa chỉ hoặc vị trí người bán",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Thực hiện thanh toán tới địa chỉ ví này",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Liên hệ người bán để yêu cầu địa chỉ ví",
       "LEAVE_A_REVIEW_MESSAGE": "Để lại đánh giá",
       "FACE_SELECTION_REVIEW_MESSAGE": "Chọn biểu cảm khuôn mặt để thể hiện cảm xúc của bạn về người bán trên",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Nhập thêm bình luận ở đây",
@@ -332,6 +336,7 @@
     "VIEW_NOTIFICATIONS": "Xem thông báo",
     "REPLY": "Trả lời",
     "EDIT": "Chỉnh sửa",
+    "COPY": "Sao chép",
     "ADD_ITEM": "Thêm mục",
     "CHECKOUT": "Thanh toán",
     "DELETE": "Xóa",
