@@ -164,7 +164,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
+
     if (isSigningInUser || currentUser) return;
+    
     // attempt to load and initialize Pi SDK in parallel
     loadPiSdk()
       .then(Pi => {
