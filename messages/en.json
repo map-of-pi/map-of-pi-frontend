@@ -205,6 +205,8 @@
       "GIVE_REVIEW_SECTION_HEADER": "Give review to this pioneer",
       "REVIEWS_GIVEN_SECTION_HEADER": "Reviews given by this pioneer",
       "REVIEWS_RECEIVED_SECTION_HEADER": "Reviews received by this pioneer",
+      "TRUST_PROTECT": "Trust Protect",
+      "TRUST_PROTECT_SUCCESS": "Trust Protect action completed successfully",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "No reviews found for Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Pioneer {search_value} not found"
