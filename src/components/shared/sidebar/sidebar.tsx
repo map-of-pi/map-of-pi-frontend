@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './sidebar.module.css';
 import clsx from 'clsx';
 
@@ -13,7 +15,6 @@ import { ImSpinner2 } from 'react-icons/im';
 import { IoCheckmark, IoClose } from 'react-icons/io5';
 import { toast } from 'react-toastify';
 
-import MapCenter from '../map/MapCenter';
 import TrustMeter from '../Review/TrustMeter';
 import ToggleCollapse from '../Seller/ToggleCollapse';
 import InfoModel from '@/components/shared/About/Info/Info';
@@ -38,6 +39,12 @@ import { getFindMeOptions } from '@/utils/translate';
 
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+
+import dynamic from 'next/dynamic';
+
+const MapCenter = dynamic(() => import('@/components/shared/map/MapCenter'), {
+  ssr: false
+});
 
 interface MenuItem {
   id: number;
