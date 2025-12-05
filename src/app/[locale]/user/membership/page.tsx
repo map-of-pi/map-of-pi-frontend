@@ -148,7 +148,7 @@ export default function MembershipPage() {
               }
               {`${option.value}  ${isSingleMappi(option.value)
                 ? "Mappi" 
-                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration })
+                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
               }`} 
               
               <MembershipIcon 
