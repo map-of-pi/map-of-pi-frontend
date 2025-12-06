@@ -1,0 +1,6 @@
+[[CURRENCIES]]
+code="MapCap"
+issuer="GBBGQUMVHMRRNQGFXXM7KJL6LH65DGUMVYHFXQXYQ7GKYILOOIV445IB"
+name="Map of Pi Capital"
+desc="This is a test token that is created to demonstrate Map of Pi capitalization and investment opportunities. It currently holds no value."
+image="https://mapofpi-react.netlify.app/token-logo.svg"
