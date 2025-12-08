@@ -7,7 +7,6 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 
 import { useRef, useState, useContext, useEffect } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
@@ -29,6 +28,7 @@ import {
 } from '@/components/shared/Forms/Inputs/Inputs';
 import { menu } from '@/constants/menu';
 import { IUserSettings } from '@/constants/types';
+import { usePathname, useRouter } from '@/navigation';
 import {
   createUserSettings,
   fetchUserSettings,
@@ -239,11 +239,7 @@ function Sidebar(props: any) {
   const handleChildMenu = (title: any, code: string) => {
     logger.debug(`Child menu item selected: ${title}, Code: ${code}`);
     if (title === 'Languages') {
-      const slipPathname = pathname.split('/').slice(2);
-      slipPathname.unshift(code);
-      const retPathname = slipPathname.join('/');
-      retPathname.toString();
-      router.replace(`/${retPathname}`);
+      router.replace(pathname, { locale: code });
       props.setToggleDis(false);
     }
     if (title === 'Themes') {

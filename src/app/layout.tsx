@@ -1,4 +1,3 @@
-// app/layout.tsx
 import './global.css';
 import { ReactNode } from 'react';
 import '../../sentry.client.config.mjs';
@@ -78,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           `,
         }} />
       </head>
-      <body>
+      <body className={`bg-background text-black`}>
         {children}
       </body>
     </html>
