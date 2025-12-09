@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           `,
         }} />
       </head>
-      <body className={`bg-background text-black`}>
+      <body>
         {children}
       </body>
     </html>
