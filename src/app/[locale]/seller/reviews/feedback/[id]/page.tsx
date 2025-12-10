@@ -42,7 +42,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
-  const { currentUser, autoLoginUser, reload, setReload } = useContext(AppContext);
+  const { currentUser, authenticateUser, reload, setReload } = useContext(AppContext);
 
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     return data.map((feedback) => {
@@ -66,7 +66,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   };
   
   useEffect(() => {
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getReviewData = async () => {
       try {
