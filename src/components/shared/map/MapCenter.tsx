@@ -45,7 +45,7 @@ const MapCenter = ({ entryType }: MapCenterProps) => {
     lng: 19.944544,
     lat: 50.064192,
   });
-  const { currentUser, autoLoginUser } = useContext(AppContext);
+  const { currentUser, authenticateUser } = useContext(AppContext);
   const mapRef = useRef<L.Map | null>(null);
 
   const isSigningInUser = false;
@@ -53,7 +53,7 @@ const MapCenter = ({ entryType }: MapCenterProps) => {
   useEffect(() => {
     if (!currentUser) {
       logger.info("User not logged in; attempting auto-login..");
-      autoLoginUser();
+      authenticateUser();
     }
 
     // Fetch the map center from the backend if the user is authenticated

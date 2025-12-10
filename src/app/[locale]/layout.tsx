@@ -34,13 +34,15 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <Providers>
-        <Navbar />
-        <div className={`pt-[80px] ${lato.className}`}>
-          {children}
-        </div>
-        <ToastContainer />
-      </Providers>
+      <div className={`bg-background text-black ${lato.className}`}>
+        <Providers>
+          <Navbar />
+          <div className="pt-[80px]">
+            {children}
+          </div>
+          <ToastContainer />
+        </Providers>
+      </div>
     </NextIntlClientProvider>
   );
 }

@@ -49,7 +49,7 @@ export default function BuyFromSellerForm({
 
   const {
     currentUser,
-    autoLoginUser,
+    authenticateUser,
     reload,
     setReload,
     showAlert
@@ -79,7 +79,7 @@ export default function BuyFromSellerForm({
   };
 
   useEffect(() => {
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getSellerData = async () => {
       try {

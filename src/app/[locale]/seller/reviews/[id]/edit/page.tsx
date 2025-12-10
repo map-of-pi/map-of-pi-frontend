@@ -20,7 +20,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
   const [originalReview, setOriginalReview] = useState<IReviewOutput | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { currentUser, reload, setReload, autoLoginUser } = useContext(AppContext);
+  const { currentUser, reload, setReload, authenticateUser } = useContext(AppContext);
 
   // Editable fields
   const [rating, setRating] = useState<number | null>(null);
@@ -30,7 +30,7 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
 
   useEffect(() => {
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getReviewData = async () => {
       try {

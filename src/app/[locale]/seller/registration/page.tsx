@@ -43,7 +43,7 @@ const SellerRegistrationForm = () => {
   const t = useTranslations();
   const placeholderSeller = itemData.seller;
 
-  const { currentUser, autoLoginUser, showAlert, userMembership } = useContext(AppContext);
+  const { currentUser, authenticateUser, showAlert, userMembership } = useContext(AppContext);
 
   type IFormData = {
     sellerName: string;
@@ -88,7 +88,7 @@ const SellerRegistrationForm = () => {
   
   // Fetch seller data and user settings on component mount
   useEffect(() => {
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getSellerData = async () => {
       try {
