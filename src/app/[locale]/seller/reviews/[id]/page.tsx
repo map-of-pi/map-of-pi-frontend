@@ -38,14 +38,14 @@ function SellerReviews({
   const [error, setError] = useState<string | null>(null);
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
-  const { currentUser, reload, setReload, autoLoginUser } = useContext(AppContext);
+  const { currentUser, reload, setReload, authenticateUser } = useContext(AppContext);
   
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchBarValue, setSearchBarValue] = useState('');
   const [toUser, setToUser] = useState('');
 
   useEffect(() => {
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
     fetchUserReviews(userId);
 
     const loadUserImage = async () => {

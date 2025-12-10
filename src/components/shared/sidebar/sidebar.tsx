@@ -91,7 +91,7 @@ function Sidebar(props: any) {
     { target: 'include_trust_level_0', title: 'Trust-o-meter 0%' },
   ];
 
-  const { currentUser, autoLoginUser, setReload, showAlert } = useContext(AppContext);
+  const { currentUser, authenticateUser, setReload, showAlert } = useContext(AppContext);
   const [dbUserSettings, setDbUserSettings] = useState<IUserSettings | null>(null);
   // Initialize state with appropriate types
   const [formData, setFormData] = useState<{
@@ -135,7 +135,7 @@ function Sidebar(props: any) {
   useEffect(() => {
     if (!currentUser) {
       logger.info('User not logged in; attempting auto-login..');
-      autoLoginUser();
+      authenticateUser();
     }
 
     const getUserSettingsData = async () => {

@@ -42,7 +42,7 @@ export default function Page({ params }: { params: { locale: string } }) {
   const {
     isSigningInUser,
     currentUser,
-    autoLoginUser,
+    authenticateUser,
     reload,
     setReload
   } = useContext(AppContext);
@@ -55,7 +55,7 @@ export default function Page({ params }: { params: { locale: string } }) {
     }
     setReload(false);
     setSearchCenterPopup(false);
-    checkAndAutoLoginUser(currentUser, autoLoginUser);
+    checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getUserSettingsData = async (): Promise<{ needsSearchCenter: boolean }> => {
       try {
