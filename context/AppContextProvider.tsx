@@ -17,6 +17,9 @@ import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import logger from '../logger.config.mjs';
 
+const MAX_LOGIN_RETRIES = 3;
+const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
+
 interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
@@ -61,6 +64,16 @@ const initialState: IAppContextProps = {
   notificationsCount: 0
 };
 
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// both HTTP 401 Unauthorized and HTTP 403 Forbidden errors are considered "hard fails" 
+// in the sense that the server is actively denying access
+const isHardFail = (err: any) => {
+  const code = err?.response?.status || err?.status;
+  return code === 401 || code === 403;
+};
+
 export const AppContext = createContext<IAppContextProps>(initialState);
 
 interface AppContextProviderProps {
@@ -86,6 +99,36 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     setTimeout(() => {
       setAlertMessage(null); // Clear alert after 5 seconds
     }, 5000);
+  };
+
+  const loginWithRetry = async (attempt = 0): Promise<void> => {
+    try {
+      await registerUser();
+      return; // exit function upon successful registration
+  
+    } catch (error: any) {
+      logger.warn(`Login attempt ${attempt + 1} failed:`, error);
+  
+      if (isHardFail(error)) {
+        logger.warn("401/403 Hard login failure. Retry attempt not executed.");
+        throw error;
+      }
+  
+      if (attempt >= MAX_LOGIN_RETRIES) {
+        logger.warn("Max retries reached. Stopping auto-login attempts..");
+        throw error;
+      }
+  
+      // exponential backoff + jitter
+      const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
+      const jitter = Math.random() * 1000;
+      const delay = backoff + jitter;
+  
+      logger.warn(`Retrying login in ${Math.round(delay)}ms..`);
+  
+      await sleep(delay);
+      return loginWithRetry(attempt + 1);
+    }
   };
 
   /* Register User via Pi SDK */
@@ -148,7 +191,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       }
     } catch (error) {
       logger.error('Auto login unresolved; attempting Pi SDK authentication:', error);
-      await registerUser();
+      await loginWithRetry();
     } finally {
       setTimeout(() => setIsSigningInUser(false), 2500);
     }
