@@ -169,7 +169,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
   };
 
-  const authenticateUser = async (attempt = 0): Promise<void> => {
+  const authenticateUser = async () => {
     if (isSigningInUser) return;
 
     setIsSigningInUser(true);
@@ -183,42 +183,39 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       }
 
       // Process #2 : Fallback to Pi SDK login and registration
-      const sdkLoggedIn = await piSdkLoginProcess();
-      if (sdkLoggedIn) {
-        logger.info("Pi SDK login successful.");
-        return;
+      for (let attempt = 0; attempt < MAX_LOGIN_RETRIES; attempt++) {
+        try {
+          const sdkLoggedIn = await piSdkLoginProcess();
+          if (sdkLoggedIn) {
+            logger.info("Pi SDK login successful.");
+            return;
+          }
+
+          // Process #3. Continue retry logic for 'soft failures'
+          // exponential backoff + jitter
+          const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
+          const jitter = Math.random() * 1000;
+          const delay = backoff + jitter;
+        } catch (error: any) {
+          if (isHardFail(error)) {
+            logger.warn("401/403 Hard login failure. Stopping retries.");
+            throw error;
+          }
+        }
       }
 
-      // Process #3. Continue retry logic for 'soft failures'
-      throw new Error("Pi SDK login failed");
-    } catch (error: any) {
-      if (isHardFail(error)) {
-        logger.warn("401/403 Hard login failure. Stopping retries.");
-        throw error;
-      }
-
-      if (attempt >= MAX_LOGIN_RETRIES) {
-        logger.warn("Max retries reached. Stopping retries.");
-        throw error;
-      }
-
-      // exponential backoff + jitter
-      const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
-      const jitter = Math.random() * 1000;
-      const delay = backoff + jitter;
-
-      logger.warn(`Auth attempt ${attempt + 1} failed. Retrying in ${Math.round(delay)}ms..`);
-      await sleep(delay);
-      return authenticateUser(attempt + 1);
+      // if we reach here, all attempts failed
+      logger.error("Max retries reached. Stopping retries.");
+      throw new Error("Login retries exhausted");
     } finally {
-      setTimeout(() => setIsSigningInUser(false), 2000);
+      setIsSigningInUser(false);
     }
   };
 
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
 
-    if (isSigningInUser || currentUser) return;
+    if (currentUser) return;
     
     // attempt to load and initialize Pi SDK in parallel
     ensurePiSdkLoaded()
@@ -230,7 +227,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       .catch(err => logger.error('Pi SDK load/ init error:', err));
 
     authenticateUser();
-  }, [isSigningInUser, currentUser]);
+  }, [currentUser]);
 
   useEffect(() => {
     if (!currentUser) return;
