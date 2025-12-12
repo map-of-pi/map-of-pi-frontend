@@ -190,20 +190,22 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
             logger.info("Pi SDK login successful.");
             return;
           }
-
-          // Process #3. Continue retry logic for 'soft failures'
-          // exponential backoff + jitter
-          const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
-          const jitter = Math.random() * 1000;
-          const delay = backoff + jitter;
         } catch (error: any) {
           if (isHardFail(error)) {
             logger.warn("401/403 Hard login failure. Stopping retries.");
             throw error;
           }
+          logger.warn(`Soft failure on attempt ${attempt + 1}:`, error);
         }
+        
+        // Process #3. Continue retry logic for 'soft failures'
+        // exponential backoff + jitter
+        const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
+        const jitter = Math.random() * 1000;
+        const delay = backoff + jitter;
+        logger.info(`Retrying login in ${Math.round(delay)}ms...`);
+        await sleep(delay);
       }
-
       // if we reach here, all attempts failed
       logger.error("Max retries reached. Stopping retries.");
       throw new Error("Login retries exhausted");
