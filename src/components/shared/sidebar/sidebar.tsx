@@ -85,6 +85,10 @@ function Sidebar(props: any) {
       target: 'include_test_sellers',
       title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_TEST_SELLERS'),
     },
+    {
+      target: 'include_holiday_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_HOLIDAY_SELLERS'),
+    },
     { target: 'include_trust_level_100', title: 'Trust-o-meter 100%' },
     { target: 'include_trust_level_80', title: 'Trust-o-meter 80%' },
     { target: 'include_trust_level_50', title: 'Trust-o-meter 50%' },

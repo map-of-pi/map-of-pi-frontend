@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "包含活躍賣家",
       "INCLUDE_INACTIVE_SELLERS": "包含非活躍賣家",
-      "INCLUDE_TEST_SELLERS": "包含測試賣家"
+      "INCLUDE_TEST_SELLERS": "包含測試賣家",
+      "INCLUDE_HOLIDAY_SELLERS": "節日賣家"
     },
     "CONTACT_MAP_OF_PI": "聯絡 Map of Pi",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "活躍賣家",
           "INACTIVE_SELLER": "非活躍賣家",
           "TEST_SELLER": "測試賣家",
+          "HOLIDAY_SELLER": "節日賣家",
           "RESTRICTED_SELLER": "受限賣家"
         }
       },

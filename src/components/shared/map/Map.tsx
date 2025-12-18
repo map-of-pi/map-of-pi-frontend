@@ -5,7 +5,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaf
 import L, { LatLngExpression, LatLngBounds, LatLngTuple } from 'leaflet';
 import _ from 'lodash';
 
-import { ISeller, ISellerWithSettings } from '@/constants/types';
+import { ISeller, ISellerWithSettings, SellerType } from '@/constants/types';
 import { fetchSellers } from '@/services/sellerApi';
 
 import MapMarkerPopup from './MapMarkerPopup';
@@ -75,12 +75,18 @@ const Map = ({
     popupAnchor: [1, -34],
   });
 
-  // Define the crosshair icon for the center of the map
-  const crosshairIcon = new L.Icon({
-    iconUrl: '/images/icons/crosshair.png',
-    iconSize: [100, 100],
-    iconAnchor: [60, 60],
+  const holidayIcon = L.icon({
+    iconUrl: '/images/icons/map-of-pi-christmas-icon.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -36],
   });
+
+  const getSellerMarkerIcon = (sellerType?: string) => {
+    return sellerType === SellerType.holiday_seller
+      ? holidayIcon
+      : customIcon
+  };
 
   const [position, setPosition] = useState<L.LatLng | null>(null);
   const [sellers, setSellers] = useState<ISellerWithSettings[]>([]);
@@ -329,12 +335,6 @@ const Map = ({
     return center === null ? null : <Marker position={center} />;
   }
 
-  // Define map boundaries
-  const bounds = L.latLngBounds(
-    L.latLng(-90, -180), // SW corner
-    L.latLng(90, 180) // NE corner
-  );
-
   return (
     <>
       {loading && <div className="loading">{t('SHARED.LOADING_SCREEN_MESSAGE')}</div>}
@@ -395,7 +395,7 @@ const Map = ({
             <Marker
               position={seller.coordinates as LatLngExpression}
               key={seller.seller_id}
-              icon={customIcon}
+              icon={getSellerMarkerIcon(seller.seller_type)}
               eventHandlers={{
                 click: () => handleMarkerClick(seller.coordinates as LatLngTuple),
               }}

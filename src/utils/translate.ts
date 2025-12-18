@@ -87,6 +87,12 @@ export const getSellerCategoryOptions = (t: (key: string) => string) => [
       'SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.TEST_SELLER',
     ),
   },
+  {
+    value: SellerType.holiday_seller,
+    name: t(
+      'SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.HOLIDAY_SELLER',
+    ),
+  },
 ];
 
 export const getFulfillmentMethodOptions = (t: (key: string) => string) => [
@@ -108,6 +114,8 @@ export const translateSellerCategory = (category: string, t: (key: string) => st
       return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.INACTIVE_SELLER');
     case SellerType.test_seller:
       return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.TEST_SELLER');
+    case SellerType.holiday_seller:
+      return t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.HOLIDAY_SELLER');
     default:
       return '';
   }

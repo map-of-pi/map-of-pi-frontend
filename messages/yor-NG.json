@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Fi awọn olutaja ti n ṣiṣẹ kun",
       "INCLUDE_INACTIVE_SELLERS": "Fi awọn olutaja ti ko n ṣiṣẹ kun",
-      "INCLUDE_TEST_SELLERS": "Fi awọn olutaja idanwo kun"
+      "INCLUDE_TEST_SELLERS": "Fi awọn olutaja idanwo kun",
+      "INCLUDE_HOLIDAY_SELLERS": "Àwọn oníṣòwò àkókò ìsinmi"
     },
     "CONTACT_MAP_OF_PI": "Olubasọrọ Map of Pi",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "Onítajà lọ́wọ́-lọ́wọ́",
           "INACTIVE_SELLER": "Onítajà aláì ṣi ṣẹ́mọ́",
           "TEST_SELLER": "Idanwo Olutaja",
+          "HOLIDAY_SELLER": "Oníṣòwò àkókò ìsinmi",
           "RESTRICTED_SELLER": "Olutaja to ni idiwọ"
         }
       },
