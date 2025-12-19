@@ -77,9 +77,8 @@ const Map = ({
 
   const holidayIcon = L.icon({
     iconUrl: '/images/icons/map-of-pi-christmas-icon.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -36],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
   });
 
   const getSellerMarkerIcon = (sellerType?: string) => {
