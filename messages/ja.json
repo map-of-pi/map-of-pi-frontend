@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "アクティブな販売者を含む",
       "INCLUDE_INACTIVE_SELLERS": "非アクティブな販売者を含む",
-      "INCLUDE_TEST_SELLERS": "テスト販売者を含む"
+      "INCLUDE_TEST_SELLERS": "テスト販売者を含む",
+      "INCLUDE_HOLIDAY_SELLERS": "祝日販売者"
     },
     "CONTACT_MAP_OF_PI": "Map of Pi に連絡",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "アクティブな販売者",
           "INACTIVE_SELLER": "非アクティブな販売者",
           "TEST_SELLER": "テスト販売者",
+          "HOLIDAY_SELLER": "祝日販売者",
           "RESTRICTED_SELLER": "制限された販売者"
         }
       },

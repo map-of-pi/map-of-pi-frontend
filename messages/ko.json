@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "활동 중인 판매자 포함",
       "INCLUDE_INACTIVE_SELLERS": "비활동 중인 판매자 포함",
-      "INCLUDE_TEST_SELLERS": "테스트 판매자 포함"
+      "INCLUDE_TEST_SELLERS": "테스트 판매자 포함",
+      "INCLUDE_HOLIDAY_SELLERS": "휴일 판매자"
     },
     "CONTACT_MAP_OF_PI": "Map of Pi에 문의",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "활성 판매자",
           "INACTIVE_SELLER": "비활성 판매자",
           "TEST_SELLER": "테스트 판매자",
+          "HOLIDAY_SELLER": "휴일 판매자",
           "RESTRICTED_SELLER": "제한된 판매자"
         }
       },

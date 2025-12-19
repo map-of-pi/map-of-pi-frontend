@@ -37,7 +37,9 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Aktives Mitglied Verkäufer",
       "INCLUDE_INACTIVE_SELLERS": "Untätig Verkäufer",
-      "INCLUDE_TEST_SELLERS": "Testverkäufer einschließen"
+      "INCLUDE_TEST_SELLERS": "Testverkäufer einschließen",
+      "INCLUDE_HOLIDAY_SELLERS": "Feiertagsverkäufer"
+
     },
     "CONTACT_MAP_OF_PI": "Kontaktkarte von Map of Pi",
     "VALIDATION": {
@@ -85,6 +87,7 @@
           "ACTIVE_SELLER": "Aktiver Verkäufer",
           "INACTIVE_SELLER": "Inaktiver Verkäufer",
           "TEST_SELLER": "Testverkäufer",
+          "HOLIDAY_SELLER": "Feiertagsverkäufer",
           "RESTRICTED_SELLER": "Eingeschränkter Verkäufer"
         }
       },

@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "البائعون النشطون",
       "INCLUDE_INACTIVE_SELLERS": "البائعون غير النشطين",
-      "INCLUDE_TEST_SELLERS": "البائعون التجريبيون"
+      "INCLUDE_TEST_SELLERS": "البائعون التجريبيون",
+      "INCLUDE_HOLIDAY_SELLERS": "بائعو العطلات"
     },
     "CONTACT_MAP_OF_PI": "اتصل بـ Map of Pi",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "بائع نشط",
           "INACTIVE_SELLER": "بائع غير نشط",
           "TEST_SELLER": "بائع تجريبي",
+          "HOLIDAY_SELLER": "بائع العطلات",
           "RESTRICTED_SELLER": "بائع مقيّد"
         }
       },

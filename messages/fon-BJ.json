@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Zan tó wà do",
       "INCLUDE_INACTIVE_SELLERS": "Zan tó mɛ̀ wà do",
-      "INCLUDE_TEST_SELLERS": "Zan sì wɛ́n"
+      "INCLUDE_TEST_SELLERS": "Zan sì wɛ́n",
+      "INCLUDE_HOLIDAY_SELLERS": "Àsìwá Xwéɖeɖe"
     },
     "CONTACT_MAP_OF_PI": "Do xo sedo Map Of Pi",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "Nusatɔ he to nus able-ble",
           "INACTIVE_SELLER": "Nǔsátɔ́ e ma ɖò azɔ̌ wà wɛ ǎ é le",
           "TEST_SELLER": "Tɛnkpɔn nusatɔ",
+          "HOLIDAY_SELLER": "Àsìwá Xwéɖeɖe",
           "RESTRICTED_SELLER": "Zan tò hùntɔ̀n"
         }
       },
