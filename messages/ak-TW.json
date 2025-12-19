@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Atɔnfo a wɔyɛ adwuma",
       "INCLUDE_INACTIVE_SELLERS": "Atɔnfo a wogyae adwuma",
-      "INCLUDE_TEST_SELLERS": "Atɔnfo a wɔregyina nsɔhwɛ mu"
+      "INCLUDE_TEST_SELLERS": "Atɔnfo a wɔregyina nsɔhwɛ mu",
+      "INCLUDE_HOLIDAY_SELLERS": "Afehyia Atɔnfo"
     },
     "CONTACT_MAP_OF_PI": "Kasa kyerɛ Map of Pi",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "Atɔnfoɔ a ɔyɛ adwuma",
           "INACTIVE_SELLER": "Atɔnfoɔ a wagyae adwuma",
           "TEST_SELLER": "Nsɔhwɛ Atɔnfoɔ",
+          "HOLIDAY_SELLER": "Afehyia Atɔnfo",
           "RESTRICTED_SELLER": "Dwadifo a wɔakyiw no"
         }
       },

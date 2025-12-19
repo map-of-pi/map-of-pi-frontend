@@ -37,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "सक्रिय विक्रेता",
       "INCLUDE_INACTIVE_SELLERS": "निष्क्रिय विक्रेता",
-      "INCLUDE_TEST_SELLERS": "टेस्ट विक्रेता"
+      "INCLUDE_TEST_SELLERS": "टेस्ट विक्रेता",
+      "INCLUDE_HOLIDAY_SELLERS": "छुट्टियों के विक्रेता"
     },
     "CONTACT_MAP_OF_PI": "Map of Pi से संपर्क करें",
     "VALIDATION": {
@@ -85,6 +86,7 @@
           "ACTIVE_SELLER": "सक्रिय विक्रेता",
           "INACTIVE_SELLER": "निष्क्रिय विक्रेता",
           "TEST_SELLER": "टेस्ट विक्रेता",
+          "HOLIDAY_SELLER": "छुट्टियों का विक्रेता",
           "RESTRICTED_SELLER": "प्रतिबंधित विक्रेता"
         }
       },
