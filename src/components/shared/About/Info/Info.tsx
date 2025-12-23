@@ -13,7 +13,7 @@ import { CloseButton } from '@/components/shared/Forms/Buttons/Buttons';
 const InfoModel = (props: any) => {
   const t = useTranslations();
 
-  const [version, setVersion] = useState('v1.6.0');
+  const [version, setVersion] = useState('v1.7.5');
 
   return (
     <>
