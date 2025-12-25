@@ -42,9 +42,11 @@ import logger from '../../../../logger.config.mjs';
 
 import dynamic from 'next/dynamic';
 
-const MapCenter = dynamic(() => import('@/components/shared/map/MapCenter'), {
-  ssr: false
-});
+const MapCenter = dynamic(() => 
+  import('@/components/shared/map/MapCenter'), {
+    ssr: false
+  }
+);
 
 interface MenuItem {
   id: number;
