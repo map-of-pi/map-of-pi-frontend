@@ -47,6 +47,14 @@ export const menu = {
       },
       {
         id: 6,
+        code: 'ku',
+        label: 'KU',
+        title: 'Kurdish',
+        translation: 'Kurdî',
+        icon: '',
+      },      
+      {
+        id: 7,
         code: 'ar',
         label: 'AR',
         title: 'Arabic',
@@ -54,7 +62,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 7,
+        id: 8,
         code: 'hi',
         label: 'HI',
         title: 'Hindi',
@@ -62,7 +70,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 8,
+        id: 9,
         code: 'zh-CN',
         label: 'ZH/CN',
         title: 'Simplified Chinese',
@@ -70,7 +78,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 9,
+        id: 10,
         code: 'zh-TW',
         label: 'ZH/TW',
         title: 'Traditional Chinese',
@@ -78,7 +86,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 10,
+        id: 11,
         code: 'ja',
         label: 'JA',
         title: 'Japanese',
@@ -86,7 +94,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 11,
+        id: 12,
         code: 'ko',
         label: 'KO',
         title: 'Korean',
@@ -94,7 +102,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 12,
+        id: 13,
         code: 'vi',
         label: 'VI',
         title: 'Vietnamese',
@@ -102,7 +110,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 13,
+        id: 14,
         code: 'hau-NG',
         label: 'NG/HAU',
         title: 'Nigerian Hausa',
@@ -110,7 +118,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 14,
+        id: 15,
         code: 'yor-NG',
         label: 'NG/YOR',
         title: 'Nigerian Yoruba',
@@ -118,7 +126,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 15,
+        id: 16,
         code: 'ewe-BJ',
         label: 'BJ/EWE',
         title: 'Benin Ewe',
@@ -126,7 +134,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 16,
+        id: 17,
         code: 'fon-BJ',
         label: 'BJ/FON',
         title: 'Benin Fon',
@@ -134,7 +142,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 17,
+        id: 18,
         code: 'ak-TW',
         label: 'AK/TW',
         title: 'Akan Twi',
