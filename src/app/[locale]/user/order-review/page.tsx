@@ -4,7 +4,12 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import React, { useContext, useRef } from 'react';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the Webpack 'Module not found' error while ensuring
+ * visual consistency during the initial data fetch.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { OrderStatusType } from '@/constants/types';
 import { fetchBuyerOrders } from '@/services/orderApi';
 import { resolveDate } from '@/utils/date';
@@ -23,7 +28,7 @@ export default function OrderReviewPage() {
 
   /**
    * Safe integration of usePagination hook.
-   * Synchronized with our unified hook logic.
+   * Synchronized with our unified hook logic for Map-of-Pi ecosystem.
    * Using 'hasNextPage: hasMore' to satisfy existing JSX without breaking logic.
    */
   const {
@@ -38,7 +43,7 @@ export default function OrderReviewPage() {
 
   /**
    * Initial load state.
-   * Uses existing Skeleton component to maintain visual consistency.
+   * Uses the updated Skeleton component to maintain visual stability.
    */
   if (loading && orderList.length === 0) {
     logger.info('Loading buyer orders list..');
@@ -59,7 +64,7 @@ export default function OrderReviewPage() {
           </h1>
         </div>
 
-        {/* Order List Container */}
+        {/* Order List Container with Infinite Scroll support */}
         <div>
           {orderList.length > 0 ? (
             orderList.map((item, index) => {
@@ -137,7 +142,7 @@ export default function OrderReviewPage() {
             !loading && <div className="text-center py-10 text-gray-500">{t('SHARED.NO_DATA')}</div>
           )}
 
-          {/* Pagination Status / Loader */}
+          {/* Pagination Status / Loader Area */}
           <div className="h-20 w-full flex justify-center items-center">
             {loading && orderList.length > 0 && <div className="animate-spin text-primary text-2xl">🌀</div>}
             {!hasMore && orderList.length > 0 && (
