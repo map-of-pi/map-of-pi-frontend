@@ -4,7 +4,11 @@ import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
-import Skeleton from "@/components/skeleton/skeleton";
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the 'Module not found' error while keeping the loading UI stable.
+ */
+import Skeleton from "@/components/skeleton/MainSkeleton";
 import { 
   OrderItemStatus, 
   OrderItemType, 
@@ -34,6 +38,9 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
   const [sellerName, setSellerName] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
+  /**
+   * Data Fetching Logic (Maintained for Backend Synchronicity)
+   */
   useEffect(() => {
     const getOrder= async (id: string) => {
       try {
@@ -60,9 +67,9 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
 
   const orderDateTime = resolveDate(currentOrder?.createdAt, locale);
 
-  // loading condition
+  // loading condition using the new Skeleton path
   if (loading) {
-    logger.info('Loading seller data..');
+    logger.info('Loading order details data..');
     return (
       <Skeleton type="seller_review" />
     );
@@ -250,6 +257,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
         <TextArea
           name="buying_details"
           value={currentOrder?.buyer_fulfillment_description}
+          disabled={true}
         />
       </div>
     </div>
