@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import { Button } from "../Forms/Buttons/Buttons";
 import { Input } from "../Forms/Inputs/Inputs";
-import Skeleton from "../../skeleton/skeleton"; // Import skeleton for loading
+import Skeleton from "../../skeleton/skeleton"; // تأكد أن حرف s صغير في كلمة skeleton
 import { OrderStatusType } from "@/constants/types";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
@@ -21,12 +21,12 @@ export const ListOrder: React.FC<{
 
   /**
    * Unified pagination hook for seller incoming orders.
-   * Maps 'hasNextPage' to 'hasMore' for backward compatibility with existing logic.
+   * Maps 'hasNextPage' to 'hasMore' for stability and zero breaking changes in JSX.
    */
   const {
     data: orderList,
     loading,
-    hasNextPage: hasMore,
+    hasNextPage: hasMore, // عملنا Rename هنا لحل مشكلة الـ Property doesn't exist
     lastElementRef
   } = usePagination<any>(
     (page, limit) => fetchSellerOrders(user_id, page, limit),
@@ -40,10 +40,10 @@ export const ListOrder: React.FC<{
           const isLast = index === orderList.length - 1;
           return (
             <div
-              // Attach ref to the last element for infinite scroll
+              key={`${item._id}-${index}`}
+              // ربط الـ Ref بالعنصر الأخير لتفعيل الـ Infinite Scroll التلقائي
               ref={isLast ? (lastElementRef as any) : null}
               data-id={item._id}
-              key={`${item._id}-${index}`}
               className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 
                 ${item.status === OrderStatusType.Completed ? 'bg-yellow-100' : 
                   item.status === OrderStatusType.Cancelled ? 'bg-red-100' : ''}`}
@@ -112,7 +112,7 @@ export const ListOrder: React.FC<{
         !loading && <p className="text-center text-gray-500 py-4">{t('SHARED.NO_DATA')}</p>
       )}
 
-      {/* Pagination Status Indicator */}
+      {/* Pagination Status / Loader */}
       <div className="h-14 w-full flex justify-center items-center mt-2">
         {loading && <div className="animate-pulse text-[#ffc153]">{t('SHARED.LOADING')}...</div>}
         {!hasMore && orderList.length > 0 && (
