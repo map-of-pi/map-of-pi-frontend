@@ -93,13 +93,3 @@ export const OrderListSkeleton: React.FC<OrderListSkeletonProps> = ({ user_id })
 };
 
 export default OrderListSkeleton;
-بس مش عاوزين تغير جذري او تغير مسميات او دوال 
-علشان نفضل
-محافظين ديما في اى ملف هنعدله من اول دلوقتي في 
-Frontend 
-ان ميحصلش
-دا
-او نكون ضامنين  عدم كسر التطبيق
-ديما في نفس الوقت متوافق مع كل شغلنا الي عملناه في 
-Backend
-الملف كامل نهائي
