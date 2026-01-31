@@ -7,7 +7,11 @@ import { useEffect, useState, useContext } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import ConfirmDialog from '@/components/shared/confirm';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the 'Module not found' error while preserving existing skeleton behavior.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
 import { fetchSingleReview } from '@/services/reviewsApi';
 import { fetchUserSettings } from '@/services/userSettingsApi';
@@ -44,6 +48,10 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const { currentUser, authenticateUser, reload, setReload } = useContext(AppContext);
 
+  /**
+   * Safe data mapping to maintain ReviewInt interface compatibility.
+   * Ensures no breaking changes between Frontend and Backend.
+   */
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     return data.map((feedback) => {
       const { date, time } = resolveDate(feedback.review_date, locale);
@@ -76,7 +84,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
 
         if (data.review) {
           const reviewList: IReviewOutput[] = [];
-          reviewList.push(data.review); // ensure main review is added first to review list.
+          reviewList.push(data.review); // ensure main review is added first
           reviewList.push(...data.replies);
           const processedReplies = processReviews(reviewList);
           setReviews(processedReplies);
@@ -108,7 +116,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
     loadUserImage();
   }, [reviewId, currentUser, reload]);
 
-  // Scroll functions
+  // Carousel Navigation Functions
   const prevSlide = () => {
     if (reviews.length > 1 && currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -135,9 +143,8 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
         <div className="mt-2">
           <h2 className="font-bold mb-2">{t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_SUBHEADER')}</h2>
 
-          {/* Scrollable content */}
+          {/* Scrollable Carousel Component */}
           <div className="relative overflow-hidden mb-5">
-            {/* Review */}
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -145,7 +152,6 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
               {reviews.map((review, index) => (
                 <div key={index} className="seller_item_container p-2 w-full shrink-0">
                   <div className="flex justify-between items-start mb-3">
-                    {/* Left content */}
                     <div className="flex-grow">
                       <p className="text-primary text-sm">
                         {review.giver} {' → '}
@@ -154,7 +160,6 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                       <p className="text-md break-words">{review.heading}</p>
                     </div>
 
-                    {/* Right content */}
                     <div className="flex flex-col items-end space-y-2">
                       <div className="text-[#828282] text-sm text-right whitespace-nowrap">
                         <p>{review.date}</p>
@@ -180,7 +185,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                     </div>
                   </div>
 
-                  {/* Scroll button section */}
+                  {/* Navigation Controls */}
                   <div className="flex">
                     <button
                       className={`p-2 rounded-full group hover:bg-gray-100 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
