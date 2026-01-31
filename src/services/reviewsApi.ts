@@ -25,14 +25,24 @@ export const fetchSingleReview = async (reviewID: string) => {
   
 /**
  * Fetch paginated reviews for a seller.
- * Perfectly synchronized with usePagination hook to supply data to ReviewList.
+ * Perfectly synchronized with usePagination hook.
+ * Updated parameters to include search while maintaining standard order for the component.
  */
-export const fetchReviews = async (userId: string, page: number = 1, limit: number = 10) => {
+export const fetchReviews = async (
+  userId: string, 
+  search: string = '', 
+  page: number = 1, 
+  limit: number = 10
+) => {
   try {
-    logger.info(`Fetching paginated reviews for user with ID: ${userId}, Page: ${page}`);
+    logger.info(`Fetching paginated reviews for user ID: ${userId}, Search: ${search}, Page: ${page}`);
     const response = await axiosClient.get(`/review-feedback/${userId}`, {
-      // Injects page and limit into query string: ?page=x&limit=y
-      params: { page, limit }, 
+      // Synchronized with Backend: expects search, page, and limit as query params
+      params: { 
+        search, 
+        page, 
+        limit 
+      }, 
     });
     if (response.status === 200) {
       logger.info(`Fetch reviews successful with Status ${response.status}`, { data: response.data });
