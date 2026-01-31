@@ -40,23 +40,29 @@ function SellerReviews({
   const [searchBarValue, setSearchBarValue] = useState('');
   const [toUser, setToUser] = useState(userId);
 
-  // Helper to process review data (Remained unchanged for stability)
+  /**
+   * Helper to process review data.
+   * Updated to ensure 'reaction' and 'unicode' are never undefined, 
+   * satisfying the ReviewInt interface during production build.
+   */
   const processReviews = useCallback((data: IReviewOutput[]): ReviewInt[] => {
     return data.map((feedback: IReviewOutput) => {
       const { date, time } = resolveDate(feedback.review_date, locale);
       const { reaction, unicode } = resolveRating(feedback.rating) || {};
+      
       return {
-        heading: feedback.comment,
+        heading: feedback.comment || '',
         date,
         time,
-        giver: feedback.giver,
-        receiver: feedback.receiver,
-        giverId: feedback.review_giver_id,
-        receiverId: feedback.review_receiver_id,
-        reviewId: feedback._id,
-        reaction,
-        unicode, 
-        image: feedback.image
+        giver: feedback.giver || '',
+        receiver: feedback.receiver || '',
+        giverId: feedback.review_giver_id || '',
+        receiverId: feedback.review_receiver_id || '',
+        reviewId: feedback._id || '',
+        // FIX: Ensure values are strings to match ReviewInt type definition
+        reaction: reaction || '',
+        unicode: unicode || '', 
+        image: feedback.image || ''
       };
     });
   }, [locale]);
@@ -74,7 +80,8 @@ function SellerReviews({
   } = usePagination<ReviewInt>(
     async (page, limit) => {
       const res = await fetchReviews(userId, searchBarValue, page, limit);
-      return { ...res, docs: processReviews(res.receivedReviews) };
+      // Backend returns receivedReviews and givenReviews in the response
+      return { ...res, docs: processReviews(res.receivedReviews || []) };
     }, 
     10
   );
@@ -91,7 +98,7 @@ function SellerReviews({
   } = usePagination<ReviewInt>(
     async (page, limit) => {
       const res = await fetchReviews(userId, searchBarValue, page, limit);
-      return { ...res, docs: processReviews(res.givenReviews) };
+      return { ...res, docs: processReviews(res.givenReviews || []) };
     }, 
     10
   );
@@ -149,7 +156,6 @@ function SellerReviews({
         <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
           {giverReviews.map((review, index) => (
             <div key={review.reviewId} ref={index === giverReviews.length - 1 ? lastGivenRef : null} className="seller_item_container mb-5">
-               {/* Same Review Card UI logic */}
                <div className="flex justify-between items-start mb-3">
                   <div className="flex-grow">
                     <p className="text-primary text-sm">{review.giver} → {review.receiver}</p>
@@ -181,7 +187,6 @@ function SellerReviews({
         <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')} open={true}>
           {receivedReviews.map((review, index) => (
             <div key={review.reviewId} ref={index === receivedReviews.length - 1 ? lastReceivedRef : null} className="seller_item_container mb-5">
-              {/* Same Review Card UI logic */}
                <div className="flex justify-between items-start mb-3">
                   <div className="flex-grow">
                     <p className="text-primary text-sm">{review.giver} → {review.receiver}</p>
