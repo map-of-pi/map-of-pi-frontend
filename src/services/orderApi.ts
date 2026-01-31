@@ -22,11 +22,16 @@ export const createAndUpdateOrder = async (orderData: any, orderItems: PickedIte
   }
 };
 
-// Fetch all orders associated with the seller
-export const fetchSellerOrders = async (sellerId: string) => {
+/**
+ * Fetch all orders associated with the seller with pagination support.
+ * Updated to include page and limit parameters for infinite scrolling in Seller Admin.
+ */
+export const fetchSellerOrders = async (sellerId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching seller order list associated with sellerID: ${sellerId}`);
-    const response = await axiosClient.get(`/orders/seller-orders`);
+    logger.info(`Fetching paginated seller order list for sellerID: ${sellerId}`);
+    const response = await axiosClient.get(`/orders/seller-orders`, {
+      params: { page, limit }
+    });
     if (response.status === 200) {
       logger.info(`Fetch seller orders successful with Status ${response.status}`, {
         data: response.data
@@ -42,11 +47,16 @@ export const fetchSellerOrders = async (sellerId: string) => {
   }
 };
 
-// Fetch all orders associated with the current buyer
-export const fetchBuyerOrders = async (buyerId: string) => {
+/**
+ * Fetch all orders associated with the current buyer with pagination support.
+ * Updated to sync with the new backend pagination middleware.
+ */
+export const fetchBuyerOrders = async (buyerId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching buyer order list associated with userID: ${buyerId}`);
-    const response = await axiosClient.get(`/orders/review/buyer-orders`);
+    logger.info(`Fetching paginated buyer order list for userID: ${buyerId}`);
+    const response = await axiosClient.get(`/orders/review/buyer-orders`, {
+      params: { page, limit }
+    });
     if (response.status === 200) {
       logger.info(`Fetch buyer orders successful with Status ${response.status}`, {
         data: response.data
