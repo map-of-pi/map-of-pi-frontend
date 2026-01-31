@@ -58,13 +58,13 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
   /**
    * Safe Pagination for Seller Items.
    * Synchronized with our unified usePagination hook.
-   * Using 'hasNextPage: hasMore' to satisfy existing logic without breaking changes.
+   * Map 'hasNextPage' to 'hasMore' to maintain existing JSX logic.
    */
   const {
     data: dbSellerItems,
     loading: loadingItems,
     hasNextPage: hasMore,
-    lastElementRef // Using the unified callback ref instead of a manual observerTarget
+    lastElementRef
   } = usePagination<any>(
     (page, limit) => fetchSellerItems(sellerShopInfo?.seller_id as string, page, limit),
     10
@@ -142,25 +142,25 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
                 {dbSellerItems.map((item, index) => {
                   const isLast = index === dbSellerItems.length - 1;
                   return (
-                    <div 
+                    <ListItem 
                       key={item._id} 
-                      ref={isLast ? (lastElementRef as any) : null}
-                    >
-                      <ListItem 
-                        item={item} 
-                        pickedItems={pickedItems} 
-                        setPickedItems={setPickedItems} 
-                        totalAmount={totalAmount} 
-                        setTotalAmount={setTotalAmount} 
-                      />
-                    </div>
+                      item={item} 
+                      pickedItems={pickedItems} 
+                      setPickedItems={setPickedItems} 
+                      totalAmount={totalAmount} 
+                      setTotalAmount={setTotalAmount} 
+                      /* FIX: Passing the lastElementRef to refCallback as required by ListItem's props.
+                         This triggers the next page fetch when the last item enters the viewport.
+                      */
+                      refCallback={isLast ? (lastElementRef as any) : (() => {})}
+                    />
                   );
                 })}
                 
-                {/* Loader showing while fetching more */}
+                {/* Loader for next page */}
                 {loadingItems && (
-                  <div className="min-w-[150px] flex items-center justify-center">
-                    <div className="animate-spin text-primary">🌀</div>
+                  <div className="min-w-[80px] flex items-center justify-center">
+                    <div className="animate-spin text-primary text-2xl">🌀</div>
                   </div>
                 )}
               </div>
