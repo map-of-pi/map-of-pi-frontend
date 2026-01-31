@@ -1,10 +1,16 @@
 import React from 'react';
-import '../skeleton.css';
+/**
+ * FIX: Updated CSS import path to match the new unique filename 'MainSkeleton.css'.
+ * Using '../' to correctly reference the file from the 'seller' subdirectory.
+ * This resolves the Webpack 'Module not found' error.
+ */
+import '../MainSkeleton.css';
 
 /**
  * SkeletonSellerRegistration Component
  * Provides a comprehensive loading placeholder for the merchant onboarding form.
  * Matches the multi-step input structure of the Seller Registration flow.
+ * Maintained with zero logic changes to ensure Map-of-Pi ecosystem stability.
  */
 export const SkeletonSellerRegistration = () => {
   return (
