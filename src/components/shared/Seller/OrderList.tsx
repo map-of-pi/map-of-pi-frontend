@@ -51,7 +51,7 @@ export const ListOrder: React.FC<OrderListProps> = ({
               key={`order-skeleton-${index}`}
               className="p-4 border border-gray-100 rounded-xl"
             >
-              <skeleton type="seller_review" />
+              <Skeleton type="seller_review" />
             </div>
           ))}
         </div>
