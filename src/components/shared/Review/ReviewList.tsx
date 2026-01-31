@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { usePagination } from '@/hooks/usePagination';
 // FIX: Corrected import path and function name to match reviewsApi.ts
 import { fetchReviews } from '@/services/reviewsApi'; 
-import Skeleton from '../../skeleton/skeleton'; // Updated path case if necessary
+import Skeleton from '../../skeleton/skeleton'; 
 // Importing existing components to ensure no logic is broken
 import TrustMeter from './TrustMeter'; 
 import EmojiPicker from './emojipicker'; 
@@ -59,7 +59,8 @@ export const ReviewList: React.FC<ReviewListProps> = ({ sellerId }) => {
                     {new Date(review.createdAt || review.review_date).toLocaleDateString()}
                   </span>
                 </div>
-                <TrustMeter rating={review.rating} />
+                {/* FIX: Changed 'rating' to 'ratings' to match TrustMeter's expected prop name */}
+                <TrustMeter ratings={review.rating} />
               </div>
 
               <p className="text-gray-600 text-sm leading-relaxed mb-3">
