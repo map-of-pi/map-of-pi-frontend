@@ -5,12 +5,18 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import { Button } from "../Forms/Buttons/Buttons";
 import { Input } from "../Forms/Inputs/Inputs";
-import Skeleton from "../../skeleton/skeleton"; // تأكد أن حرف s صغير في كلمة skeleton
+// تصحيح المسار لضمان التوافق مع أنظمة Linux في الـ Build (حرف s صغير)
+import Skeleton from "../../skeleton/skeleton"; 
 import { OrderStatusType } from "@/constants/types";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
 import { usePagination } from "@/hooks/usePagination"; 
 
+/**
+ * ListOrder Component
+ * Handles the display of orders for a seller with infinite scroll.
+ * Optimized for Map-of-Pi ecosystem scalability.
+ */
 export const ListOrder: React.FC<{
   user_id: string;
   user_name?: string;
@@ -21,12 +27,13 @@ export const ListOrder: React.FC<{
 
   /**
    * Unified pagination hook for seller incoming orders.
-   * Maps 'hasNextPage' to 'hasMore' for stability and zero breaking changes in JSX.
+   * Maps 'hasNextPage' (new hook output) to 'hasMore' (legacy JSX variable) 
+   * to ensure zero breaking changes in the UI logic.
    */
   const {
     data: orderList,
     loading,
-    hasNextPage: hasMore, // عملنا Rename هنا لحل مشكلة الـ Property doesn't exist
+    hasNextPage: hasMore, // إعادة تسمية المخرج ليناسب الكود القديم
     lastElementRef
   } = usePagination<any>(
     (page, limit) => fetchSellerOrders(user_id, page, limit),
@@ -41,7 +48,7 @@ export const ListOrder: React.FC<{
           return (
             <div
               key={`${item._id}-${index}`}
-              // ربط الـ Ref بالعنصر الأخير لتفعيل الـ Infinite Scroll التلقائي
+              // ربط الـ Ref بالعنصر الأخير لتفعيل الـ Infinite Scroll التلقائي للمستخدم
               ref={isLast ? (lastElementRef as any) : null}
               data-id={item._id}
               className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 
@@ -66,6 +73,7 @@ export const ListOrder: React.FC<{
                         label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.TOTAL_PRICE_LABEL') + ':'}
                         name="price"
                         type="number"
+                        // معالجة آمنة لنوع البيانات القادمة من MongoDB Decimal128
                         value={item.total_amount?.$numberDecimal || item.total_amount?.toString() || "0"}
                         disabled={true}
                       />
@@ -114,7 +122,7 @@ export const ListOrder: React.FC<{
 
       {/* Pagination Status / Loader */}
       <div className="h-14 w-full flex justify-center items-center mt-2">
-        {loading && <div className="animate-pulse text-[#ffc153]">{t('SHARED.LOADING')}...</div>}
+        {loading && <div className="animate-pulse text-[#ffc153] font-bold">{t('SHARED.LOADING')}...</div>}
         {!hasMore && orderList.length > 0 && (
           <p className="text-xs text-gray-400 italic">{t('SHARED.NO_MORE_DATA')}</p>
         )}
