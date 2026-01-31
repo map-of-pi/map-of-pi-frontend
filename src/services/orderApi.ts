@@ -2,7 +2,10 @@ import axiosClient from "@/config/client";
 import { PickedItems } from "@/constants/types";
 import logger from '../../logger.config.mjs';
 
-// Create and update an Order
+/**
+ * Create and update an Order
+ * Standard POST request to initialize order flow.
+ */
 export const createAndUpdateOrder = async (orderData: any, orderItems: PickedItems[]) => {
   try {
     logger.info("Sending request to create and update order", { orderData });
@@ -24,19 +27,20 @@ export const createAndUpdateOrder = async (orderData: any, orderItems: PickedIte
 
 /**
  * Fetch all orders associated with the seller with pagination support.
- * Updated to include page and limit parameters for infinite scrolling in Seller Admin.
+ * Synchronized with MERN backend pagination middleware and usePagination hook.
  */
 export const fetchSellerOrders = async (sellerId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching paginated seller order list for sellerID: ${sellerId}`);
+    logger.info(`Fetching paginated seller order list for sellerID: ${sellerId}, Page: ${page}`);
     const response = await axiosClient.get(`/orders/seller-orders`, {
+      // These params are caught by the backend pagination middleware
       params: { page, limit }
     });
     if (response.status === 200) {
       logger.info(`Fetch seller orders successful with Status ${response.status}`, {
         data: response.data
       });
-      return response.data;
+      return response.data; // Expecting { docs: [], totalDocs: ..., hasNextPage: ... }
     } else {
       logger.error(`Fetch seller orders failed with Status ${response.status}`);
       return null;
@@ -49,11 +53,10 @@ export const fetchSellerOrders = async (sellerId: string, page: number = 1, limi
 
 /**
  * Fetch all orders associated with the current buyer with pagination support.
- * Updated to sync with the new backend pagination middleware.
  */
 export const fetchBuyerOrders = async (buyerId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching paginated buyer order list for userID: ${buyerId}`);
+    logger.info(`Fetching paginated buyer order list for userID: ${buyerId}, Page: ${page}`);
     const response = await axiosClient.get(`/orders/review/buyer-orders`, {
       params: { page, limit }
     });
@@ -72,7 +75,9 @@ export const fetchBuyerOrders = async (buyerId: string, page: number = 1, limit:
   }
 };
 
-// Fetch a single order associated with the seller
+/**
+ * Fetch a single order by ID.
+ */
 export const fetchOrderById = async (orderId: string) => {
   try {
     logger.info(`Fetching single seller order associated with orderID: ${orderId}`);
@@ -92,7 +97,9 @@ export const fetchOrderById = async (orderId: string) => {
   }
 };
 
-// Update the order status of an existing order
+/**
+ * Update global order status (e.g., Pending to Confirmed).
+ */
 export const updateOrderStatus = async (orderId: string, orderStatus: string) => {
   try {
     logger.info(`Updating order status to ${orderStatus} with id: ${orderId}`);
@@ -113,7 +120,9 @@ export const updateOrderStatus = async (orderId: string, orderStatus: string) =>
   }
 }
 
-// Update the order item status of an existing order item
+/**
+ * Update individual order item status.
+ */
 export const updateOrderItemStatus = async (itemId: string, itemStatus: string) => {
   try {
     logger.info(`Update order item status to ${itemStatus} with id: ${itemId}`);
