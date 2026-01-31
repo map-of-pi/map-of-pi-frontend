@@ -3,38 +3,41 @@ import { NotificationType } from '@/constants/types';
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
-export const getNotifications = async ({
-  skip,
-  limit,
-  status
-}: {
-  skip: number;
+/**
+ * Interface for the standardized pagination response.
+ */
+interface NotificationPaginationResponse {
+  docs: NotificationType[];
+  totalDocs: number;
   limit: number;
-  status?: 'cleared' | 'uncleared';
-}): Promise<{ items: NotificationType[]; count: number }> => {
+  page: number;
+  totalPages: number;
+}
+
+/**
+ * Fetches paginated notifications for the user.
+ * Updated to use page/limit to sync with the backend pagination middleware.
+ */
+export const getNotifications = async (page: number = 1, limit: number = 10, status?: 'cleared' | 'uncleared'): Promise<NotificationPaginationResponse> => {
   try {
     const headers = getMultipartFormDataHeaders();
 
-    const queryParams = new URLSearchParams({
-      skip: skip.toString(),
-      limit: limit.toString(),
-    });
+    // Mapping to the new pagination structure: page instead of skip
+    const params: any = { page, limit };
     if (status) {
-      queryParams.append('status', status);
+      params.status = status;
     }
 
-    const response = await axiosClient.get(`/notifications?${queryParams}`, {
+    const response = await axiosClient.get(`/notifications`, {
+      params,
       headers,
     });
 
     if (response.status === 200) {
-      const { items, count } = response.data;
-      return {
-        items: items as NotificationType[], // cast API response
-        count,
-      };
+      // Backend returns { docs, totalDocs, limit, page, totalPages }
+      return response.data;
     } else {
-      return { items: [], count: 0 };
+      return { docs: [], totalDocs: 0, limit, page, totalPages: 0 };
     }
   } catch (error) {
     logger.error('Get notifications encountered an error:', error);
