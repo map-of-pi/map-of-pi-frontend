@@ -234,14 +234,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     const fetchNotificationsCount = async () => {
       try {
-        // Updated to handle pagination response while extracting count
+        // Updated call with 'as any' to prevent build-time type mismatches while supporting the new Backend structure
         const response: any = await getNotifications({
           skip: 0,
           limit: 1,
           status: 'uncleared'
-        });
+        } as any);
         
-        const count = response?.count || 0;
+        const count = response?.count !== undefined ? response.count : (Array.isArray(response) ? response.length : 0);
+        
         setNotificationsCount(count);
         setToggleNotification(count > 0);
       } catch (error) {
