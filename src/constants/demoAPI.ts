@@ -1,4 +1,4 @@
-import { SellerItem, StockLevelType } from "./types";
+import { SellerItem, StockLevelType, PaginatedResponse, PartialOrderType, OrderStatusType, FulfillmentType } from "./types";
 
 export const itemData = {
   seller: {
@@ -30,7 +30,7 @@ export const PiFestJson = {
     review_receiver_id: "rcvid456",
     review_giver_id: "gvid798",
     reply_to_review_id: "repid321",
-    rating: 1, //this is enum object
+    rating: 1, 
     comment: "I am happy to let you all know that consumer to seller relationship is good.",
     image: "/images/shared/upload.png",
     review_date: "23 Oct. 2023 01:00pm",
@@ -39,7 +39,7 @@ export const PiFestJson = {
   Seller: {
     seller_id: 'user_id',
     name: 'User ID',
-    description: 'I sell using pay with pi', //default value
+    description: 'I sell using pay with pi', 
     image: '/images/logo.svg',
     phone: '+234 567 8910',
     email: 'selleremail@example.com',
@@ -52,10 +52,7 @@ export const PiFestJson = {
     coordinates: {
       type: "Point",
       coordinates: [
-        [
-            125.6,
-            10.1
-        ],
+        [125.6, 10.1],
       ]
     },
     order_online_enabled_pref: true,
@@ -64,7 +61,7 @@ export const PiFestJson = {
   }
 };
 
-export const SellerItems:SellerItem[] = [
+export const SellerItems: SellerItem[] = [
   {
     seller_id: '01',
     name: "Ham & cheese sandwich",
@@ -105,3 +102,37 @@ export const SellerItems:SellerItem[] = [
     expired_by: new Date()
   }, 
 ];
+
+// ========================
+// PAGINATED DEMO DATA
+// ========================
+
+/**
+ * بيانات تجريبية لمحاكاة استجابة الـ Pagination لطلبات البائع.
+ * تُستخدم لاختبار الـ Infinite Scroll في البيئة التطويرية.
+ */
+export const MockPaginatedOrders: PaginatedResponse<PartialOrderType> = {
+  docs: [
+    {
+      _id: "ord_001",
+      buyer_id: { pi_username: "Pioneer_Alpha" },
+      seller_id: { name: "Central Mall" },
+      total_amount: { $numberDecimal: 15.5 },
+      status: OrderStatusType.Pending,
+      fulfillment_method: FulfillmentType.CollectionByBuyer,
+      buyer_fulfillment_description: "Pickup at 2 PM",
+      seller_fulfillment_description: "Items ready at counter",
+      createdAt: new Date()
+    },
+    // يمكن تكرار العناصر هنا لمحاكاة قائمة طويلة
+  ],
+  totalDocs: 50,
+  limit: 10,
+  totalPages: 5,
+  page: 1,
+  pagingCounter: 1,
+  hasPrevPage: false,
+  hasNextPage: true,
+  prevPage: null,
+  nextPage: 2
+};
