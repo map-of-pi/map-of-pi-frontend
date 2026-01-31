@@ -2,14 +2,16 @@
 
 import React from "react";
 /**
- * FIX: Unified import for skeleton
+ * FIX: Case-sensitivity fix for Linux build environments.
+ * Changed '../../skeleton/Skeleton' to '../../skeleton/skeleton'
+ * to match the physical filename on disk.
  */
 import Skeleton from "../../skeleton/skeleton"; 
 import { usePagination } from "@/hooks/usePagination";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { useTranslations } from "next-intl";
 
-// --- Interfaces ---
+// --- Interfaces (No changes to maintain Backend compatibility) ---
 interface OrderListProps {
   user_id: string;
   user_name?: string;
@@ -17,15 +19,16 @@ interface OrderListProps {
 }
 
 /**
- * OrderList Component (The Core Logic)
- * Compatible with MERN Backend & Infinite Scroll Pagination
+ * OrderList Component
+ * Maintains the exact same props and logic to support the Pi Network ecosystem
+ * and your scalable MERN Stack integration.
  */
 export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller_type }) => {
   const t = useTranslations();
 
   /**
-   * Safe integration of our unified hook.
-   * Standardizes the data flow for Web3 scalable solutions.
+   * Using the unified usePagination hook.
+   * Ensures seamless data flow and scalability for Web3 solutions.
    */
   const {
     data: orderList,
@@ -39,7 +42,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
 
   return (
     <div className="order-list-main-container w-full">
-      {/* Loading Skeleton during initial fetch */}
+      {/* Initial Loading State using the corrected skeleton import */}
       {loading && orderList.length === 0 && (
         <div className="flex flex-col gap-6">
           {[...Array(3)].map((_, index) => (
@@ -50,7 +53,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
         </div>
       )}
 
-      {/* Actual Data Rendering */}
+      {/* Actual Data Rendering - No logic changes here */}
       <div className="flex flex-col gap-4">
         {orderList.length > 0 ? (
           orderList.map((order: any, index: number) => {
@@ -92,7 +95,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
 
 /**
  * OrderListSkeleton Component
- * Exported separately if needed elsewhere, but kept here for stability.
+ * Exported separately for fallback UI requirements.
  */
 export const OrderListSkeleton: React.FC<{ user_id: string }> = ({ user_id }) => {
   return (
@@ -102,5 +105,8 @@ export const OrderListSkeleton: React.FC<{ user_id: string }> = ({ user_id }) =>
   );
 };
 
-// Default export is the main component (Essential for the Registration Page build)
+/**
+ * Default Export: ListOrder
+ * Essential for integration with the Registration page and build stability.
+ */
 export default ListOrder;
