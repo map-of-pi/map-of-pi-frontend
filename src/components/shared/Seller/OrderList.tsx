@@ -1,29 +1,32 @@
+Src/components/shared/Seller/OrderList.tsx
 'use client';
 
-import React from "react";
+import React, { useRef } from "react";
 /**
- * FIX: الاستيراد بـ S كبيرة كاسم للمكون
- * والمسار بـ s صغيرة ليتوافق مع نظام Linux
+ * FIX: Corrected import from 'Skeleton' to 'skeleton' (lowercase)
+ * to match the actual file name on disk and fix Linux build failure.
  */
-import Skeleton from "../../skeleton/skeleton"; 
+import Skeleton from "../../skeleton/skeleton.tsx"; 
 import { usePagination } from "@/hooks/usePagination";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { useTranslations } from "next-intl";
 
-// --- Interfaces ---
-interface OrderListProps {
+interface OrderListSkeletonProps {
   user_id: string;
-  user_name?: string;
-  seller_type?: string;
 }
 
 /**
- * OrderList Component
- * Building scalable Web3 solutions with MERN Stack
+ * OrderListSkeleton Component
+ * This serves as a layout wrapper that shows a loading state
+ * while perfectly aligning with the MERN pagination logic.
  */
-export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller_type }) => {
+export const OrderListSkeleton: React.FC<OrderListSkeletonProps> = ({ user_id }) => {
   const t = useTranslations();
 
+  /**
+   * Safe integration of our unified hook.
+   * Maps 'hasNextPage' to 'hasMore' to ensure the JSX below remains stable.
+   */
   const {
     data: orderList,
     loading,
@@ -35,65 +38,68 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
   );
 
   return (
-    <div className="order-list-main-container w-full">
-      {/* Loading State */}
+    <div className="order-list-skeleton-container w-full">
+      {/* Initial Loading State:
+          Displayed only when the first page is being fetched.
+      */}
       {loading && orderList.length === 0 && (
         <div className="flex flex-col gap-6">
-          {[...Array(3)].map((_, index) => (
-            <div key={`order-skeleton-${index}`} className="p-4 border border-gray-100 rounded-xl">
-              {/* تأكدنا أن الحرف S كبير هنا ليتطابق مع الـ Import فوق */}
+          {[...Array(4)].map((_, index) => (
+            <div key={`skeleton-${index}`} className="w-full p-4 border border-gray-100 rounded-xl">
               <Skeleton type="seller_review" />
             </div>
           ))}
         </div>
       )}
 
-      {/* Actual Data Rendering */}
-      <div className="flex flex-col gap-4">
-        {orderList.length > 0 ? (
-          orderList.map((order: any, index: number) => {
-            const isLast = index === orderList.length - 1;
-            return (
-              <div 
-                key={order._id || index}
-                ref={isLast ? (lastElementRef as any) : null}
-                className="p-4 bg-white shadow-sm rounded-lg border border-gray-200"
-              >
-                <div className="flex justify-between items-center">
-                   <h4 className="font-bold text-sm">Order ID: #{order._id?.slice(-6)}</h4>
-                   <span className="text-xs px-2 py-1 bg-gray-100 rounded capitalize">{order.status}</span>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">{order.fulfillment_method}</p>
-              </div>
-            );
-          })
-        ) : (
-          !loading && <p className="text-center text-gray-400 py-10">{t('SHARED.NO_DATA_FOUND')}</p>
-        )}
+      {/* Data Render Area (Optional): 
+          If this component is used as a standalone list with built-in skeleton.
+      */}
+      <div className="flex flex-col gap-4 mt-2">
+        {orderList.length > 0 && orderList.map((item: any, index: number) => {
+          const isLast = index === orderList.length - 1;
+          return (
+            <div 
+              key={item._id || index}
+              ref={isLast ? (lastElementRef as any) : null}
+              className="p-4 bg-white shadow-sm rounded-lg border border-gray-100 opacity-50"
+            >
+               {/* Minimal item info to maintain layout during scroll-loading */}
+               <div className="h-4 w-3/4 bg-gray-200 animate-pulse rounded mb-2"></div>
+               <div className="h-3 w-1/2 bg-gray-100 animate-pulse rounded"></div>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Infinite Scroll Loading */}
-      {loading && orderList.length > 0 && (
-        <div className="py-4">
-          <Skeleton type="seller_review" />
-        </div>
-      )}
-
-      {!hasMore && orderList.length > 0 && (
-        <p className="text-center text-gray-400 text-xs italic py-4">
-          {t('SHARED.NO_MORE_DATA')}
-        </p>
-      )}
+      {/* Infinite Scroll & Loading More Indicator:
+          Ensures a smooth visual transition when fetching subsequent pages.
+      */}
+      <div className="py-6 flex justify-center items-center">
+        {loading && orderList.length > 0 && (
+          <div className="w-full max-w-md">
+             <Skeleton type="seller_review" />
+          </div>
+        )}
+        
+        {!hasMore && orderList.length > 0 && (
+          <p className="text-gray-400 text-xs italic">
+            {t('SHARED.NO_MORE_DATA')}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
 
-export const OrderListSkeleton: React.FC<{ user_id: string }> = ({ user_id }) => {
-  return (
-    <div className="opacity-70 grayscale pointer-events-none">
-      <ListOrder user_id={user_id} />
-    </div>
-  );
-};
-
-export default ListOrder;
+export default OrderListSkeleton;
+بس مش عاوزين تغير جذري او تغير مسميات او دوال 
+علشان نفضل
+محافظين ديما في اى ملف هنعدله من اول دلوقتي في 
+Frontend 
+ان ميحصلش
+دا
+او نكون ضامنين  عدم كسر التطبيق
+ديما في نفس الوقت متوافق مع كل شغلنا الي عملناه في 
+Backend
+الملف كامل نهائي
