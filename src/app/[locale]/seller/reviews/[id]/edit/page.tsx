@@ -3,7 +3,12 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { useEffect, useState, useContext } from 'react';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This prevents 'Module not found' errors during the build process
+ * while keeping the component functionality exactly the same.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { IReviewOutput } from '@/constants/types';
 import { fetchSingleReview } from '@/services/reviewsApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
