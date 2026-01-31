@@ -2,6 +2,11 @@ import axiosClient from "@/config/client";
 import { IMembership, MembershipOption } from "@/constants/types";
 import logger from "../../logger.config.mjs"
 
+/**
+ * fetchMembershipList
+ * Retrieves the available membership tiers and their respective options.
+ * Used for populating membership selection UI for Pioneers.
+ */
 export const fetchMembershipList = async (): Promise<MembershipOption[] | null> => {
   try {
     logger.info(`Fetching membership list`);
@@ -21,7 +26,11 @@ export const fetchMembershipList = async (): Promise<MembershipOption[] | null> 
   }
 };
 
-// Fetch current user’s membership
+/**
+ * fetchMembership
+ * Retrieves the current membership status of the authenticated user.
+ * Essential for gatekeeping premium features and seller dashboard access.
+ */
 export const fetchMembership = async (): Promise<IMembership | null> => {
   try {
     logger.info(`Fetching user membership`);
