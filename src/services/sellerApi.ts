@@ -113,11 +113,17 @@ export const registerSeller = async (formData: FormData) => {
 
 /**
  * Fetch all catalog items for a specific merchant.
+ * Enhanced to support pagination via query parameters while maintaining backward compatibility.
  */
-export const fetchSellerItems = async (sellerId: string) => {
+export const fetchSellerItems = async (sellerId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching seller items associated with sellerID: ${sellerId}`);
-    const response = await axiosClient.get(`/sellers/item/${sellerId}`);
+    logger.info(`Fetching paginated seller items associated with sellerID: ${sellerId}, Page: ${page}`);
+    
+    // Using params object to ensure query strings (?page=X&limit=Y) are correctly appended
+    const response = await axiosClient.get(`/sellers/item/${sellerId}`, {
+      params: { page, limit }
+    });
+
     if (response.status === 200) {
       logger.info(`Fetch seller items successful with Status ${response.status}`, {
         data: response.data
