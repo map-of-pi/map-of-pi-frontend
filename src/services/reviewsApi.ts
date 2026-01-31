@@ -2,15 +2,16 @@ import axiosClient from "@/config/client";
 import { getMultipartFormDataHeaders } from "@/utils/api";
 import logger from '../../logger.config.mjs';
 
-// Fetch a single review for a seller
+/**
+ * Fetch a single review by ID.
+ * Remained unchanged to ensure system stability.
+ */
 export const fetchSingleReview = async (reviewID: string) => {
   try {
     logger.info(`Fetching single review with ID: ${reviewID}`);
     const response = await axiosClient.get(`/review-feedback/single/${reviewID}`);
     if (response.status === 200) {
-      logger.info(`Fetch single review successful with Status ${response.status}`, {
-        data: response.data
-      });
+      logger.info(`Fetch single review successful with Status ${response.status}`, { data: response.data });
       return response.data;
     } else {
       logger.error(`Fetch single review failed with Status ${response.status}`);
@@ -22,17 +23,18 @@ export const fetchSingleReview = async (reviewID: string) => {
   }
 };
   
-// Fetch reviews for a seller
-export const fetchReviews = async (userId:string, searchQuery:string='') => {
+/**
+ * Fetch paginated reviews for a seller.
+ * Updated to support backend pagination while maintaining backward compatibility via default parameters.
+ */
+export const fetchReviews = async (userId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching reviews for seller with ID: ${userId}`);
+    logger.info(`Fetching paginated reviews for user with ID: ${userId}`);
     const response = await axiosClient.get(`/review-feedback/${userId}`, {
-      params: { searchQuery },
+      params: { page, limit }, // Injects pagination coordinates into the query string
     });
     if (response.status === 200) {
-      logger.info(`Fetch reviews successful with Status ${response.status}`, {
-        data: response.data
-      });
+      logger.info(`Fetch reviews successful with Status ${response.status}`, { data: response.data });
       return response.data;
     } else {
       logger.error(`Fetch reviews failed with Status ${response.status}`);
@@ -44,18 +46,17 @@ export const fetchReviews = async (userId:string, searchQuery:string='') => {
   }
 };
   
-// Create a new review
+/**
+ * Create a new review feedback using multipart form data.
+ */
 export const createReview = async (formData: FormData) => {
   try {
     logger.info('Creating a new review with formData..');
     const headers = getMultipartFormDataHeaders();
-
     const response = await axiosClient.post('/review-feedback/add', formData, { headers });
     
     if (response.status === 200) {
-      logger.info(`Create review successful with Status ${response.status}`, {
-        data: response.data
-      });
+      logger.info(`Create review successful with Status ${response.status}`, { data: response.data });
       return response.data;
     } else {
       logger.error(`Create review failed with Status ${response.status}`);
@@ -67,22 +68,17 @@ export const createReview = async (formData: FormData) => {
   }
 };
 
-// Update an existing review
+/**
+ * Update an existing review by ID.
+ */
 export const updateReview = async (review_id: string, formData: FormData) => {
   try {
     logger.info(`Updating review with ID: ${review_id}`, formData);
     const headers = getMultipartFormDataHeaders();
-
-    const response = await axiosClient.put(
-      `/review-feedback/update/${review_id}`,
-      formData,
-      { headers }
-    );
+    const response = await axiosClient.put(`/review-feedback/update/${review_id}`, formData, { headers });
 
     if (response.status === 200) {
-      logger.info(`Update review successful with Status ${response.status}`, {
-        data: response.data
-      });
+      logger.info(`Update review successful with Status ${response.status}`, { data: response.data });
       return response.data;
     } else {
       logger.error(`Update review failed with Status ${response.status}`);
