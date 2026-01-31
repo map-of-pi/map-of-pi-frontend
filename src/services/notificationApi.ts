@@ -7,12 +7,14 @@ import logger from '../../logger.config.mjs';
  * Interface for the standardized pagination response.
  * Perfectly mirrors the MERN backend pagination middleware output.
  */
-interface NotificationPaginationResponse {
+export interface NotificationPaginationResponse {
   docs: NotificationType[];
   totalDocs: number;
   limit: number;
   page: number;
   totalPages: number;
+  // Adding count as an optional fallback for frontend compatibility
+  count?: number; 
 }
 
 /**
@@ -40,10 +42,15 @@ export const getNotifications = async (
 
     if (response.status === 200) {
       // Direct mapping to ensures the usePagination hook receives the expected structure
-      return response.data;
+      // We ensure 'count' exists for the Context provider fallback
+      const data = response.data;
+      return {
+        ...data,
+        count: data.totalDocs || (data.docs ? data.docs.length : 0)
+      };
     } else {
       logger.warn(`Fetch notifications returned non-200 status: ${response.status}`);
-      return { docs: [], totalDocs: 0, limit, page, totalPages: 0 };
+      return { docs: [], totalDocs: 0, limit, page, totalPages: 0, count: 0 };
     }
   } catch (error) {
     logger.error('Get notifications encountered an error:', error);
