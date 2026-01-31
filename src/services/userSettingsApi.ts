@@ -2,7 +2,11 @@ import axiosClient from "@/config/client";
 import { getMultipartFormDataHeaders } from "@/utils/api";
 import logger from '../../logger.config.mjs';
 
-// Fetch the user settings of the user
+/**
+ * fetchUserSettings
+ * Retrieves the current authenticated user's preferences.
+ * Uses a POST request to sync session data with user settings.
+ */
 export const fetchUserSettings = async () => {
   try {
     logger.info('Fetching user settings..');
@@ -22,7 +26,11 @@ export const fetchUserSettings = async () => {
   }
 };
 
-// Fetch a single pioneer user settings
+/**
+ * fetchSingleUserSettings
+ * Fetches preference data for a specific seller/pioneer.
+ * @param sellerId - The target user's unique identifier.
+ */
 export const fetchSingleUserSettings = async (sellerId: String) => {
   try {
     logger.info(`Fetching user settings for seller ID: ${sellerId}`);
@@ -42,7 +50,11 @@ export const fetchSingleUserSettings = async (sellerId: String) => {
   }
 };
 
-// Create new or update existing user settings
+/**
+ * createUserSettings
+ * Handles the creation or update of user profiles including profile pictures via FormData.
+ * Utilizes multipart headers for successful asset handling in the Pi Browser.
+ */
 export const createUserSettings = async (formData: FormData) => {
   try {
     logger.info('Creating or updating user settings with formData..');
@@ -65,7 +77,11 @@ export const createUserSettings = async (formData: FormData) => {
   }
 };
 
-// Fetch the user location of the user
+/**
+ * fetchUserLocation
+ * Retrieves the stored geographic coordinates for the user.
+ * Essential for centering the Map component on the user's last known position.
+ */
 export const fetchUserLocation = async () => {
   try {
     logger.info('Fetching user location..');
