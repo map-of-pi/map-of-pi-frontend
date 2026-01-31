@@ -1,4 +1,3 @@
-Src/components/shared/Seller/OrderList.tsx
 'use client';
 
 import React, { useRef } from "react";
