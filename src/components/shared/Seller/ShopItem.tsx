@@ -14,6 +14,10 @@ import { getStockLevelOptions } from "@/utils/translate";
 import { AppContext } from "../../../../context/AppContextProvider";
 import logger from '../../../../logger.config.mjs';
 
+/**
+ * Main OnlineShopping Component
+ * Handles the listing and management of seller products with pagination.
+ */
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
   const [dbSellerItems, setDbSellerItems] = useState<SellerItem[]>([]);
@@ -21,14 +25,14 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const [focusedItemId, setFocusedItemId] = useState<string | null>(null);
   const [isNewItem, setIsNewItem] = useState<boolean>(false);
   
-  // Pagination State
+  // Pagination State for Infinite Scroll
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  // Optimized observer to handle both focus and infinite scroll
+  // Optimized observer to handle both focus management and infinite scroll
   const handleShopItemRef = useCallback((node: HTMLElement | null) => {
     if (isLoading) return;
     if (observer.current) observer.current.disconnect();
@@ -38,7 +42,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
         const itemId = entries[0].target.getAttribute("data-id");
         if (itemId) setFocusedItemId(itemId);
 
-        // Trigger pagination if it's the last item
+        // Logic to trigger next page load
         const isLastItem = entries[0].target.getAttribute("data-last") === "true";
         if (isLastItem && hasMore) {
           setPage((prevPage) => prevPage + 1);
@@ -49,15 +53,14 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
     if (node) observer.current.observe(node);
   }, [isLoading, hasMore]);
 
-  // Fetch items with pagination support
+  // Fetch items with pagination support from sellerApi
   const getSellerItems = async (seller_id: string, currentPage: number) => {
     if (isLoading) return;
     setIsLoading(true);
     try {
-      // fetchSellerItems updated in service to accept (id, page, limit)
       const data = await fetchSellerItems(seller_id, currentPage, 10); 
       
-      const newItems = data?.docs || data || []; // Handle both paginated and legacy response
+      const newItems = data?.docs || data || []; 
       const totalPages = data?.totalPages || 1;
 
       setDbSellerItems((prev) => currentPage === 1 ? newItems : [...prev, ...newItems]);
@@ -80,7 +83,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const handleUpdateItem = (updatedItem: SellerItem) => {
     setDbSellerItems((prev) => {
       if (updatedItem && (!updatedItem._id || !prev.some(i => i._id === updatedItem._id))) {
-        return [updatedItem, ...prev]; // Add new items to start
+        return [updatedItem, ...prev]; 
       }
       return prev.map((item) => item._id === updatedItem._id ? updatedItem : item);
     });
@@ -138,7 +141,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
             setIsAddItemEnabled={setIsAddItemEnabled}
             onUpdate={handleUpdateItem}
             onDelete={handleDeleteItem}
-            isLast={index === dbSellerItems.length - 1} // Mark for pagination
+            isLast={index === dbSellerItems.length - 1} 
           /> 
         ))}
         {isLoading && <div className="p-4 self-center text-gray-400">Loading...</div>}
@@ -147,7 +150,9 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   );
 }
 
-// --- ShopItem Component (Same structure, added isLast prop) ---
+/**
+ * ShopItem Component for Merchant Administration
+ */
 export const ShopItem: React.FC<{
   existingItem: SellerItem;
   isActive: boolean;
@@ -261,7 +266,7 @@ export const ShopItem: React.FC<{
       <div
         ref={refCallback}
         data-id={item._id}
-        data-last={isLast ? "true" : "false"} // Attribute for intersection observer logic
+        data-last={isLast ? "true" : "false"} 
         className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer min-w-[320px] 
           ${isActive ? '' : 'opacity-50 pointer-events-none'}`}
       >
@@ -285,10 +290,73 @@ export const ShopItem: React.FC<{
             <Button label={t('SHARED.DELETE')} disabled={!isActive} styles={{ color: '#ffc153', height: '40px', width: "100%" }} onClick={() => setShowPopup(true)} />
             <Button label={t('SHARED.SAVE')} disabled={!isActive || isSaveLoading} styles={{ color: '#ffc153', height: '40px', width: "100%" }} onClick={handleSave} />
           </div>
-          {item?.expired_by && <div className="mt-3"><label className="text-[14px] text-[#333333]"><span className="fw-bold text-lg">{sellingStatus}: </span>{t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_EXPIRATION_DATE', { expired_by_date: formattedDate })}</label></div>}
         </div>
       </div>
       {showPopup && <ConfirmDialogX toggle={() => setShowPopup(false)} handleClicked={() => handleDelete(formData._id)} message={t('SHARED.CONFIRM_DELETE')} />}
     </>
+  );
+};
+
+/**
+ * ListItem Component for Buyer View
+ * This was missing the 'export' keyword which caused the build error.
+ */
+export const ListItem: React.FC<{
+  item: SellerItem;
+  pickedItems: PickedItems[],
+  setPickedItems: React.Dispatch<SetStateAction<PickedItems[]>>
+  totalAmount: number,
+  setTotalAmount: React.Dispatch<SetStateAction<number>>
+  refCallback: (node: HTMLElement | null) => void;
+}> = ({ item, refCallback, setPickedItems, pickedItems = [], totalAmount, setTotalAmount }) => {
+  const t = useTranslations();
+  const [quantity, setQuantity] = useState<number>(1);
+
+  useEffect(() => {
+    setQuantity(1);
+  }, [item]);
+
+  const handlePicked = (itemId: string, price: number): void => {
+    setPickedItems((prev) => {
+      const existingItem = prev.find((i) => i.itemId === itemId);
+      let newTotalAmount = totalAmount;
+      if (existingItem) {
+        newTotalAmount -= price * existingItem.quantity;
+        setTotalAmount(newTotalAmount);
+        return prev.filter((i) => i.itemId !== itemId);
+      } else {
+        newTotalAmount += price * quantity;
+        setTotalAmount(newTotalAmount);
+        return [...prev, { itemId, quantity }];
+      }
+    });
+  };
+
+  const handleIncrement = () => setQuantity((prev) => prev + 1);
+  const handleDecrement = () => setQuantity((prev) => Math.max(1, prev - 1));
+
+  const isPicked = pickedItems.find((picked) => picked.itemId === item._id);
+
+  return (
+    <div ref={refCallback} data-id={item._id} className={`relative outline outline-50 outline-gray-600 rounded-lg mb-4 ${isPicked ? 'bg-yellow-100' : ''}`}>
+      <div className="p-3">
+        <div className="flex gap-x-4">
+          <div className="flex-auto w-64"><Input label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.ITEM_LABEL') + ':'} value={item.name} disabled={true} /></div>
+          <div className="flex-auto w-32"><div className="flex items-center gap-2"><Input label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'} value={item.price?.$numberDecimal || item.price.toString()} disabled={true} /><p className="text-gray-500 text-sm">π</p></div></div>
+        </div>
+        <div className="flex gap-x-4 mt-2">
+          <div className="flex-auto w-64"><TextArea label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL') + ':'} value={item.description} disabled={true} styles={{ maxHeight: '100px' }} /></div>
+          <div className="flex-auto w-32 gap-2"><label className="block text-[17px] text-[#333333]">{t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO') + ':'}</label><Image src={item.image || ''} height={50} width={50} alt="image" className={'h-[100px] w-auto'} /></div>
+        </div>
+        <div className="flex items-center gap-4 w-full mt-3">
+          <div className="flex gap-2 items-center">
+            <button className={`w-10 h-10 rounded-full font-bold ${isPicked ? 'bg-gray-400' : 'bg-primary text-[#ffc153]'}`} onClick={handleDecrement} disabled={!!isPicked}>-</button>
+            <input type="number" value={quantity} className="w-16 p-2 text-center border-2 rounded-xl" disabled={!!isPicked} readOnly />
+            <button className={`w-10 h-10 rounded-full font-bold ${isPicked ? 'bg-gray-400' : 'bg-primary text-[#ffc153]'}`} onClick={handleIncrement} disabled={!!isPicked}>+</button>
+          </div>
+          <Button label={isPicked ? t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.UNPICK_LABEL') : t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PICK_LABEL')} styles={{ color: '#ffc153', width: '100%' }} onClick={() => handlePicked(item._id, parseFloat(item.price.$numberDecimal))} />
+        </div>
+      </div>
+    </div>
   );
 };
