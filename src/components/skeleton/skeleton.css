@@ -1,3 +1,4 @@
+/* Existing pulse animation for standard skeletons */
 .skeleton {
   animation: skeleton 1s ease infinite alternate;
 }
@@ -8,10 +9,41 @@
   }
 }
 
+/* Default background for skeleton sub-elements */
 .skeleton div {
   background-color: #c6c6c6;
 }
 
+/* Utility to override backgrounds when needed */
 .my-bg-trans {
   background-color: transparent !important;
+}
+
+/* ============================================================
+   NEW UTILITIES FOR INFINITE SCROLL & PAGINATION
+   ============================================================ */
+
+/**
+ * Enhanced shimmer effect for new Order and Review skeletons.
+ * Provides a modern "pulse" feel without breaking legacy .skeleton class.
+ */
+.skeleton-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background-color: #e5e7eb; /* tailwind gray-200 equivalent */
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/**
+ * Utility for rounded corners to match the Map-of-Pi dashboard design.
+ */
+.skeleton-rounded {
+  border-radius: 0.5rem; /* 8px */
 }
