@@ -42,7 +42,6 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
   const sellerId = params.id;
 
   const { currentUser, authenticateUser, reload, setReload, showAlert } = useContext(AppContext);
-  const observerTarget = useRef<HTMLDivElement>(null); // New target for observer
 
   const [sellerShopInfo, setSellerShopInfo] = useState<ISeller | null>(null);
   const [sellerSettings, setSellerSettings] = useState<IUserSettings | null>(null);
@@ -56,16 +55,20 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
   const [showCheckoutStatus, setShowCheckoutStatus] = useState(false);
   const [checkoutStatusMessage, setCheckoutStatusMessage] = useState<string>('');
 
-  // Infinite Scroll Hook for Seller Items
+  /**
+   * Safe Pagination for Seller Items.
+   * Synchronized with our unified usePagination hook.
+   * Using 'hasNextPage: hasMore' to satisfy existing logic without breaking changes.
+   */
   const {
     data: dbSellerItems,
     loading: loadingItems,
-    hasMore
-  } = usePagination({
-    fetchData: (page) => fetchSellerItems(sellerShopInfo?.seller_id as string, page, 10),
-    dependency: sellerShopInfo?.seller_id,
-    observerTarget,
-  });
+    hasNextPage: hasMore,
+    lastElementRef // Using the unified callback ref instead of a manual observerTarget
+  } = usePagination<any>(
+    (page, limit) => fetchSellerItems(sellerShopInfo?.seller_id as string, page, limit),
+    10
+  );
 
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
@@ -88,7 +91,7 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
     getSellerInitialData();
   }, [sellerId]);
 
-  // Existing Checkout Logic (No changes to maintain stability)
+  // Existing Checkout Logic (Maintained for stability)
   const checkoutOrder = async () => {
     if (!currentUser?.pi_uid) return;
     const newOrderData = {
@@ -123,7 +126,6 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
       {sellerShopInfo && (
         <>
           <div className="flex gap-4 align-center mb-6 relative">
-             {/* ... Existing Seller Profile UI ... */}
              <div className="rounded-[50%] w-[65px] h-[65px] relative">
                 <Image className="rounded-[50%]" src={sellerShopInfo.image || '/images/logo.svg'} alt="logo" fill style={{objectFit: 'contain'}} />
              </div>
@@ -136,25 +138,33 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
           {/* Online Shopping Section with Infinite Scroll */}
           {isOnlineShoppingEnabled && (
             <ToggleCollapse header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL')} open={true}>
-              <div className="overflow-x-auto mb-7 mt-3 flex p-2 gap-x-5 w-full">
-                {dbSellerItems.map((item) => (
-                  <ListItem 
-                    key={item._id} 
-                    item={item} 
-                    pickedItems={pickedItems} 
-                    setPickedItems={setPickedItems} 
-                    totalAmount={totalAmount} 
-                    setTotalAmount={setTotalAmount} 
-                  />
-                ))}
+              <div className="overflow-x-auto mb-7 mt-3 flex p-2 gap-x-5 w-full scrollbar-hide">
+                {dbSellerItems.map((item, index) => {
+                  const isLast = index === dbSellerItems.length - 1;
+                  return (
+                    <div 
+                      key={item._id} 
+                      ref={isLast ? (lastElementRef as any) : null}
+                    >
+                      <ListItem 
+                        item={item} 
+                        pickedItems={pickedItems} 
+                        setPickedItems={setPickedItems} 
+                        totalAmount={totalAmount} 
+                        setTotalAmount={setTotalAmount} 
+                      />
+                    </div>
+                  );
+                })}
                 
-                {/* Loader & Trigger for next page */}
-                <div ref={observerTarget} className="min-w-[50px] flex items-center justify-center">
-                  {loadingItems && <div className="animate-spin">🌀</div>}
-                </div>
+                {/* Loader showing while fetching more */}
+                {loadingItems && (
+                  <div className="min-w-[150px] flex items-center justify-center">
+                    <div className="animate-spin text-primary">🌀</div>
+                  </div>
+                )}
               </div>
 
-              {/* Fulfillment & Checkout UI ... */}
               <div className="mb-4 mt-3 ml-auto">
                 <Button 
                    label={`${t('SHARED.CHECKOUT')} (${totalAmount.toFixed(3)} π)`}
@@ -166,7 +176,6 @@ export default function BuyFromSellerForm({ params }: { params: { id: string } }
             </ToggleCollapse>
           )}
 
-          {/* Contact Details ... */}
           <ToggleCollapse header={t('SCREEN.BUY_FROM_SELLER.SELLER_CONTACT_DETAILS_LABEL')}>
              <p className="text-sm"><strong>{t('SHARED.USER_INFORMATION.PI_USERNAME_LABEL')}:</strong> {sellerInfo?.pi_username}</p>
           </ToggleCollapse>
