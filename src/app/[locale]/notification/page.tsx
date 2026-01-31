@@ -53,8 +53,9 @@ export default function NotificationPage() {
     try {
       await updateNotification(id);
       // Background sync for badges
-      const response = await getNotifications(1, 1, 'uncleared');
-      setNotificationsCount(response.totalDocs);
+      const response: any = await getNotifications(1, 1, 'uncleared');
+      // Using totalDocs or count based on what the API returns
+      setNotificationsCount(response?.totalDocs || response?.count || 0);
     } catch (error) {
       logger.error('Error updating notification:', error);
       // Rollback on failure
@@ -91,8 +92,10 @@ export default function NotificationPage() {
                 key={notify._id}
                 notification={notify}
                 onToggleClear={handleUpdateNotification}
-                // Attach the observer to the last element of the list
-                refCallback={isLastElement ? lastElementRef : undefined}
+                /* FIX: Passing an empty arrow function instead of undefined 
+                   to satisfy TypeScript strict type checking for the refCallback prop.
+                */
+                refCallback={isLastElement ? lastElementRef : (() => {})}
               />
             );
           })
