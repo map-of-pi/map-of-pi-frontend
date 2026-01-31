@@ -8,7 +8,11 @@ import { resolveRating } from '../util/ratingUtils';
 import { OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves 'Module not found' without breaking the existing skeleton logic.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
@@ -201,7 +205,7 @@ function SellerReviews({
                </div>
             </div>
           ))}
-          {loadingReceived && <Skeleton type='seller_review' />}
+          {receivedReviews.length > 0 && loadingReceived && <Skeleton type='seller_review' />}
         </ToggleCollapse>
       </div>
     </>
