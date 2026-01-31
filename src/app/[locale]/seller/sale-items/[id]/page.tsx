@@ -12,7 +12,11 @@ import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
 import { ListItem } from '@/components/shared/Seller/ShopItem';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the Webpack 'Module not found' error while preserving the existing UI flow.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import {
   ISeller,
   IUserSettings,
