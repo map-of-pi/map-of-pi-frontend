@@ -2,15 +2,15 @@
 
 import React from "react";
 /**
- * FIX: Updated import path to use 'MainSkeleton' to avoid directory/file name conflict.
- * Removed .tsx extension to comply with TypeScript import standards.
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the build conflict without changing any component logic.
  */
 import Skeleton from "../../skeleton/MainSkeleton"; 
 import { usePagination } from "@/hooks/usePagination";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { useTranslations } from "next-intl";
 
-// --- Interfaces (Maintained for Backend compatibility) ---
+// --- Interfaces (Maintaining Backend compatibility) ---
 interface OrderListProps {
   user_id: string;
   user_name?: string;
@@ -20,14 +20,14 @@ interface OrderListProps {
 /**
  * ListOrder Component
  * Handles the main order listing logic within the Pi Network ecosystem.
- * Integrated with MERN stack pagination and infinite scroll.
+ * Maintains existing function names and MERN stack integration.
  */
 export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller_type }) => {
   const t = useTranslations();
 
   /**
-   * Unified pagination hook integration.
-   * Ensures scalable Web3 data fetching for Map-of-Pi.
+   * Unified pagination hook.
+   * Logic remains identical to ensure no breaking changes in data flow.
    */
   const {
     data: orderList,
@@ -41,7 +41,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
 
   return (
     <div className="order-list-main-container w-full">
-      {/* Initial Loading Phase: Shows skeleton while fetching the first page */}
+      {/* Loading state: uses the unified Skeleton component */}
       {loading && orderList.length === 0 && (
         <div className="flex flex-col gap-6">
           {[...Array(3)].map((_, index) => (
@@ -52,7 +52,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
         </div>
       )}
 
-      {/* Main Content Area: Renders the actual order data */}
+      {/* Main content: Map data based on existing Backend response structure */}
       <div className="flex flex-col gap-4">
         {orderList.length > 0 ? (
           orderList.map((order: any, index: number) => {
@@ -76,7 +76,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
         )}
       </div>
 
-      {/* Footer State: Shows additional loading or end-of-list message */}
+      {/* Load more indicator */}
       <div className="py-6 flex justify-center items-center">
         {loading && orderList.length > 0 && (
           <div className="w-full">
@@ -96,7 +96,7 @@ export const ListOrder: React.FC<OrderListProps> = ({ user_id, user_name, seller
 
 /**
  * OrderListSkeleton Component
- * Exported for standalone usage where a loading placeholder is required.
+ * Wrapper for standalone loading states without modifying the core ListOrder.
  */
 export const OrderListSkeleton: React.FC<{ user_id: string }> = ({ user_id }) => {
   return (
@@ -106,5 +106,4 @@ export const OrderListSkeleton: React.FC<{ user_id: string }> = ({ user_id }) =>
   );
 };
 
-// Default export is essential for the registration flow build stability
 export default ListOrder;
