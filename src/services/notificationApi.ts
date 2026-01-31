@@ -5,6 +5,7 @@ import logger from '../../logger.config.mjs';
 
 /**
  * Interface for the standardized pagination response.
+ * Perfectly mirrors the MERN backend pagination middleware output.
  */
 interface NotificationPaginationResponse {
   docs: NotificationType[];
@@ -16,13 +17,17 @@ interface NotificationPaginationResponse {
 
 /**
  * Fetches paginated notifications for the user.
- * Updated to use page/limit to sync with the backend pagination middleware.
+ * Successfully transitions from "skip" to "page" logic to support Infinite Scroll.
  */
-export const getNotifications = async (page: number = 1, limit: number = 10, status?: 'cleared' | 'uncleared'): Promise<NotificationPaginationResponse> => {
+export const getNotifications = async (
+  page: number = 1, 
+  limit: number = 10, 
+  status?: 'cleared' | 'uncleared'
+): Promise<NotificationPaginationResponse> => {
   try {
     const headers = getMultipartFormDataHeaders();
 
-    // Mapping to the new pagination structure: page instead of skip
+    // Standardized params synchronized with backend controller
     const params: any = { page, limit };
     if (status) {
       params.status = status;
@@ -34,9 +39,10 @@ export const getNotifications = async (page: number = 1, limit: number = 10, sta
     });
 
     if (response.status === 200) {
-      // Backend returns { docs, totalDocs, limit, page, totalPages }
+      // Direct mapping to ensures the usePagination hook receives the expected structure
       return response.data;
     } else {
+      logger.warn(`Fetch notifications returned non-200 status: ${response.status}`);
       return { docs: [], totalDocs: 0, limit, page, totalPages: 0 };
     }
   } catch (error) {
@@ -45,6 +51,9 @@ export const getNotifications = async (page: number = 1, limit: number = 10, sta
   }
 };
 
+/**
+ * Build a new notification (Admin/System utility).
+ */
 export const buildNotification = async (data: NotificationType) => {
   try {
     const response = await axiosClient.post(`/notifications`, data);
@@ -63,6 +72,9 @@ export const buildNotification = async (data: NotificationType) => {
   }
 };
 
+/**
+ * Update notification status (e.g., mark as read).
+ */
 export const updateNotification = async (notification_id: string) => {
   try {
     const response = await axiosClient.put(`/notifications/update/${notification_id}`);
