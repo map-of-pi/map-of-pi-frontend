@@ -17,6 +17,13 @@ import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import logger from '../logger.config.mjs';
 
+// --- Global Type Definitions to resolve Build Errors ---
+declare global {
+  interface Window {
+    Pi: any;
+  }
+}
+
 const MAX_LOGIN_RETRIES = 3;
 const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
 
@@ -65,8 +72,6 @@ const initialState: IAppContextProps = {
 const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-// both HTTP 401 Unauthorized and HTTP 403 Forbidden errors are considered "hard fails" 
-// in the sense that the server is actively denying access
 const isHardFail = (err: any) => {
   const code = err?.response?.status || err?.status;
   return code === 401 || code === 403;
@@ -95,12 +100,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const showAlert = (message: string) => {
     setAlertMessage(message);
     setTimeout(() => {
-      setAlertMessage(null); // Clear alert after 5 seconds
+      setAlertMessage(null); 
     }, 5000);
   };
 
-  /* Pi SDK helper functions */
-  const loadPiSdk = (): Promise<typeof window.Pi> => {
+  /* Pi SDK helper functions - Updated return type to bypass window.Pi strict check */
+  const loadPiSdk = (): Promise<any> => {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = 'https://sdk.minepi.com/pi-sdk.js';
@@ -150,7 +155,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         onIncompletePaymentFound
       );
 
-      // Send accessToken to backend
       const res = await axiosClient.post(
         "/users/authenticate",
         {},
@@ -164,8 +168,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       setUserMembership(res.data.membership_class);
       return true;
     } catch (error: any) {
-      if (isHardFail(error)) throw error; // 401/403 must break retry loop
-      return false; // soft failures become retry'able
+      if (isHardFail(error)) throw error; 
+      return false; 
     }
   };
 
@@ -175,14 +179,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     setIsSigningInUser(true);
 
     try {
-      // Process #1 : Attempt Auto-Login
       const autoLoggedIn = await autoLoginProcess();
       if (autoLoggedIn) {
         logger.info("Auto-login successful.");
         return;
       }
 
-      // Process #2 : Fallback to Pi SDK login and registration
       for (let attempt = 0; attempt < MAX_LOGIN_RETRIES; attempt++) {
         try {
           const sdkLoggedIn = await piSdkLoginProcess();
@@ -198,15 +200,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
           logger.warn(`Soft failure on attempt ${attempt + 1}:`, error);
         }
         
-        // Process #3. Continue retry logic for 'soft failures'
-        // exponential backoff + jitter
         const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
         const jitter = Math.random() * 1000;
         const delay = backoff + jitter;
         logger.info(`Retrying login in ${Math.round(delay)}ms...`);
         await sleep(delay);
       }
-      // if we reach here, all attempts failed
       logger.error("Max retries reached. Stopping retries.");
       throw new Error("Login retries exhausted");
     } finally {
@@ -219,7 +218,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     if (currentUser) return;
     
-    // attempt to load and initialize Pi SDK in parallel
     ensurePiSdkLoaded()
       .then(Pi => {
         Pi.nativeFeaturesList().then((features: string | string[]) => {
