@@ -1,5 +1,9 @@
 import React from 'react';
-import './skeleton.css';
+/**
+ * FIX: Updated CSS import path to match the new unique filename 'MainSkeleton.css'.
+ * This resolves the Webpack 'Module not found' error during production build.
+ */
+import './MainSkeleton.css'; 
 import { SkeletonSellerRegistration } from './seller/Registration';
 import { SkeletonSellerReview } from './seller/Review';
 import { SkeletonSellerItem } from './seller/SellerItem';
@@ -12,9 +16,10 @@ import { OrderSkeleton } from './seller/OrderSkeleton';
  * Skeleton Dispatcher Component
  * Returns the appropriate skeleton UI based on the 'type' prop.
  * Ensures visual stability during data fetching across the MERN stack.
+ * Maintained with legacy support for Map-of-Pi ecosystem stability.
  */
 function Skeleton(props : any) {
-  // Legacy cases preserved to ensure application stability
+  // Legacy cases preserved to ensure application stability and Backend compatibility
   if (props.type === "seller_registration") return <SkeletonSellerRegistration />;
   
   if (props.type === "seller_review") {
@@ -33,7 +38,7 @@ function Skeleton(props : any) {
     ));
   }
 
-  // New case to support Infinite Scroll in Order List (Backend Integration)
+  // Support for Infinite Scroll in Order List (Aligned with Backend Integration)
   if (props.type === "order_list_item") {
     return <OrderSkeleton />;
   }
