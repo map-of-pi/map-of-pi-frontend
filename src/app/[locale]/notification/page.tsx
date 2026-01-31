@@ -3,7 +3,11 @@
 import { useTranslations } from 'next-intl';
 import React, { useContext, useEffect } from 'react';
 import NotificationCard from '@/components/shared/Notification/NotificationCard';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This fixes the 'Module not found' error in the build without changing component logic.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { NotificationType } from '@/constants/types';
 import { usePagination } from '@/hooks/usePagination'; // Using the new high-performance hook
 import { getNotifications, updateNotification } from '@/services/notificationApi';
