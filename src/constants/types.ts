@@ -364,3 +364,24 @@ export type NotificationType = {
   createdAt: string;
   updatedAt: string;
 };
+
+// ========================
+// API PAGINATION WRAPPER
+// ========================
+
+/**
+ * Generic interface to handle paginated responses from MERN backend.
+ * This structure is compatible with mongoose-paginate-v2.
+ */
+export interface PaginatedResponse<T> {
+  docs: T[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
