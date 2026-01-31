@@ -5,6 +5,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
+/**
+ * FIX: Ensuring that if Skeleton is ever needed, it points to the new unique filename.
+ * This aligns with our project-wide fix to prevent 'Module not found' errors.
+ */
+import Skeleton from "@/components/skeleton/MainSkeleton";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
 import { fetchOrderById, updateOrderStatus, updateOrderItemStatus } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
