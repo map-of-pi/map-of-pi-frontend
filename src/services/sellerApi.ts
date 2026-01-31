@@ -2,12 +2,15 @@ import axiosClient from "@/config/client";
 import { getMultipartFormDataHeaders } from '@/utils/api';
 import logger from '../../logger.config.mjs';
 
-// Fetch all sellers or sellers within bounds and/ or matching search criteria
+/**
+ * Fetch all sellers within map bounds and/or matching search criteria.
+ * Core function for the Map view.
+ */
 export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string) => {
   try {
     logger.debug('Fetching sellers associated with bounds and search query:', { bounds, searchQuery });
     
-    // Prepare the request payload with bounds
+    // Prepare the request payload with bounds mapping
     const requestPayload: any = {
       bounds: {
         sw_lat: bounds.getSouthWest().lat,
@@ -37,7 +40,10 @@ export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string)
     throw new Error('Failed to fetch sellers. Please try again later.');
   }
 };
-  
+
+/**
+ * Fetch a single seller's public profile data.
+ */
 export const fetchSingleSeller = async (sellerId: string) => {
   try {
     logger.info(`Fetching single seller with ID: ${sellerId}`);
@@ -57,6 +63,9 @@ export const fetchSingleSeller = async (sellerId: string) => {
   }
 };
 
+/**
+ * Fetch authenticated seller's registration details.
+ */
 export const fetchSellerRegistration = async () => {
   try {
     logger.info('Fetching seller registration info..');
@@ -76,7 +85,10 @@ export const fetchSellerRegistration = async () => {
   }
 };
 
-// Register or update seller
+/**
+ * Register or update seller profile using multipart/form-data.
+ * Critical for handling merchant logos and license images.
+ */
 export const registerSeller = async (formData: FormData) => {
   try {
     logger.info('Creating or updating seller registration with formData..');
@@ -99,7 +111,9 @@ export const registerSeller = async (formData: FormData) => {
   }
 };
 
-// Fetch all seller items associated with the seller
+/**
+ * Fetch all catalog items for a specific merchant.
+ */
 export const fetchSellerItems = async (sellerId: string) => {
   try {
     logger.info(`Fetching seller items associated with sellerID: ${sellerId}`);
@@ -119,7 +133,9 @@ export const fetchSellerItems = async (sellerId: string) => {
   }
 };
 
-// Add or update seller item
+/**
+ * Add or update a product/item in the seller catalog.
+ */
 export const addOrUpdateSellerItem = async (formData: FormData) => {
   try {
     logger.info('Creating or updating seller item with formData..');
@@ -142,7 +158,9 @@ export const addOrUpdateSellerItem = async (formData: FormData) => {
   }
 };
 
-// Delete a seller item
+/**
+ * Permanently delete a seller item.
+ */
 export const deleteSellerItem = async (itemId: string) => {
   try {
     logger.info(`Deleting seller item with itemID: ${itemId}`);
@@ -161,4 +179,3 @@ export const deleteSellerItem = async (itemId: string) => {
     throw new Error('Failed to delete seller item. Please try again later.');
   }
 };
-  
