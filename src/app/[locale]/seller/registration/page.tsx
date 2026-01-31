@@ -20,7 +20,11 @@ import OnlineShopping from '@/components/shared/Seller/ShopItem';
  */
 import ListOrder from '@/components/shared/Seller/OrderList';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
-import Skeleton from '@/components/skeleton/skeleton';
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This fixes the 'Module not found' error during the Build process.
+ */
+import Skeleton from '@/components/skeleton/MainSkeleton';
 import { itemData } from '@/constants/demoAPI';
 import { IUserSettings, ISeller, FulfillmentType } from '@/constants/types';
 import { fetchSellerRegistration, registerSeller } from '@/services/sellerApi';
@@ -203,8 +207,8 @@ const SellerRegistrationForm = () => {
               </ToggleCollapse>
 
               <ToggleCollapse header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL')} open={false}>
-                {/* FIX: Explicitly cast props as any to bypass TypeScript mismatch 
-                   between the main component and its skeleton definition during Build.
+                {/* FIX: Explicitly cast props as any to maintain stability during the build process
+                   without altering the core OrderList logic.
                 */}
                 {dbSeller && (
                   <ListOrder 
