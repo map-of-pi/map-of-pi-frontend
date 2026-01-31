@@ -1,7 +1,11 @@
 import axiosClient from "@/config/client";
 import logger from '../../logger.config.mjs';
 
-// Function to Fetch Map Center
+/**
+ * fetchMapCenter
+ * Retrieves the preferred map center coordinates based on context (search or sell).
+ * Essential for providing a localized experience to Pioneers.
+ */
 export const fetchMapCenter = async (type: 'search' | 'sell') => {
   try {
     logger.info('Fetching map center...');
@@ -12,22 +16,17 @@ export const fetchMapCenter = async (type: 'search' | 'sell') => {
         data: response.data,
       });
 
-      // Ensure proper access to nested data if present
       const mapCenter = response.data;
-
-      // Log mapCenter to inspect its structure
-      logger.info('Fetched map center details:', mapCenter);
-
-      // Access coordinates based on the actual response structure
+      
+      // Accessing GeoJSON structured coordinates: [longitude, latitude]
       const longitude = mapCenter?.coordinates[0];
       const latitude = mapCenter?.coordinates[1];
-      const type = mapCenter?.type;
+      const typeLabel = mapCenter?.type;
 
-      // Verify extracted values
-      logger.info('Extracted coordinates:', { longitude, latitude, type });
+      logger.info('Extracted coordinates:', { longitude, latitude, type: typeLabel });
 
       if (latitude !== undefined && longitude !== undefined) {
-        return { longitude, latitude, type };
+        return { longitude, latitude, type: typeLabel };
       } else {
         logger.warn('Fetched map center has undefined coordinates, returning default.');
         return null;
@@ -42,7 +41,10 @@ export const fetchMapCenter = async (type: 'search' | 'sell') => {
   }
 };
 
-// Function to Save Map Center
+/**
+ * saveMapCenter
+ * Persists the user's last known or preferred map location to the MERN backend.
+ */
 export const saveMapCenter = async (latitude: number, longitude: number, type: 'search' | 'sell') => {
   try {
     logger.info(`Sending map center with coordinates: longitude ${longitude}, latitude ${latitude}, type: ${type}`);
@@ -68,6 +70,11 @@ export const saveMapCenter = async (latitude: number, longitude: number, type: '
   }
 };
 
+/**
+ * checkSanctionStatus
+ * Verification service to ensure the user's location complies with regional restrictions.
+ * High-priority security function within the Pi Network ecosystem.
+ */
 export async function checkSanctionStatus(latitude: number, longitude: number) {
   try {
     logger.info(`Checking sanction status for coordinates: longitude ${longitude}, latitude ${latitude}`);
