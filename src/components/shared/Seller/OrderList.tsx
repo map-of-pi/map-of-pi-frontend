@@ -6,7 +6,7 @@ import React from "react";
  * FIX: Case-sensitivity fix for Linux build environments.
  * The import path now matches the physical filename exactly.
  */
-import Skeleton from "../../skeleton/skeleton";
+import skeleton from "../../skeleton/skeleton";
 
 import { usePagination } from "@/hooks/usePagination";
 import { fetchSellerOrders } from "@/services/orderApi";
