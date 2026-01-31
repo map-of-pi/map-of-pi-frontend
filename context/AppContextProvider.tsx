@@ -17,7 +17,7 @@ import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import logger from '../logger.config.mjs';
 
-// --- Global Type Definitions to resolve Build Errors ---
+// Global declaration to fix "Property 'Pi' does not exist on type 'Window'"
 declare global {
   interface Window {
     Pi: any;
@@ -104,7 +104,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }, 5000);
   };
 
-  /* Pi SDK helper functions - Updated return type to bypass window.Pi strict check */
+  /* Pi SDK helper functions - Return type any to avoid strict window check errors */
   const loadPiSdk = (): Promise<any> => {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
@@ -234,11 +234,14 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     const fetchNotificationsCount = async () => {
       try {
-        const { count } = await getNotifications({
+        // Updated to handle pagination response while extracting count
+        const response: any = await getNotifications({
           skip: 0,
           limit: 1,
           status: 'uncleared'
         });
+        
+        const count = response?.count || 0;
         setNotificationsCount(count);
         setToggleNotification(count > 0);
       } catch (error) {
