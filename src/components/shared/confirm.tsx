@@ -4,6 +4,11 @@ import React, { SetStateAction } from 'react';
 import { createPortal } from 'react-dom';
 import { IoMdClose } from 'react-icons/io';
 
+/**
+ * ConfirmDialog Component
+ * Primary confirmation modal that handles navigation upon user approval.
+ * Uses React Portal to render outside the main DOM hierarchy for better overlay z-indexing.
+ */
 const ConfirmDialog = ({ show, onClose, message, url } : any) => {
   const t = useTranslations();
   const router = useRouter();
@@ -40,6 +45,10 @@ const ConfirmDialog = ({ show, onClose, message, url } : any) => {
   );
 };
 
+/**
+ * ConfirmDialogX Component
+ * Secondary variation of the confirm dialog that executes a direct handler instead of navigation.
+ */
 export const ConfirmDialogX = ({ toggle, handleClicked, message }:any) => {
   const t = useTranslations();
   
@@ -69,6 +78,10 @@ export const ConfirmDialogX = ({ toggle, handleClicked, message }:any) => {
   );
 }
 
+/**
+ * Notification Component
+ * Simple overlay for displaying informational messages without action buttons.
+ */
 export const Notification:React.FC<{
   message: string;
   showDialog: boolean;
