@@ -25,17 +25,18 @@ export const fetchSingleReview = async (reviewID: string) => {
   
 /**
  * Fetch paginated reviews for a seller.
- * Updated to support backend pagination while maintaining backward compatibility via default parameters.
+ * Perfectly synchronized with usePagination hook to supply data to ReviewList.
  */
 export const fetchReviews = async (userId: string, page: number = 1, limit: number = 10) => {
   try {
-    logger.info(`Fetching paginated reviews for user with ID: ${userId}`);
+    logger.info(`Fetching paginated reviews for user with ID: ${userId}, Page: ${page}`);
     const response = await axiosClient.get(`/review-feedback/${userId}`, {
-      params: { page, limit }, // Injects pagination coordinates into the query string
+      // Injects page and limit into query string: ?page=x&limit=y
+      params: { page, limit }, 
     });
     if (response.status === 200) {
       logger.info(`Fetch reviews successful with Status ${response.status}`, { data: response.data });
-      return response.data;
+      return response.data; // Backend returns { docs, totalDocs, hasNextPage... }
     } else {
       logger.error(`Fetch reviews failed with Status ${response.status}`);
       return null;
@@ -48,6 +49,7 @@ export const fetchReviews = async (userId: string, page: number = 1, limit: numb
   
 /**
  * Create a new review feedback using multipart form data.
+ * Maintains compatibility with existing image upload logic.
  */
 export const createReview = async (formData: FormData) => {
   try {
@@ -73,7 +75,7 @@ export const createReview = async (formData: FormData) => {
  */
 export const updateReview = async (review_id: string, formData: FormData) => {
   try {
-    logger.info(`Updating review with ID: ${review_id}`, formData);
+    logger.info(`Updating review with ID: ${review_id}`);
     const headers = getMultipartFormDataHeaders();
     const response = await axiosClient.put(`/review-feedback/update/${review_id}`, formData, { headers });
 
