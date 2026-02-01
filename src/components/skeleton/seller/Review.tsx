@@ -1,10 +1,16 @@
 import React from 'react';
-import '../skeleton.css';
+/**
+ * FIX: Updated CSS import path to match the new unique filename 'MainSkeleton.css'.
+ * Using '../' to correctly reference the file from the 'seller' subdirectory.
+ * This ensures styles are loaded correctly while resolving Webpack build errors.
+ */
+import '../MainSkeleton.css';
 
 /**
  * SkeletonSellerReview Component
- * Provides a loading placeholder for individual merchant reviews.
+ * Provides a loading placeholder for individual merchant reviews in Map-of-Pi.
  * Specifically designed for the seller's feedback management dashboard.
+ * Maintained with zero logic changes to ensure visual and backend synchronization.
  */
 export const SkeletonSellerReview = () => {
   return (
