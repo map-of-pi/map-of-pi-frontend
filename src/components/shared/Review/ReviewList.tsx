@@ -5,7 +5,12 @@ import { useTranslations } from 'next-intl';
 import { usePagination } from '@/hooks/usePagination';
 // FIX: Corrected import path and function name to match reviewsApi.ts
 import { fetchReviews } from '@/services/reviewsApi'; 
-import Skeleton from '../../skeleton/skeleton'; 
+/**
+ * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
+ * This resolves the Type error: "Cannot find module '../../skeleton/skeleton'"
+ * and ensures the production build completes successfully.
+ */
+import Skeleton from '../../skeleton/MainSkeleton'; 
 // Importing existing components to ensure no logic is broken
 import TrustMeter from './TrustMeter'; 
 import EmojiPicker from './emojipicker'; 
@@ -73,7 +78,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({ sellerId }) => {
         })}
       </div>
 
-      {/* Pagination & Loading Visuals */}
+      {/* Pagination & Loading Visuals using MainSkeleton */}
       <div className="py-8">
         {loading && (
           <div className="flex flex-col gap-4">
