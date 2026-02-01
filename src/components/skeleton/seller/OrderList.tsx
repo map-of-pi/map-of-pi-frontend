@@ -12,7 +12,12 @@ import { usePagination } from "@/hooks/usePagination";
  * Using 'fetchSellerOrders' which is the actual exported member.
  */
 import { fetchSellerOrders } from "@/services/orderApi";
-import { AppContext } from "@/context/AppContextProvider";
+
+/**
+ * FIX: Corrected relative path to AppContextProvider.
+ * This ensures the context is found regardless of the '@' alias resolution in build.
+ */
+import { AppContext } from "../../../../../context/AppContextProvider";
 
 /**
  * OrderList Component
@@ -24,8 +29,7 @@ export const OrderList = () => {
   const { currentUser } = useContext(AppContext);
   
   /**
-   * FIX: Adjusted hook signature to match the project's usePagination definition.
-   * We pass the fetch function directly to avoid the 'Object literal' Type Error.
+   * FIX: Adjusted hook call to match the project's function-based signature.
    * Renaming 'hasNextPage' to 'hasMore' internally to keep your JSX logic stable.
    */
   const { 
@@ -46,7 +50,6 @@ export const OrderList = () => {
       ))}
 
       {/* Optimized Infinite Scroll UI using the updated MainSkeleton */}
-      {/* Keeping your observerTarget ref as is for logic consistency */}
       <div ref={observerTarget} className="mt-4">
         {loading && (
           <div className="flex flex-col gap-2">
