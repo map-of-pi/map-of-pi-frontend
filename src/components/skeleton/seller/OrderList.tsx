@@ -14,10 +14,10 @@ import { usePagination } from "@/hooks/usePagination";
 import { fetchSellerOrders } from "@/services/orderApi";
 
 /**
- * FIX: Corrected relative path to AppContextProvider.
- * This ensures the context is found regardless of the '@' alias resolution in build.
+ * FIX: Standardized Absolute Import to resolve "Module not found".
+ * Points directly to src/context/AppContextProvider.tsx without relative path errors.
  */
-import { AppContext } from "../../../../../context/AppContextProvider";
+import { AppContext } from "@/context/AppContextProvider";
 
 /**
  * OrderList Component
@@ -26,11 +26,15 @@ import { AppContext } from "../../../../../context/AppContextProvider";
  */
 export const OrderList = () => {
   const observerTarget = useRef<HTMLDivElement>(null);
-  const { currentUser } = useContext(AppContext);
+  
+  // Consuming AppContext safely to get currentUser
+  const context = useContext(AppContext);
+  const currentUser = context?.currentUser;
   
   /**
-   * FIX: Adjusted hook call to match the project's function-based signature.
-   * Renaming 'hasNextPage' to 'hasMore' internally to keep your JSX logic stable.
+   * Safe integration with usePagination.
+   * Using 'hasNextPage: hasMore' to match your internal JSX logic.
+   * Passing currentUser?.pi_uid to fetch correct seller orders from MERN backend.
    */
   const { 
     data: orders, 
