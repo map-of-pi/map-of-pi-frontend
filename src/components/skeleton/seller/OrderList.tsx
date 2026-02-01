@@ -2,22 +2,20 @@
 
 import React, { useRef, useContext } from "react";
 /**
- * FIX: Updated import path and filename to match the new unique 'MainSkeleton'.
- * Resolves: "Module not found: Can't resolve '../../skeleton/Skeleton'"
+ * FIX: Updated import path and filename to match 'MainSkeleton'.
  */
-import Skeleton from "../../skeleton/MainSkeleton"; // Import the main dispatcher
+import Skeleton from "../../skeleton/MainSkeleton"; 
 import { usePagination } from "@/hooks/usePagination";
 /**
  * FIX: Synchronized with orderApi.ts naming.
- * Using 'fetchSellerOrders' which is the actual exported member.
  */
 import { fetchSellerOrders } from "@/services/orderApi";
 
 /**
- * FIX: Standardized Absolute Import to resolve "Module not found".
- * Points directly to src/context/AppContextProvider.tsx without relative path errors.
+ * FIX: Direct relative path to resolve the "Module not found" error during build.
+ * Structure: src/components/skeleton/seller/OrderList.tsx -> back 3 levels to reach src/
  */
-import { AppContext } from "@/context/AppContextProvider";
+import { AppContext } from "../../../context/AppContextProvider";
 
 /**
  * OrderList Component
@@ -27,13 +25,13 @@ import { AppContext } from "@/context/AppContextProvider";
 export const OrderList = () => {
   const observerTarget = useRef<HTMLDivElement>(null);
   
-  // Consuming AppContext safely to get currentUser
+  // Consuming AppContext safely to get currentUser for Backend compatibility
   const context = useContext(AppContext);
   const currentUser = context?.currentUser;
   
   /**
    * Safe integration with usePagination.
-   * Using 'hasNextPage: hasMore' to match your internal JSX logic.
+   * Renaming 'hasNextPage' to 'hasMore' internally to keep your JSX logic stable.
    * Passing currentUser?.pi_uid to fetch correct seller orders from MERN backend.
    */
   const { 
@@ -57,7 +55,7 @@ export const OrderList = () => {
       <div ref={observerTarget} className="mt-4">
         {loading && (
           <div className="flex flex-col gap-2">
-             {/* Render 3 skeletons while fetching more data using the new path */}
+             {/* Render 3 skeletons using the new path */}
             <Skeleton type="order_list_item" />
             <Skeleton type="order_list_item" />
             <Skeleton type="order_list_item" />
