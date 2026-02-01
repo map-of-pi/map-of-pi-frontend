@@ -2,29 +2,29 @@
 
 import React, { useRef } from "react";
 /**
- * FIX: Updated import path to match the new unique filename 'MainSkeleton'.
- * Resolves: "Module not found: Can't resolve '../../skeleton/Skeleton'"
+ * FIX: Updated import path and filename to match the new unique 'MainSkeleton'.
+ * This ensures the build process finds the file correctly.
  */
 import Skeleton from "../../skeleton/MainSkeleton"; // Import the main dispatcher
 import { usePagination } from "@/hooks/usePagination";
 /**
- * FIX: Synchronized with orderApi.ts. 
- * Using 'fetchSellerOrders' which is the actual exported member in your service.
+ * FIX: Synchronized with orderApi.ts naming.
+ * Using 'fetchSellerOrders' to match the exported member in your service layer.
  */
 import { fetchSellerOrders } from "@/services/orderApi";
 
 /**
  * OrderList Component
- * Optimized for Map-of-Pi seller dashboard with Infinite Scroll.
- * Maintained with zero structural changes to ensure absolute stability.
+ * Optimized for Map-of-Pi to handle merchant order streams.
+ * Maintains the exact same logic and structure for infinite scrolling.
  */
 export const OrderList = () => {
   const observerTarget = useRef<HTMLDivElement>(null);
   
   /**
-   * FIX: The unified hook returns 'hasNextPage'. 
+   * FIX: The usePagination hook returns 'hasNextPage'. 
    * We rename it here (hasNextPage: hasMore) to satisfy the existing JSX logic 
-   * without changing any variable names in the component body.
+   * without changing any internal variable names.
    */
   const { 
     data: orders, 
@@ -37,7 +37,7 @@ export const OrderList = () => {
 
   return (
     <div className="order-list">
-      {/* Safe mapping with optional chaining check */}
+      {/* Safe mapping through orders fetched from MERN backend */}
       {orders && orders.map((order: any) => (
         /* OrderCard logic remains untouched to prevent UI breaking */
         <OrderCard key={order._id} order={order} />
@@ -47,7 +47,7 @@ export const OrderList = () => {
       <div ref={observerTarget} className="mt-4">
         {loading && (
           <div className="flex flex-col gap-2">
-             {/* Rendering skeletons using the new dispatcher path */}
+             {/* Render 3 skeletons while fetching more data using the new path */}
             <Skeleton type="order_list_item" />
             <Skeleton type="order_list_item" />
             <Skeleton type="order_list_item" />
@@ -67,7 +67,6 @@ export const OrderList = () => {
 /**
  * OrderCard Component placeholder.
  * Maintains UI consistency for the seller's order dashboard.
- * Designed to safely render MERN stack order objects.
  */
 const OrderCard = ({ order }: { order: any }) => (
     <div className="p-4 border rounded-lg mb-2 shadow-sm bg-white">
