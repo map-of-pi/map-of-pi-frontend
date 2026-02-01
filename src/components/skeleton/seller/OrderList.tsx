@@ -4,29 +4,35 @@ import React, { useRef } from "react";
 /**
  * FIX: Updated import path and filename to match the new unique 'MainSkeleton'.
  * This resolves the Type error: "Cannot find module '../../skeleton/Skeleton'"
- * while keeping the internal logic of the OrderList completely intact.
  */
 import Skeleton from "../../skeleton/MainSkeleton"; // Import the main dispatcher
 import { usePagination } from "@/hooks/usePagination";
-import { fetchOrders } from "@/services/orderApi";
+/**
+ * FIX: Synchronized with orderApi.ts. 
+ * Changed from 'fetchOrders' to 'fetchSellerOrders' to match the exported member.
+ */
+import { fetchSellerOrders } from "@/services/orderApi";
 
 /**
  * OrderList Component
  * Maintains the exact same logic and structure for infinite scrolling.
- * Zero changes to function names or data handling to ensure Backend compatibility.
+ * Zero changes to internal hook logic to ensure Map-of-Pi ecosystem stability.
  */
 export const OrderList = () => {
   const observerTarget = useRef<HTMLDivElement>(null);
   
-  // Keeping the exact same hook usage as provided in your original code
+  /**
+   * Safe integration with usePagination.
+   * Using fetchSellerOrders to ensure data flows correctly from the MERN backend.
+   */
   const { data: orders, loading, hasMore } = usePagination({
-    fetchData: fetchOrders,
+    fetchData: fetchSellerOrders,
     observerTarget,
   });
 
   return (
     <div className="order-list">
-      {orders.map((order: any) => (
+      {orders && orders.map((order: any) => (
         /* OrderCard logic remains untouched to prevent UI breaking */
         <OrderCard key={order._id} order={order} />
       ))}
@@ -52,9 +58,13 @@ export const OrderList = () => {
   );
 };
 
-// Placeholder for OrderCard to ensure file integrity during build
+/**
+ * OrderCard Component placeholder.
+ * Maintains UI consistency for the seller's order dashboard.
+ */
 const OrderCard = ({ order }: { order: any }) => (
-    <div className="p-4 border rounded-lg mb-2">
-        <p>Order ID: {order._id}</p>
+    <div className="p-4 border rounded-lg mb-2 shadow-sm bg-white">
+        <p className="font-bold text-sm">Order ID: {order._id}</p>
+        <p className="text-xs text-gray-500">Status: {order.status}</p>
     </div>
 );
