@@ -1,34 +1,38 @@
 name: Map of Pi Merge
 
-# Controls when the workflow will execute
 on:
-  # Triggers the workflow when "Map of Pi Build" successfully completes
+  # Automated trigger based on the success of the Build pipeline
   workflow_run:
     workflows: ["Map of Pi Build"]
     types:
       - completed
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Manual trigger for emergency or specific merges
   workflow_dispatch:
 
 jobs:
   merge:
-    name: 🔀 Merge
+    name: 🔀 Automated Integration
     runs-on: ubuntu-latest
-    # Added explicit success check to ensure consistency with the build status
+    # Integrity Check: Ensures dev branch passed all QA/Build tests before merging to main
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev' }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 # Updated to v4 for consistency and speed
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Merge dev to main
-        # Keeping the stable v2 for automated pull requests
-        uses: repo-sync/pull-request@v2
+      - name: 🚀 Create Pull Request to Main
+        # Using a trusted and stable version for branch synchronization
+        uses: repo-sync/pull-request@v2.12.1 
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: "dev"
           destination_branch: "main"
-          pr_title: "Automated PR to merge dev to main"
-          pr_body: ":robot: Automated PR from **dev** to **main**; see commits."
-          pr_label: "auto-pr"
+          pr_title: "🚀 [Automated] Release: Merge dev into main"
+          pr_body: |
+            ## :robot: Automated Release System
+            This PR was automatically generated following a successful **Map of Pi Build** execution.
+            - **Source Branch:** `dev`
+            - **Status:** All QA & Build checks passed successfully.
+            - **Purpose:** Synchronize production environment with latest development features.
+          pr_label: "auto-pr,deployment"
