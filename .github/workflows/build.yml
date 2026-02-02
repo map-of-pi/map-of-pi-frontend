@@ -16,8 +16,6 @@ jobs:
   setup:
     name: 📦 Setup & Cache
     runs-on: ubuntu-latest
-    outputs:
-      cache-hit: ${{ steps.cache-npm.outputs.cache-hit }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,7 +29,15 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-  # Job 2: Quality Assurance (Runs in parallel with Build)
+      # Share the installed modules with other jobs
+      - name: Upload node_modules
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-dependencies
+          path: node_modules/
+          retention-days: 1
+
+  # Job 2: Quality Assurance
   qa:
     name: 🛡️ Quality Assurance
     needs: setup
@@ -43,8 +49,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: 'npm'
       
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: node-dependencies
+          path: node_modules/
+
       - name: Run Linting
         run: npm run lint
         
@@ -63,7 +74,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          cache: 'npm'
+          
+      - name: Download node_modules
+        uses: actions/download-artifact@v4
+        with:
+          name: node-dependencies
+          path: node_modules/
           
       - name: Build Frontend Application
         run: npm run build
