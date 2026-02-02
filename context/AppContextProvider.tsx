@@ -17,6 +17,9 @@ import { getNotifications } from '@/services/notificationApi';
 import { getOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
 
+/**
+ * Interface defining the global state and functions provided by AppContext.
+ */
 interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
@@ -41,6 +44,9 @@ interface IAppContextProps {
   setOrdersCount: React.Dispatch<SetStateAction<number>>;
 };
 
+/**
+ * Initial state to prevent undefined errors in consuming components.
+ */
 const initialState: IAppContextProps = {
   currentUser: null,
   setCurrentUser: () => {},
@@ -84,21 +90,25 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
 
+  /**
+   * Effect to initialize Pi SDK and trigger auto-login on mount.
+   */
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
-
     autoLoginUser();
 
-    // attempt to load and initialize Pi SDK in parallel
     loadPiSdk()
       .then(Pi => {
         Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
         return Pi.nativeFeaturesList();
       })
       .then(features => setAdsSupported(features.includes("ad_network")))
-      .catch(err => logger.error('Pi SDK load/ init error:', err));
+      .catch(err => logger.error('Pi SDK load/init error:', err));
   }, []);
 
+  /**
+   * Effect to synchronize notification counts based on user session and global reload state.
+   */
   useEffect(() => {
     if (!currentUser) return;
 
@@ -121,6 +131,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchNotificationsCount();
   }, [currentUser, reload]);
 
+  /**
+   * Effect to synchronize orders count (Pending orders) for real-time UI updates.
+   * Matches the newly integrated order-counter feature.
+   */
   useEffect(() => {
     if (!currentUser) return;
 
@@ -134,23 +148,28 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setOrdersCount(count);
       } catch (error) {
         logger.error('Failed to fetch orders count:', error);
-        setOrdersCount(0);
+        setOrdersCount(0); // Graceful degradation
       }
     };
 
     fetchOrdersCount();
   }, [currentUser, reload]);
 
+  /**
+   * Helper to display temporary global alerts.
+   */
   const showAlert = (message: string) => {
     setAlertMessage(message);
     setTimeout(() => {
-      setAlertMessage(null); // Clear alert after 5 seconds
+      setAlertMessage(null);
     }, 5000);
   };
 
-  /* Register User via Pi SDK */
+  /**
+   * Handles user authentication via Pi Network Native SDK.
+   */
   const registerUser = async () => {
-    logger.info('Starting user registration.');
+    logger.info('Starting user registration via Pi SDK.');
 
     if (typeof window !== 'undefined' && window.Pi?.initialized) {
       try {
@@ -161,10 +180,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
           'wallet_address'
         ], onIncompletePaymentFound);
 
-        // Send accessToken to backend
         const res = await axiosClient.post(
           "/users/authenticate", 
-          {}, // empty body
+          {}, 
           {
             headers: {
               Authorization: `Bearer ${pioneerAuth.accessToken}`,
@@ -179,7 +197,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
           logger.info('User authenticated successfully.');
         } else {
           setCurrentUser(null);
-          logger.error('User authentication failed.');
+          logger.error('User authentication failed via Backend.');
         }
       } catch (error) {
         logger.error('Error during user registration:', error);
@@ -187,13 +205,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setTimeout(() => setIsSigningInUser(false), 2500);
       }
     } else {
-      logger.error('PI SDK failed to initialize.');
+      logger.error('PI SDK failed to initialize or not found.');
     }
   };
 
-  /* Attempt Auto Login (fallback to Pi auth) */
+  /**
+   * Attempts to restore user session from backend; falls back to Pi Auth on failure.
+   */
   const autoLoginUser = async () => {
-    logger.info('Attempting to auto-login user.');
+    logger.info('Attempting auto-login using stored session.');
     try {
       setIsSigningInUser(true);
       const res = await axiosClient.get('/users/me');
@@ -203,24 +223,29 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setCurrentUser(res.data.user);
         setUserMembership(res.data.membership_class);
       } else {
-        logger.warn('Auto-login failed.');
+        logger.warn('Auto-login failed; fallback required.');
         setCurrentUser(null);
       }
     } catch (error) {
-      logger.error('Auto login unresolved; attempting Pi SDK authentication:', error);
+      logger.error('Auto login unresolved; switching to Pi SDK authentication flow.');
       await registerUser();
     } finally {
       setTimeout(() => setIsSigningInUser(false), 2500);
     }
   };
 
+  /**
+   * Injects Pi SDK script dynamically into the document.
+   */
   const loadPiSdk = (): Promise<typeof window.Pi> => {
     return new Promise((resolve, reject) => {
+      if (document.getElementById('pi-sdk')) return resolve(window.Pi);
       const script = document.createElement('script');
+      script.id = 'pi-sdk';
       script.src = 'https://sdk.minepi.com/pi-sdk.js';
       script.async = true;
       script.onload = () => resolve(window.Pi);
-      script.onerror = () => reject(new Error('Failed to load Pi SDK'));
+      script.onerror = () => reject(new Error('Failed to load Pi SDK script'));
       document.head.appendChild(script);
     });
   };
