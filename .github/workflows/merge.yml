@@ -2,7 +2,7 @@ name: Map of Pi Merge
 
 # Controls when the workflow will execute
 on:
-  # Triggers the workflow when build successfully completes
+  # Triggers the workflow when "Map of Pi Build" successfully completes
   workflow_run:
     workflows: ["Map of Pi Build"]
     types:
@@ -15,14 +15,15 @@ jobs:
   merge:
     name: 🔀 Merge
     runs-on: ubuntu-latest
+    # Added explicit success check to ensure consistency with the build status
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev' }}
 
-    # The sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to v4 for consistency and speed
 
       - name: Merge dev to main
+        # Keeping the stable v2 for automated pull requests
         uses: repo-sync/pull-request@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
