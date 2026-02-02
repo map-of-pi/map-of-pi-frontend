@@ -1,55 +1,72 @@
 name: Map of Pi Build
 
-# Controls when the workflow will execute
 on:
-  # Triggers the workflow on push or pull request events for the "main" and "dev" branch
   push:
-    branches: 
-      - main
-      - dev
+    branches: [main, dev]
   pull_request:
-    branches:
-      - main
-      - dev
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main, dev]
   workflow_dispatch:
 
-# Prevents multiple redundant builds from running simultaneously on the same branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: 🏗️ Build
+  # Job 1: Install & Cache (The Foundation)
+  setup:
+    name: 📦 Setup & Cache
     runs-on: ubuntu-latest
-    
+    outputs:
+      cache-hit: ${{ steps.cache-npm.outputs.cache-hit }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 # Updated to v4 for better performance
+        uses: actions/checkout@v4
 
-      - name: Install Node
-        uses: actions/setup-node@v4 # Updated to v4 for stability
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          # Caching npm dependencies to speed up the process without changing logic
           cache: 'npm'
 
-      # Frontend CI/CD Process - Maintaining original step names
-      - name: Install Dependencies for Frontend
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build Frontend
+  # Job 2: Quality Assurance (Runs in parallel with Build)
+  qa:
+    name: 🛡️ Quality Assurance
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      
+      - name: Run Linting
+        run: npm run lint
+        
+      - name: Run Unit Tests
+        run: npm run test -- --passWithNoTests --ci --maxWorkers=2
+
+  # Job 3: Production Build
+  build:
+    name: 🏗️ Production Build
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          
+      - name: Build Frontend Application
         run: npm run build
         env:
-          # Disabling telemetry and forcing CI mode for cleaner logs
           NEXT_TELEMETRY_DISABLED: 1
           CI: false
-
-      - name: Linting Frontend
-        run: npm run lint
-        continue-on-error: false
-        
-      - name: Execute Tests for Frontend
-        run: npm run test -- --passWithNoTests --ci
