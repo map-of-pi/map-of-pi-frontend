@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Ameŋunyatakakawo Ŋuti Ðoɖo",
       "TERMS_OF_SERVICE": "Subɔsubɔdɔ ƒe Ðoɖowo"
     },
+    "WALLET_ADDRESS_LABEL": "Pi ƒe agbalẽ meƒe ƒe aɖeŋu",
+    "WALLET_ADDRESS_PLACEHOLDER": "Nàŋlɔ Pi ƒe agbalẽ meƒe ƒe aɖeŋu wò",
     "FIND_ME_PREFERENCE_LABEL": "FindMe ƒe Tiatia",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Afɔɖeɖe le eɖokui si",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Tɔxɛviawo siwo le dɔwɔme",
       "INCLUDE_INACTIVE_SELLERS": "Tɔxɛviawo siwo mele dɔwɔme o",
-      "INCLUDE_TEST_SELLERS": "Tɔxɛviawo ƒe nɔnɔme ɖe sia ɖe"
+      "INCLUDE_TEST_SELLERS": "Tɔxɛviawo ƒe nɔnɔme ɖe sia ɖe",
+      "INCLUDE_HOLIDAY_SELLERS": "Ŋkɔkɔeɖe Tɔgbuiwo"
     },
     "CONTACT_MAP_OF_PI": "Kadodo ƒe Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Nudzrala si le dɔ wɔm",
           "INACTIVE_SELLER": "Nudzrala si mele dɔ wɔm o",
           "TEST_SELLER": "Dodokpɔ ƒe nudzrala",
+          "HOLIDAY_SELLER": "Ŋkɔkɔeɖe Tɔgbui",
           "RESTRICTED_SELLER": "Tɔxɛvia si le dɔwɔme le eme o"
         }
       },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Ƒle nu tso Nudzrala gbɔ",
       "SELLER_DETAILS_LABEL": "Nudzrala ƒe Nyatakakawo",
       "SELLER_ADDRESS_POSITION_LABEL": "Nudzrala ƒe Adrɛs alo Ðoƒe",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Na ɖe agbalẽ meƒe ƒe aɖeŋu sia dzi ɖe akpa",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Kpɔ tɔgbuiwo na bia eƒe xɔse ɖòxɔ dɔ",
       "LEAVE_A_REVIEW_MESSAGE": "Gblẽ Totoɖeme",
       "FACE_SELECTION_REVIEW_MESSAGE": "Tia mo si ɖe alesi nèse le ɖokuiwò me tso nudzrala si le etame ŋu",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Ŋlɔ nya bubuwo ɖe afisia",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Wòle ɖeɖeɖeɖe kple eme",
     "REPLY": "Ɖe si",
     "EDIT": "Trɔ̃",
+    "COPY": "Kɔpi",
     "ADD_ITEM": "Tsɔ nyateƒe",
     "CHECKOUT": "Ɖoɖoɖo si gbɔ",
     "DELETE": "Zɔ",

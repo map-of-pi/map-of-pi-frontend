@@ -1,0 +1,402 @@
+{
+  "HOME": {
+    "ADD_SELLER": "Firotin",
+    "SEARCH_CENTER_DEFAULT_MESSAGE": "Navenda Lêgerîna we niha li ser koordînatên xwerû [0, 0] hatiye danîn. Ji bo baştirkirina ezmûna we, ji kerema xwe cihê Navenda Lêgerîna xwe nûve bikin.",
+    "SEARCH_BAR_PLACEHOLDER": "Li firoşkar an tiştan bigerin",
+    "NEW_NOTIFICATIONS_MESSAGE": "Agahiyên te hene",
+    "LOCATION_SERVICES": {
+      "ENABLE_LOCATION_SERVICES_MESSAGE": "Ji bo bikaranîna vê taybetmendiyê, ji kerema xwe xizmetên cihê di mîhengên cîhaza xwe de çalak bikin.",
+      "DISABLED_LOCATION_SERVICES_MESSAGE": "Xizmetên cihê neçalak in. Ji kerema xwe mîhengên cihê cîhaza xwe çalak bikin."
+    },
+    "AUTHENTICATION": {
+      "SUCCESSFUL_LOGIN_MESSAGE": "Têketinê serkeftî",
+      "UNSUCCESSFUL_LOGIN_MESSAGE": "Têketin têk çû",
+      "PI_INFORMATION_NOT_FOUND_MESSAGE": "Pi agahî nehat dîtin"
+    }
+  },
+  "SIDE_NAVIGATION": {
+    "VIEW_ORDERS_LABEL": "Fermanan Bibînin",
+    "USER_PREFERENCES_HEADER": "Preferences Bikarhêner",
+    "PERSONALIZATION_SUBHEADER": "şexsîkirina",
+    "LANGUAGES": "zimanan",
+    "ABOUT": {
+      "ABOUT_MAP_OF_PI": "Ji dor Map of Pi",
+      "APP_VERSION": "Versiyon ji App",
+      "PRIVACY_POLICY": "siyaseta nepenîtiyê",
+      "TERMS_OF_SERVICE": "Mercên Xizmetê"
+    },
+    "WALLET_ADDRESS_LABEL": "Pi Navnîşana Wallet",
+    "WALLET_ADDRESS_PLACEHOLDER": "Têkeve xwe Pi wallet navnîşan",
+    "FIND_ME_PREFERENCE_LABEL": "DîtinMin Hezî",
+    "FIND_ME_OPTIONS": {
+      "PREFERRED_AUTO": "Otomatîkî",
+      "PREFERRED_DEVICE_GPS": "GPS-a cîhaza min bikar bînin",
+      "PREFERRED_SEARCH_CENTER": "Navenda Lêgerînê bikar bînin"
+    },
+    "SEARCH_FILTERS_SUBHEADER": "Parzûnên Lêgerînê",
+    "SEARCH_FILTERS": {
+      "INCLUDE_ACTIVE_SELLERS": "Firoşkarên çalak",
+      "INCLUDE_INACTIVE_SELLERS": "Firoşkarên neçalak",
+      "INCLUDE_TEST_SELLERS": "Firoşkarên testê",
+      "INCLUDE_HOLIDAY_SELLERS": "Firoşkarên betlaneyê"
+    },
+    "CONTACT_MAP_OF_PI": "Têkelî Map of Pi",
+    "VALIDATION": {
+      "SUCCESSFUL_PREFERENCES_SUBMISSION": "Preferences serfiraz",
+      "UNSUCCESSFUL_PREFERENCES_SUBMISSION": "Error tomarkirinê preferences"
+    }
+  },
+  "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Endamî",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Dersa endametiya niha",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Dîroka dawî ya endametiya niha",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Endamtiya çalak tune",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi yarmetiya mayî",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Hilbijêre endametiya an Mappi kirîn",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "endamî ({duration} hefteyan)",
+      "PICK_BUY_METHOD_LABEL": "Rêbaza kirînê hilbijêrin",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Bi bidin π",
+        "WATCH_ADS": "Reklaman temaşe bikin (bêpere)",
+        "USE_VOUCHER": "Koda kuponê bikar bînin (belaş)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Koda voucherê binivîse",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Endamtî bi serkeftî hate aktîfkirin",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Barkirina daneyên endametiyê neserket",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Tezmînata endametiyê têk çû",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ji bo kirina dravdanê divê bikarhêner têkeve hesabê xwe"
+      }
+    },
+    "SELLER_REGISTRATION": {
+      "SELLER_REGISTRATION_HEADER": "Rêveberiya Firoşkar",
+      "SELLER_RESTRICTION_MESSAGE": "Navenda Firotina we li herêmek e ku ji hêla Tora Pi ve hatî pejirandin, ji ber vê yekê nîşana nexşeya we dê ji hemî bikarhêneran re veşartî be.",
+      "SELLER_DETAILS_LABEL": "Agahiyên Firoşkar",
+      "EMAIL_LABEL": "Email address",
+      "PHONE_NUMBER_LABEL": "Jimare telefon",
+      "CONTACT_PUBLIC_NOTE": "Jimareya têlefonê û navnîşana e-nameyê dê ji bo raya giştî xuya bibe.",
+      "SELLER_DETAILS_PLACEHOLDER": "Ez bi rêya Pay bi difroşim Pi.",
+      "REVIEWS_SUMMARY_LABEL": "Reviews Berhevkirinî",
+      "REVIEWS_SCORE_LABEL": "Reviews Rewşa nixtan",
+      "SELLER_NAME": "Navê Firoşkar",
+      "SELLER_TYPE": {
+        "SELLER_TYPE_LABEL": "cureyê firoşkar",
+        "SELLER_TYPE_OPTIONS": {
+          "ACTIVE_SELLER": "Firoşkarê çalak",
+          "INACTIVE_SELLER": "Firoşkarê neçalak",
+          "TEST_SELLER": "Firoşkarê testê",
+          "HOLIDAY_SELLER": "Firoşkarê betlaneyê",
+          "RESTRICTED_SELLER": "Firoşkarê sînorkirî"
+        }
+      },
+      "SELLER_ADVANCED_SETTINGS_LABEL": "Mîhengên Firoşkar ên Pêşkeftî",
+      "SELLER_RETAIL_OUTLET_NAME": "Navê firotgeha firotanê",
+      "SELLER_ADDRESS_LOCATION_LABEL": "Navnîşan an cîhê ku tê firotin",
+      "SELLER_ADDRESS_LOCATION_PLACEHOLDER": "Nîşaneya nexşeya min nîşan dide ku ez li ku difroşim",
+      "SELLER_SETTINGS_LABEL": "Firotkar Mîhengan",
+      "SELLER_SELL_CENTER": "Navenda Firotanê Set",
+      "SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL": "Kirîna Serhêl | Lîsteya Tiştên Firotanê",
+      "SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL": "Kirîna Serhêl | Bicîhanîna Siparîşê",
+      "MAPPI_ALLOWANCE_LABEL": "Mappi yarmetiya mayî",
+      "FULFILLMENT_METHOD_TYPE": {
+        "FULFILLMENT_METHOD_TYPE_LABEL": "Rêbaza bicîhkirinê",
+        "FULFILLMENT_METHOD_TYPE_OPTIONS": {
+          "COLLECTION_BY_BUYER": "Berhevkirin ji hêla buyer ve",
+          "DELIVERED_TO_BUYER": "Radestî kirîkar kirin"
+        }
+      },
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_LABEL": "Talîmatên bicîhanîna firoşkar ji bo kirrûkar",
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_PLACEHOLDER": "Wergirtin ji navnîşana firoşkar e. Ger radestkirin hatibe hilbijartin, ji kerema xwe navnîşana kirrîner binivîse.",
+      "BUYER_TO_SELLER_FULFILLMENT_DETAILS_LABEL": "Hûrguliyên pêkanîna kiriyar",
+      "VALIDATION": {
+        "EMAIL_VALIDATION": "Ji kerema xwe navnîşaneke e-nameya derbasdar binivîse",
+        "SUCCESSFUL_REGISTRATION_SUBMISSION": "qeydkirinê serkeftî",
+        "FAILED_REGISTRATION_SUBMISSION": "Di tomarkirinê de çewtî",
+        "REGISTRATION_FAILED_USER_NOT_AUTHENTICATED": "Qeydkirin bi ser neket ji ber ku bikarhêner nehatiye pejirandin",
+        "UNINITIALIZED_SELL_CENTER": "Ji kerema xwe Navenda Firotanê ya xwe saz bikin",
+        "SUCCESSFUL_SELLER_ITEM_SAVED": "Babetê firoşkar bi serkeftî xilas bû",
+        "SUCCESSFUL_SELLER_ITEM_DELETED": "Babetê firoşkar bi serkeftî hat jêbirin",
+        "FAILED_SELLER_ITEM_SAVE": "Di tomarkirina madeya firoşkar de çewtî",
+        "FAILED_SELLER_ITEM_DELETE": "Di jêbirina madeya firoşkar de çewtî",
+        "SELLER_ITEM_NOT_FOUND": "Tiştê firoşkar nehat dîtin",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Serkeftin xilas bike. Mappi yarmetiya bikaranîn {mappi_count}",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Tomarkirin bi ser neket. Têrê nake Mappi alîkarî heye"
+      },
+      "SELLER_ITEMS_FEATURE": {
+        "ITEM_LABEL": "Şanî",
+        "PRICE_LABEL": "Biha",
+        "STOCK_LABEL": "Embar deşt",
+        "DESCRIPTION_LABEL": "Terîf",
+        "PHOTO": "Photo",
+        "SELLING_DURATION_LABEL": "Demjimêra firotanê di hefteyan de",
+        "SELLING_STATUS_OPTIONS": {
+          "ACTIVE": "Jîr",
+          "EXPIRED": "Dema derbas bû"
+        },
+        "STOCK_LEVEL_OPTIONS": {
+          "AVAILABLE_1": "1 berdeste",
+          "AVAILABLE_2": "2 berdeste",
+          "AVAILABLE_3": "3 berdeste",
+          "MANY": "Gelek hene",
+          "MADE_TO_ORDER": "Bi fermanê hatî çêkirin",
+          "ONGOING_SERVICE": "xizmeta berdewam",
+          "SOLD": "Firotin"
+        },
+        "SELLING_EXPIRATION_DATE": "bifiroşe {expired_by_date}",
+        "VALIDATION": {
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Demjimêra firotanê nikare ji binê wê were kêmkirin {remaining_weeks} hefte mane"
+        }
+      }
+    },
+    "SELLER_ORDER_FULFILLMENT": {
+      "ORDER_LIST_HEADER": "lîsteya fermanê",
+      "VIEW_ORDER_HEADER": "fermana dîtinê",
+      "SELLER_ORDER_FULFILLMENT_HEADER": "Bicîhanîna Siparîşa Firoşkar",
+      "ORDER_SUBHEADER": "sernivîsa fermanê",
+      "ORDERED_ITEMS_SUBHEADER": "Tiştên ferman kirin",
+      "ORDER_HEADER_ITEMS_FEATURE": {
+        "SELLER_LABEL": "Firotkar",
+        "TOTAL_PRICE_LABEL": "Bihayê tevahî",
+        "TIME_OF_ORDER_LABEL": "Dema fermanê",
+        "STATUS_LABEL": "Cî"
+      },
+      "STATUS_TYPE": {
+        "INITIALIZED": "Destpêk kirin",
+        "PENDING": "Nexelas",
+        "COMPLETED": "Temam kirin",
+        "CANCELED": "Betal kirin",
+        "REFUNDED": "Vegerandin",
+        "FULFILLED": "Pêk anîn"
+      },
+      "ORDER_COMPLETED_LABEL": "Siparîş qediya",
+      "ORDER_DISPATCHED_COLLECTED_LABEL": "Siparîş Hat Şandin/Hat Wergirtin"
+    },
+    "BUY_FROM_SELLER": {
+      "BUY_FROM_SELLER_HEADER": "Ji Firoşkar bikirin",
+      "SELLER_DETAILS_LABEL": "hûrguliyên firoşkar",
+      "SELLER_ADDRESS_POSITION_LABEL": "navnîşana firoşkar an jî helwesta",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Pereyan bidin vê navnîşana berîkayê",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Ji bo xwestina navnîşana berîka xwe bi firoşkar re têkilî daynin",
+      "LEAVE_A_REVIEW_MESSAGE": "nirxandinek bihêle",
+      "FACE_SELECTION_REVIEW_MESSAGE": "Rûyê ku nîşan dide hûn li ser firoşkarê jorîn çi difikirin hilbijêre",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "Li vir şîroveyên din binivîse",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Bersiv barkirina wêneyê",
+      "REVIEWS_SUMMARY_LABEL": "kurteya nirxandinê",
+      "REVIEWS_SCORE_MESSAGE": "xala nirxandinan: {seller_review_rating} derve ji 5.0",
+      "SELLER_CONTACT_DETAILS_LABEL": "Hûrguliyên pêwendiya firotanê",
+      "SELLER_USERNAME_LABEL": "Navê bikarhêner",
+      "SELLER_PHONE_NUMBER_LABEL": "Jimare telefon",
+      "SELLER_EMAIL_ADDRESS_LABEL": "Navnîşana emailê",
+      "ONLINE_SHOPPING": {
+        "SELLER_ITEMS_FEATURE": {
+          "ITEM_LABEL": "Şanî",
+          "PRICE_LABEL": "Biha",
+          "DESCRIPTION_LABEL": "Terîf",
+          "PHOTO": "Wêne",
+          "BUYING_QUANTITY_LABEL": "Jimarî",
+          "PICK_LABEL": "Çengel",
+          "UNPICK_LABEL": "Hilbijêre"
+        }
+      },
+      "ORDER_SUCCESSFUL_MESSAGE": "Siparîş bi serkeftî pêk hat",
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Daxwaz nehat kirin. Ji kerema xwe dîsa biceribînin û piştrast bikin ku we herî kêm heye 1 Mappi."
+    },
+    "REVIEWS": {
+      "REVIEWS_HEADER": "axaftin",
+      "GIVE_REVIEW_SECTION_HEADER": "Nirxandinek bide vî pêşengî",
+      "REVIEWS_GIVEN_SECTION_HEADER": "Nirxandinên ku ji hêla vî pêşeng ve hatine dayîn",
+      "REVIEWS_RECEIVED_SECTION_HEADER": "Nirxandinên ku ji hêla vî pêşeng ve hatine wergirtin",
+      "VALIDATION": {
+        "NO_REVIEWS_FOUND": "Ji bo Pioneer ti nirxandin nehat dîtin {search_value}",
+        "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû"
+      }
+    },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "weşandin axaftin",
+      "REVIEW_GIVEN_TO_LABEL": "axaftin dane ber",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Nirxandina dîrok û demê hatî dayîn"
+    },
+    "CHECK_REVIEWS_FEEDBACK": {
+      "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "ji bo vekolînek tune {seller_id}",
+      "CHECK_REVIEWS_FEEDBACK_HEADER": "Lîsteya Nirxandinên Mayî ji bo {seller_id}",
+      "BY_REVIEWER": "Ji {buyer_id}"
+    },
+    "REPLY_TO_REVIEW": {
+      "REPLY_TO_REVIEW_STATIC_HEADER": "bersivê bide nirxandinê",
+      "REPLY_TO_REVIEW_SUBHEADER": "Nirxandina ku hûn bersivê didin",
+      "GIVE_REPLY_TO_REVIEW_SUBHEADER": "Bersiva nirxandinê bidin",
+      "REPLY_TO_REVIEW_HEADER": "Bersiva Nirxandinê ji bo {seller_id}",
+      "BY_REVIEWER": "Ji {buyer_id}",
+      "REPLY_TO_REVIEW_MESSAGE": "Bersiva xwe ji bo nirxandina jorîn bihêle",
+      "FACE_SELECTION_REVIEW_MESSAGE": "Rûyê ku nîşan dide ka hûn di derbarê têkiliya xwe bi vî pêşeng re çawa hîs dikin hilbijêre.",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "Li vir şîroveyên din binivîse",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Bersiv barkirina wêneyê",
+      "VALIDATION": {
+        "LOADING_REVIEW_FAILURE": "Di barkirina nirxandinê de çewtî",
+        "SELF_REVIEW_NOT_POSSIBLE": "Lêkolîna xwerû ne gengaz e"
+      }
+    },
+    "NOTIFICATIONS": {
+      "NOTIFICATIONS_HEADER": "Agahdayin",
+      "NO_NOTIFICATIONS_SUBHEADER": "Hîn tu agahdariyên te tune ne",
+      "NOTIFICATION_SECTION": {
+        "NOTIFICATION_LABEL": "Agahdayin",
+        "NOTIFICATION_TIME_LABEL": "Dema ragihandinê",
+        "NOTIFICATION_STATUS": {
+          "READ": "Zelal",
+          "UNREAD": "Nezelal"
+        }
+      }
+    }
+  },
+  "POPUP": {
+    "MAP_MARKER": {
+      "SELLER_SALE_ITEMS_FIELD": "Tiştên firotanê ji bo firotanê",
+      "DISTANCE_MESSAGE": "Dûrî: XXX km dûr"
+    },
+    "APP_VERSION_INFO": {
+      "REPORTING_MESSAGE": "Ji kerema xwe kêmasiyan ragihînin"
+    },
+    "PRIVACY_POLICY_INFO": {
+      "TITLE": "siyaseta nepenîtiyê",
+      "LAST_UPDATED": "dawî hat nûkirin",
+      "EMAIL_ADDRESS": "Navnîşana emailê",
+      "SECTIONS": {
+        "HEADER_1": "Pêşkêş",
+        "CONTENT_1": "Hûn bi xêr hatin bo sepana Map of Pi, ku ji hêla tîma Map of Pi ve bi hevkariya Civaka Pi ve hatî pêşve xistin. Ev Siyaseta Taybetîtiyê diyar dike ka em çawa agahdariya weya kesane berhev dikin, bikar tînin, eşkere dikin û diparêzin dema ku hûn sepana meya mobîl bikar tînin.",
+        "HEADER_2": "Agahiyên Em Komkirin",
+        "SUBHEADER_2_1": "Agahiyên Bikarhêner",
+        "CONTENT_2_1_1": "Dema ku hûn wekî bikarhêner qeyd dibin, dibe ku em nav, navnîşana e-nameyê, navê bikarhêner û hûrguliyên din ên têkildar berhev bikin.",
+        "CONTENT_2_1_2": "Em dikarin agahîyên li ser cîhaza we berhev bikin, di nav de celebê cîhazê, pergala xebitandinê, û nasnameyên cîhazê yên bêhempa.",
+        "SUBHEADER_2_2": "agahî firoşkar",
+        "CONTENT_2_2_1": "Dibe ku ji firoşkarên ku li ser platformê qeyd dibin were xwestin ku agahdariya Firoşkar, tevî navê firoşkar, cîh û agahdariyên têkiliyê, peyda bikin.",
+        "CONTENT_2_2_2": "Firoşkar dikare kesek taybet an karsaziyek be.",
+        "HEADER_3": "Çawa Em Agahiyên We Bi Kar Tînin",
+        "SUBHEADER_3_1": "Pêşkêşkirina Xizmetan",
+        "CONTENT_3_1_1": "Em agahiyên we bikar tînin da ku xizmetên sepana Map of Pi peyda bikin û baştir bikin, di nav de fonksiyonên bikarhêner û Firoşkar.",
+        "SUBHEADER_3_2": "ragihandinê",
+        "CONTENT_3_2_1": "Em dikarin agahdariya têkiliya we bikar bînin da ku nûvekirin, agahdarî û peyamên danasînê yên têkildarî sepana Map of Pi ji we re bişînin.",
+        "SUBHEADER_3_3": "Analytics",
+        "CONTENT_3_3_1": "Em daneyan berhev dikin û analîz dikin da ku performans, taybetmendî û fonksiyonelîteya sepanê baştir bikin.",
+        "HEADER_4": "Parvekirina Agahiyên Xwe",
+        "SUBHEADER_4_1": "Bi firoşkaran",
+        "CONTENT_4_1_1": "Agahiyên bikarhêner dikarin ji bo bicihanîna fermanan û armancên ragihandinê bi Firoşkaran re werin parve kirin..",
+        "SUBHEADER_4_2": "Bi Partiyên Sêyemîn re",
+        "CONTENT_4_2_1": "Em dikarin ji bo fonksiyona sepanê, analîtîk û pêvajoya dravdanê agahdariyê bi dabînkerên karûbarê sêyemîn re parve bikin.",
+        "HEADER_5": "Tedbîrên Ewlekariyê",
+        "CONTENT_5_1": "Em tedbîrên ewlehiyê yên standardên pîşesaziyê bikar tînin da ku agahiyên we biparêzin. Lêbelê, ti rêbaza veguhestinê li ser înternetê an jî hilanîna elektronîkî bi tevahî ewle nîne.",
+        "HEADER_6": "Hilbijartinên we",
+        "CONTENT_6_1": "Hûn dikarin agahdariya hesabê xwe bi rêya mîhengên sepanê nûve bikin. Hûn dikarin hesabê xwe yê Map of Pi bi jêbirina hesabê xwe yê Tora Pi û dûv re hilbijartina vebijarka jêbirina daneyên xwe yên Map of Pi dema ku hûn careke din bigihîjin Map of Pi, jê bibin. Hûn dikarin ji danûstandinên danasînê derkevin.",
+        "HEADER_7": "Guhertinên li ser vê Siyaseta Taybetîtiyê",
+        "CONTENT_7_1": "Dibe ku em vê Siyaseta Taybetîtiyê li gorî pêwîstiyê nûve bikin. Guhertoya herî dawî dê li ser malpera me an jî di nav sepanê de were weşandin.",
+        "HEADER_8": "Paqij bûn",
+        "CONTENT_8_1": "Heke di derbarê vê Siyaseta Taybetîtiyê de pirs an fikarên we hebin, ji kerema xwe bi şandina e-nameyek bi me re têkilî daynin: "
+      }
+    },
+    "TERMS_OF_SERVICE_INFO": {
+      "TITLE": "Mercên Xizmetê",
+      "LAST_UPDATED": "Herî Dawî Nûkirin",
+      "EMAIL_ADDRESS": "Email Address",
+      "SECTIONS": {
+        "HEADER_1": "Qebûlkirina Mercên",
+        "CONTENT_1_1": "Hûn bi xêr hatin bo sepana Map of Pi, ku ji hêla tîma Map of Pi ve bi hevkariya Civaka Pi ve hatî pêşve xistin. Bi karanîna vê sepanê, hûn qebûl dikin ku hûn van Mercên Xizmetê û her weha Siyaseta me ya Nepenîtiyê bişopînin.",
+        "HEADER_2": "Bikaranîna sepanê",
+        "CONTENT_2_1": "Hûn razî dibin ku sepana Map of Pi li gorî hemî qanûn û rêziknameyên derbasdar bikar bînin..",
+        "CONTENT_2_2": "Divê hûn sepanê ji bo ti armanceke neqanûnî an qedexekirî, an jî bi ti awayekî ku dikare zirarê bide, neçalak bike, zêde bar bike, an jî xirab bike, bikar neynin.",
+        "CONTENT_2_3": "Ji bo bikaranîna Nexşeya Pi divê hûn wekî bikarhênerekî pêşeng ê Tora Pi qeydkirî bin.",
+        "HEADER_3": "milkê rewşenbîrî",
+        "CONTENT_3_1": "Sepana Map of Pi û hemû naverok, taybetmendî û fonksiyonelîteyên wê yên Map of Pi ne û ji hêla mafên nivîskar, nîşana bazirganî û qanûnên din ên milkê rewşenbîrî ve têne parastin.",
+        "HEADER_4": "Sînorkirina berpirsiyariyê",
+        "CONTENT_4_1": "Map of Pi ji bo zirarên rasterast, nerasterast, tesadufî, taybet, an encamî yên ku ji ber an bi her awayî bi karanîna sepana Map of Pi ve girêdayî ne, berpirsiyar nabe.",
+        "HEADER_5": "tezmînat",
+        "CONTENT_5_1": "Hûn qebûl dikin ku Map of Pi û pargîdaniyên pê re girêdayî, berpirs, rêvebir, karmend û ajanên wê ji her cûre îdîa, berpirsiyarî, zirar, windahî, an lêçûn (tevî xerca parêzeran) ên ku ji karanîna we ya sepana Map of Pi derdikevin an bi her awayî bi wê ve girêdayî ne, tazmîn bikin û bê zirar bihêlin.",
+        "HEADER_6": "Governing Law",
+        "CONTENT_6_1": "Ev Mercên Xizmetê dê li gorî qanûnên Îngilîstan û Walesê bên birêvebirin û şîrovekirin bêyî ku li ber çavan bên girtin li hember bendên nakokiya qanûnên wan, tevî her nakokî an îdîayek ku ji ber an bi mijara wan an avakirina wan ve girêdayî ye (tevî nakokî an îdîayên ne-peymanî).",
+        "HEADER_7": "Guhertinên van Mercên",
+        "CONTENT_7_1": "Em mafê xwe diparêzin ku van Mercên Xizmetê di her kêliyê de bêyî agahdarkirina pêşwext nûve bikin an biguherînin. Guhertoya herî dawî dê li ser malpera me an jî di nav sepanê de were weşandin."
+      }
+    }
+  },
+  "SHARED": {
+    "PIONEER_LABEL": "Destpêker",
+    "PIONEER_ID_LABEL": "nasnameya pêşeng",
+    "MEMBERSHIP": "Endamî",
+    "BUY": "Kirrîn",
+    "WATCH": "Seet",
+    "RESET": "Reset",
+    "REFUND": "Şûndadan",
+    "FULFILL": "Bicihanîn",
+    "FULFILLED": "Pêk anîn",
+    "PENDING": "Nexelas",
+    "NAVIGATE": "Rêserbirin",
+    "NO_COMMENT": "No şîrove pêşkêş kirin",
+    "SEARCH_CENTER": "Navenda Lêgerînê saz bikin",
+    "CHECK_REVIEWS": "nirxandinên kontrol bikin",
+    "SEARCH_REVIEWS": "Lêgerînên Lêgerînê",
+    "SEARCH_LOADING": "Lêgerîn tê barkirin...",
+    "VIEW_NOTIFICATIONS": "Daxuyaniyan bibînin",
+    "REPLY": "Bersiv",
+    "EDIT": "Weşandin",
+    "COPY": "Kopî",
+    "ADD_ITEM": "Babetê lê zêde bike",
+    "CHECKOUT": "Lêkolîn",
+    "DELETE": "Jêbirin",
+    "CONFIRM_DELETE": "Bi rastî dixwazî vê tiştê jê bibî? Ev çalakî nayê vegerandin.",
+    "SAVE": "Rizgarkirin",
+    "CONFIRM": "Tesdîqkirin",
+    "CONFIRM_DIALOG": "Guhertinên te yên nehatine tomarkirin hene. Bi rastî tu dixwazî biçî?",
+    "USER_INFORMATION": {
+      "PI_USERNAME_LABEL": "Pi navê bikarhêner",
+      "NAME_LABEL": "Nav",
+      "PHONE_NUMBER_LABEL": "Jimare telefon",
+      "EMAIL_LABEL": "Email"
+    },
+    "PHOTO": {
+      "UPLOAD_PHOTO_LABEL": "Wêneyê barkirin",
+      "UPLOAD_PHOTO_PLACEHOLDER": "Ji bo kişandina kirrûbiran wêneyê bar bike (PNG, JPG, JPEG, WEBP)",
+      "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Wêneyek bar bike da ku piştgiriya nirxandina xwe bike (PNG, JPG, JPEG, WEBP)",
+      "IMAGE_DROP_UPLOAD_MESSAGE": "Wêneyê xwe li vir bavêje an jî bigerîne",
+      "SUPPORTS_FILE_MESSAGE": "Piştgirî: PNG, JPG, JPEG, WEBP",
+      "MISC_LABELS": {
+        "USER_PREFERENCES_LABEL": "Wêne profîlê",
+        "SELLER_IMAGE_LABEL": "Wêneyê firoşkar",
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Wêne binirxînin",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Wêne nûve bikin"
+      }
+    },
+    "REACTION_RATING": {
+      "UNSAFE": "ne ewledar",
+      "TRUSTWORTHY": "pêbawer",
+      "EMOTIONS": {
+        "DESPAIR": "Bêçareman",
+        "SAD": "Xemgîn",
+        "OKAY": "Okay",
+        "HAPPY": "Şa",
+        "DELIGHT": "Kêfxweş"
+      },
+      "VALIDATION": {
+        "SUCCESSFUL_REVIEW_SUBMISSION": "Nirxandin bi serkeftî hate şandin",
+        "UNSUCCESSFUL_REVIEW_SUBMISSION": "Vekolîn nehat şandin",
+        "SELECT_EMOJI_EXPRESSION": "Ji kerema xwe îfadeya emoji hilbijêrin"
+      }
+    },
+    "MAP_CENTER": {
+      "SEARCH_BAR_PLACEHOLDER": "Li cih, bajar, an navnîşanê bigere",
+      "VALIDATION": {
+        "MAP_CENTER_SUCCESS_MESSAGE": "Navenda te bi serkeftî hat tomarkirin",
+        "SELL_CENTER_SANCTIONED_MESSAGE": "Cihê ku we hilbijartiye xuya dike ku di herêmeke destûrdayî de ye. Ger were piştrastkirin, nîşana firotanê ya we dibe ku ji nexşeyê were rakirin."
+      }
+    },
+    "LOADING_SCREEN_MESSAGE": "Barkirin ...",
+    "SAVING_SCREEN_MESSAGE": "rizgarkirin ...",
+    "VALIDATION": {
+      "SUBMISSION_FAILED_USER_NOT_AUTHENTICATED": "Radestkirin bi ser neket ji ber ku bikarhêner nehatiye pejirandin",
+      "UNEXPECTED_ERROR_MESSAGE": "Çewtiyek neçaverêkirî çêbû"
+    }
+  },
+  "ERROR": {
+    "PAGE_NOT_FOUND_HEADER": "Rûpel nehat dîtin",
+    "PAGE_NOT_FOUND_MESSAGE": "Bibore, rûpela ku hûn lê digerin tune ye."
+  }
+}

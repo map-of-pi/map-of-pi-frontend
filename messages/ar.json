@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "سياسة الخصوصية",
       "TERMS_OF_SERVICE": "شروط الخدمة"
     },
+    "WALLET_ADDRESS_LABEL": "عنوان محفظة Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "أدخل عنوان محفظة Pi الخاصة بك",
     "FIND_ME_PREFERENCE_LABEL": "تفضيل FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "تلقائي",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "البائعون النشطون",
       "INCLUDE_INACTIVE_SELLERS": "البائعون غير النشطين",
-      "INCLUDE_TEST_SELLERS": "البائعون التجريبيون"
+      "INCLUDE_TEST_SELLERS": "البائعون التجريبيون",
+      "INCLUDE_HOLIDAY_SELLERS": "بائعو العطلات"
     },
     "CONTACT_MAP_OF_PI": "اتصل بـ Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "بائع نشط",
           "INACTIVE_SELLER": "بائع غير نشط",
           "TEST_SELLER": "بائع تجريبي",
+          "HOLIDAY_SELLER": "بائع العطلات",
           "RESTRICTED_SELLER": "بائع مقيّد"
         }
       },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "شراء من البائع",
       "SELLER_DETAILS_LABEL": "تفاصيل البائع",
       "SELLER_ADDRESS_POSITION_LABEL": "عنوان أو مكان البائع",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "قم بالدفع إلى عنوان المحفظة هذا",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "اتصل بالبائع لطلب عنوان المحفظة",
       "LEAVE_A_REVIEW_MESSAGE": "اترك تقييمًا",
       "FACE_SELECTION_REVIEW_MESSAGE": "اختر الوجه الذي يعبر عن شعورك حول هذا البائع",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "أدخل تعليقات إضافية هنا",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "عرض الإشعارات",
     "REPLY": "رد",
     "EDIT": "تعديل",
+    "COPY": "نسخ",
     "ADD_ITEM": "إضافة منتج",
     "CHECKOUT": "الدفع",
     "DELETE": "حذف",

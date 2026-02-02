@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Nkwankyerɛ ho Ahintasɛm",
       "TERMS_OF_SERVICE": "Asɛm a ɛfa dwumadi ho"
     },
+    "WALLET_ADDRESS_LABEL": "Pi Sika Kotokɔ Adiresɛ",
+    "WALLET_ADDRESS_PLACEHOLDER": "Kyerɛw wo Pi sika kotokɔ adiresɛ no",
     "FIND_ME_PREFERENCE_LABEL": "FindMe Abapɔw",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Nwoma so",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Atɔnfo a wɔyɛ adwuma",
       "INCLUDE_INACTIVE_SELLERS": "Atɔnfo a wogyae adwuma",
-      "INCLUDE_TEST_SELLERS": "Atɔnfo a wɔregyina nsɔhwɛ mu"
+      "INCLUDE_TEST_SELLERS": "Atɔnfo a wɔregyina nsɔhwɛ mu",
+      "INCLUDE_HOLIDAY_SELLERS": "Afehyia Atɔnfo"
     },
     "CONTACT_MAP_OF_PI": "Kasa kyerɛ Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Atɔnfoɔ a ɔyɛ adwuma",
           "INACTIVE_SELLER": "Atɔnfoɔ a wagyae adwuma",
           "TEST_SELLER": "Nsɔhwɛ Atɔnfoɔ",
+          "HOLIDAY_SELLER": "Afehyia Atɔnfo",
           "RESTRICTED_SELLER": "Dwadifo a wɔakyiw no"
         }
       },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Tɔ Firi Ɔtɔnni Hɔ",
       "SELLER_DETAILS_LABEL": "Ɔtɔnni Nsɛm",
       "SELLER_ADDRESS_POSITION_LABEL": "Ɔtɔnni Fie Anaa Ne Beaeɛ",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Tua ka kɔ saa sika kotokɔ adiresɛ yi so",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Frɛ ɔtɔnfo no na bisa no sɛ ɔmfa ne sika kotoku adrɛs no",
       "LEAVE_A_REVIEW_MESSAGE": "Gyaa Nsɛm Fa Ɔtɔnni No Ho",
       "FACE_SELECTION_REVIEW_MESSAGE": "Paw anim a ɛda sɛnea wopɛ ho adi",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Kyerɛ nsɛm foforɔ wɔ ha",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Hwɛ nsɛm no",
     "REPLY": "Ka",
     "EDIT": "Sesã",
+    "COPY": "Fa",
     "ADD_ITEM": "Ka Item",
     "CHECKOUT": "Tua ka",
     "DELETE": "Popa",

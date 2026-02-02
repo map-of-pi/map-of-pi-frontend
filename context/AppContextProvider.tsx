@@ -7,7 +7,8 @@ import {
   useState,
   SetStateAction,
   ReactNode,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
@@ -20,11 +21,13 @@ import logger from '../logger.config.mjs';
 /**
  * Interface defining the global state and functions provided by AppContext.
  */
+const MAX_LOGIN_RETRIES = 3;
+const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
+
 interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
-  registerUser: () => void;
-  autoLoginUser: () => void;
+  authenticateUser: () => void;
   userMembership: MembershipClassType;
   setUserMembership: React.Dispatch<SetStateAction<MembershipClassType>>;
   isSigningInUser: boolean;
@@ -50,8 +53,7 @@ interface IAppContextProps {
 const initialState: IAppContextProps = {
   currentUser: null,
   setCurrentUser: () => {},
-  registerUser: () => {},
-  autoLoginUser: () => {},
+  authenticateUser: () => {},
   isSigningInUser: false,
   userMembership: MembershipClassType.CASUAL,
   setUserMembership: () => {},
@@ -69,6 +71,16 @@ const initialState: IAppContextProps = {
   notificationsCount: 0,
   ordersCount: 0,
   setOrdersCount: () => {},
+};
+
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// both HTTP 401 Unauthorized and HTTP 403 Forbidden errors are considered "hard fails" 
+// in the sense that the server is actively denying access
+const isHardFail = (err: any) => {
+  const code = err?.response?.status || err?.status;
+  return code === 401 || code === 403;
 };
 
 export const AppContext = createContext<IAppContextProps>(initialState);
@@ -99,8 +111,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     loadPiSdk()
       .then(Pi => {
-        Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
-        return Pi.nativeFeaturesList();
+        Pi.nativeFeaturesList().then((features: string | string[]) => {
+          setAdsSupported(features.includes("ad_network"));
+        })
       })
       .then(features => setAdsSupported(features.includes("ad_network")))
       .catch(err => logger.error('Pi SDK load/init error:', err));
@@ -255,8 +268,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       value={{ 
         currentUser, 
         setCurrentUser, 
-        registerUser, 
-        autoLoginUser, 
+        authenticateUser, 
         isSigningInUser, 
         userMembership,
         setUserMembership,

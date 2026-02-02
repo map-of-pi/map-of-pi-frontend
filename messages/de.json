@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Datenschutzpolitik",
       "TERMS_OF_SERVICE": "Nutzungsbedingungen"
     },
+    "WALLET_ADDRESS_LABEL": "Pi-Wallet-Adresse",
+    "WALLET_ADDRESS_PLACEHOLDER": "Gib deine Pi-Wallet-Adresse ein",
     "FIND_ME_PREFERENCE_LABEL": "FindMe Vorzugsrecht",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automatisch",
@@ -35,7 +37,9 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Aktives Mitglied Verkäufer",
       "INCLUDE_INACTIVE_SELLERS": "Untätig Verkäufer",
-      "INCLUDE_TEST_SELLERS": "Testverkäufer einschließen"
+      "INCLUDE_TEST_SELLERS": "Testverkäufer einschließen",
+      "INCLUDE_HOLIDAY_SELLERS": "Feiertagsverkäufer"
+
     },
     "CONTACT_MAP_OF_PI": "Kontaktkarte von Map of Pi",
     "VALIDATION": {
@@ -83,6 +87,7 @@
           "ACTIVE_SELLER": "Aktiver Verkäufer",
           "INACTIVE_SELLER": "Inaktiver Verkäufer",
           "TEST_SELLER": "Testverkäufer",
+          "HOLIDAY_SELLER": "Feiertagsverkäufer",
           "RESTRICTED_SELLER": "Eingeschränkter Verkäufer"
         }
       },
@@ -172,6 +177,8 @@
       "BUY_FROM_SELLER_HEADER": "Von Verkäufer kaufen",
       "SELLER_DETAILS_LABEL": "Verkäuferdetails",
       "SELLER_ADDRESS_POSITION_LABEL": "Adresse oder Position des Verkäufers",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Zahle an diese Wallet-Adresse",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Kontaktiere den Verkäufer, um die Wallet-Adresse anzufordern",
       "LEAVE_A_REVIEW_MESSAGE": "Hinterlasse eine Bewertung",
       "FACE_SELECTION_REVIEW_MESSAGE": "Wählen Sie das Gesicht aus, das zeigt, wie Sie über den oben genannten Verkäufer denken",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Geben Sie hier zusätzliche Kommentare ein",
@@ -332,6 +339,7 @@
     "VIEW_NOTIFICATIONS": "Benachrichtigungen anzeigen",
     "REPLY": "Antwort",
     "EDIT": "Bearbeiten",
+    "COPY": "Kopieren",
     "ADD_ITEM": "Artikel hinzufügen",
     "CHECKOUT": "Kasse",
     "DELETE": "Löschen",

@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Politique de confidentialité",
       "TERMS_OF_SERVICE": "Conditions d'utilisation"
     },
+    "WALLET_ADDRESS_LABEL": "Adresse du portefeuille Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Entrez votre adresse de portefeuille Pi",
     "FIND_ME_PREFERENCE_LABEL": "Préférence FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automatique",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Vendeurs actifs",
       "INCLUDE_INACTIVE_SELLERS": "Vendeurs inactifs",
-      "INCLUDE_TEST_SELLERS": "Vendeurs de test"
+      "INCLUDE_TEST_SELLERS": "Vendeurs de test",
+      "INCLUDE_HOLIDAY_SELLERS": "Vendeurs saisonniers"
     },
     "CONTACT_MAP_OF_PI": "Contacter Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Vendeur activé",
           "INACTIVE_SELLER": "Vendeur desactivé",
           "TEST_SELLER": "Vendeur de test",
+          "HOLIDAY_SELLER": "Vendeur saisonnier",
           "RESTRICTED_SELLER": "Vendeur restreint"
         }
       },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Acheter chez le vendeur",
       "SELLER_DETAILS_LABEL": "Détails du vendeur",
       "SELLER_ADDRESS_POSITION_LABEL": "Adresse ou position du vendeur",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Effectuer le paiement sur cette adresse de portefeuille",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Contactez le vendeur pour demander l’adresse du portefeuille",
       "LEAVE_A_REVIEW_MESSAGE": "Partagez votre avis",
       "FACE_SELECTION_REVIEW_MESSAGE": "Quel est votre sentiment vis-a-vis de ce vendeur",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Entrez vos commentaires ici",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Voir les notifications",
     "REPLY": "Répondre",
     "EDIT": "Modifier",
+    "COPY": "Copier",
     "ADD_ITEM": "Ajouter un article",
     "CHECKOUT": "Paiement",
     "DELETE": "Supprimer",
