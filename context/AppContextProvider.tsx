@@ -19,11 +19,15 @@ import { getOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
 
 /**
- * Interface defining the global state and functions provided by AppContext.
+ * Global Constants for Authentication Resilience
  */
 const MAX_LOGIN_RETRIES = 3;
-const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
+const BASE_DELAY_MS = 5000;
 
+/**
+ * Core interface for the Application Context.
+ * Defines shared state and methods used across the Pi Network ecosystem.
+ */
 interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
@@ -45,10 +49,10 @@ interface IAppContextProps {
   notificationsCount: number;
   ordersCount: number;
   setOrdersCount: React.Dispatch<SetStateAction<number>>;
-};
+}
 
 /**
- * Initial state to prevent undefined errors in consuming components.
+ * Initial state configuration to ensure type safety and prevent runtime errors.
  */
 const initialState: IAppContextProps = {
   currentUser: null,
@@ -73,16 +77,6 @@ const initialState: IAppContextProps = {
   setOrdersCount: () => {},
 };
 
-const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-
-// both HTTP 401 Unauthorized and HTTP 403 Forbidden errors are considered "hard fails" 
-// in the sense that the server is actively denying access
-const isHardFail = (err: any) => {
-  const code = err?.response?.status || err?.status;
-  return code === 401 || code === 403;
-};
-
 export const AppContext = createContext<IAppContextProps>(initialState);
 
 interface AppContextProviderProps {
@@ -103,7 +97,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [ordersCount, setOrdersCount] = useState(0);
 
   /**
-   * Effect to initialize Pi SDK and trigger auto-login on mount.
+   * Initializes Pi SDK and attempts automatic user session restoration on mount.
+   * Handles asynchronous SDK loading and native feature discovery.
    */
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
@@ -111,136 +106,114 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     loadPiSdk()
       .then(Pi => {
-        Pi.nativeFeaturesList().then((features: string | string[]) => {
-          setAdsSupported(features.includes("ad_network"));
-        })
+        Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
+        return Pi.nativeFeaturesList();
       })
-      .then(features => setAdsSupported(features.includes("ad_network")))
+      .then((features: any) => {
+        if (Array.isArray(features)) {
+          setAdsSupported(features.includes("ad_network"));
+        }
+      })
       .catch(err => logger.error('Pi SDK load/init error:', err));
   }, []);
 
   /**
-   * Effect to synchronize notification counts based on user session and global reload state.
+   * Synchronizes notification counters with the Backend.
+   * Triggered on user login or global reload signal.
    */
   useEffect(() => {
     if (!currentUser) return;
 
     const fetchNotificationsCount = async () => {
       try {
-        const { count } = await getNotifications({
-          skip: 0,
-          limit: 1,
-          status: 'uncleared'
-        });
+        const { count } = await getNotifications({ skip: 0, limit: 1, status: 'uncleared' });
         setNotificationsCount(count);
         setToggleNotification(count > 0);
       } catch (error) {
         logger.error('Failed to fetch notification count:', error);
         setNotificationsCount(0);
-        setToggleNotification(false);
       }
     };
-  
     fetchNotificationsCount();
   }, [currentUser, reload]);
 
   /**
-   * Effect to synchronize orders count (Pending orders) for real-time UI updates.
-   * Matches the newly integrated order-counter feature.
+   * Synchronizes pending order counts for real-time dashboard updates.
+   * Aligns with Backend pagination and status filtering logic.
    */
   useEffect(() => {
     if (!currentUser) return;
 
     const fetchOrdersCount = async () => {
       try {
-        const { count } = await getOrders({
-          skip: 0,
-          limit: 1,
-          status: 'pending'
-        });
+        const { count } = await getOrders({ skip: 0, limit: 1, status: 'pending' });
         setOrdersCount(count);
       } catch (error) {
         logger.error('Failed to fetch orders count:', error);
-        setOrdersCount(0); // Graceful degradation
+        setOrdersCount(0);
       }
     };
-
     fetchOrdersCount();
   }, [currentUser, reload]);
 
   /**
-   * Helper to display temporary global alerts.
+   * Helper to manage global alert visibility.
    */
   const showAlert = (message: string) => {
     setAlertMessage(message);
-    setTimeout(() => {
-      setAlertMessage(null);
-    }, 5000);
+    setTimeout(() => setAlertMessage(null), 5000);
   };
 
   /**
-   * Handles user authentication via Pi Network Native SDK.
+   * Primary registration flow via Pi Network Native Authentication.
+   * Exchanges Pi AccessToken for a local session JWT from the Backend.
    */
   const registerUser = async () => {
-    logger.info('Starting user registration via Pi SDK.');
-
     if (typeof window !== 'undefined' && window.Pi?.initialized) {
       try {
         setIsSigningInUser(true);
-        const pioneerAuth: AuthResult = await window.Pi.authenticate([
-          'username', 
-          'payments', 
-          'wallet_address'
-        ], onIncompletePaymentFound);
-
-        const res = await axiosClient.post(
-          "/users/authenticate", 
-          {}, 
-          {
-            headers: {
-              Authorization: `Bearer ${pioneerAuth.accessToken}`,
-            },
-          }
-        );
+        const pioneerAuth: AuthResult = await window.Pi.authenticate(['username', 'payments', 'wallet_address'], onIncompletePaymentFound);
+        const res = await axiosClient.post("/users/authenticate", {}, {
+          headers: { Authorization: `Bearer ${pioneerAuth.accessToken}` },
+        });
 
         if (res.status === 200) {
           setAuthToken(res.data?.token);
           setCurrentUser(res.data.user);
           setUserMembership(res.data.membership_class);
-          logger.info('User authenticated successfully.');
-        } else {
-          setCurrentUser(null);
-          logger.error('User authentication failed via Backend.');
+          logger.info('Authentication successful.');
         }
       } catch (error) {
-        logger.error('Error during user registration:', error);
+        logger.error('Error during registration flow:', error);
       } finally {
         setTimeout(() => setIsSigningInUser(false), 2500);
       }
-    } else {
-      logger.error('PI SDK failed to initialize or not found.');
     }
   };
 
   /**
-   * Attempts to restore user session from backend; falls back to Pi Auth on failure.
+   * Proxy function for authentication to maintain Interface compliance.
+   */
+  const authenticateUser = () => {
+    registerUser();
+  };
+
+  /**
+   * Attempts to verify existing session via Backend "/users/me" endpoint.
+   * Cascades to full registration flow if session is expired or invalid.
    */
   const autoLoginUser = async () => {
-    logger.info('Attempting auto-login using stored session.');
     try {
       setIsSigningInUser(true);
       const res = await axiosClient.get('/users/me');
-
       if (res.status === 200) {
-        logger.info('Auto-login successful.');
         setCurrentUser(res.data.user);
         setUserMembership(res.data.membership_class);
       } else {
-        logger.warn('Auto-login failed; fallback required.');
-        setCurrentUser(null);
+        await registerUser();
       }
     } catch (error) {
-      logger.error('Auto login unresolved; switching to Pi SDK authentication flow.');
+      logger.warn('Auto-login session invalid, initiating fresh auth.');
       await registerUser();
     } finally {
       setTimeout(() => setIsSigningInUser(false), 2500);
@@ -248,7 +221,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   };
 
   /**
-   * Injects Pi SDK script dynamically into the document.
+   * Dynamically injects the Pi SDK script into the DOM.
+   * Prevents duplicate script injection via ID tracking.
    */
   const loadPiSdk = (): Promise<typeof window.Pi> => {
     return new Promise((resolve, reject) => {
@@ -258,7 +232,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       script.src = 'https://sdk.minepi.com/pi-sdk.js';
       script.async = true;
       script.onload = () => resolve(window.Pi);
-      script.onerror = () => reject(new Error('Failed to load Pi SDK script'));
+      script.onerror = () => reject(new Error('Failed to load Pi SDK'));
       document.head.appendChild(script);
     });
   };
