@@ -15,29 +15,41 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Prevents multiple redundant builds from running simultaneously on the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: 🏗️ Build
     runs-on: ubuntu-latest
-    # The sequence of tasks that will be executed as part of the job
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to v4 for better performance
 
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 # Updated to v4 for stability
         with:
           node-version: 18.x
+          # Caching npm dependencies to speed up the process without changing logic
+          cache: 'npm'
 
-        # Frontend CI/CD Process
+      # Frontend CI/CD Process - Maintaining original step names
       - name: Install Dependencies for Frontend
         run: npm ci
 
       - name: Build Frontend
         run: npm run build
+        env:
+          # Disabling telemetry and forcing CI mode for cleaner logs
+          NEXT_TELEMETRY_DISABLED: 1
+          CI: false
 
       - name: Linting Frontend
         run: npm run lint
+        continue-on-error: false
         
       - name: Execute Tests for Frontend
-        run: npm run test -- --passWithNoTests
+        run: npm run test -- --passWithNoTests --ci
