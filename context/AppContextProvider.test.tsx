@@ -1,6 +1,6 @@
 /**
  * AppContextProvider Logic Verification Suite
- * Using relative paths to ensure compatibility with Jest's module resolver.
+ * Professional testing approach for the Pi Network ecosystem synchronization logic.
  */
 
 import { render, waitFor } from '@testing-library/react';
@@ -8,18 +8,23 @@ import * as React from 'react';
 import { AppContextProvider } from '../AppContextProvider';
 
 /**
- * FIX: Using relative paths instead of '@/' alias to prevent module resolution errors.
- * This maintains compatibility with the existing CI/CD Jest environment.
+ * PATH CORRECTION: 
+ * Navigating from './context/' to './services/' requires moving up one level.
+ * This ensures the Jest resolver finds the backend API definitions correctly.
  */
-import { getOrders } from '../services/orderApi';
-import { getNotifications } from '../services/notificationApi';
+import { getOrders } from '@/services/orderApi';
+import { getNotifications } from '@/services/notificationApi';
 
 /**
  * Service Mocking
- * Isolating backend services to prevent actual network requests during CI/CD.
+ * Using string-based mocking to ensure absolute path resolution in CI/CD environments.
  */
-jest.mock('../services/orderApi');
-jest.mock('../services/notificationApi');
+jest.mock('@/services/orderApi', () => ({
+  getOrders: jest.fn(),
+}));
+jest.mock('@/services/notificationApi', () => ({
+  getNotifications: jest.fn(),
+}));
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -28,48 +33,52 @@ describe('AppContextProvider Lifecycle Tests', () => {
   
   /**
    * Test: Backend Sync on Initialization
-   * Verifies the core logic of fetching data from Pi Network backend services.
+   * Confirms that both Order and Notification services are invoked upon mounting.
    */
   it('should initiate data fetching for orders and notifications upon mounting', async () => {
-    // Setting up mock behavior for backend services
-    (getOrders as jest.Mock).mockResolvedValue({ count: 10 });
-    (getNotifications as jest.Mock).mockResolvedValue({ count: 5 });
+    // Casting to jest.Mock to access mock methods safely
+    const mockGetOrders = require('@/services/orderApi').getOrders;
+    const mockGetNotifications = require('@/services/notificationApi').getNotifications;
+
+    mockGetOrders.mockResolvedValue({ count: 10 });
+    mockGetNotifications.mockResolvedValue({ count: 5 });
 
     /**
-     * Using React.createElement to bypass JSX parsing issues encountered in CI/CD.
+     * Using React.createElement to prevent JSX parsing issues in the runner.
      */
     render(
       React.createElement(
         AppContextProvider,
         null,
-        React.createElement('div', null, 'Logic Test')
+        React.createElement('div', null, 'Logic Sync Test')
       )
     );
 
-    // Verify that services are synchronized as per the app requirements
+    // Verify synchronization requirements
     await waitFor(() => {
-      expect(getOrders).toHaveBeenCalled();
-      expect(getNotifications).toHaveBeenCalled();
+      expect(mockGetOrders).toHaveBeenCalled();
+      expect(mockGetNotifications).toHaveBeenCalled();
     });
   });
 
   /**
-   * Test: Resilience and Error Handling
-   * Ensures the application doesn't crash if the backend service returns an error.
+   * Test: Resilience Strategy
+   * Ensures the provider handles backend rejections gracefully without crashing the UI.
    */
-  it('should maintain stability and handle API rejection without crashing', async () => {
-    (getOrders as jest.Mock).mockRejectedValue(new Error('Backend Sync Failed'));
+  it('should maintain application stability during API service rejections', async () => {
+    const mockGetOrders = require('@/services/orderApi').getOrders;
+    mockGetOrders.mockRejectedValue(new Error('Backend Offline'));
 
     render(
       React.createElement(
         AppContextProvider,
         null,
-        React.createElement('div', null, 'Resilience Test')
+        React.createElement('div', null, 'Stability Test')
       )
     );
 
     await waitFor(() => {
-      expect(getOrders).toHaveBeenCalled();
+      expect(mockGetOrders).toHaveBeenCalled();
     });
   });
 });
