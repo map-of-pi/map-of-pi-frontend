@@ -1,51 +1,49 @@
 /**
- * AppContextProvider Logic Tests
- * * This suite verifies the core synchronization logic between the AppContext 
- * and the Pi Network backend services (Orders and Notifications).
+ * AppContextProvider Logic Verification Suite
+ * This test suite focuses on the core business logic and API synchronization 
+ * to ensure compatibility with the Pi Network ecosystem backend.
  */
 
 import { render, waitFor } from '@testing-library/react';
+import * as React from 'react';
 import { AppContextProvider } from '../AppContextProvider';
 import { getOrders } from '@/services/orderApi';
 import { getNotifications } from '@/services/notificationApi';
-import React from 'react';
 
 /**
- * Mocking external dependencies to ensure isolated unit testing.
- * Prevents actual API calls and provides controlled responses for the test environment.
+ * Service Mocking
+ * Isolating backend services to prevent actual network requests during CI/CD.
  */
 jest.mock('@/services/orderApi');
 jest.mock('@/services/notificationApi');
-
-/**
- * Mocking next-intl to prevent translation loading issues during testing.
- */
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
 
-describe('AppContextProvider Unit Tests', () => {
+describe('AppContextProvider Lifecycle Tests', () => {
   
   /**
-   * Test Case: Verifies that the provider triggers data fetching on mount.
-   * This aligns with the requirements of the order-counter feature.
+   * Test: Backend Sync on Initialization
+   * Ensures the provider triggers the necessary API calls for orders and notifications.
    */
-  it('should trigger backend synchronization for orders and notifications on mount', async () => {
-    // Setting up mock resolved values to simulate successful API responses
-    (getOrders as jest.Mock).mockResolvedValue({ count: 5 });
-    (getNotifications as jest.Mock).mockResolvedValue({ count: 3 });
+  it('should initiate data fetching for orders and notifications upon mounting', async () => {
+    // Setting up mock behavior for backend services
+    (getOrders as jest.Mock).mockResolvedValue({ count: 10 });
+    (getNotifications as jest.Mock).mockResolvedValue({ count: 5 });
 
     /**
-     * Minimalist wrapper component to test context initialization 
-     * without introducing complex JSX syntax issues in the test runner.
+     * Using React.createElement instead of JSX syntax to avoid 
+     * Jest transformation errors (Unexpected token '<').
      */
-    const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-      <AppContextProvider>{children}</AppContextProvider>
+    render(
+      React.createElement(
+        AppContextProvider,
+        null,
+        React.createElement('div', null, 'Logic Test')
+      )
     );
 
-    render(<TestWrapper><div>Sync Test</div></TestWrapper>);
-
-    // Validating that the API services were called as expected during the component lifecycle
+    // Verify that services are synchronized as per the app requirements
     await waitFor(() => {
       expect(getOrders).toHaveBeenCalled();
       expect(getNotifications).toHaveBeenCalled();
@@ -53,15 +51,18 @@ describe('AppContextProvider Unit Tests', () => {
   });
 
   /**
-   * Test Case: Ensures graceful degradation if API services fail.
+   * Test: Resilience and Error Handling
+   * Verifies that the application remains stable even if a backend service fails.
    */
-  it('should handle API service failures gracefully without crashing', async () => {
-    (getOrders as jest.Mock).mockRejectedValue(new Error('API Failure'));
+  it('should maintain stability and handle API rejection without crashing', async () => {
+    (getOrders as jest.Mock).mockRejectedValue(new Error('Backend Sync Failed'));
 
     render(
-      <AppContextProvider>
-        <div>Resilience Test</div>
-      </AppContextProvider>
+      React.createElement(
+        AppContextProvider,
+        null,
+        React.createElement('div', null, 'Resilience Test')
+      )
     );
 
     await waitFor(() => {
