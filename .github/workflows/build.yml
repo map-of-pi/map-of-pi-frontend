@@ -12,80 +12,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Dependencies Setup
-  setup:
-    name: 📦 Setup & Foundation
+  # Job 1: Quality Assurance (Runs in parallel with Build)
+  qa:
+    name: 🛡️ Quality Assurance
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🟢 Initialize Node.js
+      - name: 🟢 Setup Node.js & Cache
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'npm'
 
-      - name: 🛠️ Install Dependencies
+      - name: 🛠️ Optimized Dependency Install
         run: npm ci
 
-      - name: 📤 Upload Dependency Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-dependencies
-          path: node_modules/
-          retention-days: 1
-
-  # Job 2: Quality Assurance
-  qa:
-    name: 🛡️ Quality Assurance
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout Repository
-        uses: actions/checkout@v4
-        
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
-      
-      - name: 📥 Retrieve Dependency Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node-dependencies
-          path: node_modules/
-
-      # Fixed: Using direct path to node_modules/.bin to eliminate Exit Code 127
       - name: 🔍 Execute Linting Checks
-        run: ./node_modules/.bin/next lint
+        run: npm run lint
         
       - name: 🧪 Execute Unit Tests
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
-  # Job 3: Production Build
+  # Job 2: Production Build
   build:
     name: 🏗️ Production Build
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-        
-      - name: 🟢 Setup Node.js
+
+      - name: 🟢 Setup Node.js & Cache
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
+          cache: 'npm'
+
+      - name: 🛠️ Optimized Dependency Install
+        run: npm ci
           
-      - name: 📥 Retrieve Dependency Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: node-dependencies
-          path: node_modules/
-          
-      # Fixed: Direct execution ensures 'next' is found every time
       - name: 🏗️ Compile Frontend Application
-        run: ./node_modules/.bin/next build
+        run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
           CI: false
