@@ -7,82 +7,86 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
+# Prevents multiple concurrent builds on the same branch to optimize resource usage
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Install & Cache (The Foundation)
+  # Job 1: Initialize the environment and establish the dependency base
   setup:
-    name: 📦 Setup & Cache
+    name: 📦 Setup & Foundation
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 🟢 Initialize Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: 🛠️ Clean Install Dependencies
         run: npm ci
 
-      # Share the installed modules with other jobs
-      - name: Upload node_modules
+      # Persist node_modules to be shared across parallel execution jobs
+      # This resolves the 'command not found' issue in isolated runners
+      - name: 📤 Upload Dependency Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: node-dependencies
           path: node_modules/
           retention-days: 1
 
-  # Job 2: Quality Assurance
+  # Job 2: Static analysis and Unit testing
   qa:
     name: 🛡️ Quality Assurance
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-      - name: Setup Node
+        
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
       
-      - name: Download node_modules
+      - name: 📥 Retrieve Dependency Artifacts
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
           path: node_modules/
 
-      - name: Run Linting
+      - name: 🔍 Execute Linting Checks
         run: npm run lint
         
-      - name: Run Unit Tests
+      - name: 🧪 Execute Unit Tests
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
-  # Job 3: Production Build
+  # Job 3: Production Build Generation
   build:
     name: 🏗️ Production Build
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-      - name: Setup Node
+        
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           
-      - name: Download node_modules
+      - name: 📥 Retrieve Dependency Artifacts
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
           path: node_modules/
           
-      - name: Build Frontend Application
+      - name: 🏗️ Compile Frontend Application
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
-          CI: false
+          CI: false # Maintains build stability even with non-critical warnings
