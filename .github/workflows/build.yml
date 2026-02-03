@@ -12,6 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Job 1: Dependencies Setup
   setup:
     name: 📦 Setup & Foundation
     runs-on: ubuntu-latest
@@ -28,16 +29,14 @@ jobs:
       - name: 🛠️ Install Dependencies
         run: npm ci
 
-      # Uploading both node_modules AND the .next folder if exists for maximum consistency
-      - name: 📤 Upload Build Artifacts
+      - name: 📤 Upload Dependency Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: node-dependencies
-          path: |
-            node_modules/
-            package-lock.json
+          path: node_modules/
           retention-days: 1
 
+  # Job 2: Quality Assurance
   qa:
     name: 🛡️ Quality Assurance
     needs: setup
@@ -55,15 +54,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
-          path: .
+          path: node_modules/
 
-      # Using 'npx' ensures the local 'next' binary is found even if path hashing fails
+      # Fixed: Using direct path to node_modules/.bin to eliminate Exit Code 127
       - name: 🔍 Execute Linting Checks
-        run: npx next lint
+        run: ./node_modules/.bin/next lint
         
       - name: 🧪 Execute Unit Tests
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
+  # Job 3: Production Build
   build:
     name: 🏗️ Production Build
     needs: setup
@@ -81,11 +81,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
-          path: .
+          path: node_modules/
           
-      # Direct execution via npx to eliminate "sh: 1: next: not found" forever
+      # Fixed: Direct execution ensures 'next' is found every time
       - name: 🏗️ Compile Frontend Application
-        run: npx next build
+        run: ./node_modules/.bin/next build
         env:
           NEXT_TELEMETRY_DISABLED: 1
           CI: false
