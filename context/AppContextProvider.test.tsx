@@ -1,21 +1,25 @@
 /**
  * AppContextProvider Logic Verification Suite
- * This test suite focuses on the core business logic and API synchronization 
- * to ensure compatibility with the Pi Network ecosystem backend.
+ * Using relative paths to ensure compatibility with Jest's module resolver.
  */
 
 import { render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { AppContextProvider } from '../AppContextProvider';
-import { getOrders } from '@/services/orderApi';
-import { getNotifications } from '@/services/notificationApi';
+
+/**
+ * FIX: Using relative paths instead of '@/' alias to prevent module resolution errors.
+ * This maintains compatibility with the existing CI/CD Jest environment.
+ */
+import { getOrders } from '../services/orderApi';
+import { getNotifications } from '../services/notificationApi';
 
 /**
  * Service Mocking
  * Isolating backend services to prevent actual network requests during CI/CD.
  */
-jest.mock('@/services/orderApi');
-jest.mock('@/services/notificationApi');
+jest.mock('../services/orderApi');
+jest.mock('../services/notificationApi');
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
@@ -24,7 +28,7 @@ describe('AppContextProvider Lifecycle Tests', () => {
   
   /**
    * Test: Backend Sync on Initialization
-   * Ensures the provider triggers the necessary API calls for orders and notifications.
+   * Verifies the core logic of fetching data from Pi Network backend services.
    */
   it('should initiate data fetching for orders and notifications upon mounting', async () => {
     // Setting up mock behavior for backend services
@@ -32,8 +36,7 @@ describe('AppContextProvider Lifecycle Tests', () => {
     (getNotifications as jest.Mock).mockResolvedValue({ count: 5 });
 
     /**
-     * Using React.createElement instead of JSX syntax to avoid 
-     * Jest transformation errors (Unexpected token '<').
+     * Using React.createElement to bypass JSX parsing issues encountered in CI/CD.
      */
     render(
       React.createElement(
@@ -52,7 +55,7 @@ describe('AppContextProvider Lifecycle Tests', () => {
 
   /**
    * Test: Resilience and Error Handling
-   * Verifies that the application remains stable even if a backend service fails.
+   * Ensures the application doesn't crash if the backend service returns an error.
    */
   it('should maintain stability and handle API rejection without crashing', async () => {
     (getOrders as jest.Mock).mockRejectedValue(new Error('Backend Sync Failed'));
