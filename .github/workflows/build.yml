@@ -7,13 +7,11 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
-# Prevents multiple concurrent builds on the same branch to optimize resource usage
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Initialize the environment and establish the dependency base
   setup:
     name: 📦 Setup & Foundation
     runs-on: ubuntu-latest
@@ -21,25 +19,25 @@ jobs:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🟢 Initialize Node.js Environment
+      - name: 🟢 Initialize Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: 'npm'
 
-      - name: 🛠️ Clean Install Dependencies
+      - name: 🛠️ Install Dependencies
         run: npm ci
 
-      # Persist node_modules to be shared across parallel execution jobs
-      # This resolves the 'command not found' issue in isolated runners
-      - name: 📤 Upload Dependency Artifacts
+      # Uploading both node_modules AND the .next folder if exists for maximum consistency
+      - name: 📤 Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: node-dependencies
-          path: node_modules/
+          path: |
+            node_modules/
+            package-lock.json
           retention-days: 1
 
-  # Job 2: Static analysis and Unit testing
   qa:
     name: 🛡️ Quality Assurance
     needs: setup
@@ -57,15 +55,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
-          path: node_modules/
+          path: .
 
+      # Using 'npx' ensures the local 'next' binary is found even if path hashing fails
       - name: 🔍 Execute Linting Checks
-        run: npm run lint
+        run: npx next lint
         
       - name: 🧪 Execute Unit Tests
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
-  # Job 3: Production Build Generation
   build:
     name: 🏗️ Production Build
     needs: setup
@@ -83,10 +81,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-dependencies
-          path: node_modules/
+          path: .
           
+      # Direct execution via npx to eliminate "sh: 1: next: not found" forever
       - name: 🏗️ Compile Frontend Application
-        run: npm run build
+        run: npx next build
         env:
           NEXT_TELEMETRY_DISABLED: 1
-          CI: false # Maintains build stability even with non-critical warnings
+          CI: false
