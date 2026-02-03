@@ -1,6 +1,7 @@
 /**
  * AppContextProvider Logic Verification Suite
- * Professional testing approach for the Pi Network ecosystem synchronization logic.
+ * Professional testing approach ensuring full compatibility with the 
+ * existing Pi Network backend synchronization services.
  */
 
 import { render, waitFor } from '@testing-library/react';
@@ -8,21 +9,17 @@ import * as React from 'react';
 import { AppContextProvider } from '../AppContextProvider';
 
 /**
- * PATH CORRECTION: 
- * Navigating from './context/' to './services/' requires moving up one level.
- * This ensures the Jest resolver finds the backend API definitions correctly.
+ * PATH FIX: Using strictly relative paths to bypass Jest Alias resolution issues.
+ * This ensures the test runner finds the modules without modifying jest.config.js.
  */
-import { getOrders } from '@/services/orderApi';
-import { getNotifications } from '@/services/notificationApi';
+const MOCK_ORDER_PATH = '../services/orderApi';
+const MOCK_NOTIF_PATH = '../services/notificationApi';
 
-/**
- * Service Mocking
- * Using string-based mocking to ensure absolute path resolution in CI/CD environments.
- */
-jest.mock('@/services/orderApi', () => ({
+// Mocking the services using direct relative paths
+jest.mock('../services/orderApi', () => ({
   getOrders: jest.fn(),
 }));
-jest.mock('@/services/notificationApi', () => ({
+jest.mock('../services/notificationApi', () => ({
   getNotifications: jest.fn(),
 }));
 jest.mock('next-intl', () => ({
@@ -32,42 +29,42 @@ jest.mock('next-intl', () => ({
 describe('AppContextProvider Lifecycle Tests', () => {
   
   /**
-   * Test: Backend Sync on Initialization
-   * Confirms that both Order and Notification services are invoked upon mounting.
+   * Test Case: Verifies backend synchronization on component mount.
+   * Ensures 'getOrders' and 'getNotifications' are called to update global state.
    */
   it('should initiate data fetching for orders and notifications upon mounting', async () => {
-    // Casting to jest.Mock to access mock methods safely
-    const mockGetOrders = require('@/services/orderApi').getOrders;
-    const mockGetNotifications = require('@/services/notificationApi').getNotifications;
+    // Importing the mocked functions to define their behavior
+    const { getOrders } = require('../services/orderApi');
+    const { getNotifications } = require('../services/notificationApi');
 
-    mockGetOrders.mockResolvedValue({ count: 10 });
-    mockGetNotifications.mockResolvedValue({ count: 5 });
+    getOrders.mockResolvedValue({ count: 10 });
+    getNotifications.mockResolvedValue({ count: 5 });
 
     /**
-     * Using React.createElement to prevent JSX parsing issues in the runner.
+     * Using React.createElement instead of JSX tags to prevent 
+     * 'Unexpected token' syntax errors in the CI/CD environment.
      */
     render(
       React.createElement(
         AppContextProvider,
         null,
-        React.createElement('div', null, 'Logic Sync Test')
+        React.createElement('div', null, 'Production Logic Test')
       )
     );
 
-    // Verify synchronization requirements
+    // Asserting that the synchronization logic is executed
     await waitFor(() => {
-      expect(mockGetOrders).toHaveBeenCalled();
-      expect(mockGetNotifications).toHaveBeenCalled();
+      expect(getOrders).toHaveBeenCalled();
+      expect(getNotifications).toHaveBeenCalled();
     });
   });
 
   /**
-   * Test: Resilience Strategy
-   * Ensures the provider handles backend rejections gracefully without crashing the UI.
+   * Test Case: Resilience check for backend failures.
    */
-  it('should maintain application stability during API service rejections', async () => {
-    const mockGetOrders = require('@/services/orderApi').getOrders;
-    mockGetOrders.mockRejectedValue(new Error('Backend Offline'));
+  it('should maintain application stability if backend services reject', async () => {
+    const { getOrders } = require('../services/orderApi');
+    getOrders.mockRejectedValue(new Error('Backend Sync Error'));
 
     render(
       React.createElement(
@@ -78,7 +75,7 @@ describe('AppContextProvider Lifecycle Tests', () => {
     );
 
     await waitFor(() => {
-      expect(mockGetOrders).toHaveBeenCalled();
+      expect(getOrders).toHaveBeenCalled();
     });
   });
 });
