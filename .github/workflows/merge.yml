@@ -1,28 +1,28 @@
 name: Map of Pi Merge
 
 on:
-  # Automated trigger based on the success of the Build pipeline
+  # Triggered automatically once the "Map of Pi Build" workflow finishes its execution
   workflow_run:
     workflows: ["Map of Pi Build"]
     types:
       - completed
 
-  # Manual trigger for emergency or specific merges
+  # Support for manual triggers via the GitHub Actions dashboard
   workflow_dispatch:
 
 jobs:
   merge:
     name: 🔀 Automated Integration
     runs-on: ubuntu-latest
-    # Integrity Check: Ensures dev branch passed all QA/Build tests before merging to main
+    # Safety Gate: Executes ONLY if the build pipeline succeeded on the 'dev' branch
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev' }}
 
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🚀 Create Pull Request to Main
-        # Using a trusted and stable version for branch synchronization
+      - name: 🚀 Initialize Pull Request to Main
+        # Utilizing a stable and production-ready version for automated branch synchronization
         uses: repo-sync/pull-request@v2.12.1 
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -31,8 +31,12 @@ jobs:
           pr_title: "🚀 [Automated] Release: Merge dev into main"
           pr_body: |
             ## :robot: Automated Release System
-            This PR was automatically generated following a successful **Map of Pi Build** execution.
-            - **Source Branch:** `dev`
-            - **Status:** All QA & Build checks passed successfully.
-            - **Purpose:** Synchronize production environment with latest development features.
+            This Pull Request was triggered by a successful execution of the **Map of Pi Build** pipeline.
+            
+            ### ✅ Integrity Report:
+            - **Source:** `dev` branch.
+            - **Validation:** All Quality Assurance (QA) and Production Build stages passed successfully.
+            - **Scope:** Synchronizing the latest verified features with the production environment.
+            
+            *Automated by Map of Pi CI Engine.*
           pr_label: "auto-pr,deployment"
