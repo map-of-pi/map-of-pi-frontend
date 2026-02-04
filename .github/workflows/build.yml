@@ -7,13 +7,14 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
+# Management of concurrent runs to optimize CI resources and prevent outdated builds
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   # Job 1: Quality Assurance (The Security Gate)
-  # This job ensures code integrity before any build resources are consumed.
+  # This job acts as a rigorous filter, ensuring code integrity before any build resources are consumed.
   qa:
     name: 🛡️ Quality Assurance
     runs-on: ubuntu-latest
@@ -28,21 +29,22 @@ jobs:
           cache: 'npm'
 
       - name: 🛠️ Optimized Dependency Install
+        # Using 'npm ci' for reliable, reproducible builds in the CI environment
         run: npm ci
 
       - name: 🔍 Execute Linting Checks
-        # Enforcing strict code standards across the Map of Pi ecosystem.
+        # Enforcing strict code standards and leveraging Next.js built-in caching for rapid feedback
         run: npm run lint
         
       - name: 🧪 Execute Unit Tests
-        # Fail-fast approach: If tests fail, the downstream Build job will not trigger.
+        # Fail-fast approach: Optimized with resource limits to prevent memory overhead
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
   # Job 2: Production Build (Gated by QA)
-  # Architected to only execute upon 100% verification of the QA suite.
+  # This stage is architected to execute ONLY upon 100% verification of the QA suite.
   build:
     name: 🏗️ Production Build
-    needs: qa # This is the "Quality Gate" requested in the review
+    needs: qa # The "Quality Gate": Ensures the build only starts if QA (Lint/Tests) passes
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
@@ -58,8 +60,8 @@ jobs:
         run: npm ci
           
       - name: 🏗️ Compile Frontend Application
-        # Building the production artifact with full visibility. 
-        # Removed 'CI: false' to ensure no silent failures during the build process.
+        # Building the production artifact with maximum transparency.
+        # Strict error handling is enforced by removing 'CI: false' to prevent silent failures.
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
