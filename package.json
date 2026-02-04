@@ -10,7 +10,9 @@
     "build": "next build",
     "start": "next start -p 4200",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --ci --maxWorkers=2",
+    "test:watch": "jest --watch",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@emotion/core": "^10.1.1",
