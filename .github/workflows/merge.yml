@@ -15,6 +15,7 @@ jobs:
     name: 🔀 Automated Integration
     runs-on: ubuntu-latest
     # Safety Gate: Executes ONLY if the build pipeline succeeded on the 'dev' branch
+    # This ensures that no code reaches 'main' without passing the Quality Gate.
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev' }}
 
     steps:
@@ -30,13 +31,19 @@ jobs:
           destination_branch: "main"
           pr_title: "🚀 [Automated] Release: Merge dev into main"
           pr_body: |
-            ## :robot: Automated Release System
-            This Pull Request was triggered by a successful execution of the **Map of Pi Build** pipeline.
-            
-            ### ✅ Integrity Report:
-            - **Source:** `dev` branch.
-            - **Validation:** All Quality Assurance (QA) and Production Build stages passed successfully.
-            - **Scope:** Synchronizing the latest verified features with the production environment.
-            
-            *Automated by Map of Pi CI Engine.*
+            ## 🤖 Map of Pi Automated Release System
+            This Pull Request was autonomously generated following a **successful** execution of the full CI/CD pipeline.
+
+            ### 🛡️ Integrity & Compliance Report:
+            - **Pipeline Status:** ✅ **GATED PASS** (QA & Production Build Verified)
+            - **Source Origin:** `${{ github.event.workflow_run.head_branch }}`
+            - **Sync Direction:** `dev` ➔ `main`
+            - **Verification:** 100% Linting, Unit Testing, and Frontend Compilation successful.
+
+            ### 🏷️ State Indicators:
+            - `auto-pr`: System-generated integration.
+            - `deployment`: This label acts as a **State Indicator** to trigger downstream notification webhooks (Discord/Slack) and signal readiness for Mainnet deployment.
+
+            ---
+            *Architected by Map of Pi CI Engine | Zero-Regression Policy Enforced.*
           pr_label: "auto-pr,deployment"
