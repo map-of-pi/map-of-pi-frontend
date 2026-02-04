@@ -1,9 +1,35 @@
 {
-  "ignorePatterns": ["node_modules/", ".next/"],
-  "extends": "next",
+  /* Map of Pi - ESLint Configuration
+     Purpose: Ensures code integrity and maintains strict UI/UX standards 
+     without blocking the development velocity.
+  */
+  
+  "ignorePatterns": [
+    "node_modules/", 
+    ".next/", 
+    "public/", 
+    "dist/"
+  ],
+
+  "extends": [
+    "next",
+    "next/core-web-vitals", // Enforces best practices for performance, SEO, and accessibility
+    "eslint:recommended"    // Standard JavaScript best practices
+  ],
+
   "rules": {
-    "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off",
-    "react-hooks/exhaustive-deps": "off"
+    /* Transitioning strict errors to 'warn' to maintain CI/CD success 
+       while providing clear feedback for future code refactoring.
+    */
+    
+    "react/no-unescaped-entities": "warn", // Prevents potential rendering issues with special characters
+    
+    "@next/next/no-page-custom-font": "warn", // Optimizes font loading to prevent Layout Shift (CLS)
+    
+    "react-hooks/exhaustive-deps": "warn", // Ensures Hook dependencies are managed to avoid stale closures
+    
+    "no-unused-vars": "warn", // Keeps the codebase clean by flagging unreferenced variables
+    
+    "no-console": ["warn", { "allow": ["warn", "error"] }] // Restricts logs in production while allowing critical telemetry
   }
 }
