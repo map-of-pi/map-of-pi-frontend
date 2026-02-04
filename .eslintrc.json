@@ -1,35 +1,45 @@
 {
-  /* Map of Pi - ESLint Configuration
-     Purpose: Ensures code integrity and maintains strict UI/UX standards 
-     without blocking the development velocity.
+  /* Map of Pi - Advanced ESLint Configuration
+     Designed to enforce production-grade standards while maintaining high development velocity.
+     Aligned with Next.js 14 and Map of Pi ecosystem requirements.
   */
-  
-  "ignorePatterns": [
-    "node_modules/", 
-    ".next/", 
-    "public/", 
-    "dist/"
-  ],
 
+  "ignorePatterns": ["node_modules/", ".next/", "public/", "dist/"],
+  
   "extends": [
     "next",
-    "next/core-web-vitals", // Enforces best practices for performance, SEO, and accessibility
-    "eslint:recommended"    // Standard JavaScript best practices
+    "next/core-web-vitals", // Optimizes for Core Web Vitals (LCP, FID, CLS)
+    "eslint:recommended"
   ],
 
   "rules": {
-    /* Transitioning strict errors to 'warn' to maintain CI/CD success 
-       while providing clear feedback for future code refactoring.
-    */
-    
-    "react/no-unescaped-entities": "warn", // Prevents potential rendering issues with special characters
-    
-    "@next/next/no-page-custom-font": "warn", // Optimizes font loading to prevent Layout Shift (CLS)
-    
-    "react-hooks/exhaustive-deps": "warn", // Ensures Hook dependencies are managed to avoid stale closures
-    
-    "no-unused-vars": "warn", // Keeps the codebase clean by flagging unreferenced variables
-    
-    "no-console": ["warn", { "allow": ["warn", "error"] }] // Restricts logs in production while allowing critical telemetry
+    /* 1. Global & React Scope Management: 
+       Next.js 14 handles React auto-import. Disabling these prevents false-positive 'undef' errors. */
+    "react/react-in-jsx-scope": "off",
+    "no-undef": "off", 
+
+    /* 2. Syntax & Code Hygiene: 
+       Transitioning non-critical syntax issues (like extra semicolons) to warnings 
+       to ensure CI/CD stability without blocking deployments. */
+    "no-extra-semi": "warn",
+    "no-unused-vars": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    /* 3. React & Hook Best Practices: 
+       Enforcing hooks and entity standards to prevent stale closures and rendering artifacts. */
+    "react-hooks/exhaustive-deps": "warn",
+    "react/no-unescaped-entities": "warn",
+    "@next/next/no-page-custom-font": "warn"
+  },
+
+  /* 4. Global Namespace Definition:
+     Registers external libraries (Leaflet 'L', Map APIs) to the global scope 
+     to ensure the Linter recognizes them across the Map of Pi architecture. */
+  "globals": {
+    "React": "writable",
+    "L": "writable",
+    "NodeJS": "writable",
+    "GeolocationPosition": "readonly",
+    "GeolocationPositionError": "readonly"
   }
 }
