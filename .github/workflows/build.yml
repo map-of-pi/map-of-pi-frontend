@@ -12,7 +12,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Job 1: Quality Assurance (Runs in parallel with Build)
+  # Job 1: Quality Assurance (The Security Gate)
+  # This job ensures code integrity before any build resources are consumed.
   qa:
     name: 🛡️ Quality Assurance
     runs-on: ubuntu-latest
@@ -30,14 +31,18 @@ jobs:
         run: npm ci
 
       - name: 🔍 Execute Linting Checks
+        # Enforcing strict code standards across the Map of Pi ecosystem.
         run: npm run lint
         
       - name: 🧪 Execute Unit Tests
+        # Fail-fast approach: If tests fail, the downstream Build job will not trigger.
         run: npm run test -- --passWithNoTests --ci --maxWorkers=2
 
-  # Job 2: Production Build
+  # Job 2: Production Build (Gated by QA)
+  # Architected to only execute upon 100% verification of the QA suite.
   build:
     name: 🏗️ Production Build
+    needs: qa # This is the "Quality Gate" requested in the review
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Checkout Repository
@@ -53,7 +58,8 @@ jobs:
         run: npm ci
           
       - name: 🏗️ Compile Frontend Application
+        # Building the production artifact with full visibility. 
+        # Removed 'CI: false' to ensure no silent failures during the build process.
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
-          CI: false
