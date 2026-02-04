@@ -9,6 +9,10 @@ interface ScrollablePaginationOptions {
   debounceMs?: number;
 }
 
+/**
+ * Enhanced Intersection Observer Hook for Infinite Scrolling.
+ * Optimizes performance by preventing unstable observer re-initializations.
+ */
 export const useScrollablePagination = ({
   containerRef,
   loadMoreRef,
@@ -21,16 +25,27 @@ export const useScrollablePagination = ({
   const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    if (!hasMore || isLoading || !loadMoreRef.current) return;
+    // Check for necessary conditions and valid DOM nodes
+    const target = loadMoreRef.current;
+    const root = containerRef.current;
 
+    if (!hasMore || isLoading || !target) return;
+
+    // Disconnect existing observer to maintain a singleton instance per state change
     if (observer.current) {
       observer.current.disconnect();
     }
 
+    /**
+     * Initialize Observer with the specified threshold.
+     * Note: Depending on stable Ref objects ensures the effect doesn't 
+     * re-run erratically on every render cycle.
+     */
     observer.current = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting && hasMore && !isLoading) {
+          // Implementing debounce to prevent duplicate API calls on fast scrolling
           if (debounceTimer.current) clearTimeout(debounceTimer.current);
           debounceTimer.current = setTimeout(() => {
             fetchNextPage();
@@ -38,18 +53,27 @@ export const useScrollablePagination = ({
         }
       },
       {
-        root: containerRef.current,
+        root: root, // Use the root container from the ref
         threshold: 1.0,
       }
     );
 
-    const currentRef = loadMoreRef.current;
-    observer.current.observe(currentRef);
+    observer.current.observe(target);
 
+    // Cleanup phase: safely unobserve and clear timers
     return () => {
-      if (observer.current && currentRef) {
-        observer.current.unobserve(currentRef);
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
       }
     };
-  }, [hasMore, isLoading, loadMoreRef.current, containerRef.current]);
+    /**
+     * Dependency Array Strategy:
+     * We depend on state values and the stable Ref objects. 
+     * Removing '.current' properties from dependencies aligns with React best practices 
+     * and fixes observer instability.
+     */
+  }, [hasMore, isLoading, loadMoreRef, containerRef, fetchNextPage, debounceMs]);
 };
