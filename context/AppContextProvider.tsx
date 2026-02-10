@@ -21,6 +21,7 @@ import logger from '../logger.config.mjs';
  * Global Constants for Authentication Resilience
  */
 const MAX_LOGIN_RETRIES = 3;
+const SDK_RETRY_DELAY_MS = 2000;
 
 interface IAppContextProps {
   currentUser: IUser | null;
@@ -87,29 +88,23 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
 
-  /**
-   * Effect to initialize Pi SDK and restore session.
-   * Ensures SDK readiness before any authentication attempt.
-   */
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
     
     loadPiSdk()
       .then(Pi => {
         Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
-        // Attempt auto-login only after SDK is confirmed initialized
         autoLoginUser();
         return Pi.nativeFeaturesList();
       })
       .then((features: any) => {
-        if (Array.isArray(features)) {
+        if (features && Array.isArray(features)) {
           setAdsSupported(features.includes("ad_network"));
         }
       })
       .catch(err => logger.error('Pi SDK load/init error:', err));
   }, []);
 
-  // Sync Notifications
   useEffect(() => {
     if (!currentUser) return;
     const fetchNotificationsCount = async () => {
@@ -124,7 +119,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchNotificationsCount();
   }, [currentUser, reload]);
 
-  // Sync Orders
   useEffect(() => {
     if (!currentUser) return;
     const fetchOrdersCount = async () => {
@@ -144,19 +138,24 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   };
 
   /**
-   * Enhanced Registration Flow with SDK Readiness Check.
-   * Resolves issues where authentication fails during initial SDK boot.
+   * Enhanced Registration Flow with non-blocking retry logic.
+   * Awaits SDK initialization instead of returning early to prevent dead-ends.
    */
-  const registerUser = async () => {
-    // Ensure window.Pi and initialization are confirmed
-    const Pi = await loadPiSdk();
-    if (!Pi?.initialized) {
-        logger.warn('Waiting for Pi SDK initialization...');
-        return; 
-    }
-
+  const registerUser = async (retries = MAX_LOGIN_RETRIES): Promise<void> => {
     try {
       setIsSigningInUser(true);
+      const Pi = await loadPiSdk();
+
+      // If SDK is present but not yet initialized by the effect, wait and retry.
+      if (!Pi?.initialized) {
+        if (retries > 0) {
+          logger.warn(`Pi SDK initialization pending. Retrying registerUser... (${retries} left)`);
+          await new Promise(resolve => setTimeout(resolve, SDK_RETRY_DELAY_MS));
+          return registerUser(retries - 1);
+        }
+        throw new Error('Pi SDK failed to initialize in time.');
+      }
+
       const pioneerAuth: AuthResult = await Pi.authenticate(
         ['username', 'payments', 'wallet_address'], 
         onIncompletePaymentFound
@@ -182,13 +181,14 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const authenticateUser = () => registerUser();
 
   /**
-   * Robust Auto-Login with retry logic and session verification.
-   * Prevents permanent failure during transient network issues.
+   * Robust Auto-Login with exponential wait logic.
+   * Ensures the auth flow persists even if the SDK initialization is slow.
    */
   const autoLoginUser = async (retries = MAX_LOGIN_RETRIES) => {
     try {
       setIsSigningInUser(true);
       const res = await axiosClient.get('/users/me');
+      
       if (res.status === 200) {
         setCurrentUser(res.data.user);
         setUserMembership(res.data.membership_class);
@@ -197,8 +197,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       }
     } catch (error: any) {
       if (retries > 0) {
-        logger.warn(`Auto-login failed, retrying... (${retries} attempts left)`);
-        setTimeout(() => autoLoginUser(retries - 1), 2000);
+        logger.warn(`Auto-login attempt failed. Retrying in ${SDK_RETRY_DELAY_MS}ms...`);
+        setTimeout(() => autoLoginUser(retries - 1), SDK_RETRY_DELAY_MS);
       } else {
         logger.error('Auto-login session invalid after retries, fallback to fresh auth.');
         await registerUser();
@@ -208,9 +208,6 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
   };
 
-  /**
-   * Singleton pattern for loading Pi SDK to avoid multiple script injections.
-   */
   const loadPiSdk = (): Promise<typeof window.Pi> => {
     return new Promise((resolve, reject) => {
       if (typeof window === 'undefined') return;
