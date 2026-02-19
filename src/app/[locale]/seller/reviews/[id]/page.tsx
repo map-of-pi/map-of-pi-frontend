@@ -1,4 +1,5 @@
 'use client';
+
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,6 +21,11 @@ import { getImageSrc } from '@/utils/image';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
 
+/**
+ * SellerReviews Component
+ * Manages and displays reviews given and received by a Pioneer.
+ * Enhanced with robust error handling for high-volume data and input sanitization.
+ */
 function SellerReviews({
   params,
   searchParams,
@@ -44,6 +50,10 @@ function SellerReviews({
   const [searchBarValue, setSearchBarValue] = useState('');
   const [toUser, setToUser] = useState('');
 
+  /**
+   * Initial effect to authenticate user and load reviews.
+   * Also fetches fallback user settings for review images.
+   */
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
     fetchUserReviews(userId);
@@ -62,9 +72,14 @@ function SellerReviews({
     loadUserImage();
   }, [userId, currentUser]);
 
-  // Reusable function to process and filter reviews
+  /**
+   * Reusable function to process and filter review data for UI consumption.
+   * Ensures date and rating resolution are handled consistently.
+   */
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
-    const reviews = data
+    if (!data) return [];
+    
+    return data
       .map((feedback: IReviewOutput) => {
         const { date, time } = resolveDate(feedback.review_date, locale);
         const { reaction, unicode } = resolveRating(feedback.rating) || {};
@@ -83,11 +98,15 @@ function SellerReviews({
         };
       })
       .filter((review): review is ReviewInt => review !== null);
-
-    return reviews;
   };
 
+  /**
+   * Fetches reviews for a specific user ID.
+   * Optimized to handle empty states and log successful retrievals.
+   */
   const fetchUserReviews = async (userId_: string) => {
+    if (!userId_) return;
+    
     setError(null);
     setReload(true);
     try {
@@ -96,96 +115,93 @@ function SellerReviews({
       const data = await fetchReviews(userId_);
 
       if (data) {
-        if (data.givenReviews.length > 0) {
-          logger.info(`Fetched ${data.givenReviews.length} reviews given by userID: ${userId_}`);
-          setGiverReviews(processReviews(data.givenReviews));
-        } else {
-          logger.warn(`No given reviews found for userID: ${userId_}`);
-          setGiverReviews([]);
-        }
-
-        if (data.receivedReviews.length > 0) {
-          logger.info(`Fetched ${data.receivedReviews.length} reviews received by userID: ${userId_}`);
-          setReceiverReviews(processReviews(data.receivedReviews));
-        } else {
-          logger.warn(`No received reviews found for userID: ${userId_}`);
-          setReceiverReviews([]);
-        }          
+        setGiverReviews(processReviews(data.givenReviews || []));
+        setReceiverReviews(processReviews(data.receivedReviews || []));
+        
+        logger.info(`Reviews processed for ${userId_}: ${data.givenReviews?.length} given, ${data.receivedReviews?.length} received.`);
       } else {
-        logger.warn(`No reviews found for userID: ${userId_}`);
+        logger.warn(`No data returned for userID: ${userId_}`);
         setGiverReviews([]);
         setReceiverReviews([]);
       }
     } catch (error) {
-      logger.error(`Error fetching reviews for userID: ${userId_}`, error);
-      setError('Error fetching reviews. Please try again later.');
+      logger.error(`Critical error fetching reviews for userID: ${userId_}`, error);
+      setError(t('SCREEN.REVIEWS.VALIDATION.FETCH_ERROR_MESSAGE') || 'Error fetching reviews.');
     } finally {
       setLoading(false);
       setReload(false);
     }
   };
 
-  // Handle search logic
+  /**
+   * Handles the search logic for Pioneers.
+   * Includes input trimming and intelligent error handling for server timeouts vs. missing users.
+   */
   const handleSearch = async () => {
+    const query = searchBarValue.trim();
+    if (!query) {
+      toast.warn(t('SCREEN.REVIEWS.VALIDATION.EMPTY_SEARCH'));
+      return;
+    }
+
     setReload(true);
     setError(null);
     try {
-      logger.info(`Searching reviews for userID: ${userId} with query: ${searchBarValue}`);
-      const data = await fetchReviews(userId, searchBarValue);
+      logger.info(`Searching reviews for query: ${query}`);
+      const data = await fetchReviews(userId, query);
 
-      if (data) {
-        if (data.givenReviews.length > 0) {
-          logger.info(`Found ${data.givenReviews.length} reviews given by Pioneer: ${searchBarValue}`);
-          setGiverReviews(processReviews(data.givenReviews));
+      if (data && (data.givenReviews?.length > 0 || data.receivedReviews?.length > 0)) {
+        setGiverReviews(processReviews(data.givenReviews || []));
+        setReceiverReviews(processReviews(data.receivedReviews || []));
+
+        // Update UI context based on search results
+        if (data.givenReviews?.length > 0) {
           setToUser(data.givenReviews[0].review_giver_id);
           userName.current = data.givenReviews[0].giver;
-        } else {
-          logger.warn(`No given reviews found for Pioneer: ${searchBarValue}`);
-          setGiverReviews([]);
-        }
-        if (data.receivedReviews.length > 0) {
-          logger.info(`Found ${data.receivedReviews.length} reviews received by Pioneer: ${searchBarValue}`);
-          setReceiverReviews(processReviews(data.receivedReviews));
+        } else if (data.receivedReviews?.length > 0) {
           setToUser(data.receivedReviews[0].review_receiver_id);
           userName.current = data.receivedReviews[0].receiver;
-        } else {
-          logger.warn(`No given reviews found for Pioneer: ${searchBarValue}`);
-          setReceiverReviews([]);
         }
-        
       } else {
-        toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_REVIEWS_FOUND', { search_value: searchBarValue }));
-        logger.warn(`No reviews found for Pioneer: ${searchBarValue}`);
+        toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_REVIEWS_FOUND', { search_value: query }));
         setGiverReviews([]);
         setReceiverReviews([]);
       }
-    } catch (error) {
-      logger.error(`Pioneer ${searchBarValue} not found`, error);
-      return toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_PIONEER_FOUND', { search_value: searchBarValue }));
+    } catch (error: any) {
+      // Differentiate between "Not Found" and "Server Overload/Timeout"
+      if (error.message === 'SERVER_TIMEOUT_ERROR' || error.message === 'SERVER_DATA_LIMIT_ERROR') {
+        toast.error(t('SCREEN.REVIEWS.VALIDATION.SERVER_BUSY_MESSAGE') || 'Server is busy processing high volume data. Please try again.');
+        logger.error(`High volume data error for query: ${query}`);
+      } else {
+        toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_PIONEER_FOUND', { search_value: query }));
+        logger.warn(`Pioneer search failed for: ${query}`);
+      }
     } finally {
       setReload(false);
     }
   };
 
   const handleSearchBarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    logger.debug(`Search bar value changed: ${event.target.value}`);
     setSearchBarValue(event.target.value);
   };
 
+  /**
+   * Initial loading state rendering.
+   */
   if (loading) {
-    logger.info('Loading seller reviews..');
+    logger.info('Rendering initial seller reviews skeleton...');
     return <Skeleton type='seller_review' />;
   }
 
   return (
     <>
-      {error && <div className="error text-center text-red-400">{error}</div>}
+      {error && <div className="error text-center text-red-400 py-2">{error}</div>}
       <div className="px-4 py-[20px] text-[#333333] sm:max-w-[520px] w-full m-auto gap-5">
         <h1 className="text-[#333333] text-lg font-semibold md:font-bold md:text-2xl mb-1">
           {t('SCREEN.REVIEWS.REVIEWS_HEADER')}
         </h1>
 
-        {/* Search area */}
+        {/* Pioneer Search Section */}
         <div className='flex gap-3 items-center justify-items-center py-3'>
           <span>{t('SHARED.PIONEER_LABEL')}</span>
           <FormControl className="flex-grow mr-2">
@@ -199,39 +215,43 @@ function SellerReviews({
               value={searchBarValue}
               onChange={handleSearchBarChange}
               ref={inputRef}
-              autoCorrect="off"
-              autoCapitalize="off"
-              autoComplete="off" 
-              spellCheck="false" 
+              autoComplete="off"
               inputProps={{
                 autoCorrect: 'off',
                 autoCapitalize: 'off',
                 spellCheck: 'false',
-                autoComplete: 'new-password',
               }}
             />
           </FormControl>
           <button
             aria-label="search"
             onClick={handleSearch}
-            className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center hover:bg-gray-600"
+            className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center transition-colors hover:bg-opacity-80"
           >
             <SearchIcon className="text-[#ffc153]" />
           </button>
         </div>
 
+        {/* Give a Review Section */}
         <ToggleCollapse header={t('SCREEN.REVIEWS.GIVE_REVIEW_SECTION_HEADER')}>
           <div>
-            <EmojiPicker userId={toUser} setIsSaveEnabled={setIsSaveEnabled} currentUser={currentUser} setReload={setReload} refresh={fetchUserReviews} />
+            <EmojiPicker 
+              userId={toUser} 
+              setIsSaveEnabled={setIsSaveEnabled} 
+              currentUser={currentUser} 
+              setReload={setReload} 
+              refresh={fetchUserReviews} 
+            />
           </div>
         </ToggleCollapse>      
+
+        {/* Reviews Given Section */}
         <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
           {reload 
             ? <Skeleton type='seller_review' />
             : giverReviews && giverReviews.map((review, index) => (
-              <div key={index} className="seller_item_container mb-5">
+              <div key={review.reviewId || index} className="seller_item_container mb-5">
                 <div className="flex justify-between items-start mb-3">
-                  {/* Left content */}
                   <div className="flex-grow">
                     <p className="text-primary text-sm">
                       {review.giver} {' → '}
@@ -240,10 +260,8 @@ function SellerReviews({
                       </span>
                     </p>
                     <p className="text-md break-words">{review.heading}</p>
-
                   </div>
 
-                  {/* Right content */}
                   <div className="flex flex-col items-end space-y-2">
                     <div className="text-[#828282] text-sm text-right whitespace-nowrap">
                       <p>{review.date}</p>
@@ -266,17 +284,14 @@ function SellerReviews({
                         {review.unicode}
                       </p>
                     </div>
-                    
                   </div>
                 </div>
-                {/* Bottom row with Edit left, Reply right */}
                 <div className="flex justify-between items-center mt-2 w-full">
                   {review.giverId === currentUser?.pi_uid && (
                     <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
                       <OutlineBtn label={t('SHARED.EDIT')} />
                     </Link>
                   )}
-
                   <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
                     <OutlineBtn label={t('SHARED.REPLY')} />
                   </Link>
@@ -286,13 +301,13 @@ function SellerReviews({
           }
         </ToggleCollapse>
  
+        {/* Reviews Received Section */}
         <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')} open={true}>
         {reload
           ? <Skeleton type='seller_review' />
           : receiverReviews && receiverReviews.map((review, index) => (
-            <div key={index} className="seller_item_container mb-5">
+            <div key={review.reviewId || index} className="seller_item_container mb-5">
               <div className="flex justify-between items-start mb-3">
-                {/* Left content */}
                 <div className="flex-grow">
                   <p className="text-primary text-sm">
                     {review.giver} {' → '}
@@ -303,7 +318,6 @@ function SellerReviews({
                   <p className="text-md break-words">{review.heading}</p>
                 </div>
 
-                {/* Right content */}
                 <div className="flex flex-col items-end space-y-2">
                   <div className="text-[#828282] text-sm text-right whitespace-nowrap">
                     <p>{review.date}</p>
@@ -326,17 +340,14 @@ function SellerReviews({
                       {review.unicode}
                     </p>
                   </div>
-
                 </div>
               </div>
-              {/* Bottom row with Edit left, Reply right */}
               <div className="flex justify-between items-center mt-2 w-full">
                 {review.giverId === currentUser?.pi_uid && (
                   <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
                     <OutlineBtn label={t('SHARED.EDIT')} />
                   </Link>
                 )}
-
                 <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
                   <OutlineBtn label={t('SHARED.REPLY')} />
                 </Link>
