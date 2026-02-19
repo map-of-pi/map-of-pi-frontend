@@ -4,6 +4,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState, useContext, useRef } from 'react';
+import { toast } from 'react-toastify'; // Fixed: Added missing import to resolve build error
 
 import ConfirmDialog, { Notification } from '@/components/shared/confirm';
 import { Button, CopyButton, OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
@@ -38,8 +39,8 @@ import logger from '../../../../../../logger.config.mjs';
 
 /**
  * BuyFromSellerForm Component
- * Displays the seller's storefront, items, and facilitates the checkout process for buyers.
- * Enhanced with robust data validation and defensive rendering for high-volume stores.
+ * Displays the seller's storefront, inventory, and manages the checkout workflow.
+ * This component is hardened with defensive rendering and error boundary checks.
  */
 export default function BuyFromSellerForm({
   params,
@@ -59,6 +60,7 @@ export default function BuyFromSellerForm({
     showAlert
   } = useContext(AppContext);
 
+  // UI State Management
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [sellerShopInfo, setSellerShopInfo] = useState<ISeller | null>(null);
@@ -78,7 +80,7 @@ export default function BuyFromSellerForm({
   const observer = useRef<IntersectionObserver | null>(null);
 
   /**
-   * Ref callback to observe shop items for performance optimizations or lazy loading.
+   * Intersection observer ref to handle shop item visibility or lazy loading.
    */
   const handleShopItemRef = (node: HTMLElement | null) => {
     if (node && observer.current) {
@@ -87,15 +89,15 @@ export default function BuyFromSellerForm({
   };
 
   /**
-   * Initial effect to fetch seller profile data, settings, and feature toggles.
-   * Leverages the 60s global timeout for reliable store rendering.
+   * Effect: Data Initialization
+   * Synchronizes user auth and fetches multi-layered seller profile data.
    */
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getSellerData = async () => {
       try {
-        logger.info(`Fetching comprehensive seller data for ID: ${sellerId}`);
+        logger.info(`Fetching comprehensive profile for seller: ${sellerId}`);
         const data = await fetchSingleSeller(sellerId);
         
         if (data) {
@@ -105,7 +107,7 @@ export default function BuyFromSellerForm({
           setSellerMembership(data.sellerMembership || MembershipClassType.CASUAL);
         }
       } catch (err) {
-        logger.error(`Critical failure fetching seller data for ${sellerId}:`, err);
+        logger.error(`Critical failure resolving seller data [ID: ${sellerId}]:`, err);
         setError('Error fetching seller data');
       } finally {
         setLoading(false);
@@ -117,7 +119,7 @@ export default function BuyFromSellerForm({
         const toggle = await fetchToggle('onlineShoppingFeature');
         setOnlineShoppingEnabled(toggle?.enabled || false);
       } catch (err) {
-        logger.error('Error fetching online shopping toggle:', err);
+        logger.error('Feature toggle resolution failure:', err);
       }
     };
 
@@ -126,19 +128,19 @@ export default function BuyFromSellerForm({
   }, [sellerId, currentUser, authenticateUser]);
 
   /**
-   * Effect hook to fetch available items from the seller's inventory.
-   * Triggered when sellerShopInfo is resolved or on manual reload.
+   * Effect: Inventory Synchronization
+   * Fetches specific sellable items associated with the current store.
    */
   useEffect(() => {
     const getSellerItems = async () => {
       if (!sellerShopInfo?.seller_id) return;
 
       try {
-        logger.info(`Fetching inventory for Seller ID: ${sellerShopInfo.seller_id}`);
+        logger.info(`Fetching inventory for shop: ${sellerShopInfo.seller_id}`);
         const items: SellerItem[] = await fetchSellerItems(sellerShopInfo.seller_id);
         setDbSellerItems(items ? items.map(item => ({ ...item })) : []);
       } catch (err) {
-        logger.error('Failed to retrieve seller items inventory:', err);
+        logger.error('Failed to resolve inventory list:', err);
       } finally {
         if (reload) setReload(false);
       }
@@ -148,10 +150,10 @@ export default function BuyFromSellerForm({
   }, [sellerShopInfo, reload, setReload]);
 
   /**
-   * Success handler for order placement.
+   * Handles post-checkout success state.
    */
   const onOrderComplete = (data: any) => {
-    logger.info('Checkout transaction finalized:', data._id);
+    logger.info('Checkout flow completed successfully for order:', data._id);
     showAlert(t('SCREEN.BUY_FROM_SELLER.ORDER_SUCCESSFUL_MESSAGE'));
     setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_SUCCESSFUL_MESSAGE'));
     setShowCheckoutStatus(true);
@@ -162,19 +164,21 @@ export default function BuyFromSellerForm({
   };
 
   /**
-   * Error handler for order placement.
+   * Handles checkout failure state.
    */
   const onOrderError = (err: any) => {
-    logger.error('Order creation failed:', err?.message);
+    logger.error('Checkout flow failed:', err?.message);
     setCheckoutStatusMessage(t('SCREEN.BUY_FROM_SELLER.ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE'));
     setShowCheckoutStatus(true);
   };
 
   /**
-   * Orchestrates the checkout process by validating user auth and submitting the order payload.
+   * Core Checkout Orchestrator
+   * Validates state, authenticates, and dispatches the order creation request.
    */
   const checkoutOrder = async () => {
     if (!currentUser?.pi_uid) {
+      // toast is now properly imported and will work as expected
       toast.error(t('SCREEN.REVIEWS.VALIDATION.LOGIN_REQUIRED'));
       return;
     }
@@ -190,7 +194,7 @@ export default function BuyFromSellerForm({
     };
 
     try {
-      logger.info(`Initiating order for seller ${sellerId} total: ${totalAmount} Pi`);
+      logger.info(`Processing checkout payload for seller ${sellerId}...`);
       const newOrder = await createAndUpdateOrder(newOrderData, pickedItems);
       if (newOrder && newOrder._id) {
         onOrderComplete(newOrder);
@@ -200,9 +204,8 @@ export default function BuyFromSellerForm({
     }
   };
 
-  // Standardized loading state with skeleton feedback
+  // Loading state with visual skeleton feedback
   if (loading) {
-    logger.info('Rendering seller storefront skeleton...');
     return <Skeleton type="seller_item" />;
   }
 
@@ -213,10 +216,10 @@ export default function BuyFromSellerForm({
       </h1>
 
       {sellerShopInfo && (
-        <div>
-          {/* Seller Profile Branding */}
-          <div className="flex gap-4 align-center mb-6 relative">
-            <div className="rounded-[50%] w-[65px] h-[65px] relative overflow-hidden border border-gray-100 shadow-sm">
+        <div className="space-y-6">
+          {/* Section: Seller Header & Identity */}
+          <div className="flex gap-4 align-center relative bg-white p-3 rounded-xl shadow-sm border border-gray-50">
+            <div className="rounded-[50%] w-[65px] h-[65px] relative overflow-hidden border border-gray-100 shadow-inner">
               <Image
                 className="rounded-[50%]"
                 src={sellerShopInfo.image?.trim() ? sellerShopInfo.image : '/images/logo.svg'}
@@ -227,7 +230,7 @@ export default function BuyFromSellerForm({
               />
             </div>
             <div className="my-auto">
-              <h2 className="font-bold text-[18px] mb-2 flex items-center">
+              <h2 className="font-bold text-[18px] mb-1 flex items-center">
                 {sellerShopInfo.name}
                 <MembershipIcon
                   category={sellerMembership}
@@ -239,36 +242,38 @@ export default function BuyFromSellerForm({
                   }}
                 />
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400">
                 {translateSellerCategory(sellerShopInfo.seller_type, t)}
               </p>
             </div>
           </div>
 
-          {/* Business Description */}
-          <h2 className={SUBHEADER}>
-            {t('SCREEN.BUY_FROM_SELLER.SELLER_DETAILS_LABEL')}
-          </h2>
-          <div className="seller_item_container mb-6 bg-white p-4 rounded-lg">
-            <div className="seller-description-display">
-              <p style={{ whiteSpace: 'pre-wrap' }} className="text-[#4F4F4F] leading-relaxed">
+          {/* Section: Business Description */}
+          <div>
+            <h2 className={SUBHEADER}>
+              {t('SCREEN.BUY_FROM_SELLER.SELLER_DETAILS_LABEL')}
+            </h2>
+            <div className="bg-white p-4 rounded-lg border border-gray-50 shadow-sm">
+              <p style={{ whiteSpace: 'pre-wrap' }} className="text-[#4F4F4F] leading-relaxed text-sm">
                 {sellerShopInfo.description || t('SHARED.NO_DESCRIPTION')}
               </p>
             </div>
           </div>
 
-          {/* Location Details */}
-          <h2 className={SUBHEADER}>
-            {t('SCREEN.BUY_FROM_SELLER.SELLER_ADDRESS_POSITION_LABEL')}
-          </h2>
-          <div className="seller_item_container mb-7 bg-white p-4 rounded-lg">
-            <p style={{ whiteSpace: 'pre-wrap' }} className="text-[#4F4F4F]">
-              {sellerShopInfo.address || t('SHARED.ADDRESS_NOT_PROVIDED')}
-            </p>
+          {/* Section: Physical Address */}
+          <div>
+            <h2 className={SUBHEADER}>
+              {t('SCREEN.BUY_FROM_SELLER.SELLER_ADDRESS_POSITION_LABEL')}
+            </h2>
+            <div className="bg-white p-4 rounded-lg border border-gray-50 shadow-sm">
+              <p style={{ whiteSpace: 'pre-wrap' }} className="text-[#4F4F4F] text-sm italic">
+                {sellerShopInfo.address || t('SHARED.ADDRESS_NOT_PROVIDED')}
+              </p>
+            </div>
           </div>
 
-          {/* Social Proof & Trust Metrics */}
-          <div className="mb-7 mt-5">
+          {/* Section: Social Proof & Reputation */}
+          <div className="mt-5">
             <h2 className={SUBHEADER}>
               {t('SCREEN.BUY_FROM_SELLER.REVIEWS_SUMMARY_LABEL')}
             </h2>
@@ -290,7 +295,7 @@ export default function BuyFromSellerForm({
             </div>
           </div>
 
-          {/* Online Shopping Integration */}
+          {/* Section: Digital Inventory & Checkout */}
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
               header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL')}
@@ -319,8 +324,8 @@ export default function BuyFromSellerForm({
                 )}
               </div>
 
-              {/* Fulfillment Logic */}
-              <div className="fulfillment-section space-y-4">
+              {/* Fulfillment Configuration */}
+              <div className="space-y-4 bg-gray-50 p-4 rounded-xl">
                 <h2 className={SUBHEADER}>{t('SCREEN.SELLER_REGISTRATION.FULFILLMENT_METHOD_TYPE.FULFILLMENT_METHOD_TYPE_LABEL')}</h2>
                 <Select
                   name="fulfillment_method"
@@ -345,7 +350,7 @@ export default function BuyFromSellerForm({
                 />
               </div>
 
-              {/* Checkout Action */}
+              {/* Final Checkout Trigger */}
               <div className="flex justify-end mt-6">
                 <Button
                   label={`${t('SHARED.CHECKOUT')} (${totalAmount.toFixed(3)} π)`}
@@ -361,7 +366,7 @@ export default function BuyFromSellerForm({
                 />
               </div>
 
-              {/* Wallet Info */}
+              {/* Wallet Integration */}
               <div className="mb-4 mt-8 pt-6 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-2">
                   <h2 className={SUBHEADER}>{t('SCREEN.BUY_FROM_SELLER.MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL')}</h2>
@@ -377,16 +382,17 @@ export default function BuyFromSellerForm({
             </ToggleCollapse>
           )}
 
-          {/* Seller Contact Accordion */}
+          {/* Section: Detailed Contact Information */}
           <ToggleCollapse header={t('SCREEN.BUY_FROM_SELLER.SELLER_CONTACT_DETAILS_LABEL')}>
-            <div className="space-y-3 p-2">
-              <div className="text-sm"><span className="font-bold">{t('SHARED.USER_INFORMATION.PI_USERNAME_LABEL')}:</span> {sellerInfo?.pi_username || ''}</div>
-              <div className="text-sm"><span className="font-bold">{t('SHARED.USER_INFORMATION.NAME_LABEL')}:</span> {sellerInfo?.user_name || ''}</div>
-              <div className="text-sm"><span className="font-bold">{t('SHARED.USER_INFORMATION.PHONE_NUMBER_LABEL')}:</span> {sellerSettings?.phone_number || ''}</div>
-              <div className="text-sm"><span className="font-bold">{t('SHARED.USER_INFORMATION.EMAIL_LABEL')}:</span> {sellerSettings?.email || ''}</div>
+            <div className="space-y-3 p-4 bg-white border border-gray-100 rounded-lg shadow-inner">
+              <div className="text-sm flex justify-between"><span className="font-bold text-gray-500">{t('SHARED.USER_INFORMATION.PI_USERNAME_LABEL')}:</span> <span>{sellerInfo?.pi_username || ''}</span></div>
+              <div className="text-sm flex justify-between"><span className="font-bold text-gray-500">{t('SHARED.USER_INFORMATION.NAME_LABEL')}:</span> <span>{sellerInfo?.user_name || ''}</span></div>
+              <div className="text-sm flex justify-between"><span className="font-bold text-gray-500">{t('SHARED.USER_INFORMATION.PHONE_NUMBER_LABEL')}:</span> <span>{sellerSettings?.phone_number || ''}</span></div>
+              <div className="text-sm flex justify-between"><span className="font-bold text-gray-500">{t('SHARED.USER_INFORMATION.EMAIL_LABEL')}:</span> <span>{sellerSettings?.email || ''}</span></div>
             </div>
           </ToggleCollapse>
 
+          {/* Utility Dialogs */}
           <ConfirmDialog
             show={showConfirmDialog}
             onClose={() => setShowConfirmDialog(false)}
