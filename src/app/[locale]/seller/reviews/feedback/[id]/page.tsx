@@ -27,6 +27,11 @@ interface ReplyToReviewPageProps {
   };
 }
 
+/**
+ * ReplyToReviewPage Component
+ * Manages the interface for viewing a review thread and submitting replies.
+ * Enhanced with robust error boundaries and safe data processing for thread resolution.
+ */
 export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const t = useTranslations();
   const locale = useLocale();
@@ -44,7 +49,12 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const { currentUser, authenticateUser, reload, setReload } = useContext(AppContext);
 
+  /**
+   * Processes raw review output from the API into a formatted UI structure.
+   * Includes default fallbacks for comments and localized date/rating resolution.
+   */
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
+    if (!data) return [];
     return data.map((feedback) => {
       const { date, time } = resolveDate(feedback.review_date, locale);
       const { reaction = 'No Reaction', unicode = '😐' } = resolveRating(feedback.rating) || {};
@@ -53,8 +63,8 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
         heading: feedback.comment || t('SHARED.NO_COMMENT'),
         date,
         time,
-        giver: feedback.giver,
-        receiver: feedback.receiver,
+        giver: feedback.giver || t('SHARED.UNKNOWN_USER'),
+        receiver: feedback.receiver || t('SHARED.UNKNOWN_USER'),
         receiverId: feedback.review_receiver_id,
         giverId: feedback.review_giver_id,
         reviewId: feedback._id,
@@ -65,28 +75,36 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
     });
   };
   
+  /**
+   * Effect hook to fetch initial review data and user display settings.
+   * Synchronized with the global timeout configuration (60s) for reliability.
+   */
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
 
     const getReviewData = async () => {
+      if (!reviewId) return;
+
       try {
-        logger.info(`Fetching review data for review ID: ${reviewId}`);
+        logger.info(`Fetching review thread for ID: ${reviewId}`);
         setError(null);
         const data = await fetchSingleReview(reviewId);
 
-        if (data.review) {
+        if (data && data.review) {
           const reviewList: IReviewOutput[] = [];
-          reviewList.push(data.review); // ensure main review is added first to review list.
-          reviewList.push(...data.replies);
+          reviewList.push(data.review); // Main review serves as the thread root
+          if (data.replies && Array.isArray(data.replies)) {
+            reviewList.push(...data.replies);
+          }
           const processedReplies = processReviews(reviewList);
           setReviews(processedReplies);
         } else {
-          logger.warn(`No review data found for review ID: ${reviewId}`);
+          logger.warn(`Review thread resolution returned no data for ID: ${reviewId}`);
           setReviews([]);
         }
       } catch (error) {
-        logger.error(`Error fetching review data for review ID: ${reviewId}`, error);
-        setError('Error fetching review. Please try again later.');
+        logger.error(`Critical error fetching review thread: ${reviewId}`, error);
+        setError(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.LOADING_REVIEW_FAILURE') || 'Error fetching review.');
       } finally {
         setLoading(false);
         setReload(false);
@@ -100,15 +118,17 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
           setUserFallbackImage(settings.image);
         }
       } catch (error) {
-        logger.warn('Could not fetch fallback user image', error);
+        logger.warn('Could not fetch fallback user image settings', error);
       }
     };
 
     getReviewData();
     loadUserImage();
-  }, [reviewId, currentUser, reload]);
+  }, [reviewId, currentUser, reload, t, setReload]);
 
-  // Scroll functions
+  /**
+   * Navigation controls for the review thread carousel.
+   */
   const prevSlide = () => {
     if (reviews.length > 1 && currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -121,40 +141,45 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
     }
   };
 
+  // Loading state with standardized skeleton feedback
   if (loading) {
+    logger.info('Rendering ReplyToReviewPage skeleton state...');
     return <Skeleton type="seller_review" />;
   }
 
   return (
-    <div className="w-full md:w-[500px] md:mx-auto p-4">
+    <div className="w-full md:w-[500px] md:mx-auto p-4 animate-fadeIn">
       <h1 className="mb-5 font-bold text-lg md:text-2xl">
         {t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_STATIC_HEADER')}
       </h1>
-      {error && (<div className="text-red-700 text-center text-lg">{t('SCREEN.REPLY_TO_REVIEW.VALIDATION.LOADING_REVIEW_FAILURE')}</div>)}
+      
+      {error && (
+        <div className="text-red-700 text-center text-lg py-5">
+          {t('SCREEN.REPLY_TO_REVIEW.VALIDATION.LOADING_REVIEW_FAILURE')}
+        </div>
+      )}
+
       {reviews && reviews.length > 0 && (
         <div className="mt-2">
           <h2 className="font-bold mb-2">{t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_SUBHEADER')}</h2>
 
-          {/* Scrollable content */}
+          {/* Carousel for Review Thread History */}
           <div className="relative overflow-hidden mb-5">
-            {/* Review */}
             <div
               className="flex transition-transform duration-300 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {reviews.map((review, index) => (
-                <div key={index} className="seller_item_container p-2 w-full shrink-0">
+                <div key={review.reviewId || index} className="seller_item_container p-2 w-full shrink-0">
                   <div className="flex justify-between items-start mb-3">
-                    {/* Left content */}
                     <div className="flex-grow">
-                      <p className="text-primary text-sm">
+                      <p className="text-primary text-sm font-medium">
                         {review.giver} {' → '}
                         <span className="text-primary text-sm">{review.receiver}</span>
                       </p>
-                      <p className="text-md break-words">{review.heading}</p>
+                      <p className="text-md break-words mt-1">{review.heading}</p>
                     </div>
 
-                    {/* Right content */}
                     <div className="flex flex-col items-end space-y-2">
                       <div className="text-[#828282] text-sm text-right whitespace-nowrap">
                         <p>{review.date}</p>
@@ -166,10 +191,10 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                           return imgSrc ? (
                             <Image
                               src={imgSrc}
-                              alt="review image"
+                              alt="review meta image"
                               width={50}
                               height={50}
-                              className="object-cover rounded-md"
+                              className="object-cover rounded-md border border-gray-100 shadow-sm"
                             />
                           ) : null;
                         })()}
@@ -180,19 +205,21 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                     </div>
                   </div>
 
-                  {/* Scroll button section */}
-                  <div className="flex">
+                  {/* Navigation Arrows for the carousel */}
+                  <div className="flex mt-2">
                     <button
-                      className={`p-2 rounded-full group hover:bg-gray-100 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`p-2 rounded-full transition-all group hover:bg-gray-100 ${currentIndex === 0 ? 'opacity-30 cursor-not-allowed' : 'opacity-100'}`}
                       onClick={prevSlide}
                       disabled={currentIndex === 0}
+                      aria-label="Previous Review"
                     >
                       <FaChevronLeft className="text-gray-400 group-hover:text-gray-600 text-2xl" />
                     </button>
                     <button
-                      className={`ms-auto p-2 rounded-full group hover:bg-gray-100 ${currentIndex === reviews.length - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`ms-auto p-2 rounded-full transition-all group hover:bg-gray-100 ${currentIndex === reviews.length - 1 ? 'opacity-30 cursor-not-allowed' : 'opacity-100'}`}
                       onClick={nextSlide}
                       disabled={currentIndex === reviews.length - 1}
+                      aria-label="Next Review"
                     >
                       <FaChevronRight className="text-gray-400 group-hover:text-gray-600 text-2xl" />
                     </button>
@@ -202,23 +229,26 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
             </div>
           </div>
 
-          <h2 className="font-bold">{t('SCREEN.REPLY_TO_REVIEW.GIVE_REPLY_TO_REVIEW_SUBHEADER')}</h2>
-          <h2 className="text-[#828282]">
-            {currentUser?.user_name === reviews[currentIndex].giver
-              ? reviews[currentIndex]?.receiver
-              : reviews[currentIndex].giver}
-          </h2>
-          <EmojiPicker
-            userId={
-              currentUser?.pi_uid === reviews[currentIndex].giverId
-                ? reviews[currentIndex]?.receiverId
-                : reviews[currentIndex].giverId
-            }
-            setIsSaveEnabled={setIsSaveEnabled}
-            replyToReviewId={reviews[currentIndex]?.reviewId}
-            currentUser={currentUser}
-            setReload={setReload}
-          />
+          {/* Response Section */}
+          <div className="reply-form-section border-t border-gray-100 pt-5 mt-5">
+            <h2 className="font-bold">{t('SCREEN.REPLY_TO_REVIEW.GIVE_REPLY_TO_REVIEW_SUBHEADER')}</h2>
+            <h2 className="text-[#828282] mb-4">
+              {currentUser?.user_name === reviews[currentIndex].giver
+                ? reviews[currentIndex]?.receiver
+                : reviews[currentIndex].giver}
+            </h2>
+            <EmojiPicker
+              userId={
+                currentUser?.pi_uid === reviews[currentIndex].giverId
+                  ? reviews[currentIndex]?.receiverId
+                  : reviews[currentIndex].giverId
+              }
+              setIsSaveEnabled={setIsSaveEnabled}
+              replyToReviewId={reviews[currentIndex]?.reviewId}
+              currentUser={currentUser}
+              setReload={setReload}
+            />
+          </div>
         </div>
       )}
 
