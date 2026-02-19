@@ -31,6 +31,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [searchBarValue, setSearchBarValue] = useState('');
   const { isSigningInUser } = useContext(AppContext);
 
+  /**
+   * Dynamically retrieves the placeholder text based on the current page context.
+   */
   const getPlaceholderText = (page: 'map_center' | 'default'): string => {
     return page === 'map_center'
       ? t('SHARED.MAP_CENTER.SEARCH_BAR_PLACEHOLDER')
@@ -39,24 +42,41 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const placeholder = getPlaceholderText(page);
 
+  /**
+   * Handles input changes and resets search states if the field is cleared.
+   * Enhanced with trimming logic to ensure clean query transitions.
+   */
   const handleSearchBarChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
-    logger.debug(`Search bar value changed: ${event.target.value}`);
-    setSearchBarValue(event.target.value);
+    logger.debug(`Search bar value changed: ${newValue}`);
+    setSearchBarValue(newValue);
 
+    // Reset results if the user clears the search input
     if (isSearchClicked !== undefined && isSearchClicked && newValue.trim() === '') {
       setSearchClicked(false);
-      setSearchResults([]); // Reset results
-      setSearchQuery(''); // Reset query
+      setSearchResults([]); 
+      setSearchQuery(''); 
     }
   };
 
+  /**
+   * Form submission handler.
+   * Optimized to sanitize the query (trimming whitespace) before invoking the search service.
+   * This prevents unnecessary 500/Gateway errors caused by improper formatting (e.g., Warangkana9565 ).
+   */
   const handleSubmitSearch = (event: FormEvent) => {
     event.preventDefault();
+    
+    // Professional Sanitization: Trim whitespace to ensure exact matches with Backend records
     const query = searchBarValue.trim();
-    logger.debug(`Search query submitted: ${query}`);
-    if (onSearch) {
-      onSearch(query); // Pass the query to the parent component
+    
+    if (query) {
+      logger.info(`Initiating search for query: ${query}`);
+      if (onSearch) {
+        onSearch(query); // Propagates the sanitized query to the parent handler
+      }
+    } else {
+      logger.warn('Search attempted with an empty or whitespace-only query.');
     }
   };
 
@@ -73,6 +93,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               type="text"
               variant="outlined"
               color="success"
+              autoComplete="off"
               className={`w-full rounded ${
                 isSigningInUser ? 'bg-gray-200' : 'bg-white hover:bg-gray-100'
               }`}
@@ -86,8 +107,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <button
             aria-label="search"
             type="submit"
-            className={`rounded-[10px] h-[55px] w-[55px] flex items-center justify-center 
-              ${isSigningInUser ? 'bg-tertiary' : 'bg-primary hover:bg-gray-500'}`}
+            className={`rounded-[10px] h-[55px] w-[55px] flex items-center justify-center transition-colors
+              ${isSigningInUser ? 'bg-tertiary' : 'bg-primary hover:bg-opacity-80'}`}
             disabled={isSigningInUser}
           >
             <SearchIcon fontSize={'large'} className="text-[#ffc153]" />
