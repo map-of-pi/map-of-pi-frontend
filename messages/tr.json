@@ -1,0 +1,402 @@
+{
+  "HOME": {
+    "ADD_SELLER": "Satmak",
+    "SEARCH_CENTER_DEFAULT_MESSAGE": "Arama Merkeziniz şu anda varsayılan koordinatlara [0, 0] ayarlanmış. Deneyiminizi geliştirmek için lütfen Arama Merkezi konumunuzu güncelleyin.",
+    "SEARCH_BAR_PLACEHOLDER": "Satıcıları veya öğeleri arayın",
+    "NEW_NOTIFICATIONS_MESSAGE": "Bildirimleriniz var",
+    "LOCATION_SERVICES": {
+      "ENABLE_LOCATION_SERVICES_MESSAGE": "Bu özelliği kullanmak için, Lütfen cihaz ayarlarınızda konum servislerini etkinleştirin.",
+      "DISABLED_LOCATION_SERVICES_MESSAGE": "Konum hizmetleri devre dışı bırakıldı. Lütfen cihazınızın konum ayarını etkinleştirin."
+    },
+    "AUTHENTICATION": {
+      "SUCCESSFUL_LOGIN_MESSAGE": "Başarılı giriş",
+      "UNSUCCESSFUL_LOGIN_MESSAGE": "Giriş başarısız oldu",
+      "PI_INFORMATION_NOT_FOUND_MESSAGE": "Pi bilgisi bulunamadı"
+    }
+  },
+  "SIDE_NAVIGATION": {
+    "VIEW_ORDERS_LABEL": "Siparişleri Görüntüle",
+    "USER_PREFERENCES_HEADER": "Kullanıcı Tercihleri",
+    "PERSONALIZATION_SUBHEADER": "Kişiselleştirme",
+    "LANGUAGES": "Diller",
+    "ABOUT": {
+      "ABOUT_MAP_OF_PI": "Hakkında Map of Pi",
+      "APP_VERSION": "Uygulama Sürümü",
+      "PRIVACY_POLICY": "Gizlilik Politikası",
+      "TERMS_OF_SERVICE": "Hizmet Şartları"
+    },
+    "WALLET_ADDRESS_LABEL": "Pi Cüzdan Adresi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Pi cüzdan adresinizi girin",
+    "FIND_ME_PREFERENCE_LABEL": "FindMe Tercihi",
+    "FIND_ME_OPTIONS": {
+      "PREFERRED_AUTO": "Otomatik",
+      "PREFERRED_DEVICE_GPS": "Cihazımı kullan GPS",
+      "PREFERRED_SEARCH_CENTER": "Arama Merkezini Kullan"
+    },
+    "SEARCH_FILTERS_SUBHEADER": "Arama Filtreleri",
+    "SEARCH_FILTERS": {
+      "INCLUDE_ACTIVE_SELLERS": "Aktif satıcılar",
+      "INCLUDE_INACTIVE_SELLERS": "Etkin olmayan satıcılari",
+      "INCLUDE_TEST_SELLERS": "Test satıcıları",
+      "INCLUDE_HOLIDAY_SELLERS": "Tatil satıcıları"
+    },
+    "CONTACT_MAP_OF_PI": "Temas Map of Pi",
+    "VALIDATION": {
+      "SUCCESSFUL_PREFERENCES_SUBMISSION": "Tercihler başarılı",
+      "UNSUCCESSFUL_PREFERENCES_SUBMISSION": "Tercihleri kaydetme hatası"
+    }
+  },
+  "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Üyelik",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Mevcut üyelik sınıfı",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Mevcut üyelik bitiş tarihi",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Aktif üyelik yok",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "MKalan appi ödeneği",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Satın almak için üyelik veya Mappi'yi seçin",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "Üyelik ({duration} Haftalar)",
+      "PICK_BUY_METHOD_LABEL": "Satın alma yöntemini seç",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Ile öde π",
+        "WATCH_ADS": "Reklamları izleyin (ücretsiz)",
+        "USE_VOUCHER": "Bir kupon kodu kullanın (ücretsiz)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Kupon kodunu girin",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Üyelik başarıyla etkinleştirildi",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Üyelik verileri yüklenemedi",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Başarısız üyelik ödemesi",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ödeme yapmak için kullanıcının oturum açmış olması gerekir"
+      }
+    },
+    "SELLER_REGISTRATION": {
+      "SELLER_REGISTRATION_HEADER": "Satıcı Yönetimi",
+      "SELLER_RESTRICTION_MESSAGE": "YSatış Merkezimiz Pi Network tarafından onaylanmış bir bölgededir, bu nedenle harita işaretleyiciniz tüm kullanıcılara gizlenecektir",
+      "SELLER_DETAILS_LABEL": "Satıcı Ayrıntıları",
+      "EMAIL_LABEL": "E-posta adresi",
+      "PHONE_NUMBER_LABEL": "Telefon numarası",
+      "CONTACT_PUBLIC_NOTE": "E-posta adresi ve telefon numarası herkese açık olacak.",
+      "SELLER_DETAILS_PLACEHOLDER": "Pi ile Pay ile satış yapıyorum.",
+      "REVIEWS_SUMMARY_LABEL": "İnceleme Özeti",
+      "REVIEWS_SCORE_LABEL": "İnceleme Puanı",
+      "SELLER_NAME": "Satıcı Adı",
+      "SELLER_TYPE": {
+        "SELLER_TYPE_LABEL": "Satıcı türü",
+        "SELLER_TYPE_OPTIONS": {
+          "ACTIVE_SELLER": "Aktif satıcı",
+          "INACTIVE_SELLER": "Aktif olmayan satıcı",
+          "TEST_SELLER": "Test satıcısı",
+          "HOLIDAY_SELLER": "Tatil satıcısı",
+          "RESTRICTED_SELLER": "Kısıtlı satıcı"
+        }
+      },
+      "SELLER_ADVANCED_SETTINGS_LABEL": "Gelişmiş Satıcı Ayarları",
+      "SELLER_RETAIL_OUTLET_NAME": "Perakende satış noktası adı",
+      "SELLER_ADDRESS_LOCATION_LABEL": "Adres veya satış yeri",
+      "SELLER_ADDRESS_LOCATION_PLACEHOLDER": "Harita işaretleyicim nerede satış yaptığımı gösteriyor",
+      "SELLER_SETTINGS_LABEL": "Satıcı Ayarları",
+      "SELLER_SELL_CENTER": "Satış Merkezini Ayarla",
+      "SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL": "Çevrimiçi Alışveriş | Satılık Öğeleri Listele",
+      "SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL": "Çevrimiçi Alışveriş | Sipariş Yerine Getirme",
+      "MAPPI_ALLOWANCE_LABEL": "Mappi ödeneği kaldı",
+      "FULFILLMENT_METHOD_TYPE": {
+        "FULFILLMENT_METHOD_TYPE_LABEL": "Yerine getirme yöntemi",
+        "FULFILLMENT_METHOD_TYPE_OPTIONS": {
+          "COLLECTION_BY_BUYER": "Alıcı tarafından tahsilat",
+          "DELIVERED_TO_BUYER": "Alıcıya teslim edildi"
+        }
+      },
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_LABEL": "Alıcıya satıcı yerine getirme talimatları",
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_PLACEHOLDER": "Teslim alma, satıcının adresindendir. Teslimat seçildiyse, lütfen alıcının adresini girin.",
+      "BUYER_TO_SELLER_FULFILLMENT_DETAILS_LABEL": "Alıcı yerine getirme detayları",
+      "VALIDATION": {
+        "EMAIL_VALIDATION": "Lütfen geçerli bir e-posta adresi girin",
+        "SUCCESSFUL_REGISTRATION_SUBMISSION": "Kayıt başarılı",
+        "FAILED_REGISTRATION_SUBMISSION": "Kayıt kaydetme hatası",
+        "REGISTRATION_FAILED_USER_NOT_AUTHENTICATED": "Kullanıcı kimliği doğrulanmadığı için kayıt başarısız oldu",
+        "UNINITIALIZED_SELL_CENTER": "Lütfen Satış Merkezinizi ayarlayın",
+        "SUCCESSFUL_SELLER_ITEM_SAVED": "SEller öğesi başarıyla kaydedildi",
+        "SUCCESSFUL_SELLER_ITEM_DELETED": "Satıcı ürünü başarıyla silindi",
+        "FAILED_SELLER_ITEM_SAVE": "Satıcı ürününü kaydetme hatası",
+        "FAILED_SELLER_ITEM_DELETE": "Satıcı ürünü silinirken hata oluştu",
+        "SELLER_ITEM_NOT_FOUND": "Satıcı ürünü bulunamadı",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Kaydetme başarılı. Kullanılan Mappi ödeneği {mappi_count}",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Başarısızlığı kaydedin. Yetersiz Mappi ödeneği mevcut"
+      },
+      "SELLER_ITEMS_FEATURE": {
+        "ITEM_LABEL": "Madde",
+        "PRICE_LABEL": "Fiyat",
+        "STOCK_LABEL": "Stok seviyesi",
+        "DESCRIPTION_LABEL": "Tanımlama",
+        "PHOTO": "Fotoğraf",
+        "SELLING_DURATION_LABEL": "Hafta cinsinden satış süresi",
+        "SELLING_STATUS_OPTIONS": {
+          "ACTIVE": "Aktif",
+          "EXPIRED": "Süresi dolmuş"
+        },
+        "STOCK_LEVEL_OPTIONS": {
+          "AVAILABLE_1": "1 Mevcut",
+          "AVAILABLE_2": "2 Mevcut",
+          "AVAILABLE_3": "3 Mevcut",
+          "MANY": "Birçok mevcut",
+          "MADE_TO_ORDER": "Sipariş üzerine üretilmiştir",
+          "ONGOING_SERVICE": "Devam eden hizmet",
+          "SOLD": "Satıldı"
+        },
+        "SELLING_EXPIRATION_DATE": "Tarafından satmak {expired_by_date}",
+        "VALIDATION": {
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Satış süresi {remaining_weeks} Kalan haftalar"
+        }
+      }
+    },
+    "SELLER_ORDER_FULFILLMENT": {
+      "ORDER_LIST_HEADER": "Sipariş Listesi",
+      "VIEW_ORDER_HEADER": "Siparişi Görüntüle",
+      "SELLER_ORDER_FULFILLMENT_HEADER": "Satıcı Siparişinin Yerine Getirilmesi",
+      "ORDER_SUBHEADER": "Sipariş Başlığı",
+      "ORDERED_ITEMS_SUBHEADER": "Sipariş Edilen Ürünler",
+      "ORDER_HEADER_ITEMS_FEATURE": {
+        "SELLER_LABEL": "Satıcı",
+        "TOTAL_PRICE_LABEL": "Toplam fiyat",
+        "TIME_OF_ORDER_LABEL": "Sipariş zamanı",
+        "STATUS_LABEL": "Statü"
+      },
+      "STATUS_TYPE": {
+        "INITIALIZED": "Başlatılmış",
+        "PENDING": "Bekleyen",
+        "COMPLETED": "TAMAMlandı",
+        "CANCELED": "İptal edildi",
+        "REFUNDED": "İade edildi",
+        "FULFILLED": "Yerine getirildi"
+      },
+      "ORDER_COMPLETED_LABEL": "Sipariş Tamamlandı",
+      "ORDER_DISPATCHED_COLLECTED_LABEL": "Sipariş Gönderildi/Toplandı"
+    },
+    "BUY_FROM_SELLER": {
+      "BUY_FROM_SELLER_HEADER": "Satıcıdan satın alın",
+      "SELLER_DETAILS_LABEL": "Satıcı Ayrıntıları",
+      "SELLER_ADDRESS_POSITION_LABEL": "Satıcı Adresi veya Pozisyonu",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Bu cüzdan adresine ödeme yapın",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Cüzdan adresi istemek için satıcıyla iletişime geçin",
+      "LEAVE_A_REVIEW_MESSAGE": "Bir Yorum Bırakın",
+      "FACE_SELECTION_REVIEW_MESSAGE": "SYukarıdaki satıcı hakkında ne hissettiğinizi gösteren yüzü seçin",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "EEk yorumları buraya girin",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Geri bildirim fotoğrafı yükleme",
+      "REVIEWS_SUMMARY_LABEL": "İnceleme Özeti",
+      "REVIEWS_SCORE_MESSAGE": "İnceleme Puanı: {seller_review_rating} 5.0 üzerinden",
+      "SELLER_CONTACT_DETAILS_LABEL": "Satıcı İletişim Bilgileri",
+      "SELLER_USERNAME_LABEL": "Kullanıcı adı",
+      "SELLER_PHONE_NUMBER_LABEL": "Telefon numarası",
+      "SELLER_EMAIL_ADDRESS_LABEL": "E-posta adresi",
+      "ONLINE_SHOPPING": {
+        "SELLER_ITEMS_FEATURE": {
+          "ITEM_LABEL": "Madde",
+          "PRICE_LABEL": "Fiyat",
+          "DESCRIPTION_LABEL": "Description",
+          "PHOTO": "Fotoğraf",
+          "BUYING_QUANTITY_LABEL": "Miktar",
+          "PICK_LABEL": "Seçmek",
+          "UNPICK_LABEL": "Sekme"
+        }
+      },
+      "ORDER_SUCCESSFUL_MESSAGE": "Sipariş başarıyla verildi",
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Sipariş işleme alınamadı. Lütfen tekrar deneyin ve en az 1 Mappi'ye sahip olduğunuzdan emin olun."
+    },
+    "REVIEWS": {
+      "REVIEWS_HEADER": "İncelemeler",
+      "GIVE_REVIEW_SECTION_HEADER": "Bu öncüye inceleme yapın",
+      "REVIEWS_GIVEN_SECTION_HEADER": "Bu öncü tarafından verilen yorumlar",
+      "REVIEWS_RECEIVED_SECTION_HEADER": "Bu öncü tarafından alınan yorumlar",
+      "VALIDATION": {
+        "NO_REVIEWS_FOUND": "Öncü için yorum bulunamadı {search_value}",
+        "NO_PIONEER_FOUND": "Öncü {search_value} Bulunamadı"
+      }
+    },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "İncelemeyi Düzenle",
+      "REVIEW_GIVEN_TO_LABEL": "Verilen inceleme",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Verilen tarih ve saat incelemesi"
+    },
+    "CHECK_REVIEWS_FEEDBACK": {
+      "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "İçin inceleme yok {seller_id}",
+      "CHECK_REVIEWS_FEEDBACK_HEADER": "İçin kalan İncelemelerin Listesi {seller_id}",
+      "BY_REVIEWER": "Ile {buyer_id}"
+    },
+    "REPLY_TO_REVIEW": {
+      "REPLY_TO_REVIEW_STATIC_HEADER": "Gözden Geçirmek için Yanıtla",
+      "REPLY_TO_REVIEW_SUBHEADER": "Cevap verdiğinizi gözden geçiriyor",
+      "GIVE_REPLY_TO_REVIEW_SUBHEADER": "İncelemeye cevap ver",
+      "REPLY_TO_REVIEW_HEADER": "İncelemeye yanıt ver {seller_id}",
+      "BY_REVIEWER": "Ile {buyer_id}",
+      "REPLY_TO_REVIEW_MESSAGE": "Yukarıdaki incelemeye cevabınızı bırakın",
+      "FACE_SELECTION_REVIEW_MESSAGE": "Bu öncüyle etkileşiminiz hakkında nasıl hissettiğinizi gösteren yüzü seçin",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "EEk yorumları buraya girin",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Geri bildirim fotoğrafı yükleme",
+      "VALIDATION": {
+        "LOADING_REVIEW_FAILURE": "İnceleme yüklenirken hata oluştu",
+        "SELF_REVIEW_NOT_POSSIBLE": "Öz inceleme mümkün değil"
+      }
+    },
+    "NOTIFICATIONS": {
+      "NOTIFICATIONS_HEADER": "Bildirimler",
+      "NO_NOTIFICATIONS_SUBHEADER": "Henüz bildiriminiz yok",
+      "NOTIFICATION_SECTION": {
+        "NOTIFICATION_LABEL": "Bildirme",
+        "NOTIFICATION_TIME_LABEL": "Bildirim zamanı",
+        "NOTIFICATION_STATUS": {
+          "READ": "Açık",
+          "UNREAD": "Açık olmayan"
+        }
+      }
+    }
+  },
+  "POPUP": {
+    "MAP_MARKER": {
+      "SELLER_SALE_ITEMS_FIELD": "Satıcı satılık ürünler",
+      "DISTANCE_MESSAGE": "Mesafe: XXX km uzakta"
+    },
+    "APP_VERSION_INFO": {
+      "REPORTING_MESSAGE": "Lütfen kusurları"
+    },
+    "PRIVACY_POLICY_INFO": {
+      "TITLE": "Gizlilik Politikası",
+      "LAST_UPDATED": "Son Güncelleme",
+      "EMAIL_ADDRESS": "E-posta Adresi",
+      "SECTIONS": {
+        "HEADER_1": "Takdim etme",
+        "CONTENT_1": "Map of Pi ekibi tarafından Pi Topluluğu ile işbirliği içinde geliştirilen Map of Pi uygulamasına hoş geldiniz. Bu Gizlilik Politikası, mobil uygulamamızı kullandığınızda kişisel bilgilerinizi nasıl topladığımızı, kullandığımızı, ifşa ettiğimizi ve koruduğumuzu özetlemektedir.",
+        "HEADER_2": "Topladığımız Bilgiler",
+        "SUBHEADER_2_1": "Kullanıcı Bilgileri",
+        "CONTENT_2_1_1": "Kullanıcı olarak kaydolduğunuzda adınızı, e-posta adresinizi, kullanıcı adınızı ve diğer ilgili ayrıntıları toplayabiliriz.",
+        "CONTENT_2_1_2": "Cihaz türü, işletim sistemi ve benzersiz cihaz tanımlayıcıları dahil olmak üzere cihazınız hakkında bilgi toplayabiliriz.",
+        "SUBHEADER_2_2": "Satıcı Bilgileri",
+        "CONTENT_2_2_1": "Satıcılar kayıt yapıyor Platformda Satıcı bilgilerini sağlamak gerekebilir, Satıcı adı, konumu ve iletişim bilgileri dahil.",
+        "CONTENT_2_2_2": "Bir Satıcı Bir işletme veya özel bir birey olabilir.",
+        "HEADER_3": "Nasıl Biz Bilgilerinizi Kullanın",
+        "SUBHEADER_3_1": "Sağlamak Bakımını yapmak",
+        "CONTENT_3_1_1": "Kullanıcı ve Satıcı işlevleri de dahil olmak üzere Map of Pi uygulama hizmetlerini sağlamak ve geliştirmek için bilgilerinizi kullanıyoruz.",
+        "SUBHEADER_3_2": "Ulaşım",
+        "CONTENT_3_2_1": "Map of Pi uygulamasıyla ilgili güncellemeler, bildirimler ve promosyon mesajları göndermek için iletişim bilgilerinizi kullanabiliriz..",
+        "SUBHEADER_3_3": "Analizler",
+        "CONTENT_3_3_1": "Uygulamanın performansını, özelliklerini ve işlevselliğini geliştirmek için veri toplar ve analiz ederiz.",
+        "HEADER_4": "Bilgilerinizi Paylaşmak",
+        "SUBHEADER_4_1": "Satıcılarla",
+        "CONTENT_4_1_1": "Kullanıcı bilgileri, sipariş yerine getirme ve iletişim amacıyla Satıcılarla paylaşılabilir.",
+        "SUBHEADER_4_2": "Üçüncü Taraflarla",
+        "CONTENT_4_2_1": "Uygulama işlevselliği, analizleri ve ödeme işlemleri için üçüncü taraf hizmet sağlayıcılarla bilgi paylaşabiliriz.",
+        "HEADER_5": "Güvenlik Önlemleri",
+        "CONTENT_5_1": "Bilgilerinizi korumak için endüstri standardı güvenlik önlemleri kullanıyoruz. Bununla birlikte, internet veya elektronik depolama üzerinden hiçbir iletim yöntemi tamamen güvenli değildir.",
+        "HEADER_6": "Seçimleriniz",
+        "CONTENT_6_1": "Hesap bilgilerinizi uygulama ayarları aracılığıyla güncelleyebilirsiniz. Pi Network hesabınızı silerek ve ardından bir dahaki sefere Map of Pi'ye eriştiğinizde Pi Haritası verilerinizi silme seçeneğini belirleyerek Pi Haritası hesabınızı silebilirsiniz. Promosyon iletişimlerinden vazgeçebilirsiniz.",
+        "HEADER_7": "Bu Gizlilik Politikasındaki Değişiklikler",
+        "CONTENT_7_1": "Bu Gizlilik Politikasını gerektiği gibi güncelleyebiliriz. En son sürüm web sitemizde veya uygulama içinde yayınlanacaktır.",
+        "HEADER_8": "Bize Ulaşın",
+        "CONTENT_8_1": "Bu Gizlilik Politikası hakkında herhangi bir sorunuz veya endişeniz varsa, lütfen şu adrese bir e-posta göndererek bizimle iletişime geçin:"
+      }
+    },
+    "TERMS_OF_SERVICE_INFO": {
+      "TITLE": "Hizmet Şartları",
+      "LAST_UPDATED": "Son Güncelleme",
+      "EMAIL_ADDRESS": "E-posta Adresi",
+      "SECTIONS": {
+        "HEADER_1": "Şartların Kabulü",
+        "CONTENT_1_1": "Map of Pi ekibi tarafından Pi Topluluğu ile işbirliği içinde geliştirilen Map of Pi uygulamasına hoş geldiniz. Bu uygulamayı kullanarak, bu Hizmet Şartlarına ve Gizlilik Politikamıza uymayı kabul etmiş olursunuz.",
+        "HEADER_2": "Uygulamanın Kullanımı",
+        "CONTENT_2_1": "Map of Pi uygulamasını yürürlükteki tüm yasa ve yönetmeliklere uygun olarak kullanmayı kabul edersiniz.",
+        "CONTENT_2_2": "Uygulamayı herhangi bir yasa dışı veya yasak amaç için veya uygulamaya zarar verebilecek, devre dışı bırakabilecek, aşırı yükleyebilecek veya bozabilecek herhangi bir şekilde kullanmayacaksınız.",
+        "CONTENT_2_3": "Map of Pi'yi kullanmak için Pi Network'ün öncü kullanıcısı olarak kayıtlı olmanız gerekir.",
+        "HEADER_3": "Fikri Mülkiyet",
+        "CONTENT_3_1": "Map of Pi uygulaması ve tüm içerik, özellikler ve işlevler Map of Pi'ye aittir ve telif hakkı, ticari marka ve diğer fikri mülkiyet yasaları tarafından korunmaktadır.",
+        "HEADER_4": "Sorumluluğun Sınırlandırılması",
+        "CONTENT_4_1": "Map of Pi, Map of Pi uygulamasının kullanımından kaynaklanan veya herhangi bir şekilde bağlantılı herhangi bir doğrudan, dolaylı, arızi, özel veya sonuçta ortaya çıkan zararlardan sorumlu olmayacaktır.",
+        "HEADER_5": "Tazminat",
+        "CONTENT_5_1": "Map of Pi uygulamasını kullanımınızdan kaynaklanan veya herhangi bir şekilde ilgili her türlü iddia, yükümlülük, zarar, kayıp veya masraftan (avukatlık ücretleri dahil) Map of Pi'yi ve bağlı şirketlerini, memurlarını, yöneticilerini, çalışanlarını ve temsilcilerini tazmin etmeyi ve zararsız tutmayı kabul edersiniz.",
+        "HEADER_6": "Geçerli Kanun",
+        "CONTENT_6_1": "Bu Hizmet Şartları, konu veya oluşumlarından kaynaklanan veya bunlarla bağlantılı herhangi bir anlaşmazlık veya iddia da dahil olmak üzere, yasa hükümleri çatışması dikkate alınmaksızın İngiltere ve Galler yasalarına göre yönetilecek ve yorumlanacaktır (sözleşme dışı anlaşmazlıklar veya iddialar dahil).",
+        "HEADER_7": "Bu Koşullardaki Değişiklikler",
+        "CONTENT_7_1": "Bu Hizmet Şartlarını önceden haber vermeksizin herhangi bir zamanda güncelleme veya değiştirme hakkımızı saklı tutarız. En son sürüm web sitemizde veya uygulama içinde yayınlanacaktır."
+      }
+    }
+  },
+  "SHARED": {
+    "PIONEER_LABEL": "Öncü",
+    "PIONEER_ID_LABEL": "Öncü Kimliği",
+    "MEMBERSHIP": "Üyelik",
+    "BUY": "Almak",
+    "WATCH": "Izlemek",
+    "RESET": "Sıfırla",
+    "REFUND": "Geri ödeme",
+    "FULFILL": "Yerine getirmek",
+    "FULFILLED": "Yerine getirildi",
+    "PENDING": "Bekleyen",
+    "NAVIGATE": "Yolculuk yapmak",
+    "NO_COMMENT": "Yorum yapılmadı",
+    "SEARCH_CENTER": "Arama Merkezini Ayarla",
+    "CHECK_REVIEWS": "İncelemeleri Kontrol Et",
+    "SEARCH_REVIEWS": "İncelemeleri Ara",
+    "SEARCH_LOADING": "Arama yükleniyor...",
+    "VIEW_NOTIFICATIONS": "Bildirimleri görüntüle",
+    "REPLY": "Cevap",
+    "EDIT": "Düzenle",
+    "COPY": "Kopya",
+    "ADD_ITEM": "Öğe Ekle",
+    "CHECKOUT": "Ödeme",
+    "DELETE": "Silmek",
+    "CONFIRM_DELETE": "Bu öğeyi gerçekten silmek istiyor musunuz? Bu işlem geri alınamaz.",
+    "SAVE": "Korumak",
+    "CONFIRM": "Doğrulamak",
+    "CONFIRM_DIALOG": "Kaydedilmemiş değişiklikleriniz var. Gerçekten gitmek istiyor musun?",
+    "USER_INFORMATION": {
+      "PI_USERNAME_LABEL": "Pi kullanıcı adı",
+      "NAME_LABEL": "Isim",
+      "PHONE_NUMBER_LABEL": "Telefon numarası",
+      "EMAIL_LABEL": "E-posta"
+    },
+    "PHOTO": {
+      "UPLOAD_PHOTO_LABEL": "Görüntüyü yükle",
+      "UPLOAD_PHOTO_PLACEHOLDER": "Alıcıları çekmeye yardımcı olmak için resim yükleyin (PNG, JPG, JPEG, WEBP)",
+      "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "İncelemenizi desteklemek için bir resim yükleyin (PNG, JPG, JPEG, WEBP)",
+      "IMAGE_DROP_UPLOAD_MESSAGE": "Resminizi buraya bırakın veya göz atın",
+      "SUPPORTS_FILE_MESSAGE": "Destekler: PNG, JPG, JPEG, WEBP",
+      "MISC_LABELS": {
+        "USER_PREFERENCES_LABEL": "Profil resmi",
+        "SELLER_IMAGE_LABEL": "Satıcı resmi",
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Görüntüyü gözden geçirin",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Görüntüyü güncelle"
+      }
+    },
+    "REACTION_RATING": {
+      "UNSAFE": "Emniyetsiz",
+      "TRUSTWORTHY": "Güvenilir",
+      "EMOTIONS": {
+        "DESPAIR": "Umutsuzluk",
+        "SAD": "Üzgün",
+        "OKAY": "Tamam",
+        "HAPPY": "Mutlu",
+        "DELIGHT": "Zevk"
+      },
+      "VALIDATION": {
+        "SUCCESSFUL_REVIEW_SUBMISSION": "İnceleme başarıyla gönderildi",
+        "UNSUCCESSFUL_REVIEW_SUBMISSION": "İnceleme gönderilemedi",
+        "SELECT_EMOJI_EXPRESSION": "Lütfen emoji ifadesini seçin"
+      }
+    },
+    "MAP_CENTER": {
+      "SEARCH_BAR_PLACEHOLDER": "Bir konum, şehir veya adres arayın",
+      "VALIDATION": {
+        "MAP_CENTER_SUCCESS_MESSAGE": "Merkeziniz başarıyla kaydedildi",
+        "SELL_CENTER_SANCTIONED_MESSAGE": "YSeçtiğimiz konum yaptırımlı bir bölgede görünüyor. Onaylanırsa, satış işaretleyiciniz haritadan kaldırılabilir."
+      }
+    },
+    "LOADING_SCREEN_MESSAGE": "Yükleniyor ...",
+    "SAVING_SCREEN_MESSAGE": "Tasarruf ...",
+    "VALIDATION": {
+      "SUBMISSION_FAILED_USER_NOT_AUTHENTICATED": "Kullanıcı kimliği doğrulanmadığı için gönderim başarısız oldu",
+      "UNEXPECTED_ERROR_MESSAGE": "Beklenmedik bir hata oluştu"
+    }
+  },
+  "ERROR": {
+    "PAGE_NOT_FOUND_HEADER": "Sayfa bulunamadı",
+    "PAGE_NOT_FOUND_MESSAGE": "Üzgünüz, aradığınız sayfa mevcut değil."
+  }
+}
