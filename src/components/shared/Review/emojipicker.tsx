@@ -1,15 +1,14 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { toast } from 'react-toastify';
-
-import { IReviewFeedback } from '@/constants/types';
 import { createReview, updateReview } from '@/services/reviewsApi';
 import removeUrls from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+import { IUser } from '@/constants/types';
 
 interface Emoji {
   name: string;
@@ -18,140 +17,119 @@ interface Emoji {
   value: number;
 }
 
-// TODO - Isolate EmojiPicker component; move page processing to sale-items\[id]\page.tsx.
-export default function EmojiPicker(props: any) {
+interface EmojiPickerProps {
+  userId: string;
+  currentUser: IUser | null;
+  isEditMode?: boolean;
+  reviewId?: string;
+  replyToReviewId?: string;
+  initialComment?: string;
+  initialRating?: number;
+  initialImage?: string;
+  clickDisabled?: boolean;
+  reviews?: Record<string, number>;
+  setIsSaveEnabled?: (val: boolean) => void;
+  refresh?: () => void;
+}
+
+export default function EmojiPicker({
+  userId,
+  currentUser,
+  isEditMode,
+  reviewId,
+  replyToReviewId,
+  initialComment = '',
+  initialRating,
+  initialImage = '',
+  clickDisabled,
+  reviews,
+  setIsSaveEnabled: notifyParent,
+  refresh,
+}: EmojiPickerProps) {
   const t = useTranslations();
+  const { setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
 
   const despairEmoji: Emoji = { name: t('SHARED.REACTION_RATING.EMOTIONS.DESPAIR'), unicode: "😠", code: ":despair:", value: 0 };
   const emojis: Emoji[] = [
-    { name: t('SHARED.REACTION_RATING.EMOTIONS.SAD'), unicode: "🙁", code: ":sad_face:", value: 2 },
-    { name: t('SHARED.REACTION_RATING.EMOTIONS.OKAY'), unicode: "🙂", code: ":okay_face:", value: 3 },
-    { name: t('SHARED.REACTION_RATING.EMOTIONS.HAPPY'), unicode: "😃", code: ":happy_face:", value: 4 },
-    { name: t('SHARED.REACTION_RATING.EMOTIONS.DELIGHT'), unicode: "😍", code: ":delight_face:", value: 5 }
+    { name: t('SHARED.REACTION_RATING.EMOTIONS.SAD'),     unicode: "🙁", code: ":sad_face:",    value: 2 },
+    { name: t('SHARED.REACTION_RATING.EMOTIONS.OKAY'),    unicode: "🙂", code: ":okay_face:",   value: 3 },
+    { name: t('SHARED.REACTION_RATING.EMOTIONS.HAPPY'),   unicode: "😃", code: ":happy_face:",  value: 4 },
+    { name: t('SHARED.REACTION_RATING.EMOTIONS.DELIGHT'), unicode: "😍", code: ":delight_face:", value: 5 },
   ];
 
-  const [dbReviewFeedback, setDbReviewFeedback] = useState<IReviewFeedback | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string>(props.initialImage || '');
-  const [isSaveEnabled, setIsSaveEnabled] = useState<boolean>(false);
-  // Initialize from props.initialComment if provided
-  const [comments, setComments] = useState(props.initialComment || '');
-  const [reviewEmoji, setReviewEmoji] = useState<number | null>(null);
-  const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
-  const { showAlert, setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
+  const [previewImage, setPreviewImage] = useState(initialImage);
+  const [isSaveEnabled, setIsSaveEnabled] = useState(false);
+  const [comments, setComments] = useState(initialComment);
+  const [reviewEmoji, setReviewEmoji] = useState<number | null>(initialRating ?? null);
+  const [selectedEmoji, setSelectedEmoji] = useState<number | null>(initialRating ?? null);
 
-  // function preview image upload 
+  // Sync controlled initial props (edit mode hydration)
   useEffect(() => {
-    if (props.initialRating !== undefined && props.initialRating !== null) {
-      setReviewEmoji(props.initialRating);
-      setSelectedEmoji(props.initialRating);
+    if (initialRating != null) {
+      setReviewEmoji(initialRating);
+      setSelectedEmoji(initialRating);
     }
-  }, [props.initialRating]);
+  }, [initialRating]);
 
-  useEffect(() => {
-    if (props.initialImage !== undefined) {
-      setPreviewImage(props.initialImage);
-    }
-  }, [props.initialImage]);
+  useEffect(() => { setPreviewImage(initialImage); }, [initialImage]);
+  useEffect(() => { setComments(initialComment); },  [initialComment]);
 
-  useEffect(() => {
-    if (props.initialComment !== undefined) {
-      setComments(props.initialComment);
-    }
-  }, [props.initialComment]);
-
+  // Object URL lifecycle — single creation, guaranteed revocation
   useEffect(() => {
     if (!file) return;
     const objectUrl = URL.createObjectURL(file);
     setPreviewImage(objectUrl);
-    return () => {
-      URL.revokeObjectURL(objectUrl);
-    };
+    return () => URL.revokeObjectURL(objectUrl);
   }, [file]);
 
-  // set the preview image if dbUserSettings changes
+  // Dirty-check to enable/disable save
   useEffect(() => {
-    if (dbReviewFeedback?.image) {
-      setPreviewImage(dbReviewFeedback.image);
-    }
-  }, [dbReviewFeedback]);
-
-  // function to toggle save button
-  useEffect(() => {
-    // Compare current state with initial values
     const hasChanges =
-      comments !== (props.initialComment || '') ||
-      reviewEmoji !== props.initialRating ||
-      previewImage !== (props.initialImage || '');
+      comments !== initialComment ||
+      reviewEmoji !== (initialRating ?? null) ||
+      previewImage !== initialImage;
 
     setIsSaveEnabled(hasChanges);
-    props.setIsSaveEnabled(hasChanges);
-  }, [comments,
-    reviewEmoji,
-    previewImage,
-  ]);
+    notifyParent?.(hasChanges);
+  }, [comments, reviewEmoji, previewImage]);
 
-  const handleCommentsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComments(e.target.value);
-  };
-
-  const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isSaveLoading) {
-      return;
-    }
-    const selectedFile = e.target.files?.[0]; // only take the first file
-    if (selectedFile) {
-      setFile(selectedFile);
-
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreviewImage(objectUrl);
-      logger.info('Image selected for upload:', { selectedFile });
-
-      setIsSaveEnabled(true);
-    }
-  };
-
-  const resetReview = () => {
+  const resetReview = useCallback(() => {
     setSelectedEmoji(null);
     setReviewEmoji(null);
     setComments('');
     setPreviewImage('');
     setFile(null);
     setIsSaveEnabled(false);
-    props.setIsSaveEnabled(false);
-  }
+    notifyParent?.(false);
+  }, [notifyParent]);
 
   const buildFormData = (isEdit: boolean): FormData => {
     const formData = new FormData();
     formData.append('comment', removeUrls(comments));
     formData.append('rating', reviewEmoji!.toString());
-    if (file) {
-      formData.append('image', file);
-    } else {
-      formData.append('image', '');
-    }
-
+    formData.append('image', file ?? '');
     if (!isEdit) {
-      formData.append('review_receiver_id', props.userId);
-      formData.append('reply_to_review_id', props.replyToReviewId || '');
+      formData.append('review_receiver_id', userId);
+      formData.append('reply_to_review_id', replyToReviewId ?? '');
     }
     return formData;
   };
 
-  const validate = () => {
-    if (!props.currentUser) {
-      logger.warn('Unable to submit review; user not authenticated.');
+  const validate = (): boolean => {
+    if (!currentUser) {
       toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+      logger.warn('Unable to submit review; user not authenticated.');
       return false;
     }
-    if (props.currentUser.pi_uid === props.userId) {
-      logger.warn(`Attempted self review by user ${props.currentUser.pi_uid}`);
+    if (currentUser.pi_uid === userId) {
       toast.error(t('SCREEN.REPLY_TO_REVIEW.VALIDATION.SELF_REVIEW_NOT_POSSIBLE'));
+      logger.warn(`Attempted self review by user ${currentUser.pi_uid}`);
       return false;
     }
     if (reviewEmoji === null) {
-      logger.warn('Attempted to save review without selecting an emoji.');
       toast.warn(t('SHARED.REACTION_RATING.VALIDATION.SELECT_EMOJI_EXPRESSION'));
+      logger.warn('Attempted to save review without selecting an emoji.');
       return false;
     }
     return true;
@@ -159,20 +137,19 @@ export default function EmojiPicker(props: any) {
 
   const handleSave = async () => {
     if (!validate()) return;
-
     try {
       setIsSaveEnabled(false);
       setIsSaveLoading(true);
       setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
 
-      const formData = buildFormData(props.isEditMode);
+      const formData = buildFormData(!!isEditMode);
 
-      if (props.isEditMode && props.reviewId) {
-        await updateReview(props.reviewId, formData);
+      if (isEditMode && reviewId) {
+        await updateReview(reviewId, formData);
         setReload(true);
       } else {
         await createReview(formData);
-        props.refresh?.();
+        refresh?.();
       }
 
       resetReview();
@@ -183,96 +160,96 @@ export default function EmojiPicker(props: any) {
       setAlertMessage(null);
     }
   };
-  
-  // Function to handle the click of an emoji
-  const handleEmojiClick = (emojiValue: number) => {
-    if (isSaveLoading) {
-      return;
-    }
-    if (selectedEmoji === emojiValue) {
-      setSelectedEmoji(null);
-      setReviewEmoji(null); // return null when no emoji is sellected
-    } else {
-      setSelectedEmoji(emojiValue);
-      setReviewEmoji(emojiValue);  // return selected emoji value
+
+  const handleEmojiClick = (value: number) => {
+    if (isSaveLoading || clickDisabled) return;
+    const next = selectedEmoji === value ? null : value;
+    setSelectedEmoji(next);
+    setReviewEmoji(next);
+  };
+
+  const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isSaveLoading) return;
+    const selected = e.target.files?.[0];
+    if (selected) {
+      setFile(selected); // useEffect handles preview + cleanup
+      logger.info('Image selected for upload:', { selected });
     }
   };
 
-  const getReview = (reviews: { [key: string]: number } | undefined, emojiName: string): number | undefined => {
-    if (reviews) {
-      return reviews[emojiName];
-    }
-    return undefined;
-  };
+  const emojiBtnClass = 'rounded-md w-full outline outline-[0.5px] flex justify-center items-center cursor-pointer p-1';
 
-  const emojiBtnClass = 'rounded-md w-full outline outline-[0.5px] flex justify-center items-center cursor-pointer p-1'
-  
   return (
     <div className="mb-3">
-        <p>{t('SCREEN.REPLY_TO_REVIEW.FACE_SELECTION_REVIEW_MESSAGE')}</p>
+      <p>{t('SCREEN.REPLY_TO_REVIEW.FACE_SELECTION_REVIEW_MESSAGE')}</p>
       <div className='flex sm:overflow-hidden overflow-auto gap-3 w-full text-center justify-center my-2'>
+
+        {/* Unsafe / despair */}
         <div className='bg-[#DF2C2C33] flex-grow-[0.5] rounded-md p-2'>
           <p className='text-red-700 mb-2'>{t('SHARED.REACTION_RATING.UNSAFE')}</p>
           <div
-            onClick={() => !props.clickDisabled ? handleEmojiClick(despairEmoji.value) : undefined}
+            onClick={() => handleEmojiClick(despairEmoji.value)}
             className={`${selectedEmoji !== despairEmoji.value ? 'bg-red-200' : 'bg-red-700'} outline-[#DF2C2C] ${emojiBtnClass}`}
           >
             <div>
               <p className='text-3xl md:py-2 py-1'>{despairEmoji.unicode}</p>
-              <p className={`md:text-[16px] text-[14px] ${selectedEmoji == despairEmoji.value && 'text-white'}`}>{despairEmoji.name}</p>
-              {props.reviews && (
-                <p>{getReview(props.reviews, despairEmoji.name)}</p>
-              )}
+              <p className={`md:text-[16px] text-[14px] ${selectedEmoji === despairEmoji.value && 'text-white'}`}>
+                {despairEmoji.name}
+              </p>
+              {reviews && <p>{reviews[despairEmoji.name]}</p>}
             </div>
           </div>
         </div>
-        <div className='bg-[#3D924A8A] rounded-[10px] flex-grow-[4.3] flex-4 p-2 text-center text-white'>
+
+        {/* Trustworthy emojis */}
+        <div className='bg-[#3D924A8A] rounded-[10px] flex-grow-[4.3] p-2 text-center text-white'>
           <p className='mb-2'>{t('SHARED.REACTION_RATING.TRUSTWORTHY')}</p>
           <div id='emoji-picker' className='flex gap-3 justify-center'>
-            {emojis.map((emoji, index) => (
+            {emojis.map((emoji) => (
               <li
-                key={index}
-                onClick={() => !props.clickDisabled ? handleEmojiClick(emoji.value) : undefined}
+                key={emoji.value}
+                onClick={() => handleEmojiClick(emoji.value)}
                 className={`${selectedEmoji !== emoji.value ? 'bg-transparent' : 'bg-primary'} outline-[#090C49] ${emojiBtnClass}`}
               >
                 <div>
                   <p className='text-3xl md:py-2 py-1'>{emoji.unicode}</p>
                   <p className='md:text-[16px] text-[14px]'>{emoji.name}</p>
-                  {props.reviews && (
-                    <p>{getReview(props.reviews, emoji.name)}</p>
-                  )}                                 
+                  {reviews && <p>{reviews[emoji.name]}</p>}
                 </div>
               </li>
             ))}
           </div>
         </div>
       </div>
+
       <div className="mb-2">
-        <TextArea placeholder={t('SCREEN.BUY_FROM_SELLER.ADDITIONAL_COMMENTS_PLACEHOLDER')} 
-        value={comments} 
-        onChange={handleCommentsChange} 
-        maxLength={250}
-        disabled={isSaveLoading}
-        />
-      </div>
-      <div className="mb-2">
-        <FileInput 
-          describe={t('SHARED.PHOTO.UPLOAD_PHOTO_REVIEW_PLACEHOLDER')} 
-          imageUrl={previewImage} 
-          handleAddImage={handleAddImage}
-          isEditMode={props.isEditMode} 
+        <TextArea
+          placeholder={t('SCREEN.BUY_FROM_SELLER.ADDITIONAL_COMMENTS_PLACEHOLDER')}
+          value={comments}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setComments(e.target.value)}
+          maxLength={250}
+          disabled={isSaveLoading}
         />
       </div>
 
-      {/* Save Button */}
+      <div className="mb-2">
+        <FileInput
+          describe={t('SHARED.PHOTO.UPLOAD_PHOTO_REVIEW_PLACEHOLDER')}
+          imageUrl={previewImage}
+          handleAddImage={handleAddImage}
+          isEditMode={isEditMode}
+        />
+      </div>
+
       <div className="mb-7">
         <button
           onClick={handleSave}
           disabled={!isSaveEnabled}
-          className={`${isSaveEnabled ? 'opacity-100' : 'opacity-50'} px-6 py-2 bg-primary text-white text-xl rounded-md flex justify-right ms-auto text-[15px]`}> 
-            {t('SHARED.SAVE')}
+          className={`${isSaveEnabled ? 'opacity-100' : 'opacity-50'} px-6 py-2 bg-primary text-white text-xl rounded-md flex justify-right ms-auto text-[15px]`}
+        >
+          {t('SHARED.SAVE')}
         </button>
       </div>
     </div>
-  );  
+  );
 }

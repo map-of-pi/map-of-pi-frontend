@@ -199,7 +199,6 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
           <EmojiPicker
             userId={toUser}
             currentUser={currentUser}
-            setReload={setReload}
             refresh={handleRefreshAfterReview}
             setIsSaveEnabled={setIsSaveEnabled}
           />
