@@ -172,6 +172,7 @@ export default function EmojiPicker(props: any) {
         setReload(true);
       } else {
         await createReview(formData);
+        props.refresh?.();
       }
 
       resetReview();

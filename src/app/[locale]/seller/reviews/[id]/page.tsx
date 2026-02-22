@@ -31,28 +31,45 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const [pageLoading, setPageLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
+  const [isSaveEnabled, setIsSaveEnabled] = useState(false);
+
+  // toUser tracks whose reviews are currently displayed (changes on search)
   const [toUser, setToUser] = useState(userId);
   const [searchBarValue, setSearchBarValue] = useState('');
 
-  // Each hook owns its own cursor — no shared cursor bug
-  const given = useInfiniteReviews({ userId, type: 'given', locale });
-  const received = useInfiniteReviews({ userId, type: 'received', locale });
+  const given = useInfiniteReviews({ userId: toUser, type: 'given', locale });
+  const received = useInfiniteReviews({ userId: toUser, type: 'received', locale });
 
-  // ─── Initial data load ───────────────────────────────────────────────────────
+  // Stable refs so fetchUserReviews can be included in dep arrays without
+  // causing re-renders when the hook identity changes between renders
+  const givenResetRef = useRef(given.reset);
+  const receivedResetRef = useRef(received.reset);
+  useEffect(() => { givenResetRef.current = given.reset; }, [given.reset]);
+  useEffect(() => { receivedResetRef.current = received.reset; }, [received.reset]);
+
+  // ─── Initial / refresh load ──────────────────────────────────────────────────
   const fetchUserReviews = useCallback(async (targetUserId: string) => {
     setError(null);
     setReload(true);
     try {
       setToUser(targetUserId);
 
-      // Parallel fetch — each gets its own correctly-typed cursor
       const [givenData, receivedData] = await Promise.all([
         fetchReviews(targetUserId, undefined, undefined, 'given'),
         fetchReviews(targetUserId, undefined, undefined, 'received'),
       ]);
 
-      given.reset(processReviews(givenData?.reviews ?? [], locale), givenData?.nextCursor);
-      received.reset(processReviews(receivedData?.reviews ?? [], locale), receivedData?.nextCursor);
+      givenResetRef.current(
+        processReviews(givenData?.reviews ?? [], locale),
+        targetUserId,   // ✅ not undefined
+        givenData?.nextCursor ?? undefined
+      );
+
+      receivedResetRef.current(
+        processReviews(receivedData?.reviews ?? [], locale),
+        targetUserId,   // ✅
+        receivedData?.nextCursor ?? undefined
+      );
     } catch (err) {
       logger.error('Failed to fetch initial reviews', err);
       setError('Error fetching reviews.');
@@ -60,8 +77,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       setPageLoading(false);
       setReload(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locale]);
+  }, [locale, setReload]);
 
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
@@ -70,40 +86,55 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     fetchUserSettings()
       .then((settings) => { if (settings?.image) setUserFallbackImage(settings.image); })
       .catch((err) => logger.warn('Could not fetch fallback user image', err));
-  }, [userId, currentUser]);
+  }, [userId, currentUser, fetchUserReviews]);
+
+  // EmojiPicker calls refresh() with no args after submitting a review.
+  // We wrap fetchUserReviews so it always refreshes the currently viewed user,
+  // regardless of what (if anything) EmojiPicker passes.
+  const handleRefreshAfterReview = useCallback(() => {
+    fetchUserReviews(toUser);
+  }, [fetchUserReviews, toUser]);
 
   // ─── Search ──────────────────────────────────────────────────────────────────
   const handleSearch = async () => {
+    if (!searchBarValue.trim()) return;
     setReload(true);
     setError(null);
     try {
-      logger.info(`Searching reviews for userID: ${userId} with query: ${searchBarValue}`);
+      logger.info(`Searching reviews with query: ${searchBarValue}`);
 
+      // Pass searchBarValue as the query — backend resolves it to a pi_uid.
+      // We use the page-owner userId as the route param (required by the endpoint),
+      // and let the backend's searchQuery override the resolved ID internally.
       const [givenData, receivedData] = await Promise.all([
-        fetchReviews(userId, searchBarValue, undefined, 'given'),
-        fetchReviews(userId, searchBarValue, undefined, 'received'),
+        fetchReviews(toUser, searchBarValue, undefined, 'given'),
+        fetchReviews(toUser, searchBarValue, undefined, 'received'),
       ]);
 
       const givenResults = processReviews(givenData?.reviews ?? [], locale);
       const receivedResults = processReviews(receivedData?.reviews ?? [], locale);
 
-      given.reset(givenResults, givenData?.nextCursor);
-      received.reset(receivedResults, receivedData?.nextCursor);
+      given.reset(givenResults, searchBarValue, givenData?.nextCursor ?? undefined);
+      received.reset(receivedResults, searchBarValue, receivedData?.nextCursor ?? undefined);
 
       if (!givenResults.length && !receivedResults.length) {
         toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_REVIEWS_FOUND', { search_value: searchBarValue }));
         return;
       }
 
-      // Update displayed username from first available result
-      const firstGiven = givenData?.reviews?.[0];
-      const firstReceived = receivedData?.reviews?.[0];
-      if (firstGiven) {
-        setToUser(firstGiven.review_giver_id);
-        userName.current = firstGiven.giver;
-      } else if (firstReceived) {
-        setToUser(firstReceived.review_receiver_id);
-        userName.current = firstReceived.receiver;
+       // Resolve the displayed user from whichever result set has data
+      const firstRaw = givenData?.reviews?.[0] ?? receivedData?.reviews?.[0];
+      if (firstRaw) {
+        // The resolved user is the giver for given-type results, receiver otherwise
+        const resolvedId = givenData?.reviews?.[0]
+          ? firstRaw.review_giver_id
+          : firstRaw.review_receiver_id;
+        const resolvedName = givenData?.reviews?.[0]
+          ? firstRaw.giver
+          : firstRaw.receiver;
+
+        setToUser(resolvedId);
+        userName.current = resolvedName;
       }
     } catch (err) {
       logger.error(`Pioneer ${searchBarValue} not found`, err);
@@ -141,6 +172,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
               placeholder={userName.current}
               value={searchBarValue}
               onChange={(e) => setSearchBarValue(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
               autoCorrect="off"
               autoCapitalize="off"
               autoComplete="off"
@@ -166,10 +198,10 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         <ToggleCollapse header={t('SCREEN.REVIEWS.GIVE_REVIEW_SECTION_HEADER')}>
           <EmojiPicker
             userId={toUser}
-            setIsSaveEnabled={() => {}}
             currentUser={currentUser}
             setReload={setReload}
-            refresh={fetchUserReviews}
+            refresh={handleRefreshAfterReview}
+            setIsSaveEnabled={setIsSaveEnabled}
           />
         </ToggleCollapse>
 
@@ -178,9 +210,9 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
           {reload ? (
             <Skeleton type="seller_review" />
           ) : (
-            given.reviews.map((review, i) => (
+            given.reviews.map((review) => (
               <ReviewCard
-                key={review.reviewId ?? i}
+                key={review.reviewId}
                 review={review}
                 currentUserId={currentUser?.pi_uid}
                 userFallbackImage={userFallbackImage}
@@ -199,9 +231,9 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
           {reload ? (
             <Skeleton type="seller_review" />
           ) : (
-            received.reviews.map((review, i) => (
+            received.reviews.map((review) => (
               <ReviewCard
-                key={review.reviewId ?? i}
+                key={review.reviewId}
                 review={review}
                 currentUserId={currentUser?.pi_uid}
                 userFallbackImage={userFallbackImage}
