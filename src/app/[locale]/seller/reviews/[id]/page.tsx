@@ -19,6 +19,7 @@ import { resolveDate } from '@/utils/date';
 import { getImageSrc } from '@/utils/image';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
+import { activateTrustProtect } from '@/services/reviewsApi';
 
 function SellerReviews({
   params,
@@ -33,17 +34,22 @@ function SellerReviews({
   const locale = useLocale();
 
   const [giverReviews, setGiverReviews] = useState<ReviewInt[] | null>(null);
-  const [receiverReviews, setReceiverReviews] = useState<ReviewInt[] | null>(null);
+  const [receiverReviews, setReceiverReviews] = useState<ReviewInt[] | null>(
+    null,
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
-  const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
-  const { currentUser, reload, setReload, authenticateUser } = useContext(AppContext);
-  
+  const [userFallbackImage, setUserFallbackImage] = useState<string | null>(
+    null,
+  );
+  const { currentUser, reload, setReload, authenticateUser, showAlert } =
+    useContext(AppContext);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchBarValue, setSearchBarValue] = useState('');
   const [toUser, setToUser] = useState('');
-
+  const [trustLoadingId, setTrustLoadingId] = useState<string | null>(null);
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
     fetchUserReviews(userId);
@@ -78,8 +84,8 @@ function SellerReviews({
           receiverId: feedback.review_receiver_id,
           reviewId: feedback._id,
           reaction,
-          unicode, 
-          image: feedback.image
+          unicode,
+          image: feedback.image,
         };
       })
       .filter((review): review is ReviewInt => review !== null);
@@ -97,7 +103,9 @@ function SellerReviews({
 
       if (data) {
         if (data.givenReviews.length > 0) {
-          logger.info(`Fetched ${data.givenReviews.length} reviews given by userID: ${userId_}`);
+          logger.info(
+            `Fetched ${data.givenReviews.length} reviews given by userID: ${userId_}`,
+          );
           setGiverReviews(processReviews(data.givenReviews));
         } else {
           logger.warn(`No given reviews found for userID: ${userId_}`);
@@ -105,12 +113,14 @@ function SellerReviews({
         }
 
         if (data.receivedReviews.length > 0) {
-          logger.info(`Fetched ${data.receivedReviews.length} reviews received by userID: ${userId_}`);
+          logger.info(
+            `Fetched ${data.receivedReviews.length} reviews received by userID: ${userId_}`,
+          );
           setReceiverReviews(processReviews(data.receivedReviews));
         } else {
           logger.warn(`No received reviews found for userID: ${userId_}`);
           setReceiverReviews([]);
-        }          
+        }
       } else {
         logger.warn(`No reviews found for userID: ${userId_}`);
         setGiverReviews([]);
@@ -124,18 +134,43 @@ function SellerReviews({
       setReload(false);
     }
   };
+  const handleTrustProtect = async (reviewId: string) => {
+    if (!currentUser) {
+      showAlert(t('SHARED.LOGIN_REQUIRED'));
+      return;
+    }
 
+    if (trustLoadingId === reviewId) return;
+
+    try {
+      setTrustLoadingId(reviewId);
+
+      await activateTrustProtect(reviewId);
+
+      showAlert(t('SCREEN.REVIEWS.TRUST_PROTECT_SUCCESS'));
+
+      await fetchUserReviews(userId); // 🔁 refetch from server
+    } catch (error: any) {
+      showAlert(error?.message || 'Something went wrong');
+    } finally {
+      setTrustLoadingId(null);
+    }
+  };
   // Handle search logic
   const handleSearch = async () => {
     setReload(true);
     setError(null);
     try {
-      logger.info(`Searching reviews for userID: ${userId} with query: ${searchBarValue}`);
+      logger.info(
+        `Searching reviews for userID: ${userId} with query: ${searchBarValue}`,
+      );
       const data = await fetchReviews(userId, searchBarValue);
 
       if (data) {
         if (data.givenReviews.length > 0) {
-          logger.info(`Found ${data.givenReviews.length} reviews given by Pioneer: ${searchBarValue}`);
+          logger.info(
+            `Found ${data.givenReviews.length} reviews given by Pioneer: ${searchBarValue}`,
+          );
           setGiverReviews(processReviews(data.givenReviews));
           setToUser(data.givenReviews[0].review_giver_id);
           userName.current = data.givenReviews[0].giver;
@@ -144,7 +179,9 @@ function SellerReviews({
           setGiverReviews([]);
         }
         if (data.receivedReviews.length > 0) {
-          logger.info(`Found ${data.receivedReviews.length} reviews received by Pioneer: ${searchBarValue}`);
+          logger.info(
+            `Found ${data.receivedReviews.length} reviews received by Pioneer: ${searchBarValue}`,
+          );
           setReceiverReviews(processReviews(data.receivedReviews));
           setToUser(data.receivedReviews[0].review_receiver_id);
           userName.current = data.receivedReviews[0].receiver;
@@ -152,29 +189,38 @@ function SellerReviews({
           logger.warn(`No given reviews found for Pioneer: ${searchBarValue}`);
           setReceiverReviews([]);
         }
-        
       } else {
-        toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_REVIEWS_FOUND', { search_value: searchBarValue }));
+        toast.error(
+          t('SCREEN.REVIEWS.VALIDATION.NO_REVIEWS_FOUND', {
+            search_value: searchBarValue,
+          }),
+        );
         logger.warn(`No reviews found for Pioneer: ${searchBarValue}`);
         setGiverReviews([]);
         setReceiverReviews([]);
       }
     } catch (error) {
       logger.error(`Pioneer ${searchBarValue} not found`, error);
-      return toast.error(t('SCREEN.REVIEWS.VALIDATION.NO_PIONEER_FOUND', { search_value: searchBarValue }));
+      return toast.error(
+        t('SCREEN.REVIEWS.VALIDATION.NO_PIONEER_FOUND', {
+          search_value: searchBarValue,
+        }),
+      );
     } finally {
       setReload(false);
     }
   };
 
-  const handleSearchBarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchBarChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     logger.debug(`Search bar value changed: ${event.target.value}`);
     setSearchBarValue(event.target.value);
   };
 
   if (loading) {
     logger.info('Loading seller reviews..');
-    return <Skeleton type='seller_review' />;
+    return <Skeleton type="seller_review" />;
   }
 
   return (
@@ -186,7 +232,7 @@ function SellerReviews({
         </h1>
 
         {/* Search area */}
-        <div className='flex gap-3 items-center justify-items-center py-3'>
+        <div className="flex gap-3 items-center justify-items-center py-3">
           <span>{t('SHARED.PIONEER_LABEL')}</span>
           <FormControl className="flex-grow mr-2">
             <TextField
@@ -201,8 +247,8 @@ function SellerReviews({
               ref={inputRef}
               autoCorrect="off"
               autoCapitalize="off"
-              autoComplete="off" 
-              spellCheck="false" 
+              autoComplete="off"
+              spellCheck="false"
               inputProps={{
                 autoCorrect: 'off',
                 autoCapitalize: 'off',
@@ -214,21 +260,29 @@ function SellerReviews({
           <button
             aria-label="search"
             onClick={handleSearch}
-            className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center hover:bg-gray-600"
-          >
+            className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center hover:bg-gray-600">
             <SearchIcon className="text-[#ffc153]" />
           </button>
         </div>
 
         <ToggleCollapse header={t('SCREEN.REVIEWS.GIVE_REVIEW_SECTION_HEADER')}>
           <div>
-            <EmojiPicker userId={toUser} setIsSaveEnabled={setIsSaveEnabled} currentUser={currentUser} setReload={setReload} refresh={fetchUserReviews} />
+            <EmojiPicker
+              userId={toUser}
+              setIsSaveEnabled={setIsSaveEnabled}
+              currentUser={currentUser}
+              setReload={setReload}
+              refresh={fetchUserReviews}
+            />
           </div>
-        </ToggleCollapse>      
-        <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
-          {reload 
-            ? <Skeleton type='seller_review' />
-            : giverReviews && giverReviews.map((review, index) => (
+        </ToggleCollapse>
+        <ToggleCollapse
+          header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
+          {reload ? (
+            <Skeleton type="seller_review" />
+          ) : (
+            giverReviews &&
+            giverReviews.map((review, index) => (
               <div key={index} className="seller_item_container mb-5">
                 <div className="flex justify-between items-start mb-3">
                   {/* Left content */}
@@ -240,7 +294,6 @@ function SellerReviews({
                       </span>
                     </p>
                     <p className="text-md break-words">{review.heading}</p>
-
                   </div>
 
                   {/* Right content */}
@@ -251,7 +304,10 @@ function SellerReviews({
                     </div>
                     <div className="flex gap-2 items-center">
                       {(() => {
-                        const imgSrc = getImageSrc(review.image, userFallbackImage);
+                        const imgSrc = getImageSrc(
+                          review.image,
+                          userFallbackImage,
+                        );
                         return imgSrc ? (
                           <Image
                             src={imgSrc}
@@ -262,88 +318,121 @@ function SellerReviews({
                           />
                         ) : null;
                       })()}
-                      <p className="text-xl max-w-[50px]" title={review.reaction}>
+                      <p
+                        className="text-xl max-w-[50px]"
+                        title={review.reaction}>
                         {review.unicode}
                       </p>
                     </div>
-                    
                   </div>
                 </div>
                 {/* Bottom row with Edit left, Reply right */}
                 <div className="flex justify-between items-center mt-2 w-full">
                   {review.giverId === currentUser?.pi_uid && (
-                    <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
+                    <Link
+                      href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
                       <OutlineBtn label={t('SHARED.EDIT')} />
                     </Link>
                   )}
 
-                  <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
+                  <Link
+                    href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
                     <OutlineBtn label={t('SHARED.REPLY')} />
                   </Link>
                 </div>
               </div>
             ))
-          }
+          )}
         </ToggleCollapse>
- 
-        <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')} open={true}>
-        {reload
-          ? <Skeleton type='seller_review' />
-          : receiverReviews && receiverReviews.map((review, index) => (
-            <div key={index} className="seller_item_container mb-5">
-              <div className="flex justify-between items-start mb-3">
-                {/* Left content */}
-                <div className="flex-grow">
-                  <p className="text-primary text-sm">
-                    {review.giver} {' → '}
-                    <span className="text-primary text-sm">
-                      {review.receiver}
-                    </span>
-                  </p>
-                  <p className="text-md break-words">{review.heading}</p>
-                </div>
 
-                {/* Right content */}
-                <div className="flex flex-col items-end space-y-2">
-                  <div className="text-[#828282] text-sm text-right whitespace-nowrap">
-                    <p>{review.date}</p>
-                    <p>{review.time}</p>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    {(() => {
-                      const imgSrc = getImageSrc(review.image, userFallbackImage);
-                      return imgSrc ? (
-                        <Image
-                          src={imgSrc}
-                          alt="review image"
-                          width={50}
-                          height={50}
-                          className="object-cover rounded-md"
-                        />
-                      ) : null;
-                    })()}
-                    <p className="text-xl max-w-[50px]" title={review.reaction}>
-                      {review.unicode}
+        <ToggleCollapse
+          header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')}
+          open={true}>
+          {reload ? (
+            <Skeleton type="seller_review" />
+          ) : (
+            receiverReviews &&
+            receiverReviews.map((review, index) => (
+              <div key={index} className="seller_item_container mb-5">
+                <div className="flex justify-between items-start mb-3">
+                  {/* Left content */}
+                  <div className="flex-grow">
+                    <p className="text-primary text-sm">
+                      {review.giver} {' → '}
+                      <span className="text-primary text-sm">
+                        {review.receiver}
+                      </span>
                     </p>
+                    <p className="text-md break-words">{review.heading}</p>
                   </div>
 
+                  {/* Right content */}
+                  <div className="flex flex-col items-end space-y-2">
+                    <div className="text-[#828282] text-sm text-right whitespace-nowrap">
+                      <p>{review.date}</p>
+                      <p>{review.time}</p>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      {(() => {
+                        const imgSrc = getImageSrc(
+                          review.image,
+                          userFallbackImage,
+                        );
+                        return imgSrc ? (
+                          <Image
+                            src={imgSrc}
+                            alt="review image"
+                            width={50}
+                            height={50}
+                            className="object-cover rounded-md"
+                          />
+                        ) : null;
+                      })()}
+                      <p
+                        className="text-xl max-w-[50px]"
+                        title={review.reaction}>
+                        {review.unicode}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* Bottom row with Edit left, Reply right */}
+                <div className="flex justify-between items-center mt-2 w-full">
+                  {/* LEFT SIDE: Edit + Trust Protect */}
+                  <div className="flex gap-2">
+                    {/* EDIT */}
+                    {review.giverId === currentUser?.pi_uid && (
+                      <Link
+                        href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
+                        <OutlineBtn label={t('SHARED.EDIT')} />
+                      </Link>
+                    )}
+
+                    {/* TRUST PROTECT */}
+                    {review.receiverId === currentUser?.pi_uid &&
+                      review.reaction === 'Despair' && (
+                        <button
+                          type="button"
+                          disabled={trustLoadingId === review.reviewId}
+                          onClick={() => handleTrustProtect(review.reviewId)}>
+                          <OutlineBtn
+                            label={t('SCREEN.REVIEWS.TRUST_PROTECT')}
+                          />
+                        </button>
+                      )}
+                  </div>
+
+                  {/* RIGHT SIDE: Reply */}
+                  <div className="ml-auto">
+                    <Link
+                      href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
+                      <OutlineBtn label={t('SHARED.REPLY')} />
+                    </Link>
+                  </div>
                 </div>
               </div>
-              {/* Bottom row with Edit left, Reply right */}
-              <div className="flex justify-between items-center mt-2 w-full">
-                {review.giverId === currentUser?.pi_uid && (
-                  <Link href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
-                    <OutlineBtn label={t('SHARED.EDIT')} />
-                  </Link>
-                )}
-
-                <Link href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
-                  <OutlineBtn label={t('SHARED.REPLY')} />
-                </Link>
-              </div>
-            </div>
-          ))
-        }
+            ))
+          )}
         </ToggleCollapse>
       </div>
     </>
