@@ -2,18 +2,18 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { useEffect, useRef, useContext, useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
-import EmojiPicker from '@/components/shared/Review/emojipicker';
-import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
-import Skeleton from '@/components/skeleton/skeleton';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
+import EmojiPicker from '@/components/shared/Review/emojipicker';
+import { ReviewCard } from '@/components/shared/Review/ReviewCard';
+import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
+import Skeleton from '@/components/skeleton/skeleton';
+import { useInfiniteReviews, processReviews } from '@/hooks/useInfiniteReviews';
 import { fetchReviews } from '@/services/reviewsApi';
 import { fetchUserSettings } from '@/services/userSettingsApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
-import { useInfiniteReviews, processReviews } from '@/hooks/useInfiniteReviews';
-import { ReviewCard } from '@/components/shared/Review/ReviewCard';
 
 interface SellerReviewsProps {
   params: { id: string };
@@ -61,13 +61,13 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
       givenResetRef.current(
         processReviews(givenData?.reviews ?? [], locale),
-        targetUserId,   // ✅ not undefined
+        targetUserId,
         givenData?.nextCursor ?? undefined
       );
 
       receivedResetRef.current(
         processReviews(receivedData?.reviews ?? [], locale),
-        targetUserId,   // ✅
+        targetUserId,
         receivedData?.nextCursor ?? undefined
       );
     } catch (err) {
