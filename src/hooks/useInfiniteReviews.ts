@@ -1,27 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { resolveRating } from '@/app/[locale]/seller/reviews/util/ratingUtils';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
-import { fetchReviews } from '@/services/reviewsApi';
 import { resolveDate } from '@/utils/date';
 import logger from "../../logger.config.mjs"
+import { toast } from 'react-toastify';
 
 export type ReviewType = 'given' | 'received';
-
-const LOAD_MORE_DEBOUNCE_MS = 500;
-
-interface UseInfiniteReviewsOptions {
-  userId: string;
-  type: ReviewType;
-  locale: string;
-}
-
-interface UseInfiniteReviewsReturn {
-  reviews: ReviewInt[];
-  hasMore: boolean;
-  isLoadingMore: boolean;
-  loaderRef: React.RefObject<HTMLDivElement>;
-  reset: (reviews: ReviewInt[], searchQuery: string | undefined, cursor?: string) => void;
-}
 
 export function processReviews(data: IReviewOutput[], locale: string): ReviewInt[] {
   return data
@@ -45,87 +29,188 @@ export function processReviews(data: IReviewOutput[], locale: string): ReviewInt
     .filter((r): r is ReviewInt => r !== null);
 }
 
-export function useInfiniteReviews({
-  userId,
-  type,
-  locale,
-}: UseInfiniteReviewsOptions): UseInfiniteReviewsReturn {
-  const [reviews, setReviews] = useState<ReviewInt[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
-  const [cursor, setCursor] = useState<string | undefined>();
-  const [hasMore, setHasMore] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const loaderRef = useRef<HTMLDivElement | null>(null);
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+interface CursorResponse<T> {
+  data: T[];
+  nextCursor?: string;
+}
 
-  // searchQuery included so loadMore always reads the fresh value without
-  // needing it in the useCallback dep array (which would recreate the fn)
-  const stateRef = useRef({ hasMore, isLoadingMore, cursor, searchQuery });
-  useEffect(() => {
-    stateRef.current = { hasMore, isLoadingMore, cursor, searchQuery };
-  }, [hasMore, isLoadingMore, cursor, searchQuery]);
+interface UseCursorInfiniteScrollProps<TRaw, TProcessed = TRaw> {
+  fetchPage: (
+    cursor?: string,
+    signal?: AbortSignal
+  ) => Promise<CursorResponse<TRaw>>;
+  process?: (data: TRaw[]) => TProcessed[];
+  dependencies?: any[];
+  debounceMs?: number;
+}
 
-  const loadMore = useCallback(() => {
-    // Debounce: cancel any pending call before scheduling a new one.
-    // Prevents duplicate fetches when the IntersectionObserver fires
-    // multiple times in quick succession (e.g. during fast scrolling).
-    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
+  fetchPage,
+  process,
+  dependencies = [],
+  debounceMs = 300,
+}: UseCursorInfiniteScrollProps<TRaw, TProcessed>) {
+  const [items, setItems] = useState<TProcessed[]>([]);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
 
-    debounceTimerRef.current = setTimeout(async () => {
-      const { hasMore, isLoadingMore, cursor, searchQuery } = stateRef.current;
-      if (!hasMore || isLoadingMore) return;
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-      setIsLoadingMore(true);
+  const abortRef = useRef<AbortController | null>(null);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const requestIdRef = useRef(0); // prevents stale updates
+
+  // ───────────────────────────────
+  // Reset
+  // ───────────────────────────────
+  const reset = useCallback(() => {
+    abortRef.current?.abort();
+    setItems([]);
+    setCursor(null);
+    setHasMore(true);
+    setInitialLoading(true);
+  }, []);
+
+  // ───────────────────────────────
+  // Core Loader
+  // ───────────────────────────────
+  const loadPage = useCallback(
+    async (nextCursor?: string | null) => {
+      if (loading) return;
+      if (!hasMore && nextCursor) return;
+
+      // Cancel previous request
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+
+      const currentRequestId = ++requestIdRef.current;
+
+      setLoading(true);
+
       try {
-        const data = await fetchReviews(userId, searchQuery, cursor, type);
-        const incoming = data?.reviews ?? [];
+        const response = await fetchPage(
+          nextCursor ?? undefined,
+          controller.signal
+        );
 
-        if (incoming.length > 0) {
-          setReviews((prev) => [...prev, ...processReviews(incoming, locale)]);
-          setCursor(data.nextCursor);
-          setHasMore(!!data.nextCursor);
-        } else {
+        // Ignore if stale
+        if (currentRequestId !== requestIdRef.current) return;
+
+        const processed: TProcessed[] = process
+          ? process(response.data)
+          : (response.data as unknown as TProcessed[]);
+
+        setItems((prev) => {
+          const existingIds = new Set(
+            (prev as any[]).map((item) => item.reviewId ?? item.id)
+          );
+
+          const filtered = (processed as any[]).filter(
+            (item) => !existingIds.has(item.reviewId ?? item.id)
+          );
+
+          return [...prev, ...filtered] as TProcessed[];
+        });
+
+        setCursor(response.nextCursor ?? null);
+        setHasMore(!!response.nextCursor);
+      } catch (err: any) {
+        if (err.name !== 'AbortError') {
+          logger.error('Infinite scroll error:', err);
+          toast.error('Failed to load reviews.');
           setHasMore(false);
         }
-      } catch (err) {
-        logger.error(`[useInfiniteReviews] loadMore failed (${type}):`, err);
-        // Don't rethrow — leave hasMore true so scrolling can retry
       } finally {
-        setIsLoadingMore(false);
+        if (currentRequestId === requestIdRef.current) {
+          setLoading(false);
+          setInitialLoading(false);
+        }
       }
-    }, LOAD_MORE_DEBOUNCE_MS);
-  }, [userId, type, locale]);
+    },
+    [fetchPage, process, hasMore, loading]
+  );
 
-  // Cleanup pending debounce on unmount
+  // ───────────────────────────────
+  // Debounced Loader
+  // ───────────────────────────────
+  const debouncedLoad = useCallback(
+    (nextCursor?: string | null) => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+
+      debounceRef.current = setTimeout(() => {
+        loadPage(nextCursor);
+      }, debounceMs);
+    },
+    [loadPage, debounceMs]
+  );
+
+  // ───────────────────────────────
+  // Initial load on dependency change
+  // ───────────────────────────────
   useEffect(() => {
+    reset();
+    loadPage(null);
+
     return () => {
-      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+      abortRef.current?.abort();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies);
 
+  // ───────────────────────────────
+  // IntersectionObserver
+  // ───────────────────────────────
   useEffect(() => {
-    const el = loaderRef.current;
-    if (!el) return;
+    const node = sentinelRef.current;
+    if (!node || !hasMore) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) loadMore(); },
-      { threshold: 0.1 }
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          debouncedLoad(cursor);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '300px',
+        threshold: 0,
+      }
     );
 
-    observer.observe(el);
+    observer.observe(node);
+
     return () => observer.disconnect();
-  }, [cursor, hasMore, loadMore]);
+  }, [cursor, hasMore, debouncedLoad]);
 
-  const reset = useCallback((
-    incoming: ReviewInt[],
-    searchQuery: string | undefined,
-    nextCursor?: string
-  ) => {
-    setReviews(incoming);
-    setSearchQuery(searchQuery); // undefined clears search context (used on refresh)
-    setCursor(nextCursor);
-    setHasMore(!!nextCursor);
-  }, []);
+  // ───────────────────────────────
+  // Scroll fallback (robust)
+  // ───────────────────────────────
+  useEffect(() => {
+    const handleScroll = () => {
+      const node = sentinelRef.current;
+      if (!node || loading || !hasMore) return;
 
-  return { reviews, hasMore, isLoadingMore, loaderRef, reset };
+      const rect = node.getBoundingClientRect();
+      if (rect.top <= window.innerHeight + 300) {
+        debouncedLoad(cursor);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [cursor, hasMore, loading, debouncedLoad]);
+
+  return {
+    items,
+    loading,
+    initialLoading,
+    hasMore,
+    reset,
+    sentinelRef,
+  };
 }
