@@ -27,7 +27,7 @@ export const fetchReviews = async (
   userId:string, 
   searchQuery:string='', 
   cursor?: string, 
-  type: string="both", 
+  type: string="received", 
   signal?: AbortSignal
 ) => {
   try {
