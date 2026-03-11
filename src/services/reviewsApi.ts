@@ -23,21 +23,32 @@ export const fetchSingleReview = async (reviewID: string) => {
 };
   
 // Fetch reviews for a seller
-export const fetchReviews = async (userId:string, searchQuery:string='') => {
+export const fetchReviews = async (
+  userId:string, 
+  searchQuery:string='', 
+  cursor?: string, 
+  type: string="received", 
+  signal?: AbortSignal
+) => {
   try {
     logger.info(`Fetching reviews for seller with ID: ${userId}`);
+
     const response = await axiosClient.get(`/review-feedback/${userId}`, {
-      params: { searchQuery },
+      params: { searchQuery, cursor, type },
+      signal
     });
+
     if (response.status === 200) {
       logger.info(`Fetch reviews successful with Status ${response.status}`, {
         data: response.data
       });
+
       return response.data;
     } else {
       logger.error(`Fetch reviews failed with Status ${response.status}`);
       return null;
     }
+    
   } catch (error) {
     logger.error(`Fetch reviews for ${ userId } encountered an error:`, error);
     throw new Error('Failed to fetch reviews. Please try again later.');
