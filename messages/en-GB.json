@@ -15,7 +15,7 @@
     }
   },
   "SIDE_NAVIGATION": {
-    "VIEW_ORDERS_LABEL": "View Orders",
+    "VIEW_ORDERS_LABEL": "View Sent Orders",
     "USER_PREFERENCES_HEADER": "User Preferences",
     "PERSONALIZATION_SUBHEADER": "Personalisation",
     "LANGUAGES": "Languages",
