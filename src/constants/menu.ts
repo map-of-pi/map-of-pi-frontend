@@ -156,6 +156,14 @@ export const menu = {
         title: 'Akan Twi',
         translation: 'Twi',
         icon: '',
+      },
+      {
+        id: 20,
+        code: 'pt',
+        label: 'PT',
+        title: 'Portuguese',
+        translation: 'Português',
+        icon: '',
       }
     ],
   },
