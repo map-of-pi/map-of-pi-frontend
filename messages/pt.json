@@ -1,0 +1,402 @@
+{
+  "HOME": {
+    "ADD_SELLER": "Vender",
+    "SEARCH_CENTER_DEFAULT_MESSAGE": "O seu Centro de Pesquisa está atualmente definido para as coordenadas padrão [0, 0]. Para melhorar a sua experiência, por favor atualize a localização do seu Centro de Pesquisa.",
+    "SEARCH_BAR_PLACEHOLDER": "Pesquisar vendedores ou artigos",
+    "NEW_NOTIFICATIONS_MESSAGE": "Tem notificações",
+    "LOCATION_SERVICES": {
+      "ENABLE_LOCATION_SERVICES_MESSAGE": "Para usar esta funcionalidade, por favor ative os serviços de localização nas definições do seu dispositivo.",
+      "DISABLED_LOCATION_SERVICES_MESSAGE": "Os serviços de localização estão desativados. Por favor ative a definição de localização do seu dispositivo."
+    },
+    "AUTHENTICATION": {
+      "SUCCESSFUL_LOGIN_MESSAGE": "Sessão iniciada com sucesso",
+      "UNSUCCESSFUL_LOGIN_MESSAGE": "Falha no início de sessão",
+      "PI_INFORMATION_NOT_FOUND_MESSAGE": "Informação Pi não encontrada"
+    }
+  },
+  "SIDE_NAVIGATION": {
+    "VIEW_ORDERS_LABEL": "Ver Encomendas Enviadas",
+    "USER_PREFERENCES_HEADER": "Preferências do Utilizador",
+    "PERSONALIZATION_SUBHEADER": "Personalização",
+    "LANGUAGES": "Idiomas",
+    "ABOUT": {
+      "ABOUT_MAP_OF_PI": "Sobre o Map of Pi",
+      "APP_VERSION": "Versão da Aplicação",
+      "PRIVACY_POLICY": "Política de Privacidade",
+      "TERMS_OF_SERVICE": "Termos de Serviço"
+    },
+    "WALLET_ADDRESS_LABEL": "Endereço da Carteira Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Insira o endereço da sua carteira Pi",
+    "FIND_ME_PREFERENCE_LABEL": "Preferência de Localização",
+    "FIND_ME_OPTIONS": {
+      "PREFERRED_AUTO": "Automático",
+      "PREFERRED_DEVICE_GPS": "Usar GPS do dispositivo",
+      "PREFERRED_SEARCH_CENTER": "Usar Centro de Pesquisa"
+    },
+    "SEARCH_FILTERS_SUBHEADER": "Filtros de Pesquisa",
+    "SEARCH_FILTERS": {
+      "INCLUDE_ACTIVE_SELLERS": "Vendedores ativos",
+      "INCLUDE_INACTIVE_SELLERS": "Vendedores inativos",
+      "INCLUDE_TEST_SELLERS": "Vendedores de teste",
+      "INCLUDE_HOLIDAY_SELLERS": "Vendedores em férias"
+    },
+    "CONTACT_MAP_OF_PI": "Contactar Map of Pi",
+    "VALIDATION": {
+      "SUCCESSFUL_PREFERENCES_SUBMISSION": "Preferências guardadas com sucesso",
+      "UNSUCCESSFUL_PREFERENCES_SUBMISSION": "Erro ao guardar preferências"
+    }
+  },
+  "SCREEN": {
+    "MEMBERSHIP": {
+      "MEMBERSHIP_HEADER": "Adesão",
+      "CURRENT_MEMBERSHIP_CLASS_LABEL": "Classe de adesão atual",
+      "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Data de fim da adesão atual",
+      "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Sem adesão ativa",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Saldo Mappi restante",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Escolha adesão ou Mappi para comprar",
+      "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "adesão ({duration} semanas)",
+      "PICK_BUY_METHOD_LABEL": "Escolha o método de compra",
+      "PURCHASE_OPTIONS": {
+        "PAY_WITH_PI": "Pagar com π",
+        "WATCH_ADS": "Ver anúncios (grátis)",
+        "USE_VOUCHER": "Usar código de voucher (grátis)"
+      },
+      "ENTER_VOUCHER_CODE_PLACEHOLDER": "Inserir código de voucher",
+      "VALIDATION": {
+        "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Adesão ativada com sucesso",
+        "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Falha ao carregar dados de adesão",
+        "FAILED_MEMBERSHIP_PAYMENT_MESSAGE": "Falha no pagamento da adesão",
+        "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "O utilizador deve ter sessão iniciada para efetuar um pagamento"
+      }
+    },
+    "SELLER_REGISTRATION": {
+      "SELLER_REGISTRATION_HEADER": "Administração do Vendedor",
+      "SELLER_RESTRICTION_MESSAGE": "O seu Centro de Venda está numa região sancionada pela Rede Pi, por isso o seu marcador no mapa ficará oculto para todos os utilizadores",
+      "SELLER_DETAILS_LABEL": "Detalhes do Vendedor",
+      "EMAIL_LABEL": "Endereço de e-mail",
+      "PHONE_NUMBER_LABEL": "Número de telefone",
+      "CONTACT_PUBLIC_NOTE": "O endereço de e-mail e o número de telefone serão visíveis publicamente.",
+      "SELLER_DETAILS_PLACEHOLDER": "Vendo através do Pagar com Pi.",
+      "REVIEWS_SUMMARY_LABEL": "Resumo de Avaliações",
+      "REVIEWS_SCORE_LABEL": "Pontuação de Avaliações",
+      "SELLER_NAME": "Nome do Vendedor",
+      "SELLER_TYPE": {
+        "SELLER_TYPE_LABEL": "Tipo de vendedor",
+        "SELLER_TYPE_OPTIONS": {
+          "ACTIVE_SELLER": "Vendedor ativo",
+          "INACTIVE_SELLER": "Vendedor inativo",
+          "TEST_SELLER": "Vendedor de teste",
+          "HOLIDAY_SELLER": "Vendedor em férias",
+          "RESTRICTED_SELLER": "Vendedor restrito"
+        }
+      },
+      "SELLER_ADVANCED_SETTINGS_LABEL": "Configurações Avançadas do Vendedor",
+      "SELLER_RETAIL_OUTLET_NAME": "Nome do estabelecimento comercial",
+      "SELLER_ADDRESS_LOCATION_LABEL": "Endereço ou local de venda",
+      "SELLER_ADDRESS_LOCATION_PLACEHOLDER": "O meu marcador no mapa mostra onde estou a vender",
+      "SELLER_SETTINGS_LABEL": "Configurações do Vendedor",
+      "SELLER_SELL_CENTER": "Definir Centro de Venda",
+      "SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL": "Compras Online | Listar Artigos à Venda",
+      "SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL": "Compras Online | Processamento de Encomendas",
+      "MAPPI_ALLOWANCE_LABEL": "Subsídio Mappi restante",
+      "FULFILLMENT_METHOD_TYPE": {
+        "FULFILLMENT_METHOD_TYPE_LABEL": "Método de entrega",
+        "FULFILLMENT_METHOD_TYPE_OPTIONS": {
+          "COLLECTION_BY_BUYER": "Recolha pelo comprador",
+          "DELIVERED_TO_BUYER": "Entrega ao comprador"
+        }
+      },
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_LABEL": "Instruções de entrega do vendedor ao comprador",
+      "SELLER_TO_BUYER_FULFILLMENT_INSTRUCTIONS_PLACEHOLDER": "A recolha é feita na morada do vendedor. Se for selecionada entrega, por favor insira a morada do comprador.",
+      "BUYER_TO_SELLER_FULFILLMENT_DETAILS_LABEL": "Detalhes de entrega do comprador",
+      "VALIDATION": {
+        "EMAIL_VALIDATION": "Por favor insira um endereço de e-mail válido",
+        "SUCCESSFUL_REGISTRATION_SUBMISSION": "Registo efetuado com sucesso",
+        "FAILED_REGISTRATION_SUBMISSION": "Erro ao guardar registo",
+        "REGISTRATION_FAILED_USER_NOT_AUTHENTICATED": "Registo falhou porque o utilizador não está autenticado",
+        "UNINITIALIZED_SELL_CENTER": "Por favor defina o seu Centro de Venda",
+        "SUCCESSFUL_SELLER_ITEM_SAVED": "Artigo do vendedor guardado com sucesso",
+        "SUCCESSFUL_SELLER_ITEM_DELETED": "Artigo do vendedor eliminado com sucesso",
+        "FAILED_SELLER_ITEM_SAVE": "Erro ao guardar artigo do vendedor",
+        "FAILED_SELLER_ITEM_DELETE": "Erro ao eliminar artigo do vendedor",
+        "SELLER_ITEM_NOT_FOUND": "Artigo do vendedor não encontrado",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Guardado com sucesso. Mappi utilizados: {mappi_count}",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Não foi possível guardar. Subsídio Mappi insuficiente"
+      },
+      "SELLER_ITEMS_FEATURE": {
+        "ITEM_LABEL": "Artigo",
+        "PRICE_LABEL": "Preço",
+        "STOCK_LABEL": "Nível de stock",
+        "DESCRIPTION_LABEL": "Descrição",
+        "PHOTO": "Foto",
+        "SELLING_DURATION_LABEL": "Duração de venda em semanas",
+        "SELLING_STATUS_OPTIONS": {
+          "ACTIVE": "Ativo",
+          "EXPIRED": "Expirado"
+        },
+        "STOCK_LEVEL_OPTIONS": {
+          "AVAILABLE_1": "1 disponível",
+          "AVAILABLE_2": "2 disponíveis",
+          "AVAILABLE_3": "3 disponíveis",
+          "MANY": "Muitos disponíveis",
+          "MADE_TO_ORDER": "Feito por encomenda",
+          "ONGOING_SERVICE": "Serviço contínuo",
+          "SOLD": "Vendido"
+        },
+        "SELLING_EXPIRATION_DATE": "Vender até {expired_by_date}",
+        "VALIDATION": {
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A duração de venda não pode ser reduzida abaixo das {remaining_weeks} semanas restantes"
+        }
+      }
+    },
+    "SELLER_ORDER_FULFILLMENT": {
+      "ORDER_LIST_HEADER": "Lista de Encomendas",
+      "VIEW_ORDER_HEADER": "Ver Encomenda",
+      "SELLER_ORDER_FULFILLMENT_HEADER": "Processamento de Encomendas do Vendedor",
+      "ORDER_SUBHEADER": "Cabeçalho da Encomenda",
+      "ORDERED_ITEMS_SUBHEADER": "Artigos Encomendados",
+      "ORDER_HEADER_ITEMS_FEATURE": {
+        "SELLER_LABEL": "Vendedor",
+        "TOTAL_PRICE_LABEL": "Preço total",
+        "TIME_OF_ORDER_LABEL": "Hora da encomenda",
+        "STATUS_LABEL": "Estado"
+      },
+      "STATUS_TYPE": {
+        "INITIALIZED": "Inicializado",
+        "PENDING": "Pendente",
+        "COMPLETED": "Concluído",
+        "CANCELED": "Cancelado",
+        "REFUNDED": "Reembolsado",
+        "FULFILLED": "Processado"
+      },
+      "ORDER_COMPLETED_LABEL": "Encomenda Concluída",
+      "ORDER_DISPATCHED_COLLECTED_LABEL": "Encomenda Enviada/Recolhida"
+    },
+    "BUY_FROM_SELLER": {
+      "BUY_FROM_SELLER_HEADER": "Comprar ao Vendedor",
+      "SELLER_DETAILS_LABEL": "Detalhes do Vendedor",
+      "SELLER_ADDRESS_POSITION_LABEL": "Endereço ou Posição do Vendedor",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Efetuar pagamento para este endereço de carteira",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Contacte o vendedor para solicitar o endereço da carteira",
+      "LEAVE_A_REVIEW_MESSAGE": "Deixar uma Avaliação",
+      "FACE_SELECTION_REVIEW_MESSAGE": "Selecione a cara que mostra como se sente em relação ao vendedor acima",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "Insira comentários adicionais aqui",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Carregar foto de feedback",
+      "REVIEWS_SUMMARY_LABEL": "Resumo de Avaliações",
+      "REVIEWS_SCORE_MESSAGE": "Pontuação de Avaliações: {seller_review_rating} de 5.0",
+      "SELLER_CONTACT_DETAILS_LABEL": "Detalhes de Contacto do Vendedor",
+      "SELLER_USERNAME_LABEL": "Nome de utilizador",
+      "SELLER_PHONE_NUMBER_LABEL": "Número de telefone",
+      "SELLER_EMAIL_ADDRESS_LABEL": "Endereço de e-mail",
+      "ONLINE_SHOPPING": {
+        "SELLER_ITEMS_FEATURE": {
+          "ITEM_LABEL": "Artigo",
+          "PRICE_LABEL": "Preço",
+          "DESCRIPTION_LABEL": "Descrição",
+          "PHOTO": "Foto",
+          "BUYING_QUANTITY_LABEL": "Quantidade",
+          "PICK_LABEL": "Selecionar",
+          "UNPICK_LABEL": "Desselecionar"
+        }
+      },
+      "ORDER_SUCCESSFUL_MESSAGE": "Encomenda efetuada com sucesso",
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Falha ao processar encomenda. Por favor tente novamente e certifique-se de que tem pelo menos 1 Mappi."
+    },
+    "REVIEWS": {
+      "REVIEWS_HEADER": "Avaliações",
+      "GIVE_REVIEW_SECTION_HEADER": "Dar avaliação a este pioneiro",
+      "REVIEWS_GIVEN_SECTION_HEADER": "Avaliações dadas por este pioneiro",
+      "REVIEWS_RECEIVED_SECTION_HEADER": "Avaliações recebidas por este pioneiro",
+      "VALIDATION": {
+        "NO_REVIEWS_FOUND": "Nenhuma avaliação encontrada para o Pioneiro {search_value}",
+        "NO_PIONEER_FOUND": "Pioneiro {search_value} não encontrado"
+      }
+    },
+    "EDIT_REVIEW": {
+      "EDIT_REVIEW_HEADER": "Editar Avaliação",
+      "REVIEW_GIVEN_TO_LABEL": "Avaliação dada a",
+      "DATE_TIME_REVIEW_GIVEN_LABEL": "Data e hora da avaliação"
+    },
+    "CHECK_REVIEWS_FEEDBACK": {
+      "CHECK_REVIEWS_NO_FEEDBACK_HEADER": "Sem avaliações para {seller_id}",
+      "CHECK_REVIEWS_FEEDBACK_HEADER": "Lista de Avaliações deixadas para {seller_id}",
+      "BY_REVIEWER": "Por {buyer_id}"
+    },
+    "REPLY_TO_REVIEW": {
+      "REPLY_TO_REVIEW_STATIC_HEADER": "Responder à Avaliação",
+      "REPLY_TO_REVIEW_SUBHEADER": "A avaliação à qual está a responder",
+      "GIVE_REPLY_TO_REVIEW_SUBHEADER": "Dar resposta à avaliação",
+      "REPLY_TO_REVIEW_HEADER": "Responder à Avaliação deixada para {seller_id}",
+      "BY_REVIEWER": "Por {buyer_id}",
+      "REPLY_TO_REVIEW_MESSAGE": "Deixe a sua resposta à avaliação acima",
+      "FACE_SELECTION_REVIEW_MESSAGE": "Selecione a cara que mostra como se sente em relação à sua interação com este pioneiro",
+      "ADDITIONAL_COMMENTS_PLACEHOLDER": "Insira comentários adicionais aqui",
+      "FEEDBACK_PHOTO_UPLOAD_LABEL": "Carregar foto de feedback",
+      "VALIDATION": {
+        "LOADING_REVIEW_FAILURE": "Erro ao carregar avaliação",
+        "SELF_REVIEW_NOT_POSSIBLE": "Auto-avaliação não é possível"
+      }
+    },
+    "NOTIFICATIONS": {
+      "NOTIFICATIONS_HEADER": "Notificações",
+      "NO_NOTIFICATIONS_SUBHEADER": "Ainda não tem notificações",
+      "NOTIFICATION_SECTION": {
+        "NOTIFICATION_LABEL": "Notificação",
+        "NOTIFICATION_TIME_LABEL": "Hora da notificação",
+        "NOTIFICATION_STATUS": {
+          "READ": "Limpar",
+          "UNREAD": "Manter"
+        }
+      }
+    }
+  },
+  "POPUP": {
+    "MAP_MARKER": {
+      "SELLER_SALE_ITEMS_FIELD": "Artigos do vendedor à venda",
+      "DISTANCE_MESSAGE": "Distância: XXX km de distância"
+    },
+    "APP_VERSION_INFO": {
+      "REPORTING_MESSAGE": "Por favor reporte defeitos para"
+    },
+    "PRIVACY_POLICY_INFO": {
+      "TITLE": "Política de Privacidade",
+      "LAST_UPDATED": "Última Atualização",
+      "EMAIL_ADDRESS": "Endereço de E-mail",
+      "SECTIONS": {
+        "HEADER_1": "Introdução",
+        "CONTENT_1": "Bem-vindo à aplicação Map of Pi, desenvolvida pela equipa Map of Pi em colaboração com a Comunidade Pi. Esta Política de Privacidade descreve como recolhemos, utilizamos, divulgamos e protegemos as suas informações pessoais quando utiliza a nossa aplicação móvel.",
+        "HEADER_2": "Informações que Recolhemos",
+        "SUBHEADER_2_1": "Informações do Utilizador",
+        "CONTENT_2_1_1": "Quando se regista como utilizador, podemos recolher o seu nome, endereço de e-mail, nome de utilizador e outros detalhes relevantes.",
+        "CONTENT_2_1_2": "Podemos recolher informações sobre o seu dispositivo, incluindo tipo de dispositivo, sistema operativo e identificadores únicos do dispositivo.",
+        "SUBHEADER_2_2": "Informações do Vendedor",
+        "CONTENT_2_2_1": "Os vendedores que se registam na plataforma podem ser obrigados a fornecer informações do Vendedor, incluindo nome, localização e detalhes de contacto.",
+        "CONTENT_2_2_2": "Um Vendedor pode ser uma empresa ou um particular.",
+        "HEADER_3": "Como Utilizamos as Suas Informações",
+        "SUBHEADER_3_1": "Fornecimento de Serviços",
+        "CONTENT_3_1_1": "Utilizamos as suas informações para fornecer e melhorar os serviços da aplicação Map of Pi, incluindo funcionalidades para utilizadores e Vendedores.",
+        "SUBHEADER_3_2": "Comunicações",
+        "CONTENT_3_2_1": "Podemos usar as suas informações de contacto para lhe enviar atualizações, notificações e mensagens promocionais relacionadas com a aplicação Map of Pi.",
+        "SUBHEADER_3_3": "Análise",
+        "CONTENT_3_3_1": "Recolhemos e analisamos dados para melhorar o desempenho, funcionalidades e recursos da aplicação.",
+        "HEADER_4": "Partilha das Suas Informações",
+        "SUBHEADER_4_1": "Com Vendedores",
+        "CONTENT_4_1_1": "As informações do utilizador podem ser partilhadas com Vendedores para fins de processamento de encomendas e comunicação.",
+        "SUBHEADER_4_2": "Com Terceiros",
+        "CONTENT_4_2_1": "Podemos partilhar informações com prestadores de serviços terceiros para funcionalidade da aplicação, análise e processamento de pagamentos.",
+        "HEADER_5": "Medidas de Segurança",
+        "CONTENT_5_1": "Empregamos medidas de segurança padrão do setor para proteger as suas informações. No entanto, nenhum método de transmissão pela internet ou armazenamento eletrónico é completamente seguro.",
+        "HEADER_6": "As Suas Escolhas",
+        "CONTENT_6_1": "Pode atualizar as informações da sua conta através das definições da aplicação. Pode eliminar a sua conta Map of Pi eliminando a sua conta Pi Network e depois escolhendo a opção de eliminar os seus dados do Map of Pi quando aceder ao Map of Pi pela próxima vez. Pode cancelar a subscrição de comunicações promocionais.",
+        "HEADER_7": "Alterações a Esta Política de Privacidade",
+        "CONTENT_7_1": "Podemos atualizar esta Política de Privacidade conforme necessário. A versão mais recente será publicada no nosso website ou dentro da aplicação.",
+        "HEADER_8": "Contacte-nos",
+        "CONTENT_8_1": "Se tiver alguma questão ou preocupação sobre esta Política de Privacidade, por favor contacte-nos enviando um e-mail para"
+      }
+    },
+    "TERMS_OF_SERVICE_INFO": {
+      "TITLE": "Termos de Serviço",
+      "LAST_UPDATED": "Última Atualização",
+      "EMAIL_ADDRESS": "Endereço de E-mail",
+      "SECTIONS": {
+        "HEADER_1": "Aceitação dos Termos",
+        "CONTENT_1_1": "Bem-vindo à aplicação Map of Pi, desenvolvida pela equipa Map of Pi em colaboração com a Comunidade Pi. Ao usar esta aplicação, concorda em cumprir estes Termos de Serviço, bem como a nossa Política de Privacidade.",
+        "HEADER_2": "Utilização da Aplicação",
+        "CONTENT_2_1": "Concorda em usar a aplicação Map of Pi em conformidade com todas as leis e regulamentos aplicáveis.",
+        "CONTENT_2_2": "Não deverá usar a aplicação para qualquer fim ilícito ou proibido, ou de qualquer forma que possa danificar, desativar, sobrecarregar ou prejudicar a aplicação.",
+        "CONTENT_2_3": "Para usar o Map of Pi deve estar registado como utilizador pioneiro da Rede Pi.",
+        "HEADER_3": "Propriedade Intelectual",
+        "CONTENT_3_1": "A aplicação Map of Pi e todo o conteúdo, funcionalidades e recursos são propriedade do Map of Pi e estão protegidos por direitos de autor, marcas registadas e outras leis de propriedade intelectual.",
+        "HEADER_4": "Limitação de Responsabilidade",
+        "CONTENT_4_1": "O Map of Pi não será responsável por quaisquer danos diretos, indiretos, incidentais, especiais ou consequentes decorrentes ou de qualquer forma relacionados com a utilização da aplicação Map of Pi.",
+        "HEADER_5": "Indemnização",
+        "CONTENT_5_1": "Concorda em indemnizar e isentar de responsabilidade o Map of Pi e as suas afiliadas, diretores, administradores, funcionários e agentes de quaisquer reclamações, responsabilidades, danos, perdas ou despesas (incluindo honorários de advogados) decorrentes ou de qualquer forma relacionados com a sua utilização da aplicação Map of Pi.",
+        "HEADER_6": "Lei Aplicável",
+        "CONTENT_6_1": "Estes Termos de Serviço serão regidos e interpretados de acordo com a lei de Inglaterra e do País de Gales, sem consideração às suas disposições sobre conflito de leis, incluindo qualquer disputa ou reclamação decorrente ou relacionada com o seu objeto ou formação (incluindo disputas ou reclamações não contratuais).",
+        "HEADER_7": "Alterações a Estes Termos",
+        "CONTENT_7_1": "Reservamo-nos o direito de atualizar ou modificar estes Termos de Serviço a qualquer momento sem aviso prévio. A versão mais recente será publicada no nosso website ou dentro da aplicação."
+      }
+    }
+  },
+  "SHARED": {
+    "PIONEER_LABEL": "Pioneiro",
+    "PIONEER_ID_LABEL": "ID do Pioneiro",
+    "MEMBERSHIP": "Adesão",
+    "BUY": "Comprar",
+    "WATCH": "Ver",
+    "RESET": "Repor",
+    "REFUND": "Reembolsar",
+    "FULFILL": "Processar",
+    "FULFILLED": "Processado",
+    "PENDING": "Pendente",
+    "NAVIGATE": "Navegar",
+    "NO_COMMENT": "Nenhum comentário fornecido",
+    "SEARCH_CENTER": "Definir Centro de Pesquisa",
+    "CHECK_REVIEWS": "Ver Avaliações",
+    "SEARCH_REVIEWS": "Pesquisar Avaliações",
+    "SEARCH_LOADING": "A carregar pesquisa...",
+    "VIEW_NOTIFICATIONS": "Ver notificações",
+    "REPLY": "Responder",
+    "EDIT": "Editar",
+    "COPY": "Copiar",
+    "ADD_ITEM": "Adicionar Artigo",
+    "CHECKOUT": "Finalizar Compra",
+    "DELETE": "Eliminar",
+    "CONFIRM_DELETE": "Tem a certeza que quer eliminar este artigo? Esta ação não pode ser desfeita.",
+    "SAVE": "Guardar",
+    "CONFIRM": "Confirmar",
+    "CONFIRM_DIALOG": "Tem alterações não guardadas. Tem a certeza que quer sair?",
+    "USER_INFORMATION": {
+      "PI_USERNAME_LABEL": "Nome de utilizador Pi",
+      "NAME_LABEL": "Nome",
+      "PHONE_NUMBER_LABEL": "Número de telefone",
+      "EMAIL_LABEL": "E-mail"
+    },
+    "PHOTO": {
+      "UPLOAD_PHOTO_LABEL": "Carregar imagem",
+      "UPLOAD_PHOTO_PLACEHOLDER": "Carregar imagem para atrair compradores (PNG, JPG, JPEG, WEBP)",
+      "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Carregar uma imagem para apoiar a sua avaliação (PNG, JPG, JPEG, WEBP)",
+      "IMAGE_DROP_UPLOAD_MESSAGE": "Solte a sua imagem aqui ou navegue",
+      "SUPPORTS_FILE_MESSAGE": "Suporta: PNG, JPG, JPEG, WEBP",
+      "MISC_LABELS": {
+        "USER_PREFERENCES_LABEL": "Imagem de perfil",
+        "SELLER_IMAGE_LABEL": "Imagem do vendedor",
+        "REVIEW_FEEDBACK_IMAGE_LABEL": "Imagem de avaliação",
+        "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Atualizar imagem"
+      }
+    },
+    "REACTION_RATING": {
+      "UNSAFE": "Inseguro",
+      "TRUSTWORTHY": "De confiança",
+      "EMOTIONS": {
+        "DESPAIR": "Desespero",
+        "SAD": "Triste",
+        "OKAY": "Razoável",
+        "HAPPY": "Feliz",
+        "DELIGHT": "Encantado"
+      },
+      "VALIDATION": {
+        "SUCCESSFUL_REVIEW_SUBMISSION": "Avaliação submetida com sucesso",
+        "UNSUCCESSFUL_REVIEW_SUBMISSION": "Falha ao submeter avaliação",
+        "SELECT_EMOJI_EXPRESSION": "Por favor selecione uma expressão emoji"
+      }
+    },
+    "MAP_CENTER": {
+      "SEARCH_BAR_PLACEHOLDER": "Pesquisar uma localização, cidade ou endereço",
+      "VALIDATION": {
+        "MAP_CENTER_SUCCESS_MESSAGE": "O seu centro foi guardado com sucesso",
+        "SELL_CENTER_SANCTIONED_MESSAGE": "A localização selecionada parece estar numa região sancionada. Se confirmada, o seu marcador de venda pode ser removido do mapa."
+      }
+    },
+    "LOADING_SCREEN_MESSAGE": "A carregar ...",
+    "SAVING_SCREEN_MESSAGE": "A guardar ...",
+    "VALIDATION": {
+      "SUBMISSION_FAILED_USER_NOT_AUTHENTICATED": "Submissão falhou porque o utilizador não está autenticado",
+      "UNEXPECTED_ERROR_MESSAGE": "Ocorreu um erro inesperado"
+    }
+  },
+  "ERROR": {
+    "PAGE_NOT_FOUND_HEADER": "Página não encontrada",
+    "PAGE_NOT_FOUND_MESSAGE": "Desculpe, a página que procura não existe."
+  }
+}
