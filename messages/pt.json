@@ -76,7 +76,7 @@
       "EMAIL_LABEL": "Endereço de e-mail",
       "PHONE_NUMBER_LABEL": "Número de telefone",
       "CONTACT_PUBLIC_NOTE": "O endereço de e-mail e o número de telefone serão visíveis publicamente.",
-      "SELLER_DETAILS_PLACEHOLDER": "Vendo através do Pagar com Pi.",
+      "SELLER_DETAILS_PLACEHOLDER": "Vendo via Pagar com Pi.",
       "REVIEWS_SUMMARY_LABEL": "Resumo de Avaliações",
       "REVIEWS_SCORE_LABEL": "Pontuação de Avaliações",
       "SELLER_NAME": "Nome do Vendedor",
@@ -98,7 +98,7 @@
       "SELLER_SELL_CENTER": "Definir Centro de Venda",
       "SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL": "Compras Online | Listar Artigos à Venda",
       "SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL": "Compras Online | Processamento de Encomendas",
-      "MAPPI_ALLOWANCE_LABEL": "Subsídio Mappi restante",
+      "MAPPI_ALLOWANCE_LABEL": "Saldo Mappi restante",
       "FULFILLMENT_METHOD_TYPE": {
         "FULFILLMENT_METHOD_TYPE_LABEL": "Método de entrega",
         "FULFILLMENT_METHOD_TYPE_OPTIONS": {
@@ -167,7 +167,7 @@
         "COMPLETED": "Concluído",
         "CANCELED": "Cancelado",
         "REFUNDED": "Reembolsado",
-        "FULFILLED": "Processado"
+        "FULFILLED": "Concluído"
       },
       "ORDER_COMPLETED_LABEL": "Encomenda Concluída",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Encomenda Enviada/Recolhida"
@@ -327,7 +327,7 @@
     "RESET": "Repor",
     "REFUND": "Reembolsar",
     "FULFILL": "Processar",
-    "FULFILLED": "Processado",
+    "FULFILLED": "Concluído",
     "PENDING": "Pendente",
     "NAVIGATE": "Navegar",
     "NO_COMMENT": "Nenhum comentário fornecido",
@@ -356,7 +356,7 @@
       "UPLOAD_PHOTO_LABEL": "Carregar imagem",
       "UPLOAD_PHOTO_PLACEHOLDER": "Carregar imagem para atrair compradores (PNG, JPG, JPEG, WEBP)",
       "UPLOAD_PHOTO_REVIEW_PLACEHOLDER": "Carregar uma imagem para apoiar a sua avaliação (PNG, JPG, JPEG, WEBP)",
-      "IMAGE_DROP_UPLOAD_MESSAGE": "Solte a sua imagem aqui ou navegue",
+      "IMAGE_DROP_UPLOAD_MESSAGE": "Solte a sua imagem aqui ou procurar",
       "SUPPORTS_FILE_MESSAGE": "Suporta: PNG, JPG, JPEG, WEBP",
       "MISC_LABELS": {
         "USER_PREFERENCES_LABEL": "Imagem de perfil",
