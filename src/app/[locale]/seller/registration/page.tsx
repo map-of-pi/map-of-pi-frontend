@@ -579,9 +579,10 @@ const SellerRegistrationForm = () => {
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
               header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL')}
-              open={false}>
-              {dbSeller && <OnlineShopping dbSeller={dbSeller} />}
-              <div>
+              open={true}>
+              
+              <div className='bg-white p-4 rounded-md mt-4'>
+                {dbSeller && <OnlineShopping dbSeller={dbSeller} />}
                 <Select
                   label={t(
                     'SCREEN.SELLER_REGISTRATION.FULFILLMENT_METHOD_TYPE.FULFILLMENT_METHOD_TYPE_LABEL',
@@ -626,7 +627,7 @@ const SellerRegistrationForm = () => {
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
                 header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL')}
-                open={false}>
+                open={true}>
               {dbSeller && <ListOrder user_id={dbSeller.seller_id} user_name={dbSeller.name} seller_type={dbSeller.seller_type}/>}
             </ToggleCollapse>
           )}
