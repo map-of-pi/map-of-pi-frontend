@@ -213,7 +213,7 @@ export default function MembershipPage() {
 
       <div className="mb-5 mt-3 flex justify-between">
         <Button
-          label={t('SHARED.BUY')}
+          label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
           disabled={isSaveLoading || totalAmount <= 0}
           styles={{
             color: '#ffc153',
