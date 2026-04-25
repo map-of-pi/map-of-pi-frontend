@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "endamî ({duration} hefteyan)",
       "PICK_BUY_METHOD_LABEL": "Rêbaza kirînê hilbijêrin",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Bi bidin π",
+        "PAY_WITH_PI": "Bi bidin Pi",
         "WATCH_ADS": "Reklaman temaşe bikin (bêpere)",
         "USE_VOUCHER": "Koda kuponê bikar bînin (belaş)"
       },

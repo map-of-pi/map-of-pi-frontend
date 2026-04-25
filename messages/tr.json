@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "Üyelik ({duration} Haftalar)",
       "PICK_BUY_METHOD_LABEL": "Satın alma yöntemini seç",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Ile öde π",
+        "PAY_WITH_PI": "Ile öde Pi",
         "WATCH_ADS": "Reklamları izleyin (ücretsiz)",
         "USE_VOUCHER": "Bir kupon kodu kullanın (ücretsiz)"
       },

@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "thành viên ({duration} tuần)",
       "PICK_BUY_METHOD_LABEL": "Chọn phương thức mua",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Thanh toán bằng π",
+        "PAY_WITH_PI": "Thanh toán bằng Pi",
         "WATCH_ADS": "Xem quảng cáo (miễn phí)",
         "USE_VOUCHER": "Sử dụng mã voucher (miễn phí)"
       },

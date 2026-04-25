@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "memba ({duration} makonni)",
       "PICK_BUY_METHOD_LABEL": "Zaɓi hanyar siya",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Biya da π",
+        "PAY_WITH_PI": "Biya da Pi",
         "WATCH_ADS": "Kalli talla (kyauta)",
         "USE_VOUCHER": "Yi amfani da lambar voucher (kyauta)"
       },

@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "सदस्यता ({duration} सप्ताह)",
       "PICK_BUY_METHOD_LABEL": "खरीदने की विधि चुनें",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "π के साथ भुगतान करें",
+        "PAY_WITH_PI": "Pi के साथ भुगतान करें",
         "WATCH_ADS": "विज्ञापन देखें (फ्री)",
         "USE_VOUCHER": "वाउचर कोड का उपयोग करें (फ्री)"
       },

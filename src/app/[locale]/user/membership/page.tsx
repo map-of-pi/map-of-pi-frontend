@@ -172,7 +172,7 @@ export default function MembershipPage() {
                   verticalAlign: "middle"
                 }}
               />
-              <span> {option.cost}π</span>
+              <span> {option.cost}Pi</span>
             </div>
           ))}
         </div>

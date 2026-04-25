@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "멤버십 ({duration}주)",
       "PICK_BUY_METHOD_LABEL": "구매 방법 선택",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "π로 결제",
+        "PAY_WITH_PI": "Pi로 결제",
         "WATCH_ADS": "광고 보기 (무료)",
         "USE_VOUCHER": "바우처 코드 사용 (무료)"
       },

@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "会员资格（{duration} 周）",
       "PICK_BUY_METHOD_LABEL": "选择购买方式",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "使用 π 支付",
+        "PAY_WITH_PI": "使用 Pi 支付",
         "WATCH_ADS": "观看广告（免费）",
         "USE_VOUCHER": "使用优惠码（免费）"
       },

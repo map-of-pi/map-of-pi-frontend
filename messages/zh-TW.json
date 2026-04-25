@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "會員資格（{duration} 週）",
       "PICK_BUY_METHOD_LABEL": "選擇購買方式",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "使用 π 付款",
+        "PAY_WITH_PI": "使用 Pi 付款",
         "WATCH_ADS": "觀看廣告（免費）",
         "USE_VOUCHER": "使用優惠券代碼（免費）"
       },

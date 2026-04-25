@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "メンバーシップ（{duration} 週間）",
       "PICK_BUY_METHOD_LABEL": "購入方法を選択",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "πで支払う",
+        "PAY_WITH_PI": "Piで支払う",
         "WATCH_ADS": "広告を見る（無料）",
         "USE_VOUCHER": "バウチャーコードを使用（無料）"
       },

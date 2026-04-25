@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membresía ({duration} semanas)",
       "PICK_BUY_METHOD_LABEL": "Elija método de compra",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Pagar con π",
+        "PAY_WITH_PI": "Pagar con Pi",
         "WATCH_ADS": "Ver anuncios (gratis)",
         "USE_VOUCHER": "Usar código de cupón (gratis)"
       },

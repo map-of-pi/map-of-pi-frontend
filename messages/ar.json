@@ -57,7 +57,7 @@
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
       "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "الدفع بواسطة π",
+        "PAY_WITH_PI": "الدفع بواسطة Pi",
         "WATCH_ADS": "شاهد الإعلانات (مجاني)",
         "USE_VOUCHER": "استخدم رمز القسيمة (مجاني)"
       },
