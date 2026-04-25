@@ -17,7 +17,7 @@ import {
   PaymentType 
 } from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
-import { translatePurchaseOptions } from "@/utils/translate";
+import { translatePurchaseOptions, translateSellerCategory } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
@@ -93,15 +93,29 @@ export default function MembershipPage() {
 
   return (
     <div className="w-full md:w-[500px] md:mx-auto p-4">
-      <h1 className={HEADER}>
-        {t('SCREEN.MEMBERSHIP.MEMBERSHIP_HEADER')}
-      </h1>
+      <div className="w-full flex flex-col items-center mb-5">
+        <h3 className="text-gray-400 text-sm flex items-center">
+          {currentUser ? currentUser.user_name : ''} 
+          <MembershipIcon 
+            category={userMembership} 
+            className="ml-1"
+            styleComponent={{
+              display: "inline-block",
+              objectFit: "contain",
+              verticalAlign: "middle"
+            }}
+          />
+        </h3>
+        <h1 className={HEADER}>
+          {t('SCREEN.MEMBERSHIP.MEMBERSHIP_HEADER')}
+        </h1>
+      </div>
 
       <div className="mb-5">
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_CLASS_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">
+        <p className="text-gray-600 text-sm mt-1">
           {membershipData?.membership_class || userMembership}
         </p>
       </div>
@@ -110,7 +124,7 @@ export default function MembershipPage() {
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">
+        <p className="text-gray-600 text-sm mt-1">
           {membershipData?.membership_expiry_date
             ? new Date(membershipData.membership_expiry_date).toLocaleString()
             : t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP')}
@@ -121,7 +135,7 @@ export default function MembershipPage() {
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.MAPPI_ALLOWANCE_REMAINING_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">{membershipData?.mappi_balance || 0}</p>
+        <p className="text-gray-600 text-sm mt-1">{membershipData?.mappi_balance || 0}</p>
       </div>
 
       <div className="mb-5">
