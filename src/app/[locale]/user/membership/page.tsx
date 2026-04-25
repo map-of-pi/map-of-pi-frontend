@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from "next-intl";
-import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input } from "@/components/shared/Forms/Inputs/Inputs";
@@ -31,7 +30,6 @@ export default function MembershipPage() {
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
 
-  const router = useRouter();
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
@@ -191,8 +189,8 @@ export default function MembershipPage() {
               <Input
                 label={""}
                 placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
-                type="email"
-                name="email"
+                type="text"
+                name="voucherCode"
               />
             </div>)
           }
@@ -201,22 +199,13 @@ export default function MembershipPage() {
 
       <div className="mb-5 mt-3 flex justify-between">
         <Button
-          label="Watch Ads"
-          styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
-          }}
-          onClick={() => router.push(`/user/watch-ads`)}
-        />
-        <Button
-          label={selectedMethod === MembershipBuyType.ADS ? 
-            t('SHARED.WATCH') : t('SHARED.BUY')}
+          label={t('SHARED.BUY')}
           disabled={isSaveLoading || totalAmount <= 0}
           styles={{
             color: '#ffc153',
             height: '40px',
             padding: '10px 15px',
+            marginLeft: 'auto'
           }}
           onClick={handleBuy}
         />

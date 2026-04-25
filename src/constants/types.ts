@@ -89,8 +89,8 @@ export interface MembershipBuyOption {
 
 export const membershipBuyOptions: MembershipBuyOption[] = [
   { value: MembershipBuyType.BUY, label: "Pay with pi" },
-  { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
   { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
+  // { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
 ];
 
 export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
