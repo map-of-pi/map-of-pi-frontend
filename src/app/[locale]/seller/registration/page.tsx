@@ -324,15 +324,15 @@ const SellerRegistrationForm = () => {
         <div className="w-full flex flex-col items-center mb-5">
           <h3 className="text-gray-400 text-sm flex items-center">
             {dbSeller ? dbSeller.name : ''} 
-            <MembershipIcon 
-              category={userMembership} 
+            {userMembership && <MembershipIcon 
+              category={userMembership?.membership_class} 
               className="ml-1"
               styleComponent={{
                 display: "inline-block",
                 objectFit: "contain",
                 verticalAlign: "middle"
               }}
-            />
+            />}
           </h3>
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
@@ -581,7 +581,7 @@ const SellerRegistrationForm = () => {
               header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL')}
               open={true}>
               
-              <div className='bg-white p-4 rounded-md mt-4'>
+              <div className='rounded-md'>
                 {dbSeller && <OnlineShopping dbSeller={dbSeller} />}
                 <Select
                   label={t(

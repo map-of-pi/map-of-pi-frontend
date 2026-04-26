@@ -16,6 +16,7 @@ import logger from '../../../../logger.config.mjs';
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
+  const { userMembership } = useContext(AppContext);
   const [dbSellerItems, setDbSellerItems] = useState<SellerItem[]>([]);
   const [isAddItemEnabled, setIsAddItemEnabled] = useState(false);
   const [focusedItemId, setFocusedItemId] = useState<string | null>(null);
@@ -90,7 +91,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
     <>        
       <div className="mb-4">
         <h2 className='text-gray-500 text-lg'>
-          {t('SCREEN.SELLER_REGISTRATION.MAPPI_ALLOWANCE_LABEL')}: 999
+          {t('SCREEN.SELLER_REGISTRATION.MAPPI_ALLOWANCE_LABEL')}: {userMembership?.mappi_balance}
         </h2>
         <Button
           label={t('SHARED.ADD_ITEM')}
@@ -175,7 +176,7 @@ export const ShopItem: React.FC<{
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [dialogueMessage, setDialogueMessage] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
-  const { showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
+  const { showAlert, isSaveLoading, setIsSaveLoading, userMembership } = useContext(AppContext);
   const [sellingStatus, setSellingStatus] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
 
@@ -371,7 +372,7 @@ export const ShopItem: React.FC<{
                   onChange={handleChange}
                   disabled={!isActive} // Disable if not active
                 />
-                <p className="text-gray-500 text-sm">π</p>
+                <p className="text-gray-500 text-sm">Pi</p>
               </div>
             </div>
           </div>

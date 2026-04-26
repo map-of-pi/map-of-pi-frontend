@@ -13,7 +13,7 @@ import {
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
-import { IUser, MembershipClassType } from '@/constants/types';
+import { IMembership, IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import logger from '../logger.config.mjs';
 
@@ -24,8 +24,8 @@ interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
   authenticateUser: () => void;
-  userMembership: MembershipClassType;
-  setUserMembership: React.Dispatch<SetStateAction<MembershipClassType>>;
+  userMembership: IMembership | null;
+  setUserMembership: React.Dispatch<SetStateAction<IMembership | null>>;
   isSigningInUser: boolean;
   reload: boolean;
   alertMessage: string | null;
@@ -46,7 +46,7 @@ const initialState: IAppContextProps = {
   setCurrentUser: () => {},
   authenticateUser: () => {},
   isSigningInUser: false,
-  userMembership: MembershipClassType.CASUAL,
+  userMembership: null,
   setUserMembership: () => {},
   reload: false,
   alertMessage: null,
@@ -82,7 +82,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const t = useTranslations();
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const [isSigningInUser, setIsSigningInUser] = useState(false);
-  const [userMembership, setUserMembership] = useState<MembershipClassType>(MembershipClassType.CASUAL);
+  const [userMembership, setUserMembership] = useState<IMembership | null>(null);
   const [reload, setReload] = useState(false);
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
@@ -133,7 +133,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
       const res = await axiosClient.get("/users/me");
       if (res.status === 200) {
         setCurrentUser(res.data.user);
-        setUserMembership(res.data.membership_class);
+        setUserMembership(res.data.membership);
         return true;
       }
       return false;
@@ -161,7 +161,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
       setAuthToken(res.data?.token);
       setCurrentUser(res.data.user);
-      setUserMembership(res.data.membership_class);
+      setUserMembership(res.data.membership);
       return true;
     } catch (error: any) {
       if (isHardFail(error)) throw error; // 401/403 must break retry loop

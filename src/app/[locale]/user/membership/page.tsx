@@ -24,7 +24,6 @@ import logger from "../../../../../logger.config.mjs";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
-  const [membershipData, setMembershipData] = useState<IMembership | null>(null);
   const [membershipList, setMembershipList] = useState<MembershipOption[] | null>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
@@ -34,26 +33,35 @@ export default function MembershipPage() {
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
 
+  useEffect(() => {
+    const loadMembershipList = async () => { 
+      try {
+        const subList = await fetchMembershipList();
+
+        setMembershipList(subList);
+        setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
+      } catch (error) {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    loadMembershipList();
+  }, []);
+
   const loadMembership = async () => { 
     if (!currentUser?.pi_uid) return;
     try {
       logger.info(`Loading membership data for: ${currentUser.pi_uid}`);
-      const subList = await fetchMembershipList();
-      setMembershipList(subList);
-
       const data = await fetchMembership();
-      setMembershipData(data);
-      setUserMembership(data? data?.membership_class: userMembership);
-      setSelectedMembership(data?.membership_class || userMembership);
+
+      setUserMembership(data ? data : userMembership);
+      setSelectedMembership(data?.membership_class || userMembership?.membership_class || MembershipClassType.CASUAL);
     } catch (error) {
       showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
       logger.error("Error loading membership", {error})
     }
   };
-
-  useEffect(() => {
-    loadMembership();
-  }, [currentUser]);
 
   const isSingleMappi = (newClass: MembershipClassType) => { 
     return newClass === MembershipClassType.SINGLE
@@ -61,7 +69,7 @@ export default function MembershipPage() {
 
   const onPaymentComplete = async (data:any) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE'));
-    await loadMembership();  
+    loadMembership()
     setIsSaveLoading(false);  
   }
   
@@ -92,19 +100,19 @@ export default function MembershipPage() {
   } 
 
   return (
-    <div className="w-full md:w-[500px] md:mx-auto p-4">
+    <div className="w-full h-screen md:w-[500px] md:mx-auto p-4">
       <div className="w-full flex flex-col items-center mb-5">
         <h3 className="text-gray-400 text-sm flex items-center">
           {currentUser ? currentUser.user_name : ''} 
-          <MembershipIcon 
-            category={userMembership} 
+          {userMembership&& <MembershipIcon 
+            category={userMembership.membership_class} 
             className="ml-1"
             styleComponent={{
               display: "inline-block",
               objectFit: "contain",
               verticalAlign: "middle"
             }}
-          />
+          />}
         </h3>
         <h1 className={HEADER}>
           {t('SCREEN.MEMBERSHIP.MEMBERSHIP_HEADER')}
@@ -116,7 +124,7 @@ export default function MembershipPage() {
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_CLASS_LABEL') + ': '}
         </h2>
         <p className="text-gray-600 text-sm mt-1">
-          {membershipData?.membership_class || userMembership}
+          {userMembership?.membership_class}
         </p>
       </div>
 
@@ -125,8 +133,8 @@ export default function MembershipPage() {
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_LABEL') + ': '}
         </h2>
         <p className="text-gray-600 text-sm mt-1">
-          {membershipData?.membership_expiry_date
-            ? new Date(membershipData.membership_expiry_date).toLocaleString()
+          {userMembership?.membership_expiry_date
+            ? new Date(userMembership.membership_expiry_date).toLocaleString()
             : t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP')}
         </p>
       </div>
@@ -135,7 +143,7 @@ export default function MembershipPage() {
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.MAPPI_ALLOWANCE_REMAINING_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-sm mt-1">{membershipData?.mappi_balance || 0}</p>
+        <p className="text-gray-600 text-sm mt-1">{userMembership?.mappi_balance || 0} mappi</p>
       </div>
 
       <div className="mb-5">
