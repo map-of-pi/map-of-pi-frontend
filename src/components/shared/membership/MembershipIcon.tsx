@@ -33,7 +33,15 @@ function MembershipIcon({ category, className, styleComponent }: {
   if (!icon) return null; // Don't render anything for casual members
 
   return (
-    <div className={`w-7 h-5 relative float-right ${className || ''}`} style={styleComponent}>
+    <div
+    className={`relative inline-block ${className || ''}`}
+    style={{
+      height: '17px',
+      width: `${Math.round((icon.width / icon.height) * 17)}px`,
+        flexShrink: 0,
+        ...styleComponent
+    }}
+    >
       <Image src={icon} alt={category} fill style={{ objectFit: 'contain' }}/>
     </div>
   )
