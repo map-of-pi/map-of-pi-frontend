@@ -21,13 +21,17 @@ import { translatePurchaseOptions, translateSellerCategory } from "@/utils/trans
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
+import { redeemVoucher, verifyVoucher } from "@/services/voucherApi";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
-  const [membershipList, setMembershipList] = useState<MembershipOption[] | null>(dummyList);
+  const [membershipList, setMembershipList] = useState<MembershipOption[]>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
+  const [voucherInput, setVoucherInput] = useState<string>("")
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
+  const [verifiedVoucher, setVerifiedVoucher] = useState<{voucherId: string, membershipClass: MembershipClassType} | null>(null);
+  const [verifiedMembership, setVerifiedMembership] = useState<MembershipOption | null>(null);
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -38,7 +42,7 @@ export default function MembershipPage() {
       try {
         const subList = await fetchMembershipList();
 
-        setMembershipList(subList);
+        setMembershipList(subList!);
         setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
       } catch (error) {
         showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
@@ -76,6 +80,58 @@ export default function MembershipPage() {
   const onPaymentError = (error: Error) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_MEMBERSHIP_PAYMENT_MESSAGE'));
     setIsSaveLoading(false);
+  }
+
+  const handleVoucherRedemption = async () => {
+    if (!currentUser || !verifiedVoucher) return;
+
+    setIsSaveLoading(true);
+    try {
+      const result = await redeemVoucher(verifiedVoucher.voucherId);
+      if (!result.success) {
+        showAlert(result.error || t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_REDEMPTION_MESSAGE'));
+      } else {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_VOUCHER_REDEMPTION_MESSAGE'));
+        setUserMembership(result.membership || userMembership);
+      }
+    } catch (error) {
+      showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_REDEMPTION_MESSAGE'));
+      logger.error("Error redeeming voucher", {error})
+    } finally {
+      setIsSaveLoading(false);
+      setVerifiedVoucher(null);
+      setVoucherInput("");
+      setVerifiedMembership(null)
+    }
+  }
+
+   const handleVerifyVoucher = async () => {
+    if (!currentUser || !voucherInput.trim()) return;
+
+    setIsSaveLoading(true);
+    try {
+      const result = await verifyVoucher(voucherInput.trim());
+      if ( !result.success ) {
+        showAlert(result.error || t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_VERIFICATION_MESSAGE'));
+      } else {        
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_VOUCHER_VERIFICATION_MESSAGE'));
+        setVerifiedVoucher({
+          voucherId: result.voucher_id,
+          membershipClass: result.membership_class
+        } as {voucherId: string, membershipClass: MembershipClassType});
+
+        const selected = membershipList.find(
+          (m) => m.value === result.membership_class
+        );
+
+        setVerifiedMembership(selected ?? null);
+      }
+    } catch (error) {
+      showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_VERIFICATION_MESSAGE'));
+      logger.error("Error verifying voucher", {error})
+    } finally {
+      setIsSaveLoading(false);
+    }
   }
   
   const handleBuy = async () => {
@@ -148,6 +204,81 @@ export default function MembershipPage() {
 
       <div className="mb-5">
         <h2 className={SUBHEADER}>
+          {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
+        </h2>
+
+        <div className="">
+          {membershipBuyOptions.map((option, index) => (
+            <div
+              key={index}
+              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+              onClick={() => setSelectedMethod(option.value)}
+            >
+              {selectedMethod === option.value ? (
+                <div className="p-1 bg-green-700 rounded"></div>
+              ) : (
+                <div className="p-1 bg-yellow-400 rounded"></div>                  
+              )}
+              {translatePurchaseOptions(option.value, t)}
+            </div>
+          ))}
+          {selectedMethod === MembershipBuyType.VOUCHER && (
+            <>
+            <div className="mb-4">
+              <Input
+                label={""}
+                placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
+                type="text"
+                value={voucherInput}
+                name="voucherCode"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setVoucherInput(e.target.value)}
+              />
+            </div>
+
+            {verifiedMembership && <div
+              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+            >                                     
+              {/* <IoCheckmark /> */}
+              <div className="p-1 bg-green-700 rounded"></div>
+                  
+              {`${verifiedMembership?.value}  ${isSingleMappi(verifiedMembership?.value)
+                ? "Mappi" 
+                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: verifiedMembership.duration ?? '' })
+              }`} 
+              
+              <MembershipIcon 
+                category={verifiedMembership?.value!} 
+                className="ml-1"
+                styleComponent={{
+                  display: "inline-block",
+                  objectFit: "contain",
+                  verticalAlign: "middle"
+                }}
+              />
+              <span> {verifiedMembership.cost}Pi</span>
+            </div>}
+
+            <div className="mb-5 mt-3 flex justify-between">
+              <Button
+                label={`${verifiedVoucher ? 'Redeem' : 'Verify'}`}
+                disabled={isSaveLoading || !voucherInput.trim() || !verifiedVoucher && !voucherInput.trim()}
+                styles={{
+                  color: '#ffc153',
+                  height: '40px',
+                  padding: '10px 15px',
+                  marginLeft: 'auto'
+                }}
+                onClick={verifiedVoucher ? handleVoucherRedemption : handleVerifyVoucher}
+              />
+            </div> 
+          </> 
+          )}
+          
+        </div>
+      </div>
+
+       {selectedMethod === MembershipBuyType.BUY && <div className="mb-5">
+        <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '}
         </h2>
 
@@ -184,54 +315,20 @@ export default function MembershipPage() {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="mb-5">
-        <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
-        </h2>
-
-        <div className="">
-          {membershipBuyOptions.map((option, index) => (
-            <div
-              key={index}
-              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-              onClick={() => setSelectedMethod(option.value)}
-            >
-              {selectedMethod === option.value ? (
-                <div className="p-1 bg-green-700 rounded"></div>
-              ) : (
-                <div className="p-1 bg-yellow-400 rounded"></div>                  
-              )}
-              {translatePurchaseOptions(option.value, t)}
-            </div>
-          ))}
-          {selectedMethod === MembershipBuyType.VOUCHER && (
-            <div className="mb-4">
-              <Input
-                label={""}
-                placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
-                type="text"
-                name="voucherCode"
-              />
-            </div>)
-          }
+        <div className="mb-5 mt-3 flex justify-between">
+          <Button
+            label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
+            disabled={isSaveLoading || totalAmount <= 0}
+            styles={{
+              color: '#ffc153',
+              height: '40px',
+              padding: '10px 15px',
+              marginLeft: 'auto'
+            }}
+            onClick={handleBuy}
+          />
         </div>
-      </div>
-
-      <div className="mb-5 mt-3 flex justify-between">
-        <Button
-          label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
-          disabled={isSaveLoading || totalAmount <= 0}
-          styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
-            marginLeft: 'auto'
-          }}
-          onClick={handleBuy}
-        />
-      </div>
+      </div>}      
     </div>
   );
 }
