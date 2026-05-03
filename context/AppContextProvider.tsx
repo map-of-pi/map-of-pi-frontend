@@ -103,7 +103,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const loadPiSdk = (): Promise<typeof window.Pi> => {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = 'https://sdk.minepi.com/pi-sdk.js';
+      script.src = process.env.NEXT_PUBLIC_PI_SDK_URL || 'https://sdk.minepi.com/pi-sdk.js';
       script.async = true;
       script.onload = () => resolve(window.Pi);
       script.onerror = () => reject(new Error('Failed to load Pi SDK'));
