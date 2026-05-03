@@ -36,7 +36,7 @@ export const menu = {
         title: 'Portuguese',
         translation: 'Português',
         icon: '',
-      }
+      },
       {
         id: 5,
         code: 'fr',
