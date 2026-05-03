@@ -7,10 +7,12 @@ import DoubleGoldIcon from "../../../../public/images/membership/Member_icon_dou
 import TripleGoldIcon from "../../../../public/images/membership/Member_icon_triple_gold.svg"
 import { MembershipClassType } from '@/constants/types'
 
-function MembershipIcon({ category, className, styleComponent }: { 
-  category: MembershipClassType, 
-  className?: string, 
-  styleComponent?: any }) {
+function MembershipIcon({ category, className, styleComponent, size = 17 }: {
+  category: MembershipClassType,
+  className?: string,
+  styleComponent?: any,
+  size?: number
+}) {
   const HandleMembership = (category: MembershipClassType) => {
     switch (category) {
       case MembershipClassType.TRIPLE_GOLD:
@@ -29,12 +31,22 @@ function MembershipIcon({ category, className, styleComponent }: {
   }
 
   const icon = HandleMembership(category);
-
   if (!icon) return null; // Don't render anything for casual members
 
+  const aspectRatio = icon.width / icon.height;
+  const width = Math.round(aspectRatio * size);
+
   return (
-    <div className={`w-7 h-5 relative float-right ${className || ''}`} style={styleComponent}>
-      <Image src={icon} alt={category} fill style={{ objectFit: 'contain' }}/>
+    <div
+    className={`relative inline-block ${className || ''}`}
+    style={{
+      height: `${size}px`,
+      width: `${width}px`,
+      flexShrink: 0,
+      ...styleComponent
+    }}
+    >
+    <Image src={icon} alt={category} fill style={{ objectFit: 'contain' }}/>
     </div>
   )
 }

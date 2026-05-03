@@ -69,7 +69,7 @@ function Navbar() {
           <div className="text-center text-secondary text-[1.3rem] whitespace-nowrap flex-1">
             { headerLabel }
           </div>
-          <div className="flex-1">
+          <div className="flex-1 flex justify-end">
             <MembershipIcon category={userMembership} />
           </div>
         </div>
