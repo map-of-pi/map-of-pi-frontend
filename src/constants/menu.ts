@@ -31,6 +31,14 @@ export const menu = {
       },
       {
         id: 4,
+        code: 'pt',
+        label: 'PT',
+        title: 'Portuguese',
+        translation: 'Português',
+        icon: '',
+      },
+      {
+        id: 5,
         code: 'fr',
         label: 'FR',
         title: 'French',
@@ -38,7 +46,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 5,
+        id: 6,
         code: 'de',
         label: 'DE',
         title: 'German',
@@ -46,7 +54,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 6,
+        id: 7,
         code: 'tr',
         label: 'TR',
         title: 'Turkish',
@@ -54,7 +62,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 7,
+        id: 8,
         code: 'ku',
         label: 'KU',
         title: 'Kurdish',
@@ -62,7 +70,7 @@ export const menu = {
         icon: '',
       },      
       {
-        id: 8,
+        id: 9,
         code: 'ar',
         label: 'AR',
         title: 'Arabic',
@@ -70,7 +78,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 9,
+        id: 10,
         code: 'hi',
         label: 'HI',
         title: 'Hindi',
@@ -78,7 +86,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 10,
+        id: 11,
         code: 'zh-CN',
         label: 'ZH/CN',
         title: 'Simplified Chinese',
@@ -86,7 +94,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 11,
+        id: 12,
         code: 'zh-TW',
         label: 'ZH/TW',
         title: 'Traditional Chinese',
@@ -94,7 +102,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 12,
+        id: 13,
         code: 'ja',
         label: 'JA',
         title: 'Japanese',
@@ -102,7 +110,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 13,
+        id: 14,
         code: 'ko',
         label: 'KO',
         title: 'Korean',
@@ -110,7 +118,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 14,
+        id: 15,
         code: 'vi',
         label: 'VI',
         title: 'Vietnamese',
@@ -118,7 +126,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 15,
+        id: 16,
         code: 'hau-NG',
         label: 'NG/HAU',
         title: 'Nigerian Hausa',
@@ -126,7 +134,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 16,
+        id: 17,
         code: 'yor-NG',
         label: 'NG/YOR',
         title: 'Nigerian Yoruba',
@@ -134,7 +142,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 17,
+        id: 18,
         code: 'ewe-BJ',
         label: 'BJ/EWE',
         title: 'Benin Ewe',
@@ -142,7 +150,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 18,
+        id: 19,
         code: 'fon-BJ',
         label: 'BJ/FON',
         title: 'Benin Fon',
@@ -150,7 +158,7 @@ export const menu = {
         icon: '',
       },
       {
-        id: 19,
+        id: 20,
         code: 'ak-TW',
         label: 'AK/TW',
         title: 'Akan Twi',
