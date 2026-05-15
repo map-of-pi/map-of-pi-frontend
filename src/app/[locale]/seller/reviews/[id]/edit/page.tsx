@@ -106,9 +106,9 @@ export default function EditReviewPage({ params }: { params: { id: string } }) {
                     currentUser={currentUser}
                     replyToReviewId={reviewId}
                     userId={originalReview.review_receiver_id}
-                    initialRating={rating}
+                    initialRating={rating ?? undefined}
                     initialComment={originalReview.comment || ''}
-                    initialImage={originalReview.image || null}
+                    initialImage={originalReview.image || undefined}
                     isEditMode={true}
                     reviewId={reviewId}
                     setIsSaveEnabled={setIsSaveEnabled}
