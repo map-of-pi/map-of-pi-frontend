@@ -15,7 +15,7 @@ import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
 import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
-import { getOrders } from '@/services/orderApi';
+import { fetchSellerOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
 
 const MAX_LOGIN_RETRIES = 3;
@@ -264,7 +264,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     const fetchOrdersCount = async () => {
       try {
-        const { count } = await getOrders({
+        const { count } = await fetchSellerOrders({
           skip: 0,
           limit: 1,
           status: 'pending'

@@ -6,7 +6,12 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
-import { fetchOrderById, updateOrderStatus, updateOrderItemStatus, getOrders } from "@/services/orderApi";
+import { 
+  fetchOrderById, 
+  updateOrderStatus, 
+  updateOrderItemStatus, 
+  fetchSellerOrders 
+} from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
 import { 
   getFulfillmentMethodOptions, 
@@ -95,7 +100,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         setBuyerName(data.pi_username);
 
         // Background sync with BE (optional, to avoid drift)
-        const { count } = await getOrders({ skip: 0, limit: 1, status: 'pending' });
+        const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
         setOrdersCount(count);
       } else {
         logger.warn("Failed to update completed order on the server.");
@@ -189,7 +194,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.ITEM_LABEL') + ':'}
                   name="name"
                   type="text"
-                  value={item.seller_item_id.name}
+                  value={item.seller_item_id?.name || 'Unavailable item'}
                   disabled={true}
                 />
               </div>
@@ -213,7 +218,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                 <TextArea
                   label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL') + ':'}
                   name="description"
-                  value={item.seller_item_id.description}
+                  value={item.seller_item_id?.description || ''}
                   disabled={true}
                   styles={{ maxHeight: '100px' }}
                 />
@@ -222,13 +227,19 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                 <label className="block text-[17px] text-[#333333]">
                   {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO') + ':'}
                 </label>
-                <Image
-                  src={item.seller_item_id.image || ''}
-                  height={50}
-                  width={50}
-                  alt="image"
-                  className={'h-[100px] w-auto'}
-                />
+                {item.seller_item_id?.image ? (
+                  <Image
+                    src={item.seller_item_id.image}
+                    height={50}
+                    width={50}
+                    alt="image"
+                    className={'h-[100px] w-auto'}
+                  />
+                ) : (
+                  <div className="h-[100px] w-[100px] rounded-xl border-[2px] border-[#BDBDBD] flex items-center justify-center text-sm text-gray-500">
+                    No image
+                  </div>
+                )}
               </div>
             </div>
 
