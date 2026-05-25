@@ -217,7 +217,6 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
             setIsSaveEnabled={setIsSaveEnabled}
             replyToReviewId={reviews[currentIndex]?.reviewId}
             currentUser={currentUser}
-            setReload={setReload}
           />
         </div>
       )}
