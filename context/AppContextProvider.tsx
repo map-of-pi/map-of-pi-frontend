@@ -7,20 +7,24 @@ import {
   useState,
   SetStateAction,
   ReactNode,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
 import { IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
+import { fetchBuyerOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
+
+const MAX_LOGIN_RETRIES = 3;
+const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
 
 interface IAppContextProps {
   currentUser: IUser | null;
   setCurrentUser: React.Dispatch<SetStateAction<IUser | null>>;
-  registerUser: () => void;
-  autoLoginUser: () => void;
+  authenticateUser: () => void;
   userMembership: MembershipClassType;
   setUserMembership: React.Dispatch<SetStateAction<MembershipClassType>>;
   isSigningInUser: boolean;
@@ -36,13 +40,14 @@ interface IAppContextProps {
   setToggleNotification: React.Dispatch<SetStateAction<boolean>>;
   setNotificationsCount: React.Dispatch<SetStateAction<number>>;
   notificationsCount: number;
+  ordersCount: number;
+  setOrdersCount: React.Dispatch<SetStateAction<number>>;
 };
 
 const initialState: IAppContextProps = {
   currentUser: null,
   setCurrentUser: () => {},
-  registerUser: () => {},
-  autoLoginUser: () => {},
+  authenticateUser: () => {},
   isSigningInUser: false,
   userMembership: MembershipClassType.CASUAL,
   setUserMembership: () => {},
@@ -57,7 +62,19 @@ const initialState: IAppContextProps = {
   toggleNotification: false,
   setToggleNotification: () => {},
   setNotificationsCount: () => {},
-  notificationsCount: 0
+  notificationsCount: 0,
+  ordersCount: 0,
+  setOrdersCount: () => {},
+};
+
+const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// both HTTP 401 Unauthorized and HTTP 403 Forbidden errors are considered "hard fails" 
+// in the sense that the server is actively denying access
+const isHardFail = (err: any) => {
+  const code = err?.response?.status || err?.status;
+  return code === 401 || code === 403;
 };
 
 export const AppContext = createContext<IAppContextProps>(initialState);
@@ -77,21 +94,148 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [adsSupported, setAdsSupported] = useState(false);
   const [toggleNotification, setToggleNotification] = useState<boolean>(true);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
+
+  const piSdkLoaded = useRef(false);
+
+  const showAlert = (message: string) => {
+    setAlertMessage(message);
+    setTimeout(() => {
+      setAlertMessage(null); // Clear alert after 5 seconds
+    }, 5000);
+  };
+
+  /* Pi SDK helper functions */
+  const loadPiSdk = (): Promise<typeof window.Pi> => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = process.env.NEXT_PUBLIC_PI_SDK_URL || 'https://sdk.minepi.com/pi-sdk.js';
+      script.async = true;
+      script.onload = () => resolve(window.Pi);
+      script.onerror = () => reject(new Error('Failed to load Pi SDK'));
+      document.head.appendChild(script);
+    });
+  };
+
+  const ensurePiSdkLoaded = async () => {
+    if (piSdkLoaded.current) {
+      return window.Pi;
+    }
+    
+    const Pi = await loadPiSdk();
+    piSdkLoaded.current = true;
+
+    Pi.init({
+      version: '2.0',
+      sandbox: process.env.NODE_ENV === 'development'
+    });
+
+    return Pi;
+  };
+
+  /* Login helper functions */
+  const autoLoginProcess = async (): Promise<boolean> => {
+    try {
+      const res = await axiosClient.get("/users/me");
+      if (res.status === 200) {
+        setCurrentUser(res.data.user);
+        setUserMembership(res.data.membership_class);
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  };
+
+  const piSdkLoginProcess = async (): Promise<boolean> => {
+    try {
+      const Pi = await ensurePiSdkLoaded();
+      const pioneerAuth: AuthResult = await Pi.authenticate(
+        ["username", "payments", "wallet_address"],
+        onIncompletePaymentFound
+      );
+
+      // Send accessToken to backend
+      const res = await axiosClient.post(
+        "/users/authenticate",
+        {},
+        {
+          headers: { Authorization: `Bearer ${pioneerAuth.accessToken}` },
+        }
+      );
+
+      setAuthToken(res.data?.token);
+      setCurrentUser(res.data.user);
+      setUserMembership(res.data.membership_class);
+      return true;
+    } catch (error: any) {
+      if (isHardFail(error)) throw error; // 401/403 must break retry loop
+      return false; // soft failures become retry'able
+    }
+  };
+
+  const authenticateUser = async () => {
+    if (isSigningInUser) return;
+
+    setIsSigningInUser(true);
+
+    try {
+      // Process #1 : Attempt Auto-Login
+      const autoLoggedIn = await autoLoginProcess();
+      if (autoLoggedIn) {
+        logger.info("Auto-login successful.");
+        return;
+      }
+
+      // Process #2 : Fallback to Pi SDK login and registration
+      for (let attempt = 0; attempt < MAX_LOGIN_RETRIES; attempt++) {
+        try {
+          const sdkLoggedIn = await piSdkLoginProcess();
+          if (sdkLoggedIn) {
+            logger.info("Pi SDK login successful.");
+            return;
+          }
+        } catch (error: any) {
+          if (isHardFail(error)) {
+            logger.warn("401/403 Hard login failure. Stopping retries.");
+            throw error;
+          }
+          logger.warn(`Soft failure on attempt ${attempt + 1}:`, error);
+        }
+        
+        // Process #3. Continue retry logic for 'soft failures'
+        // exponential backoff + jitter
+        const backoff = BASE_DELAY_MS * Math.pow(3, attempt);
+        const jitter = Math.random() * 1000;
+        const delay = backoff + jitter;
+        logger.info(`Retrying login in ${Math.round(delay)}ms...`);
+        await sleep(delay);
+      }
+      // if we reach here, all attempts failed
+      logger.error("Max retries reached. Stopping retries.");
+      throw new Error("Login retries exhausted");
+    } finally {
+      setIsSigningInUser(false);
+    }
+  };
 
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
 
-    autoLoginUser();
-
+    if (currentUser) return;
+    
     // attempt to load and initialize Pi SDK in parallel
-    loadPiSdk()
+    ensurePiSdkLoaded()
       .then(Pi => {
-        Pi.init({ version: '2.0', sandbox: process.env.NODE_ENV === 'development' });
-        return Pi.nativeFeaturesList();
+        Pi.nativeFeaturesList().then((features: string | string[]) => {
+          setAdsSupported(features.includes("ad_network"));
+        })
       })
-      .then(features => setAdsSupported(features.includes("ad_network")))
       .catch(err => logger.error('Pi SDK load/ init error:', err));
-  }, []);
+
+    authenticateUser();
+  }, [currentUser]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -115,97 +259,32 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchNotificationsCount();
   }, [currentUser, reload]);
 
-  const showAlert = (message: string) => {
-    setAlertMessage(message);
-    setTimeout(() => {
-      setAlertMessage(null); // Clear alert after 5 seconds
-    }, 5000);
-  };
+  useEffect(() => {
+    if (!currentUser) return;
 
-  /* Register User via Pi SDK */
-  const registerUser = async () => {
-    logger.info('Starting user registration.');
-
-    if (typeof window !== 'undefined' && window.Pi?.initialized) {
+    const fetchOrdersCount = async () => {
       try {
-        setIsSigningInUser(true);
-        const pioneerAuth: AuthResult = await window.Pi.authenticate([
-          'username', 
-          'payments', 
-          'wallet_address'
-        ], onIncompletePaymentFound);
-
-        // Send accessToken to backend
-        const res = await axiosClient.post(
-          "/users/authenticate", 
-          {}, // empty body
-          {
-            headers: {
-              Authorization: `Bearer ${pioneerAuth.accessToken}`,
-            },
-          }
-        );
-
-        if (res.status === 200) {
-          setAuthToken(res.data?.token);
-          setCurrentUser(res.data.user);
-          setUserMembership(res.data.membership_class);
-          logger.info('User authenticated successfully.');
-        } else {
-          setCurrentUser(null);
-          logger.error('User authentication failed.');
-        }
+        const { count } = await fetchBuyerOrders({
+          skip: 0,
+          limit: 1,
+          status: 'pending'
+        });
+        setOrdersCount(count);
       } catch (error) {
-        logger.error('Error during user registration:', error);
-      } finally {
-        setTimeout(() => setIsSigningInUser(false), 2500);
+        logger.error('Failed to fetch orders count:', error);
+        setOrdersCount(0);
       }
-    } else {
-      logger.error('PI SDK failed to initialize.');
-    }
-  };
+    };
 
-  /* Attempt Auto Login (fallback to Pi auth) */
-  const autoLoginUser = async () => {
-    logger.info('Attempting to auto-login user.');
-    try {
-      setIsSigningInUser(true);
-      const res = await axiosClient.get('/users/me');
-
-      if (res.status === 200) {
-        logger.info('Auto-login successful.');
-        setCurrentUser(res.data.user);
-        setUserMembership(res.data.membership_class);
-      } else {
-        logger.warn('Auto-login failed.');
-        setCurrentUser(null);
-      }
-    } catch (error) {
-      logger.error('Auto login unresolved; attempting Pi SDK authentication:', error);
-      await registerUser();
-    } finally {
-      setTimeout(() => setIsSigningInUser(false), 2500);
-    }
-  };
-
-  const loadPiSdk = (): Promise<typeof window.Pi> => {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = 'https://sdk.minepi.com/pi-sdk.js';
-      script.async = true;
-      script.onload = () => resolve(window.Pi);
-      script.onerror = () => reject(new Error('Failed to load Pi SDK'));
-      document.head.appendChild(script);
-    });
-  };
+    fetchOrdersCount();
+  }, [currentUser, reload]);
 
   return (
     <AppContext.Provider 
       value={{ 
         currentUser, 
         setCurrentUser, 
-        registerUser, 
-        autoLoginUser, 
+        authenticateUser, 
         isSigningInUser, 
         userMembership,
         setUserMembership,
@@ -220,7 +299,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         toggleNotification,
         setToggleNotification,
         setNotificationsCount,
-        notificationsCount
+        notificationsCount,
+        ordersCount,
+        setOrdersCount,
       }}
     >
       {children}

@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Sɛ́n mɛɖesunɔ tɔn",
       "TERMS_OF_SERVICE": "Azɔwanú Sɛ́n lɛ"
     },
+    "WALLET_ADDRESS_LABEL": "Pi xwé ɖòxɔ dɔ",
+    "WALLET_ADDRESS_PLACEHOLDER": "Wlé Pi xwé ɖòxɔ dɔ wɛ",
     "FIND_ME_PREFERENCE_LABEL": "Kpɔn Mi Nujlo",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automatikou",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Zan tó wà do",
       "INCLUDE_INACTIVE_SELLERS": "Zan tó mɛ̀ wà do",
-      "INCLUDE_TEST_SELLERS": "Zan sì wɛ́n"
+      "INCLUDE_TEST_SELLERS": "Zan sì wɛ́n",
+      "INCLUDE_HOLIDAY_SELLERS": "Àsìwá Xwéɖeɖe"
     },
     "CONTACT_MAP_OF_PI": "Do xo sedo Map Of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Nusatɔ he to nus able-ble",
           "INACTIVE_SELLER": "Nǔsátɔ́ e ma ɖò azɔ̌ wà wɛ ǎ é le",
           "TEST_SELLER": "Tɛnkpɔn nusatɔ",
+          "HOLIDAY_SELLER": "Àsìwá Xwéɖeɖe",
           "RESTRICTED_SELLER": "Zan tò hùntɔ̀n"
         }
       },
@@ -141,7 +145,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Sa ɖo {expired_by_date} mɛ",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Wɛ dɔ gbè tò ɖo doxɔmɛ lè {spent_weeks} sɔ́nù wɛ wɛ́ lɛ"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kpɔ ɖo xóxó ná wá nɔ́ ɖè {remaining_weeks} wékè wɛ̀ lɛ̀ ɖò"
         }
       }
     },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Xo do sato gon",
       "SELLER_DETAILS_LABEL": "Nǔsatɔ́ sín xo",
       "SELLER_ADDRESS_POSITION_LABEL": "Adlɛsi alo noten he min mi no sa onu te",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Wɛ nú nɔ̀ à ɖòxɔ sù nú xwé ɖòxɔ dɔ lɛ",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Dɔ wá àsìwá na bɔ wɛ ɖe xwé ɖòxɔ dɔ yí",
       "LEAVE_A_REVIEW_MESSAGE": "Kan owe do ofi",
       "FACE_SELECTION_REVIEW_MESSAGE": "Sɔ́ nukúnmɛ e xlɛ́ lěe a mɔ nǔ jɛ nǔ e a nɔ wà xá nukɔntɔ́ élɔ́ é wú gbɔn é",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Mi wlan xó ɖevo lɛ dó fí",
@@ -194,7 +200,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wɛ ɖe wɛ̀ nɔ̀",
-      "ORDER_FAILED_MESSAGE": "Kàkà wɛ̀ ɖe wɛ̀ nɔ̀ tuntun"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Àyẹ̀wò náà kɔ́ sílẹ̀. Jọ̀wọ́, tún gbìmọ̀ ṣe lẹ́ẹ̀kansi kí o sì ríi dájú pé o ní o kere tán 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Kpondewu",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Kpɔ̀wé dɔ̀",
     "REPLY": "Xósin",
     "EDIT": "Sɛ̀n",
+    "COPY": "Kɔpí",
     "ADD_ITEM": "Gɔ́ nǔ ɖévo nu nǔ ɔ",
     "CHECKOUT": "Gbé wɛ gbà",
     "DELETE": "Súnsún",

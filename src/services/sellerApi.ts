@@ -18,7 +18,7 @@ export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string)
     };
     
     if (searchQuery) {
-      requestPayload.search_query = searchQuery;
+      requestPayload.search_query = searchQuery.trim();
     }
     
     const response = await axiosClient.post('/sellers/fetch', requestPayload);

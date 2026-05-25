@@ -15,7 +15,7 @@
     }
   },
   "SIDE_NAVIGATION": {
-    "VIEW_ORDERS_LABEL": "View Orders",
+    "VIEW_ORDERS_LABEL": "View Sent Orders",
     "USER_PREFERENCES_HEADER": "User Preferences",
     "PERSONALIZATION_SUBHEADER": "Personalization",
     "LANGUAGES": "Languages",
@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Privacy Policy",
       "TERMS_OF_SERVICE": "Terms of Service"
     },
+    "WALLET_ADDRESS_LABEL": "Pi Wallet Address",
+    "WALLET_ADDRESS_PLACEHOLDER": "Enter your Pi wallet address",
     "FIND_ME_PREFERENCE_LABEL": "FindMe Preference",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automatic",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Active sellers",
       "INCLUDE_INACTIVE_SELLERS": "Inactive sellers",
-      "INCLUDE_TEST_SELLERS": "Test sellers"
+      "INCLUDE_TEST_SELLERS": "Test sellers",
+      "INCLUDE_HOLIDAY_SELLERS": "Holiday sellers"
     },
     "CONTACT_MAP_OF_PI": "Contact Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Active seller",
           "INACTIVE_SELLER": "Inactive seller",
           "TEST_SELLER": "Test seller",
+          "HOLIDAY_SELLER": "Holiday seller",
           "RESTRICTED_SELLER": "Restricted seller"
         }
       },
@@ -127,7 +131,7 @@
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Selling duration in weeks",
         "SELLING_STATUS_OPTIONS": {
-          "ACTIVE": "Active", 
+          "ACTIVE": "Active",
           "EXPIRED": "Expired"
         },
         "STOCK_LEVEL_OPTIONS": {
@@ -137,11 +141,11 @@
           "MANY": "Many available",
           "MADE_TO_ORDER": "Made to order",
           "ONGOING_SERVICE": "Ongoing service",
-          "SOLD": "Sold"  
+          "SOLD": "Sold"
         },
         "SELLING_EXPIRATION_DATE": "Sell by {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Selling duration cannot be reduced below the {spent_weeks} weeks already spent"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Selling duration cannot be reduced below the {remaining_weeks} weeks remaining"
         }
       }
     },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Buy from Seller",
       "SELLER_DETAILS_LABEL": "Seller Details",
       "SELLER_ADDRESS_POSITION_LABEL": "Seller Address or Position",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Make payment to this wallet address",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Contact seller to request wallet address",
       "LEAVE_A_REVIEW_MESSAGE": "Leave a Review",
       "FACE_SELECTION_REVIEW_MESSAGE": "Select the face which shows how you feel about the above seller",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Enter additional comments here",
@@ -194,7 +200,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Order placed successfully",
-      "ORDER_FAILED_MESSAGE": "Failed to place new order"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Order failed to process. Please try again and ensure you have at least 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Reviews",
@@ -203,7 +209,7 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Reviews received by this pioneer",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "No reviews found for Pioneer {search_value}",
-        "NO_PIONEER_FOUND": "Pioneer {search_value} not found"  
+        "NO_PIONEER_FOUND": "Pioneer {search_value} not found"
       }
     },
     "EDIT_REVIEW": {
@@ -239,7 +245,7 @@
         "NOTIFICATION_TIME_LABEL": "Time of notification",
         "NOTIFICATION_STATUS": {
           "READ": "Clear",
-          "UNREAD": "Un-clear" 
+          "UNREAD": "Un-clear"
         }
       }
     }
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "View notifications",
     "REPLY": "Reply",
     "EDIT": "Edit",
+    "COPY": "Copy",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
     "DELETE": "Delete",

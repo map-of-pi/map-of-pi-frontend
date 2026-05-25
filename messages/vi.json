@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Chính sách bảo mật",
       "TERMS_OF_SERVICE": "Điều khoản dịch vụ"
     },
+    "WALLET_ADDRESS_LABEL": "Địa chỉ ví Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Nhập địa chỉ ví Pi của bạn",
     "FIND_ME_PREFERENCE_LABEL": "Tùy chọn FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Tự động",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Bao gồm người bán hoạt động",
       "INCLUDE_INACTIVE_SELLERS": "Bao gồm người bán không hoạt động",
-      "INCLUDE_TEST_SELLERS": "Bao gồm người bán thử nghiệm"
+      "INCLUDE_TEST_SELLERS": "Bao gồm người bán thử nghiệm",
+      "INCLUDE_HOLIDAY_SELLERS": "Người bán dịp lễ"
     },
     "CONTACT_MAP_OF_PI": "Liên hệ với Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Người bán hoạt động",
           "INACTIVE_SELLER": "Người bán không hoạt động",
           "TEST_SELLER": "Người bán thử nghiệm",
+          "HOLIDAY_SELLER": "Người bán dịp lễ",
           "RESTRICTED_SELLER": "Người bán bị hạn chế"
         }
       },
@@ -141,7 +145,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Bán trước {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "Thời gian bán không thể rút ngắn dưới {spent_weeks} tuần đã sử dụng"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần"
         }
       }
     },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Mua từ người bán",
       "SELLER_DETAILS_LABEL": "Thông tin người bán",
       "SELLER_ADDRESS_POSITION_LABEL": "Địa chỉ hoặc vị trí người bán",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Thực hiện thanh toán tới địa chỉ ví này",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Liên hệ người bán để yêu cầu địa chỉ ví",
       "LEAVE_A_REVIEW_MESSAGE": "Để lại đánh giá",
       "FACE_SELECTION_REVIEW_MESSAGE": "Chọn biểu cảm khuôn mặt để thể hiện cảm xúc của bạn về người bán trên",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Nhập thêm bình luận ở đây",
@@ -194,7 +200,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Đặt hàng thành công",
-      "ORDER_FAILED_MESSAGE": "Không thể đặt đơn hàng mới"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Đặt hàng không thành công. Vui lòng thử lại và đảm bảo bạn có ít nhất 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Đánh giá",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Xem thông báo",
     "REPLY": "Trả lời",
     "EDIT": "Chỉnh sửa",
+    "COPY": "Sao chép",
     "ADD_ITEM": "Thêm mục",
     "CHECKOUT": "Thanh toán",
     "DELETE": "Xóa",

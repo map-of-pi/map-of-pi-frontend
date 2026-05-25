@@ -25,6 +25,8 @@
       "PRIVACY_POLICY": "Política de Privacidad",
       "TERMS_OF_SERVICE": "Términos de Servicio"
     },
+    "WALLET_ADDRESS_LABEL": "Dirección de billetera Pi",
+    "WALLET_ADDRESS_PLACEHOLDER": "Introduce tu dirección de billetera Pi",
     "FIND_ME_PREFERENCE_LABEL": "Preferencia de FindMe",
     "FIND_ME_OPTIONS": {
       "PREFERRED_AUTO": "Automático",
@@ -35,7 +37,8 @@
     "SEARCH_FILTERS": {
       "INCLUDE_ACTIVE_SELLERS": "Vendedores activos",
       "INCLUDE_INACTIVE_SELLERS": "Vendedores inactivos",
-      "INCLUDE_TEST_SELLERS": "Vendedores de prueba"
+      "INCLUDE_TEST_SELLERS": "Vendedores de prueba",
+      "INCLUDE_HOLIDAY_SELLERS": "Vendedores festivos"
     },
     "CONTACT_MAP_OF_PI": "Contactar a Map of Pi",
     "VALIDATION": {
@@ -83,6 +86,7 @@
           "ACTIVE_SELLER": "Vendedor activo",
           "INACTIVE_SELLER": "Vendedor inactivo",
           "TEST_SELLER": "Vendedor de prueba",
+          "HOLIDAY_SELLER": "Vendedor festivo",
           "RESTRICTED_SELLER": "Vendedor restringido"
         }
       },
@@ -141,7 +145,7 @@
         },
         "SELLING_EXPIRATION_DATE": "Vender antes de {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_SPENT_WEEKS": "La duración de venta no puede reducirse por debajo de las {spent_weeks} semanas ya transcurridas"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "La duración de la venta no se puede reducir a menos de {remaining_weeks} semanas"
         }
       }
     },
@@ -172,6 +176,8 @@
       "BUY_FROM_SELLER_HEADER": "Comprar del Vendedor",
       "SELLER_DETAILS_LABEL": "Detalles del Vendedor",
       "SELLER_ADDRESS_POSITION_LABEL": "Dirección o Posición del Vendedor",
+      "MAKE_PAYMENT_TO_WALLET_ADDRESS_LABEL": "Realiza el pago a esta dirección de billetera",
+      "PAYMENT_TO_WALLET_NOT_PROVIDED_MESSAGE": "Contacta al vendedor para solicitar la dirección de la billetera",
       "LEAVE_A_REVIEW_MESSAGE": "Dejar una Reseña",
       "FACE_SELECTION_REVIEW_MESSAGE": "Selecciona la cara que muestra cómo te sientes acerca del vendedor anterior",
       "ADDITIONAL_COMMENTS_PLACEHOLDER": "Introduce comentarios adicionales aquí",
@@ -194,7 +200,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Pedido realizado con éxito",
-      "ORDER_FAILED_MESSAGE": "No se pudo realizar el nuevo pedido"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "No se pudo procesar el pedido. Por favor, inténtalo de nuevo y asegúrate de tener al menos 1 Mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Reseñas",
@@ -332,6 +338,7 @@
     "VIEW_NOTIFICATIONS": "Ver notificaciones",
     "REPLY": "Responder",
     "EDIT": "Editar",
+    "COPY": "Copiar",
     "ADD_ITEM": "Agregar artículo",
     "CHECKOUT": "Pagar",
     "DELETE": "Eliminar",

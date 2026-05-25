@@ -8,7 +8,7 @@ export const onIncompletePaymentFound = (payment: PaymentDTO) => {
   return axiosClient.post('/payments/incomplete', {payment}, config);
 }
 
-export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, error:any) => {
+export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, onFail:any) => {
   const onReadyForServerApproval = (paymentId: string) => {
     axiosClient.post('/payments/approve', {paymentId}, config);
   }
@@ -24,12 +24,24 @@ export const payWithPi = async (paymentData: PaymentDataType, onComplete:any, er
   }
 
   const onCancel = (paymentId: string) => {
-    return axiosClient.post('/payments/cancelled-payment', { paymentId }, config);
+    axiosClient.post('/payments/cancelled-payment', { paymentId }, config).then((res)=>{
+      onComplete(res.data);
+    }).catch((error) => {
+      logger.error('Error completing payment: ', error);
+      onFail(error);
+    });
+    
+    return 
   }
 
   const onError = (error: Error, paymentDTO?: PaymentDTO) => {
     if (paymentDTO) {
-      return axiosClient.post('/payments/error', { paymentDTO, error }, config);
+      return axiosClient.post('/payments/error', { paymentDTO, error }, config).then((res)=>{
+        onComplete(res.data);
+      }).catch((error) => {
+        logger.error('Error completing payment: ', error);
+        onFail(error);
+      });
     }
   }
 

@@ -21,6 +21,7 @@ export interface IUserSettings {
   image?: string; 
   findme?: string;
   trust_meter_rating: number;
+  wallet_address?: string | null;
   search_map_center?: {
     type: 'Point';
     coordinates: [number, number];
@@ -29,6 +30,7 @@ export interface IUserSettings {
     include_active_sellers: boolean | undefined;
     include_inactive_sellers: boolean | undefined;
     include_test_sellers: boolean | undefined;
+    include_holiday_sellers: boolean | undefined;
     include_trust_level_100: boolean | undefined;
     include_trust_level_80: boolean | undefined;
     include_trust_level_50: boolean | undefined;
@@ -37,7 +39,7 @@ export interface IUserSettings {
 };
 
 // Select specific fields from IUserSettings
-export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'email' | 'phone_number' | 'findme' | 'trust_meter_rating'>;
+export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'trust_meter_rating'>;
 
 // ========================
 // MEMBERSHIP MODELS
@@ -91,6 +93,8 @@ export const membershipBuyOptions: MembershipBuyOption[] = [
   { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
 ];
 
+export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
+
 // ========================
 // SELLER MODELS
 // ========================
@@ -134,10 +138,13 @@ export enum SellerType {
   active_seller = 'activeSeller', 
   inactive_seller = 'inactiveSeller', 
   test_seller = 'testSeller',
+  holiday_seller = 'holidaySeller'
 };
 
+export type PartialSeller = Pick<ISeller, 'seller_id' | 'name' | 'image' | 'seller_type' | 'sell_map_center' | 'isRestricted' | 'coordinates'>;
+
 // Combined interface representing a seller with selected user settings
-export interface ISellerWithSettings extends ISeller, PartialUserSettings {}
+export interface ISellerWithSettings extends PartialSeller, PartialUserSettings, PartialUserMembership {};
 
 export type SellerItem = {
   _id: string;
@@ -245,7 +252,7 @@ export interface PartialOrderType extends Pick<OrderType, '_id' | 'buyer_id' | '
 export interface OrderItemType {
   _id: string;
   order: string;
-  seller_item_id: SellerItem;
+  seller_item_id: SellerItem | null;
   quantity: number;
   subtotal: {$numberDecimal: number};
   status: OrderItemStatus;

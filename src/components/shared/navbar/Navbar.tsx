@@ -33,7 +33,8 @@ function Navbar() {
     alertMessage, 
     isSaveLoading, 
     userMembership, 
-    notificationsCount 
+    notificationsCount, 
+    ordersCount 
   } = useContext(AppContext);
 
   // check if the current page is the homepage
@@ -69,7 +70,7 @@ function Navbar() {
           <div className="text-center text-secondary text-[1.3rem] whitespace-nowrap flex-1">
             { headerLabel }
           </div>
-          <div className="flex-1">
+          <div className="flex-1 flex justify-end">
             <MembershipIcon category={userMembership} />
           </div>
         </div>
@@ -121,7 +122,7 @@ function Navbar() {
                       size={24}
                       className={`${isSigningInUser || isSaveLoading ? 'text-tertiary cursor-not-allowed' : 'text-secondary'}`}
                     />
-                    {notificationsCount > 0 && (
+                    {(notificationsCount > 0 || ordersCount > 0) && (
                       <span
                         className="
                           absolute

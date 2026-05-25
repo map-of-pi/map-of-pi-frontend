@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './sidebar.module.css';
 import clsx from 'clsx';
 
@@ -5,7 +7,6 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 
 import { useRef, useState, useContext, useEffect } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
@@ -13,7 +14,6 @@ import { ImSpinner2 } from 'react-icons/im';
 import { IoCheckmark, IoClose } from 'react-icons/io5';
 import { toast } from 'react-toastify';
 
-import MapCenter from '../map/MapCenter';
 import TrustMeter from '../Review/TrustMeter';
 import ToggleCollapse from '../Seller/ToggleCollapse';
 import InfoModel from '@/components/shared/About/Info/Info';
@@ -23,17 +23,30 @@ import { Button, OutlineBtn } from '@/components/shared/Forms/Buttons/Buttons';
 import {
   FileInput,
   Input,
-  Select
+  Select,
+  TextArea
 } from '@/components/shared/Forms/Inputs/Inputs';
 import { menu } from '@/constants/menu';
 import { IUserSettings } from '@/constants/types';
-import { createUserSettings, fetchUserSettings } from '@/services/userSettingsApi';
+import { usePathname, useRouter } from '@/navigation';
+import {
+  createUserSettings,
+  fetchUserSettings,
+} from '@/services/userSettingsApi';
 import { fetchToggle } from '@/services/toggleApi';
-import removeUrls from "@/utils/sanitize";
+import removeUrls from '@/utils/sanitize';
 import { getFindMeOptions } from '@/utils/translate';
 
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+
+import dynamic from 'next/dynamic';
+
+const MapCenter = dynamic(() => 
+  import('@/components/shared/map/MapCenter'), {
+    ssr: false
+  }
+);
 
 interface MenuItem {
   id: number;
@@ -60,18 +73,32 @@ function Sidebar(props: any) {
   const pathname = usePathname();
   const locale = useLocale();
   const router = useRouter();
+  const { ordersCount } = useContext(AppContext);
 
   const Filters = [
-    { target: 'include_active_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_ACTIVE_SELLERS') },
-    { target: 'include_inactive_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_INACTIVE_SELLERS') },
-    { target: 'include_test_sellers', title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_TEST_SELLERS') },
-    { target: 'include_trust_level_100', title: 'Trust-o-meter 100%'},
-    { target: 'include_trust_level_80', title: 'Trust-o-meter 80%'},
-    { target: 'include_trust_level_50', title: 'Trust-o-meter 50%'},
-    { target: 'include_trust_level_0', title: 'Trust-o-meter 0%'},
+    {
+      target: 'include_active_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_ACTIVE_SELLERS'),
+    },
+    {
+      target: 'include_inactive_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_INACTIVE_SELLERS'),
+    },
+    {
+      target: 'include_test_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_TEST_SELLERS'),
+    },
+    {
+      target: 'include_holiday_sellers',
+      title: t('SIDE_NAVIGATION.SEARCH_FILTERS.INCLUDE_HOLIDAY_SELLERS'),
+    },
+    { target: 'include_trust_level_100', title: 'Trust-o-meter 100%' },
+    { target: 'include_trust_level_80', title: 'Trust-o-meter 80%' },
+    { target: 'include_trust_level_50', title: 'Trust-o-meter 50%' },
+    { target: 'include_trust_level_0', title: 'Trust-o-meter 0%' },
   ];
 
-  const { currentUser, autoLoginUser, setReload, showAlert } = useContext(AppContext);
+  const { currentUser, authenticateUser, setReload, showAlert } = useContext(AppContext);
   const [dbUserSettings, setDbUserSettings] = useState<IUserSettings | null>(null);
   // Initialize state with appropriate types
   const [formData, setFormData] = useState<{
@@ -79,6 +106,7 @@ function Sidebar(props: any) {
     image: string;
     findme: string;
     trust_meter_rating: number;
+    wallet_address?: string;
   }>({
     user_name: '',
     image: '',
@@ -103,6 +131,7 @@ function Sidebar(props: any) {
     include_active_sellers: false,
     include_inactive_sellers: false,
     include_test_sellers: false,
+    include_holiday_sellers: false,
     include_trust_level_100: false,
     include_trust_level_80: false,
     include_trust_level_50: false,
@@ -114,7 +143,7 @@ function Sidebar(props: any) {
   useEffect(() => {
     if (!currentUser) {
       logger.info('User not logged in; attempting auto-login..');
-      autoLoginUser();
+      authenticateUser();
     }
 
     const getUserSettingsData = async () => {
@@ -153,6 +182,7 @@ function Sidebar(props: any) {
         image: dbUserSettings.image || '',
         findme: dbUserSettings.findme || getFindMeOptions(t)[0].value,
         trust_meter_rating: dbUserSettings.trust_meter_rating,
+        wallet_address: dbUserSettings.wallet_address ?? undefined,
       });
     }
   }, [dbUserSettings]);
@@ -217,11 +247,7 @@ function Sidebar(props: any) {
   const handleChildMenu = (title: any, code: string) => {
     logger.debug(`Child menu item selected: ${title}, Code: ${code}`);
     if (title === 'Languages') {
-      const slipPathname = pathname.split('/').slice(2);
-      slipPathname.unshift(code);
-      const retPathname = slipPathname.join('/');
-      retPathname.toString();
-      router.replace(`/${retPathname}`);
+      router.replace(pathname, { locale: code });
       props.setToggleDis(false);
     }
     if (title === 'Themes') {
@@ -298,13 +324,17 @@ function Sidebar(props: any) {
     // check if user is authenticated and form is valid
     if (!currentUser) {
       logger.warn('Form submission failed: User not authenticated.');
-      return toast.error(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+      return toast.error(
+        t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'),
+      );
     }
-
     const formDataToSend = new FormData();
     formDataToSend.append('user_name', removeUrls(formData.user_name));
     formDataToSend.append('findme', formData.findme);
 
+    if (formData.wallet_address) {
+      formDataToSend.append('wallet_address', removeUrls(formData.wallet_address));
+    }
     // add the image if it exists
     if (file) {
       formDataToSend.append('image', file);
@@ -312,7 +342,10 @@ function Sidebar(props: any) {
       formDataToSend.append('image', ''); // set to previous image url if no upload
     }
 
-    logger.info('User Settings form data:', Object.fromEntries(formDataToSend.entries()));
+    logger.info(
+      'User Settings form data:',
+      Object.fromEntries(formDataToSend.entries()),
+    );
 
     try {
       const data = await createUserSettings(formDataToSend);
@@ -320,20 +353,24 @@ function Sidebar(props: any) {
         setDbUserSettings(data.settings);
         setIsSaveEnabled(false);
         logger.info('User Settings saved successfully:', { data });
-        showAlert(t('SIDE_NAVIGATION.VALIDATION.SUCCESSFUL_PREFERENCES_SUBMISSION'));
+        showAlert(
+          t('SIDE_NAVIGATION.VALIDATION.SUCCESSFUL_PREFERENCES_SUBMISSION'),
+        );
         if (pathname === '/' || pathname === `/${locale}`) {
           setReload(true);
         }
       }
     } catch (error) {
       logger.error('Error saving user settings:', error);
-      showAlert(t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'));
+      showAlert(
+        t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'),
+      );
     }
   };
 
   const handleSearchFilter = async (target: string) => {
     if (!dbUserSettings?.search_filters) return;
-    
+
     const updatedFilters = {
       ...dbUserSettings.search_filters,
       [target]:
@@ -346,15 +383,15 @@ function Sidebar(props: any) {
     formDataToSend.append('search_filters', JSON.stringify(updatedFilters));
 
     try {
-      setFilterLoading({...filterLoading, [target]: true});
+      setFilterLoading({ ...filterLoading, [target]: true });
       const data = await createUserSettings(formDataToSend);
       if (data.settings) {
         setDbUserSettings(data.settings);
-        setFilterLoading({...filterLoading, [target]: false});
+        setFilterLoading({ ...filterLoading, [target]: false });
         logger.info('User Settings saved successfully:', { data });
       }
     } catch (error) {
-      setFilterLoading({...filterLoading, [target]: false});
+      setFilterLoading({ ...filterLoading, [target]: false });
       logger.error('Error saving user settings:', error);
       showAlert(
         t('SIDE_NAVIGATION.VALIDATION.UNSUCCESSFUL_PREFERENCES_SUBMISSION'),
@@ -367,8 +404,7 @@ function Sidebar(props: any) {
       <div className="w-full h-[calc(100vh-74px)] fixed bottom-0 bg-transparent right-0 z-[70]">
         <div
           className="absolute w-full h-full bg-[#82828284]"
-          onClick={() => props.setToggleDis(false)}>
-        </div>
+          onClick={() => props.setToggleDis(false)}></div>
         <div
           className={`absolute bg-white right-0 top-0 z-50 p-[1.2rem] h-[calc(100vh-74px)] sm:w-[350px] w-[250px] overflow-y-auto`}>
           {/* header title */}
@@ -393,29 +429,42 @@ function Sidebar(props: any) {
                 fontSize: '18px',
               }}
               onClick={() => {
-                router.push(`/${locale}/map-center?entryType=search`);
+                router.push('/map-center?entryType=search');
                 props.setToggleDis(false); // Close sidebar on click
               }}
             />
           </div>
-          
+
           {/* review order button */}
           {isOnlineShoppingEnabled && (
             <div className="mb-2">
               <Link href={`/${locale}/user/order-review`}>
-                <Button
-                  label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
-                  styles={{
-                    color: '#ffc153',
-                    width: '100%',
-                    padding: '10px',
-                    borderRadius: '10px',
-                    fontSize: '18px',
-                  }}
-                  onClick={() => {
-                    props.setToggleDis(false); // Close sidebar on click
-                  }}
-                />
+                <div className="relative">
+                  <Button
+                    label={t('SIDE_NAVIGATION.VIEW_ORDERS_LABEL')}
+                    styles={{
+                      color: '#ffc153',
+                      width: '100%',
+                      padding: '10px',
+                      borderRadius: '10px',
+                      fontSize: '18px',
+                    }}
+                    onClick={() => {
+                      props.setToggleDis(false);
+                    }}
+                  />
+                  {ordersCount > 0 && (
+                    <span
+                      className={clsx(
+                        'absolute top-[-6px] right-[-6px] bg-[#ff4d4f] text-[#f6c367] text-xs font-bold px-[8px] py-[2px] border-[2px] border-[#f6c367]',
+                        'rounded-full min-w-[22px] text-center',
+                        ordersCount > 99 && 'px-[4px] min-w-[28px]'
+                      )}
+                    >
+                      {ordersCount > 99 ? '99+' : ordersCount}
+                    </span>
+                  )}
+                </div>
               </Link>
             </div>
           )}
@@ -529,28 +578,27 @@ function Sidebar(props: any) {
               />
             </Link>
 
-            {/* THIS IS THE THE SEARCH FILTERS */}
+            {/* THIS IS THE SEARCH FILTERS */}
             <div className="flex flex-col justify-items-center text-center mx-auto gap-2 mt-4">
-              <ToggleCollapse header={t('SIDE_NAVIGATION.SEARCH_FILTERS_SUBHEADER')}>
+              <ToggleCollapse
+                header={t('SIDE_NAVIGATION.SEARCH_FILTERS_SUBHEADER')}>
                 <div className="h-[110px] overflow-y-scroll overflow-hidden">
                   {Filters.map((filter, index) => (
                     <div
                       key={index}
                       className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
                       onClick={() => handleSearchFilter(filter.target)}>
-                      {
-                        filterLoading[filter.target as keyof typeof filterLoading] ? (
-                          <ImSpinner2 className="animate-spin" />
-                        ) : (                       
-                        dbUserSettings?.search_filters?.[
+                      {filterLoading[
+                        filter.target as keyof typeof filterLoading
+                      ] ? (
+                        <ImSpinner2 className="animate-spin" />
+                      ) : dbUserSettings?.search_filters?.[
                           filter.target as keyof IUserSettings['search_filters']
-                          ] ? (
-                          <IoCheckmark />
-                          ) : (
-                          <IoClose />
-                          )
-                        )
-                      }
+                        ] ? (
+                        <IoCheckmark />
+                      ) : (
+                        <IoClose />
+                      )}
                       {filter.title}
                     </div>
                   ))}
@@ -567,6 +615,26 @@ function Sidebar(props: any) {
                     handleAddImage={handleAddImage}
                   />
                 </div>
+                <TextArea
+                  label={t('SIDE_NAVIGATION.WALLET_ADDRESS_LABEL')}
+                  placeholder={t('SIDE_NAVIGATION.WALLET_ADDRESS_PLACEHOLDER')}
+                  name="wallet_address"
+                  style={{
+                    width: '100%',
+                    height: '120px',
+                    padding: '12px',
+                    borderRadius: '12px',
+                    fontSize: '16px',
+                    fontFamily: 'monospace',
+                    textAlign: 'left',
+                    lineHeight: '1.6',
+                    wordBreak: 'break-all',
+                    overflowWrap: 'break-word',
+                    resize: 'none',
+                  }}
+                  value={formData.wallet_address || ''}
+                  onChange={handleChange}
+                />
 
                 <Select
                   label={t('SIDE_NAVIGATION.FIND_ME_PREFERENCE_LABEL')}

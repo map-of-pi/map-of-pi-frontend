@@ -22,7 +22,7 @@ export const dummyList: MembershipOption[] = [
   {
     value: MembershipClassType.GREEN,
     mappi_allowance: 50,
-    cost: 1.5,
+    cost: 2,
     duration: 4,
   },
   {
