@@ -21,6 +21,8 @@ const fetchSellerCoordinates = async (
   try {
     const sellersData = await fetchSellers(bounds, searchQuery);
 
+    if (!sellersData) return []
+
     // Map the seller data to include coordinates in the desired format
     const sellersWithCoordinates = sellersData?.map((seller: any) => {
       const [lng, lat] = seller.sell_map_center.coordinates;
