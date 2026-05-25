@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React, { useEffect, useState, useCallback, useContext, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import L, { LatLngExpression, LatLngBounds, LatLngTuple } from 'leaflet';
-import _ from 'lodash';
 
 import { ISeller, ISellerWithSettings, SellerType } from '@/constants/types';
 import { fetchSellers } from '@/services/sellerApi';
@@ -12,6 +11,21 @@ import MapMarkerPopup from './MapMarkerPopup';
 
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+
+const debounce = <Args extends unknown[]>(
+  callback: (...args: Args) => void,
+  delay: number
+) => {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  return (...args: Args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => callback(...args), delay);
+  };
+};
 
 // Function to fetch seller coordinates based on bounds and optional search query
 const fetchSellerCoordinates = async (
@@ -285,7 +299,7 @@ const Map = ({
 
   // Debounced function to handle map interactions
   const debouncedHandleMapInteraction = useCallback(
-    _.debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
+    debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
       handleMapInteraction(bounds, mapInstance);
       saveMapState();
     }, 500),
