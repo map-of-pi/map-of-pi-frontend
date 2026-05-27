@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState, useCallback, useContext, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import L, { LatLngExpression, LatLngBounds, LatLngTuple } from 'leaflet';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { ISeller, ISellerWithSettings, SellerType } from '@/constants/types';
 import { fetchSellers } from '@/services/sellerApi';
@@ -285,7 +285,7 @@ const Map = ({
 
   // Debounced function to handle map interactions
   const debouncedHandleMapInteraction = useCallback(
-    _.debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
+    debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
       handleMapInteraction(bounds, mapInstance);
       saveMapState();
     }, 500),
