@@ -6,16 +6,16 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
-import { 
-  fetchOrderById, 
-  updateOrderStatus, 
-  updateOrderItemStatus, 
-  fetchSellerOrders 
+import {
+  fetchOrderById,
+  updateOrderStatus,
+  updateOrderItemStatus,
+  fetchSellerOrders
 } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
-import { 
-  getFulfillmentMethodOptions, 
-  translateSellerCategory 
+import {
+  getFulfillmentMethodOptions,
+  translateSellerCategory
 } from "@/utils/translate";
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
@@ -23,7 +23,7 @@ import logger from '../../../../../../logger.config.mjs';
 export default function OrderItemPage({ params, searchParams }: { params: { id: string }, searchParams: { seller_name: string, seller_type: string } }) {
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
-  
+
   const locale = useLocale();
   const t = useTranslations();
   const { setOrdersCount } = useContext(AppContext);
@@ -35,29 +35,34 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [currentOrder, setCurrentOrder] = useState<PartialOrderType | null>(null);
   const [orderItems, setOrderItems] = useState<OrderItemType[]>([]);
   const [buyerName, setBuyerName] = useState<string>('');
+  const [buyerWalletAddress, setBuyerWalletAddress] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [copied, setCopied] = useState(false);
+  const canCopyWallet = Boolean(buyerWalletAddress);
 
   useEffect(() => {
-    const getOrder= async (id: string) => {
+    const getOrder = async (id: string) => {
       try {
         const data = await fetchOrderById(id);
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
           setBuyerName(data.pi_username);
+          setBuyerWalletAddress(data.buyer_wallet_address || '');
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
           setBuyerName('');
+          setBuyerWalletAddress('');
         }
       } catch (error) {
         logger.error('Error fetching order item data:', error);
       }
     };
-    
+
     getOrder(orderId);
   }, [orderId]);
-  
+
   const handleFulfillment = async (itemId: string, status: OrderItemStatus) => {
     try {
       logger.info(`Updating order item status to ${status} with id: ${itemId}`);
@@ -84,7 +89,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
     // Optimistic local update
     setIsCompleted(true);
-    
+
     // If the previous status was Pending and now it's Completed, decrement the counter
     if (prev.status === OrderStatusType.Pending && status === OrderStatusType.Completed) {
       setOrdersCount((c) => Math.max(0, c - 1)); // optimistic badge update
@@ -98,6 +103,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         setCurrentOrder(data.order);
         setOrderItems(data.orderItems);
         setBuyerName(data.pi_username);
+        setBuyerWalletAddress(data.buyer_wallet_address || '');
 
         // Background sync with BE (optional, to avoid drift)
         const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
@@ -110,6 +116,18 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
     }
     catch (error) {
       logger.error(`Error updating order status to ${status}:`, error);
+    }
+  };
+
+  const handleCopyWallet = async () => {
+    if (!buyerWalletAddress) return;
+
+    try {
+      await navigator.clipboard.writeText(buyerWalletAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    } catch (error) {
+      logger.error('Error copying buyer wallet address:', error);
     }
   };
 
@@ -144,6 +162,37 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                 value={buyerName}
                 disabled={true}
               />
+
+              <div className="mt-3">
+                <label className="block text-[17px] text-[#333333] mb-1">
+                  Buyer wallet address
+                </label>
+
+                <div
+                  role={canCopyWallet ? "button" : undefined}
+                  tabIndex={canCopyWallet ? 0 : -1}
+                  onClick={canCopyWallet ? handleCopyWallet : undefined}
+                  onKeyDown={(e) => {
+                    if (!canCopyWallet) return;
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCopyWallet();
+                    }
+                  }}
+                  className={`p-[10px] rounded-xl border-[#BDBDBD] border-[2px] w-full ${canCopyWallet ? 'cursor-pointer' : 'cursor-default opacity-60'
+                    }`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-[#333333] break-all">
+                      {buyerWalletAddress || '-'}
+                    </span>
+
+                    <span className="text-[13px] text-[#1d724b] whitespace-nowrap">
+                      {!canCopyWallet ? 'No wallet address' : copied ? 'Copied!' : 'Tap to copy'}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="flex-auto w-32">
@@ -179,12 +228,11 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         {t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDERED_ITEMS_SUBHEADER')}
       </h2>
       <div className="overflow-x-auto p-2 mb-5 mt-3 flex gap-x-5">
-        {orderItems && orderItems.length>0 && orderItems.map((item, index)=>(<div
+        {orderItems && orderItems.length > 0 && orderItems.map((item, index) => (<div
           data-id={item._id}
-          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 ${
-            item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ? 
-            'bg-yellow-100' : ''
-          }`}
+          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
+              'bg-yellow-100' : ''
+            }`}
           key={index}
         >
           <div className="p-3">
@@ -281,7 +329,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   color: '#ffc153',
                   width: '100%',
                 }}
-                disabled={item.status===OrderItemStatus.Fulfilled || item.status===OrderItemStatus.Refunded}
+                disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
                 onClick={() => handleFulfillment(item._id, OrderItemStatus.Fulfilled)}
               />
             </div>
@@ -317,9 +365,9 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
               color: '#ffc153',
               height: '40px',
               padding: '15px 20px',
-              width:'100%'
+              width: '100%'
             }}
-            onClick={()=>handleCompleted(OrderStatusType.Completed)}
+            onClick={() => handleCompleted(OrderStatusType.Completed)}
           />
 
           <Button
@@ -328,7 +376,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
               color: '#ffc153',
               height: '40px',
               padding: '15px 20px',
-              width:'100%'
+              width: '100%'
             }}
           />
         </div>
