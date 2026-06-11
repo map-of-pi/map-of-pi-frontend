@@ -13,6 +13,11 @@ import MapMarkerPopup from './MapMarkerPopup';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 
+const WORLD_BOUNDS = L.latLngBounds(
+  L.latLng(-85.051129, -180), // SW corner
+  L.latLng(85.051129, 180)    // NE corner
+);
+
 // Function to fetch seller coordinates based on bounds and optional search query
 const fetchSellerCoordinates = async (
   bounds: L.LatLngBounds,
@@ -20,6 +25,8 @@ const fetchSellerCoordinates = async (
 ): Promise<ISellerWithSettings[]> => {
   try {
     const sellersData = await fetchSellers(bounds, searchQuery);
+
+    if (!sellersData) return [];
 
     // Map the seller data to include coordinates in the desired format
     const sellersWithCoordinates = sellersData?.map((seller: any) => {
@@ -372,15 +379,17 @@ const Map = ({
         </div>
         ) : (
         <MapContainer
-          center={center ? center : [0,0]}
+          center={center ? center : [0, 0]}
           zoom={center ? zoom : 2}
           zoomControl={false}
           minZoom={2}
           maxZoom={18}
+          maxBounds={WORLD_BOUNDS}
+          maxBoundsViscosity={0.5}      // 0.5 = rebound on map slide past the bounds
           whenReady={
             ((mapInstance: L.Map) => {
               mapRef.current = mapInstance;
-            }) as unknown as () => void // utilize Type assertion
+            }) as unknown as () => void
           }
           className="w-full flex-1 fixed bottom-0 h-[calc(100vh-76.19px)] left-0 right-0"
         >
