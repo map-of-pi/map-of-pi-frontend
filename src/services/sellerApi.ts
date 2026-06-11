@@ -5,8 +5,6 @@ import logger from '../../logger.config.mjs';
 // Fetch all sellers or sellers within bounds and/ or matching search criteria
 export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string) => {
   try {
-    // logger.debug('Fetching sellers associated with bounds and search query:', { bounds, searchQuery });
-    
     // Prepare the request payload with bounds
     const requestPayload: any = {
       bounds: {
@@ -22,15 +20,17 @@ export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string)
     }
     
     const response = await axiosClient.post('/sellers/fetch', requestPayload);
-      logger.info(`seller loaded successful with Status ${response.status}`, {
-        data: response.data
-      });
     
-    if (response.status === 200 && response.data.lenth > 0) {
+    if (response.status === 200) {
       return response.data;
-    } else {
-      return null;
+    } 
+
+    if (response.status === 204) {
+      return [];
     }
+      
+    return null;
+
   } catch (error) {
     throw new Error('Failed to fetch sellers. Please try again later.');
   }
@@ -59,6 +59,7 @@ export const fetchSellerRegistration = async () => {
       return null;
     }
   } catch (error) {
+    logger.error('Failed to fetch seller registration:', error);
     throw new Error('Failed to fetch seller registration. Please try again later.');
   }
 };
@@ -77,6 +78,7 @@ export const registerSeller = async (formData: FormData) => {
       return null;
     }
   } catch (error) {
+    logger.error('Failed to register seller:', error);
     throw new Error('Failed to register seller. Please try again later.');
   }
 };
@@ -108,6 +110,7 @@ export const addOrUpdateSellerItem = async (formData: FormData) => {
       return null;
     }
   } catch (error) {
+    logger.error('Failed to add or update seller item:', error);
     throw new Error('Failed to add or update seller item. Please try again later.');
   }
 };
@@ -122,6 +125,7 @@ export const deleteSellerItem = async (itemId: string) => {
       return null;
     }
   } catch (error) {
+    logger.error('Failed to delete seller item:', error);
     throw new Error('Failed to delete seller item. Please try again later.');
   }
 };

@@ -13,6 +13,11 @@ import MapMarkerPopup from './MapMarkerPopup';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 
+const WORLD_BOUNDS = L.latLngBounds(
+  L.latLng(-85.051129, -180), // SW corner
+  L.latLng(85.051129, 180)    // NE corner
+);
+
 // Function to fetch seller coordinates based on bounds and optional search query
 const fetchSellerCoordinates = async (
   bounds: L.LatLngBounds,
@@ -21,7 +26,7 @@ const fetchSellerCoordinates = async (
   try {
     const sellersData = await fetchSellers(bounds, searchQuery);
 
-    if (!sellersData) return []
+    if (!sellersData) return [];
 
     // Map the seller data to include coordinates in the desired format
     const sellersWithCoordinates = sellersData?.map((seller: any) => {
@@ -50,11 +55,6 @@ const removeDuplicates = (sellers: ISellerWithSettings[]): ISellerWithSettings[]
   });
   return Object.values(uniqueSellers);
 };
-
-const WORLD_BOUNDS = L.latLngBounds(
-  L.latLng(-85.051129, -180), // SW corner
-  L.latLng(85.051129, 180)    // NE corner
-);
 
 const Map = ({
   center,
