@@ -8,7 +8,8 @@ import {
   SetStateAction,
   ReactNode,
   useEffect,
-  useRef
+  useRef,
+  useCallback
 } from 'react';
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
@@ -16,6 +17,7 @@ import { AuthResult } from '@/constants/pi';
 import { IMembership, IUser, MembershipClassType } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import logger from '../logger.config.mjs';
+import { fetchMembership } from '@/services/membershipApi';
 
 const MAX_LOGIN_RETRIES = 3;
 const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
@@ -39,6 +41,7 @@ interface IAppContextProps {
   setToggleNotification: React.Dispatch<SetStateAction<boolean>>;
   setNotificationsCount: React.Dispatch<SetStateAction<number>>;
   notificationsCount: number;
+  refreshUserMembership: () => Promise<void>;
 };
 
 const initialState: IAppContextProps = {
@@ -59,7 +62,8 @@ const initialState: IAppContextProps = {
   toggleNotification: false,
   setToggleNotification: () => {},
   setNotificationsCount: () => {},
-  notificationsCount: 0
+  notificationsCount: 0,
+  refreshUserMembership: () => Promise.resolve()
 };
 
 const sleep = (ms: number) =>
@@ -214,6 +218,11 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     }
   };
 
+  const refreshUserMembership = useCallback(async () => {
+    const membership = await fetchMembership();
+    setUserMembership(membership);
+  }, []);
+
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
 
@@ -230,6 +239,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
 
     authenticateUser();
   }, [currentUser]);
+
+  useEffect(() => {
+    refreshUserMembership();
+  }, [refreshUserMembership]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -273,7 +286,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         toggleNotification,
         setToggleNotification,
         setNotificationsCount,
-        notificationsCount
+        notificationsCount,
+        refreshUserMembership
       }}
     >
       {children}
