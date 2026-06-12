@@ -1,17 +1,16 @@
 'use client';
 import { useTranslations, useLocale } from 'next-intl';
 import { useContext, useState } from 'react';
-import EmojiPicker from '@/components/shared/Review/emojipicker';
-import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
-import Skeleton from '@/components/skeleton/skeleton';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
+import EmojiPicker from '@/components/shared/Review/emojipicker';
+import { ReviewCard } from '@/components/shared/Review/ReviewCard';
+import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
+import Skeleton from '@/components/skeleton/skeleton';
+import { IReviewOutput, ReviewInt } from '@/constants/types';
+import { processReviews, useCursorInfiniteScroll } from '@/hooks/useInfiniteReviews';
 import { fetchReviews } from '@/services/reviewsApi';
 import { AppContext } from '../../../../../../context/AppContextProvider';
-import { processReviews, useCursorInfiniteScroll } from '@/hooks/useInfiniteReviews';
-import { ReviewCard } from '@/components/shared/Review/ReviewCard';
-import { IReviewOutput, ReviewInt } from '@/constants/types';
-import logger from '../../../../../../logger.config.mjs';
 
 interface SellerReviewsProps {
   params: { id: string };
@@ -78,7 +77,6 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     initialLoading: initialLoadingReceived,
     hasMore: hasMoreReceived,
     sentinelRef: receivedObserverRef,
-    reset: resetReceived,
   } = useCursorInfiniteScroll<IReviewOutput, ReviewInt>({
     fetchPage: async (cursor) => {
       const data = await fetchReviews(
