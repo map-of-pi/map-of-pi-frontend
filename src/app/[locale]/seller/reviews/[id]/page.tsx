@@ -1,14 +1,12 @@
 'use client';
 import { useTranslations, useLocale } from 'next-intl';
-import { useEffect, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
 import { fetchReviews } from '@/services/reviewsApi';
-import { fetchUserSettings } from '@/services/userSettingsApi';
-import { checkAndAutoLoginUser } from '@/utils/auth';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import { processReviews, useCursorInfiniteScroll } from '@/hooks/useInfiniteReviews';
 import { ReviewCard } from '@/components/shared/Review/ReviewCard';
@@ -23,9 +21,8 @@ interface SellerReviewsProps {
 function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const { currentUser, authenticateUser } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
 
-  const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -34,14 +31,6 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const [displayName, setDisplayName] = useState(searchParams.user_name ?? '');
 
   const [refreshKey, setRefreshKey] = useState(0);
-
-  useEffect(() => {
-    checkAndAutoLoginUser(currentUser, authenticateUser);
-
-    fetchUserSettings()
-      .then((settings) => { if (settings?.image) setUserFallbackImage(settings.image); })
-      .catch((err) => logger.warn('Could not fetch fallback user image', err));
-  }, [currentUser]);
 
   const triggerRefresh = () => {
     setRefreshKey(prev => prev + 1);
@@ -165,7 +154,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       {/* Reviews Given */}
       <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
         {initialLoadingGiven ? <Skeleton type="seller_review" /> : givenReviews.map((review) => (
-          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} userFallbackImage={userFallbackImage} />
+          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} />
         ))}
 
         {hasMoreGiven && !loadingGiven && (
@@ -178,7 +167,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       {/* Reviews Received */}
       <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')} open>
         {initialLoadingReceived ? <Skeleton type="seller_review" /> : receivedReviews.map((review) => (
-          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} userFallbackImage={userFallbackImage} />
+          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} />
         ))}
 
         {hasMoreReceived && !loadingReceived && (
