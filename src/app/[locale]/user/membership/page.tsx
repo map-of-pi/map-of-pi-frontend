@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
-import { Input } from "@/components/shared/Forms/Inputs/Inputs";
+import { Input, Select } from "@/components/shared/Forms/Inputs/Inputs";
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
 import { dummyList } from "@/constants/mock"
@@ -14,14 +14,15 @@ import {
   membershipBuyOptions, 
   MembershipBuyType,
   PaymentDataType, 
-  PaymentType 
+  PaymentType, 
+  IVoucher
 } from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
 import { translatePurchaseOptions, translateSellerCategory } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
-import { redeemVoucher, verifyVoucher } from "@/services/voucherApi";
+import { fetchUserVouchers, redeemVoucher, verifyVoucher } from "@/services/voucherApi";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
@@ -32,6 +33,7 @@ export default function MembershipPage() {
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
   const [verifiedVoucher, setVerifiedVoucher] = useState<{voucherId: string, membershipClass: MembershipClassType} | null>(null);
   const [verifiedMembership, setVerifiedMembership] = useState<MembershipOption | null>(null);
+  const [availableVouchers, setAvailableVouchers] = useState<IVoucher[]>([]);
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -51,6 +53,24 @@ export default function MembershipPage() {
     };
 
     loadMembershipList();
+  }, []);
+
+  useEffect(() => {
+    const getUserVouchers = async () => { 
+      try {
+        const res = await fetchUserVouchers();
+        if (!res.success && res.error) {
+          showAlert(res?.error)
+        }
+
+        setAvailableVouchers(res.vouchers || []);
+      } catch (error) {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    getUserVouchers();
   }, []);
 
   const loadMembership = async () => { 
@@ -224,16 +244,25 @@ export default function MembershipPage() {
           ))}
           {selectedMethod === MembershipBuyType.VOUCHER && (
             <>
-            <div className="mb-4">
-              <Input
-                label={""}
-                placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
-                type="text"
-                value={voucherInput}
-                name="voucherCode"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setVoucherInput(e.target.value)}
+            {availableVouchers.length > 0 ? (
+              <Select
+                label={'Available vouchers'}
+                name="voucherSelector"
+                value={availableVouchers[0]}
+                onChange={verifyVoucher}
+                options={availableVouchers}
               />
-            </div>
+            ) : (
+              <Input
+                label={'Vouchers'}
+                name="voucherSelector"
+                value={availableVouchers[0]}
+                style={{
+                  backgroundColor: '#d0d0d0',
+                  cursor: 'not-allowed',
+                }}
+              />
+            )}
 
             {verifiedMembership && <div
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"

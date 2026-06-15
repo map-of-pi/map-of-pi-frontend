@@ -95,6 +95,15 @@ export const membershipBuyOptions: MembershipBuyOption[] = [
 
 export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
 
+export interface IVoucher {
+  _id?: string;
+  voucher_code: string;
+  membership_class: MembershipClassType;
+  pi_uid: string | null;       // null = open/developer voucher (e.g. 1stOnlineShop)
+  expiry_date: Date | null;    // null = no expiry
+  redeemed_at: Date | null;    // set to Date.now() on redemption
+};
+
 // ========================
 // SELLER MODELS
 // ========================
