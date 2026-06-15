@@ -326,8 +326,12 @@ export const ShopItem: React.FC<{
     // Validate: can't reduce duration below remaining weeks
     const remainingWeeks = getRemainingWeeks(existingItem);
     const reducedDuration = existingItem.duration - formData.duration;
+    const isExpired =
+      !!existingItem.expired_by &&
+      new Date(existingItem.expired_by) < new Date();
 
-    if (reducedDuration > remainingWeeks) {
+    // Reduction-below-remaining-weeks check only applies to ACTIVE listings.
+    if (!isExpired && reducedDuration > remainingWeeks) {
       setDialogueMessage(
         t(
           'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS',
@@ -337,7 +341,7 @@ export const ShopItem: React.FC<{
       setShowDialog(true);
       return;
     }
-    
+
     if (formData.duration < 1) {
       setDialogueMessage(
         t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.DURATION_MINIMUM')
