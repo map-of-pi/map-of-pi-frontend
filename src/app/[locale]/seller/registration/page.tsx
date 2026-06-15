@@ -11,7 +11,7 @@ import {
   TextArea,
   Input,
   Select,
-  TelephoneInput
+  TelephoneInput,
 } from '@/components/shared/Forms/Inputs/Inputs';
 import ConfirmDialog from '@/components/shared/confirm';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
@@ -25,10 +25,10 @@ import { fetchSellerRegistration, registerSeller } from '@/services/sellerApi';
 import { fetchUserSettings } from '@/services/userSettingsApi';
 import { fetchToggle } from '@/services/toggleApi';
 import { checkAndAutoLoginUser } from '@/utils/auth';
-import { 
-  translateSellerCategory, 
+import {
+  translateSellerCategory,
   getFulfillmentMethodOptions,
-  getSellerCategoryOptions 
+  getSellerCategoryOptions,
 } from '@/utils/translate';
 import removeUrls from '../../../../utils/sanitize';
 
@@ -43,7 +43,8 @@ const SellerRegistrationForm = () => {
   const t = useTranslations();
   const placeholderSeller = itemData.seller;
 
-  const { currentUser, authenticateUser, showAlert, userMembership } = useContext(AppContext);
+  const { currentUser, authenticateUser, showAlert, userMembership } =
+    useContext(AppContext);
 
   type IFormData = {
     sellerName: string;
@@ -78,14 +79,14 @@ const SellerRegistrationForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>(
-    dbSeller?.image || '',
+    dbSeller?.image || dbUserSettings?.image || '',
   );
   const [isFormValid, setIsFormValid] = useState(false);
   const [isSaveEnabled, setIsSaveEnabled] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isOnlineShoppingEnabled, setOnlineShoppingEnabled] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
-  
+
   // Fetch seller data and user settings on component mount
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
@@ -147,8 +148,9 @@ const SellerRegistrationForm = () => {
         email: dbUserSettings?.email || '',
         phone_number: dbUserSettings?.phone_number || '',
         image: dbSeller.image || '',
-        fulfillment_method: dbSeller.fulfillment_method || FulfillmentType.CollectionByBuyer,
-        fulfillment_description: dbSeller.fulfillment_description || ''
+        fulfillment_method:
+          dbSeller.fulfillment_method || FulfillmentType.CollectionByBuyer,
+        fulfillment_description: dbSeller.fulfillment_description || '',
       });
     } else {
       setFormData({
@@ -160,7 +162,7 @@ const SellerRegistrationForm = () => {
         phone_number: dbUserSettings?.phone_number || '',
         image: '',
         fulfillment_method: FulfillmentType.CollectionByBuyer,
-        fulfillment_description: ''
+        fulfillment_description: '',
       });
     }
   }, [dbSeller, dbUserSettings]);
@@ -184,18 +186,20 @@ const SellerRegistrationForm = () => {
     };
   }, [file]);
 
-  // set the preview image if dbSeller changes
+  // set preview image from seller or fallback to user preferences
   useEffect(() => {
     if (dbSeller?.image) {
       setPreviewImage(dbSeller.image);
+    } else if (dbUserSettings?.image) {
+      setPreviewImage(dbUserSettings.image);
     }
-  }, [dbSeller]);
+  }, [dbSeller, dbUserSettings]);
 
   const handleChange = (
     e:
       | React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
       | { name: string; value: string },
   ) => {
     // handle such scenarios where the event might not have the typical e.target structure i.e., PhoneInput.
@@ -242,7 +246,9 @@ const SellerRegistrationForm = () => {
     // Check if user is authenticated and form is valid
     if (!currentUser) {
       logger.warn('Form submission failed: User not authenticated.');
-      showAlert(t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'));
+      showAlert(
+        t('SHARED.VALIDATION.SUBMISSION_FAILED_USER_NOT_AUTHENTICATED'),
+      );
       return;
     }
 
@@ -253,16 +259,26 @@ const SellerRegistrationForm = () => {
     const formDataToSend = new FormData();
     formDataToSend.append('name', removeUrls(formData.sellerName));
     formDataToSend.append('seller_type', formData.sellerType);
-    formDataToSend.append('description', removeUrls(formData.sellerDescription));
+    formDataToSend.append(
+      'description',
+      removeUrls(formData.sellerDescription),
+    );
     formDataToSend.append('address', removeUrls(formData.sellerAddress));
     formDataToSend.append('email', formData.email ?? '');
-    formDataToSend.append('phone_number', formData.phone_number?.toString() ?? '');
+    formDataToSend.append(
+      'phone_number',
+      formData.phone_number?.toString() ?? '',
+    );
     formDataToSend.append('fulfillment_method', formData.fulfillment_method);
-    formDataToSend.append('fulfillment_description', removeUrls(formData.fulfillment_description));
+    formDataToSend.append(
+      'fulfillment_description',
+      removeUrls(formData.fulfillment_description),
+    );
     // hardcode the value until the form element is built
     formDataToSend.append('order_online_enabled_pref', 'false');
 
-    const mapCenter = dbSeller?.sell_map_center || dbUserSettings?.search_map_center;
+    const mapCenter =
+      dbSeller?.sell_map_center || dbUserSettings?.search_map_center;
     formDataToSend.append('sell_map_center', JSON.stringify(mapCenter));
     // Add the image if it exists
     if (file) {
@@ -274,7 +290,11 @@ const SellerRegistrationForm = () => {
         setDbSeller(data.seller);
         setIsSaveEnabled(false);
         logger.info('Seller registration saved successfully:', { data });
-        showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_REGISTRATION_SUBMISSION'));
+        showAlert(
+          t(
+            'SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_REGISTRATION_SUBMISSION',
+          ),
+        );
 
         // Fetch updated user settings
         const updatedUserSettings = await fetchUserSettings();
@@ -282,22 +302,30 @@ const SellerRegistrationForm = () => {
       }
     } catch (error) {
       logger.error('Error saving seller registration:', error);
-      showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_REGISTRATION_SUBMISSION'));
+      showAlert(
+        t(
+          'SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_REGISTRATION_SUBMISSION',
+        ),
+      );
     }
   };
 
   const translatedPreFilledText = {
-    'seller-description': t('SCREEN.SELLER_REGISTRATION.SELLER_DETAILS_PLACEHOLDER'),
-    'seller-address': t('SCREEN.SELLER_REGISTRATION.SELLER_ADDRESS_LOCATION_PLACEHOLDER'),
+    'seller-description': t(
+      'SCREEN.SELLER_REGISTRATION.SELLER_DETAILS_PLACEHOLDER',
+    ),
+    'seller-address': t(
+      'SCREEN.SELLER_REGISTRATION.SELLER_ADDRESS_LOCATION_PLACEHOLDER',
+    ),
   };
 
   const preFilledFields: {
     fieldName: keyof IFormData;
     preFilledTextKey: keyof typeof translatedPreFilledText;
   }[] = [
-      { fieldName: 'sellerDescription', preFilledTextKey: 'seller-description' },
-      { fieldName: 'sellerAddress', preFilledTextKey: 'seller-address' },
-    ];
+    { fieldName: 'sellerDescription', preFilledTextKey: 'seller-description' },
+    { fieldName: 'sellerAddress', preFilledTextKey: 'seller-address' },
+  ];
 
   const removePrefilledText = (
     formData: IFormData,
@@ -328,9 +356,9 @@ const SellerRegistrationForm = () => {
               category={userMembership?.membership_class} 
               className="ml-1"
               styleComponent={{
-                display: "inline-block",
-                objectFit: "contain",
-                verticalAlign: "middle"
+                display: 'inline-block',
+                objectFit: 'contain',
+                verticalAlign: 'middle',
               }}
             />}
           </h3>
@@ -338,15 +366,11 @@ const SellerRegistrationForm = () => {
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
           </h1>
           <p className="text-gray-400 text-sm text-center">
-            {dbSeller ? (
-              dbSeller.isRestricted ? (
-                t('SCREEN.SELLER_REGISTRATION.SELLER_RESTRICTION_MESSAGE')
-              ) : (
-                translateSellerCategory(dbSeller.seller_type, t)
-              )
-            ) : (
-              ''
-            )}
+            {dbSeller
+              ? dbSeller.isRestricted
+                ? t('SCREEN.SELLER_REGISTRATION.SELLER_RESTRICTION_MESSAGE')
+                : translateSellerCategory(dbSeller.seller_type, t)
+              : ''}
           </p>
         </div>
 
@@ -381,7 +405,7 @@ const SellerRegistrationForm = () => {
         </div>
         <Link
           href={{
-          pathname: `/${locale}/map-center`, // Path to MapCenter component
+            pathname: `/${locale}/map-center`, // Path to MapCenter component
             query: { entryType: 'sell' }, // Passing 'sell' as entryType
           }}>
           <Button
@@ -413,7 +437,7 @@ const SellerRegistrationForm = () => {
                 onChange={handleChange}
               />
 
-              { formData.sellerType !== 'restrictedSeller' ? (
+              {formData.sellerType !== 'restrictedSeller' ? (
                 <Select
                   label={t(
                     'SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_LABEL',
@@ -429,10 +453,12 @@ const SellerRegistrationForm = () => {
                     'SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_LABEL',
                   )}
                   name="sellerType"
-                  value= {t('SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.RESTRICTED_SELLER')}
+                  value={t(
+                    'SCREEN.SELLER_REGISTRATION.SELLER_TYPE.SELLER_TYPE_OPTIONS.RESTRICTED_SELLER',
+                  )}
                   style={{
                     backgroundColor: '#d0d0d0',
-                    cursor: 'not-allowed'
+                    cursor: 'not-allowed',
                   }}
                   disabled
                 />
@@ -574,7 +600,7 @@ const SellerRegistrationForm = () => {
               />
             </div>
           </ToggleCollapse>
-          
+
           {/* List Items | Online Shopping */}
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
@@ -593,7 +619,9 @@ const SellerRegistrationForm = () => {
                   onChange={handleChange}
                 />
                 <h2 className={SUBHEADER}>
-                  {t('SCREEN.SELLER_REGISTRATION.FULFILLMENT_METHOD_TYPE.FULFILLMENT_METHOD_TYPE_LABEL')}
+                  {t(
+                    'SCREEN.SELLER_REGISTRATION.FULFILLMENT_METHOD_TYPE.FULFILLMENT_METHOD_TYPE_LABEL',
+                  )}
                 </h2>
                 <TextArea
                   label={t(
@@ -640,7 +668,6 @@ const SellerRegistrationForm = () => {
           message={t('SHARED.CONFIRM_DIALOG')}
           url={linkUrl}
         />
-
       </div>
     </>
   );

@@ -34,7 +34,8 @@ function Navbar() {
     alertMessage, 
     isSaveLoading, 
     userMembership, 
-    notificationsCount 
+    notificationsCount, 
+    ordersCount 
   } = useContext(AppContext);
 
   // check if the current page is the homepage
@@ -122,8 +123,21 @@ function Navbar() {
                       size={24}
                       className={`${isSigningInUser || isSaveLoading ? 'text-tertiary cursor-not-allowed' : 'text-secondary'}`}
                     />
-                    {notificationsCount > 0 && (
-                      <span className="absolute top-[-6px] right-[-6px] w-[10px] h-[10px] bg-red-500 rounded-full animate-pulse" />
+                    {(notificationsCount > 0 || ordersCount > 0) && (
+                      <span
+                        className="
+                          absolute
+                          top-[-2px]
+                          right-[-3px]
+                          w-[14px]
+                          h-[14px]
+                          rounded-full
+                          bg-red-500
+                          border-2
+                          border-[var(--default-secondary-color)]
+                          animate-pulse
+                        "
+                      />
                     )}
                   </>
                 )}

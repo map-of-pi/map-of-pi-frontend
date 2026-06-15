@@ -252,7 +252,7 @@ export interface PartialOrderType extends Pick<OrderType, '_id' | 'buyer_id' | '
 export interface OrderItemType {
   _id: string;
   order: string;
-  seller_item_id: SellerItem;
+  seller_item_id: SellerItem | null;
   quantity: number;
   subtotal: {$numberDecimal: number};
   status: OrderItemStatus;

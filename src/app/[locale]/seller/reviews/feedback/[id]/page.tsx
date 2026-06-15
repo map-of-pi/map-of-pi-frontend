@@ -41,7 +41,6 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [userFallbackImage, setUserFallbackImage] = useState<string | null>(null);
   const { currentUser, authenticateUser, reload, setReload } = useContext(AppContext);
 
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
@@ -93,19 +92,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
       }
     };
 
-    const loadUserImage = async () => {
-      try {
-        const settings = await fetchUserSettings();
-        if (settings?.image) {
-          setUserFallbackImage(settings.image);
-        }
-      } catch (error) {
-        logger.warn('Could not fetch fallback user image', error);
-      }
-    };
-
     getReviewData();
-    loadUserImage();
   }, [reviewId, currentUser, reload]);
 
   // Scroll functions
@@ -162,7 +149,7 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                       </div>
                       <div className="flex gap-2 items-center">
                         {(() => {
-                          const imgSrc = getImageSrc(review.image, userFallbackImage);
+                          const imgSrc = getImageSrc(review.image);
                           return imgSrc ? (
                             <Image
                               src={imgSrc}

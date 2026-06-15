@@ -14,8 +14,9 @@ import {
 import axiosClient, { setAuthToken } from '@/config/client';
 import { onIncompletePaymentFound } from '@/config/payment';
 import { AuthResult } from '@/constants/pi';
-import { IMembership, IUser, MembershipClassType } from '@/constants/types';
+import { IMembership, IUser } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
+import { fetchBuyerOrders } from '@/services/orderApi';
 import logger from '../logger.config.mjs';
 import { fetchMembership } from '@/services/membershipApi';
 
@@ -42,6 +43,8 @@ interface IAppContextProps {
   setNotificationsCount: React.Dispatch<SetStateAction<number>>;
   notificationsCount: number;
   refreshUserMembership: () => Promise<void>;
+  ordersCount: number;
+  setOrdersCount: React.Dispatch<SetStateAction<number>>;
 };
 
 const initialState: IAppContextProps = {
@@ -63,7 +66,9 @@ const initialState: IAppContextProps = {
   setToggleNotification: () => {},
   setNotificationsCount: () => {},
   notificationsCount: 0,
-  refreshUserMembership: () => Promise.resolve()
+  refreshUserMembership: () => Promise.resolve(),
+  ordersCount: 0,
+  setOrdersCount: () => {},
 };
 
 const sleep = (ms: number) =>
@@ -93,6 +98,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [adsSupported, setAdsSupported] = useState(false);
   const [toggleNotification, setToggleNotification] = useState<boolean>(true);
   const [notificationsCount, setNotificationsCount] = useState(0);
+  const [ordersCount, setOrdersCount] = useState(0);
 
   const piSdkLoaded = useRef(false);
 
@@ -266,6 +272,26 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
     fetchNotificationsCount();
   }, [currentUser, reload]);
 
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const fetchOrdersCount = async () => {
+      try {
+        const { count } = await fetchBuyerOrders({
+          skip: 0,
+          limit: 1,
+          status: 'pending'
+        });
+        setOrdersCount(count);
+      } catch (error) {
+        logger.error('Failed to fetch orders count:', error);
+        setOrdersCount(0);
+      }
+    };
+
+    fetchOrdersCount();
+  }, [currentUser, reload]);
+
   return (
     <AppContext.Provider 
       value={{ 
@@ -287,7 +313,9 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setToggleNotification,
         setNotificationsCount,
         notificationsCount,
-        refreshUserMembership
+        refreshUserMembership,
+        ordersCount,
+        setOrdersCount,
       }}
     >
       {children}

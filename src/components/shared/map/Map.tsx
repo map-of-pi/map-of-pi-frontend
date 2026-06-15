@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState, useCallback, useContext, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import L, { LatLngExpression, LatLngBounds, LatLngTuple } from 'leaflet';
-import _ from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { ISeller, ISellerWithSettings, SellerType } from '@/constants/types';
 import { fetchSellers } from '@/services/sellerApi';
@@ -13,6 +13,11 @@ import MapMarkerPopup from './MapMarkerPopup';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 
+const WORLD_BOUNDS = L.latLngBounds(
+  L.latLng(-85.051129, -180), // SW corner
+  L.latLng(85.051129, 180)    // NE corner
+);
+
 // Function to fetch seller coordinates based on bounds and optional search query
 const fetchSellerCoordinates = async (
   bounds: L.LatLngBounds,
@@ -20,6 +25,8 @@ const fetchSellerCoordinates = async (
 ): Promise<ISellerWithSettings[]> => {
   try {
     const sellersData = await fetchSellers(bounds, searchQuery);
+
+    if (!sellersData) return [];
 
     // Map the seller data to include coordinates in the desired format
     const sellersWithCoordinates = sellersData?.map((seller: any) => {
@@ -48,11 +55,6 @@ const removeDuplicates = (sellers: ISellerWithSettings[]): ISellerWithSettings[]
   });
   return Object.values(uniqueSellers);
 };
-
-const WORLD_BOUNDS = L.latLngBounds(
-  L.latLng(-85.051129, -180), // SW corner
-  L.latLng(85.051129, 180)    // NE corner
-);
 
 const Map = ({
   center,
@@ -290,7 +292,7 @@ const Map = ({
 
   // Debounced function to handle map interactions
   const debouncedHandleMapInteraction = useCallback(
-    _.debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
+    debounce((bounds: LatLngBounds, mapInstance: L.Map) => {
       handleMapInteraction(bounds, mapInstance);
       saveMapState();
     }, 500),
