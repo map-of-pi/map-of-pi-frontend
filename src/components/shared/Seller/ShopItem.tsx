@@ -26,7 +26,7 @@ import {
   deleteSellerItem,
   fetchSellerItems,
 } from '@/services/sellerApi';
-import { computeMappiCost, getRemainingWeeks } from '@/utils/selleritem';
+import { getRemainingWeeks } from '@/utils/selleritem';
 import removeUrls from '@/utils/sanitize';
 import { getStockLevelOptions } from '@/utils/translate';
 import { AppContext } from '../../../../context/AppContextProvider';
@@ -172,21 +172,35 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns the number of NEW Mappi credits that will be consumed for the given
- * duration delta.  For a brand-new listing every week costs 1 Mappi.  For an
- * existing listing only the *added* weeks cost Mappi (duration increase).
- * Reductions and unchanged durations cost 0.
+ * Returns the projected Mappi balance change for the given duration edit.
+ *
+ * Mirrors backend resolveDurationChange semantics:
+ *  - New item:            positive cost = ceil(duration)
+ *  - Existing, extended:  positive cost = added weeks
+ *  - Existing, reduced:   negative value = refunded weeks (capped by remaining weeks)
+ *  - No change:           0
  */
 export function previewMappiCost(
   existingItem: SellerItem,
   newDuration: number
 ): number {
   const isNew = !existingItem._id;
-  if (isNew) return Math.max(1, Math.ceil(newDuration));
+  const isExpired =
+    !!existingItem.expired_by && new Date(existingItem.expired_by) < new Date();
+
+  // New items AND expired items are relists: full duration is charged, no refund.
+  if (isNew || isExpired) {
+    return Math.max(1, Math.ceil(newDuration));
+  }
 
   const prevDuration = existingItem.duration ?? 0;
-  const added = newDuration - prevDuration;
-  return added > 0 ? Math.ceil(added) : 0;
+  const delta = newDuration - prevDuration;
+
+  if (delta === 0) return 0;
+  if (delta > 0) return Math.ceil(delta); // cost
+
+  // Reduction → refund preview (backend clamps to remaining weeks)
+  return delta;
 }
 
 // ---------------------------------------------------------------------------
@@ -319,6 +333,14 @@ export const ShopItem: React.FC<{
           'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS',
           { remaining_weeks: remainingWeeks }
         )
+      );
+      setShowDialog(true);
+      return;
+    }
+    
+    if (formData.duration < 1) {
+      setDialogueMessage(
+        t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.DURATION_MINIMUM')
       );
       setShowDialog(true);
       return;
@@ -536,8 +558,8 @@ export const ShopItem: React.FC<{
             />
           </div>
 
-          {/* Mappi cost preview */}
-          {isActive && isDirty && (
+          {/* Mappi cost / refund preview */}
+          {isActive && isDirty && mappiCostPreview !== 0 && (
             <p className="mt-2 text-sm text-amber-600">
               {mappiCostPreview > 0
                 ? t(
@@ -545,7 +567,8 @@ export const ShopItem: React.FC<{
                     { mappi_count: mappiCostPreview }
                   )
                 : t(
-                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_COST_PREVIEW_FREE'
+                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_REFUND_PREVIEW',
+                    { mappi_count: Math.abs(mappiCostPreview) }
                   )}
             </p>
           )}
