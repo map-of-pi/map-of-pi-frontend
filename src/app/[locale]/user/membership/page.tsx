@@ -29,7 +29,6 @@ export default function MembershipPage() {
   const [membershipList, setMembershipList] = useState<MembershipOption[]>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
-  const [voucherInput, setVoucherInput] = useState<string>("")
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
   const [verifiedVoucher, setVerifiedVoucher] = useState<{voucherId: string, membershipClass: MembershipClassType} | null>(null);
   const [verifiedMembership, setVerifiedMembership] = useState<MembershipOption | null>(null);
@@ -38,40 +37,6 @@ export default function MembershipPage() {
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
-
-  useEffect(() => {
-    const loadMembershipList = async () => { 
-      try {
-        const subList = await fetchMembershipList();
-
-        setMembershipList(subList!);
-        setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
-      } catch (error) {
-        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
-        logger.error("Error loading membership", {error})
-      }
-    };
-
-    loadMembershipList();
-  }, []);
-
-  useEffect(() => {
-    const getUserVouchers = async () => { 
-      try {
-        const res = await fetchUserVouchers();
-        if (!res.success && res.error) {
-          showAlert(res?.error)
-        }
-
-        setAvailableVouchers(res.vouchers || []);
-      } catch (error) {
-        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
-        logger.error("Error loading membership", {error})
-      }
-    };
-
-    getUserVouchers();
-  }, []);
 
   const loadMembership = async () => { 
     if (!currentUser?.pi_uid) return;
@@ -102,6 +67,11 @@ export default function MembershipPage() {
     setIsSaveLoading(false);
   }
 
+  const handleVoucherPick = async (voucher: IVoucher) => {
+    if (!voucher._id) return
+    setVerifiedVoucher({voucherId: voucher._id, membershipClass: voucher.membership_class})
+  }
+
   const handleVoucherRedemption = async () => {
     if (!currentUser || !verifiedVoucher) return;
 
@@ -120,37 +90,8 @@ export default function MembershipPage() {
     } finally {
       setIsSaveLoading(false);
       setVerifiedVoucher(null);
-      setVoucherInput("");
+      setVerifiedVoucher(null);
       setVerifiedMembership(null)
-    }
-  }
-
-   const handleVerifyVoucher = async () => {
-    if (!currentUser || !voucherInput.trim()) return;
-
-    setIsSaveLoading(true);
-    try {
-      const result = await verifyVoucher(voucherInput.trim());
-      if ( !result.success ) {
-        showAlert(result.error || t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_VERIFICATION_MESSAGE'));
-      } else {        
-        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_VOUCHER_VERIFICATION_MESSAGE'));
-        setVerifiedVoucher({
-          voucherId: result.voucher_id,
-          membershipClass: result.membership_class
-        } as {voucherId: string, membershipClass: MembershipClassType});
-
-        const selected = membershipList.find(
-          (m) => m.value === result.membership_class
-        );
-
-        setVerifiedMembership(selected ?? null);
-      }
-    } catch (error) {
-      showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_VERIFICATION_MESSAGE'));
-      logger.error("Error verifying voucher", {error})
-    } finally {
-      setIsSaveLoading(false);
     }
   }
   
@@ -174,6 +115,43 @@ export default function MembershipPage() {
     };
     await payWithPi(paymentData, onPaymentComplete, onPaymentError);
   } 
+
+    useEffect(() => {
+    const loadMembershipList = async () => { 
+      try {
+        const subList = await fetchMembershipList();
+
+        setMembershipList(subList!);
+        setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
+      } catch (error) {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    loadMembershipList();
+  }, []);
+
+  useEffect(() => {
+    const getVouchers = async () => { 
+      try {
+        const res = await fetchUserVouchers();
+        if (!res.success && res.error) {
+          showAlert(res?.error)
+        }
+
+        setAvailableVouchers(res.vouchers || []);
+        if (res.vouchers && res.vouchers.length>0) {
+          handleVoucherPick(res.vouchers[0])
+        }
+      } catch (error) {
+        showAlert('Error fetching user voucher');
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    getVouchers();
+  }, []);
 
   return (
     <div className="w-full h-screen md:w-[500px] md:mx-auto p-4">
@@ -251,6 +229,7 @@ export default function MembershipPage() {
                 value={availableVouchers[0]}
                 onChange={verifyVoucher}
                 options={availableVouchers}
+                disable={false}
               />
             ) : (
               <Input
@@ -289,15 +268,15 @@ export default function MembershipPage() {
 
             <div className="mb-5 mt-3 flex justify-between">
               <Button
-                label={`${verifiedVoucher ? 'Redeem' : 'Verify'}`}
-                disabled={isSaveLoading || !voucherInput.trim() || !verifiedVoucher && !voucherInput.trim()}
+                label={`${verifiedVoucher ? 'Redeem' : 'Pick'}`}
+                disabled={isSaveLoading || !verifiedVoucher}
                 styles={{
                   color: '#ffc153',
                   height: '40px',
                   padding: '10px 15px',
                   marginLeft: 'auto'
                 }}
-                onClick={verifiedVoucher ? handleVoucherRedemption : handleVerifyVoucher}
+                onClick={verifiedVoucher ? handleVoucherRedemption : handleVoucherPick}
               />
             </div> 
           </> 
