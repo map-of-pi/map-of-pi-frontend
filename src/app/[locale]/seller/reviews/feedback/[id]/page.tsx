@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
@@ -41,13 +41,15 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { currentUser, authenticateUser, reload, setReload } = useContext(AppContext);
+  const { currentUser, authenticateUser, reload, setReload } =
+    useContext(AppContext);
 
   const processReviews = (data: IReviewOutput[]): ReviewInt[] => {
     return data.map((feedback) => {
       const { date, time } = resolveDate(feedback.review_date, locale);
-      const { reaction = 'No Reaction', unicode = '😐' } = resolveRating(feedback.rating) || {};
-      
+      const { reaction = 'No Reaction', unicode = '😐' } =
+        resolveRating(feedback.rating) || {};
+
       return {
         heading: feedback.comment || t('SHARED.NO_COMMENT'),
         date,
@@ -59,11 +61,13 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
         reviewId: feedback._id,
         reaction,
         unicode,
-        image: feedback.image
+        image: feedback.image,
+        rating: feedback.rating,
+        trust_protected: feedback.trust_protected ?? false,
       };
     });
   };
-  
+
   useEffect(() => {
     checkAndAutoLoginUser(currentUser, authenticateUser);
 
@@ -84,7 +88,10 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
           setReviews([]);
         }
       } catch (error) {
-        logger.error(`Error fetching review data for review ID: ${reviewId}`, error);
+        logger.error(
+          `Error fetching review data for review ID: ${reviewId}`,
+          error,
+        );
         setError('Error fetching review. Please try again later.');
       } finally {
         setLoading(false);
@@ -117,26 +124,35 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
       <h1 className="mb-5 font-bold text-lg md:text-2xl">
         {t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_STATIC_HEADER')}
       </h1>
-      {error && (<div className="text-red-700 text-center text-lg">{t('SCREEN.REPLY_TO_REVIEW.VALIDATION.LOADING_REVIEW_FAILURE')}</div>)}
+      {error && (
+        <div className="text-red-700 text-center text-lg">
+          {t('SCREEN.REPLY_TO_REVIEW.VALIDATION.LOADING_REVIEW_FAILURE')}
+        </div>
+      )}
       {reviews && reviews.length > 0 && (
         <div className="mt-2">
-          <h2 className="font-bold mb-2">{t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_SUBHEADER')}</h2>
+          <h2 className="font-bold mb-2">
+            {t('SCREEN.REPLY_TO_REVIEW.REPLY_TO_REVIEW_SUBHEADER')}
+          </h2>
 
           {/* Scrollable content */}
           <div className="relative overflow-hidden mb-5">
             {/* Review */}
             <div
               className="flex transition-transform duration-300 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
               {reviews.map((review, index) => (
-                <div key={index} className="seller_item_container p-2 w-full shrink-0">
+                <div
+                  key={index}
+                  className="seller_item_container p-2 w-full shrink-0">
                   <div className="flex justify-between items-start mb-3">
                     {/* Left content */}
                     <div className="flex-grow">
                       <p className="text-primary text-sm">
                         {review.giver} {' → '}
-                        <span className="text-primary text-sm">{review.receiver}</span>
+                        <span className="text-primary text-sm">
+                          {review.receiver}
+                        </span>
                       </p>
                       <p className="text-md break-words">{review.heading}</p>
                     </div>
@@ -160,7 +176,9 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                             />
                           ) : null;
                         })()}
-                        <p className="text-xl max-w-[50px]" title={review.reaction}>
+                        <p
+                          className="text-xl max-w-[50px]"
+                          title={review.reaction}>
                           {review.unicode}
                         </p>
                       </div>
@@ -172,15 +190,13 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
                     <button
                       className={`p-2 rounded-full group hover:bg-gray-100 ${currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                       onClick={prevSlide}
-                      disabled={currentIndex === 0}
-                    >
+                      disabled={currentIndex === 0}>
                       <FaChevronLeft className="text-gray-400 group-hover:text-gray-600 text-2xl" />
                     </button>
                     <button
                       className={`ms-auto p-2 rounded-full group hover:bg-gray-100 ${currentIndex === reviews.length - 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
                       onClick={nextSlide}
-                      disabled={currentIndex === reviews.length - 1}
-                    >
+                      disabled={currentIndex === reviews.length - 1}>
                       <FaChevronRight className="text-gray-400 group-hover:text-gray-600 text-2xl" />
                     </button>
                   </div>
@@ -189,7 +205,9 @@ export default function ReplyToReviewPage({ params }: ReplyToReviewPageProps) {
             </div>
           </div>
 
-          <h2 className="font-bold">{t('SCREEN.REPLY_TO_REVIEW.GIVE_REPLY_TO_REVIEW_SUBHEADER')}</h2>
+          <h2 className="font-bold">
+            {t('SCREEN.REPLY_TO_REVIEW.GIVE_REPLY_TO_REVIEW_SUBHEADER')}
+          </h2>
           <h2 className="text-[#828282]">
             {currentUser?.user_name === reviews[currentIndex].giver
               ? reviews[currentIndex]?.receiver
