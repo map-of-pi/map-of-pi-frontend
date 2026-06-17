@@ -8,8 +8,11 @@ import { ReviewCard } from '@/components/shared/Review/ReviewCard';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
-import { processReviews, useCursorInfiniteScroll } from '@/hooks/useInfiniteReviews';
-import { fetchReviews } from '@/services/reviewsApi';
+import {
+  processReviews,
+  useCursorInfiniteScroll,
+} from '@/hooks/useInfiniteReviews';
+import { fetchReviews, activateTrustProtect } from '@/services/reviewsApi';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 
 interface SellerReviewsProps {
@@ -24,7 +27,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState<string>('');
-
+  const { showAlert } = useContext(AppContext);
   // Displayed user state — starts as the route owner
   const [toUser, setToUser] = useState(params.id);
   const [displayName, setDisplayName] = useState(searchParams.user_name ?? '');
@@ -32,7 +35,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const triggerRefresh = () => {
-    setRefreshKey(prev => prev + 1);
+    setRefreshKey((prev) => prev + 1);
   };
 
   // ─── Search ──────────────────────────────────────────────────────────────────
@@ -54,7 +57,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         toUser,
         searchQuery.trim() || undefined,
         cursor,
-        'given'
+        'given',
       );
 
       if (data?.resolvedUser) {
@@ -70,7 +73,21 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     process: (data) => processReviews(data, locale),
     dependencies: [toUser, searchQuery, refreshKey],
   });
+  const handleTrustProtect = async (reviewId: string) => {
+    try {
+      await activateTrustProtect(reviewId);
 
+      showAlert('Trust Protect activated successfully');
+
+      triggerRefresh();
+    } catch (error: any) {
+      console.error(error);
+
+      showAlert(
+        error?.response?.data?.message || 'Failed to activate Trust Protect.',
+      );
+    }
+  };
   const {
     items: receivedReviews,
     loading: loadingReceived,
@@ -83,7 +100,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         toUser,
         searchQuery.trim() || undefined,
         cursor,
-        'received'
+        'received',
       );
 
       if (data?.resolvedUser) {
@@ -101,7 +118,8 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   });
 
   // ─── Render ──────────────────────────────────────────────────────────────────
-  if (initialLoadingReceived && initialLoadingGiven) return <Skeleton type="seller_review" />;
+  if (initialLoadingReceived && initialLoadingGiven)
+    return <Skeleton type="seller_review" />;
 
   return (
     <div className="px-4 py-[20px] text-[#333333] sm:max-w-[520px] w-full m-auto gap-5">
@@ -122,19 +140,25 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
             placeholder={displayName}
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSearch();
+            }}
             autoCorrect="off"
             autoCapitalize="off"
             autoComplete="off"
             spellCheck={false}
-            inputProps={{ autoCorrect: 'off', autoCapitalize: 'off', spellCheck: 'false', autoComplete: 'new-password' }}
+            inputProps={{
+              autoCorrect: 'off',
+              autoCapitalize: 'off',
+              spellCheck: 'false',
+              autoComplete: 'new-password',
+            }}
           />
         </FormControl>
         <button
           aria-label="search"
           onClick={handleSearch}
-          className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center hover:bg-gray-600"
-        >
+          className="bg-primary rounded h-full w-15 p-[15.5px] flex items-center justify-center hover:bg-gray-600">
           <SearchIcon className="text-[#ffc153]" />
         </button>
       </div>
@@ -151,9 +175,17 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
       {/* Reviews Given */}
       <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_GIVEN_SECTION_HEADER')}>
-        {initialLoadingGiven ? <Skeleton type="seller_review" /> : givenReviews.map((review) => (
-          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} />
-        ))}
+        {initialLoadingGiven ? (
+          <Skeleton type="seller_review" />
+        ) : (
+          givenReviews.map((review) => (
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              currentUserId={currentUser?.pi_uid}
+            />
+          ))
+        )}
 
         {hasMoreGiven && !loadingGiven && (
           <div ref={givenObserverRef} className="h-10" />
@@ -163,10 +195,21 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       </ToggleCollapse>
 
       {/* Reviews Received */}
-      <ToggleCollapse header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')} open>
-        {initialLoadingReceived ? <Skeleton type="seller_review" /> : receivedReviews.map((review) => (
-          <ReviewCard key={review.reviewId} review={review} currentUserId={currentUser?.pi_uid} />
-        ))}
+      <ToggleCollapse
+        header={t('SCREEN.REVIEWS.REVIEWS_RECEIVED_SECTION_HEADER')}
+        open>
+        {initialLoadingReceived ? (
+          <Skeleton type="seller_review" />
+        ) : (
+          receivedReviews.map((review) => (
+            <ReviewCard
+              key={review.reviewId}
+              review={review}
+              currentUserId={currentUser?.pi_uid}
+              onTrustProtect={handleTrustProtect}
+            />
+          ))
+        )}
 
         {hasMoreReceived && !loadingReceived && (
           <div ref={receivedObserverRef} className="h-10" />
