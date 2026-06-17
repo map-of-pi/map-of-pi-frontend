@@ -30,7 +30,10 @@ import {
   getFulfillmentMethodOptions,
   getSellerCategoryOptions,
 } from '@/utils/translate';
-import removeUrls from '../../../../utils/sanitize';
+import {
+  removeUrls,
+  removeUrlsFromEmailField,
+} from '../../../../utils/sanitize';
 
 import { AppContext } from '../../../../../context/AppContextProvider';
 import logger from '../../../../../logger.config.mjs';
@@ -264,7 +267,10 @@ const SellerRegistrationForm = () => {
       removeUrls(formData.sellerDescription),
     );
     formDataToSend.append('address', removeUrls(formData.sellerAddress));
-    formDataToSend.append('email', formData.email ?? '');
+    formDataToSend.append(
+      'email',
+      removeUrlsFromEmailField(formData.email ?? ''),
+    );
     formDataToSend.append(
       'phone_number',
       formData.phone_number?.toString() ?? '',
