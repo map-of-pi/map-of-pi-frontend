@@ -2,12 +2,15 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { resolveRating } from '@/app/[locale]/seller/reviews/util/ratingUtils';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
 import { resolveDate } from '@/utils/date';
-import logger from "../../logger.config.mjs"
+import logger from '../../logger.config.mjs';
 import { toast } from 'react-toastify';
 
 export type ReviewType = 'given' | 'received';
 
-export function processReviews(data: IReviewOutput[], locale: string): ReviewInt[] {
+export function processReviews(
+  data: IReviewOutput[],
+  locale: string,
+): ReviewInt[] {
   return data
     .map((feedback) => {
       const { date, time } = resolveDate(feedback.review_date, locale);
@@ -24,6 +27,8 @@ export function processReviews(data: IReviewOutput[], locale: string): ReviewInt
         reaction,
         unicode,
         image: feedback.image,
+        rating: feedback.rating,
+        trust_protected: feedback.trust_protected ?? false,
       };
     })
     .filter((r): r is ReviewInt => r !== null);
@@ -37,7 +42,7 @@ interface CursorResponse<T> {
 interface UseCursorInfiniteScrollProps<TRaw, TProcessed = TRaw> {
   fetchPage: (
     cursor?: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
   ) => Promise<CursorResponse<TRaw>>;
   process?: (data: TRaw[]) => TProcessed[];
   dependencies?: any[];
@@ -93,7 +98,7 @@ export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
       try {
         const response = await fetchPage(
           nextCursor ?? undefined,
-          controller.signal
+          controller.signal,
         );
 
         // Ignore if stale
@@ -105,11 +110,11 @@ export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
 
         setItems((prev) => {
           const existingIds = new Set(
-            (prev as any[]).map((item) => item.reviewId ?? item.id)
+            (prev as any[]).map((item) => item.reviewId ?? item.id),
           );
 
           const filtered = (processed as any[]).filter(
-            (item) => !existingIds.has(item.reviewId ?? item.id)
+            (item) => !existingIds.has(item.reviewId ?? item.id),
           );
 
           return [...prev, ...filtered] as TProcessed[];
@@ -130,7 +135,7 @@ export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
         }
       }
     },
-    [fetchPage, process, hasMore, loading]
+    [fetchPage, process, hasMore, loading],
   );
 
   // ───────────────────────────────
@@ -146,7 +151,7 @@ export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
         loadPage(nextCursor);
       }, debounceMs);
     },
-    [loadPage, debounceMs]
+    [loadPage, debounceMs],
   );
 
   // ───────────────────────────────
@@ -179,7 +184,7 @@ export function useCursorInfiniteScroll<TRaw, TProcessed = TRaw>({
         root: null,
         rootMargin: '300px',
         threshold: 0,
-      }
+      },
     );
 
     observer.observe(node);
