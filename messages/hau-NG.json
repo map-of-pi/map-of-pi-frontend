@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Bayani",
         "PHOTO": "Hoto",
         "SELLING_DURATION_LABEL": "Tsawon lokacin siyarwa a makonni",
+        "MAPPI_COST_PREVIEW": "Wannan zai kashe {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "Za a mayar maka da {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Aiki",
           "EXPIRED": "Ƙarewa"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Sayarwa kafin {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {remaining_weeks} ba"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {remaining_weeks} ba",
+          "DURATION_MINIMUM": "Tsawon lokacin talla dole ne ya kasance aƙalla mako 1"
         }
       }
     },

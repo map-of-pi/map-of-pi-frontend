@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Tanımlama",
         "PHOTO": "Fotoğraf",
         "SELLING_DURATION_LABEL": "Hafta cinsinden satış süresi",
+        "MAPPI_COST_PREVIEW": "Bu işlem {mappi_count} Mappi tutacaktır",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi iade edilecektir",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Aktif",
           "EXPIRED": "Süresi dolmuş"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Tarafından satmak {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Satış süresi {remaining_weeks} Kalan haftalar"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Satış süresi {remaining_weeks} Kalan haftalar",
+          "DURATION_MINIMUM": "İlan süresi en az 1 hafta olmalıdır"
         }
       }
     },

@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "描述",
         "PHOTO": "照片",
         "SELLING_DURATION_LABEL": "销售周期（以周为单位）",
+        "MAPPI_COST_PREVIEW": "需要支付 {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "将退还 {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "活动中",
           "EXPIRED": "已过期"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "{expired_by_date} 前销售",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "销售周期不能少于 {remaining_weeks} 周"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "销售周期不能少于 {remaining_weeks} 周",
+          "DURATION_MINIMUM": "商品上架时长不得少于 1 周"
         }
       }
     },

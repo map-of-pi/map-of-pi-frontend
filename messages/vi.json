@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Mô tả",
         "PHOTO": "Ảnh",
         "SELLING_DURATION_LABEL": "Thời gian bán hàng (tính theo tuần)",
+        "MAPPI_COST_PREVIEW": "Việc này sẽ tốn {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "Bạn sẽ được hoàn lại {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Đang hoạt động",
           "EXPIRED": "Đã hết hạn"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Bán trước {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần",
+          "DURATION_MINIMUM": "Thời gian đăng bán phải ít nhất là 1 tuần"
         }
       }
     },

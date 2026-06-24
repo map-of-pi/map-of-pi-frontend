@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "الوصف",
         "PHOTO": "الصورة",
         "SELLING_DURATION_LABEL": "مدة البيع بالأسابيع",
+        "MAPPI_COST_PREVIEW": "ستكون التكلفة {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "سيتم رد {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "نشط",
           "EXPIRED": "منتهي الصلاحية"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "يباع بتاريخ صلاحية {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {remaining_weeks} أسابيع"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {remaining_weeks} أسابيع",
+          "DURATION_MINIMUM": "يجب ألا تقل مدة الإدراج عن أسبوع واحد"
         }
       }
     },

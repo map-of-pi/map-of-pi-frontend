@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "説明",
         "PHOTO": "写真",
         "SELLING_DURATION_LABEL": "販売期間（週間単位）",
+        "MAPPI_COST_PREVIEW": "これには {mappi_count} Mappi が必要です",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi が返金されます",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "アクティブ",
           "EXPIRED": "期限切れ"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "販売期限 {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "販売期間は {remaining_weeks} 週間未満に短縮できません"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "販売期間は {remaining_weeks} 週間未満に短縮できません",
+          "DURATION_MINIMUM": "掲載期間は最低1週間である必要があります"
         }
       }
     },
