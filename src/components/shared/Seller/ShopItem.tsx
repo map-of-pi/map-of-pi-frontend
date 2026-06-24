@@ -27,7 +27,7 @@ import {
   fetchSellerItems,
 } from '@/services/sellerApi';
 import { getRemainingWeeks } from '@/utils/selleritem';
-import removeUrls from '@/utils/sanitize';
+import { removeUrls } from '@/utils/sanitize';
 import { getStockLevelOptions } from '@/utils/translate';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
