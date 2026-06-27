@@ -225,9 +225,11 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   };
 
   const refreshUserMembership = useCallback(async () => {
+    if (currentUser) return;
+
     const membership = await fetchMembership();
     setUserMembership(membership);
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     logger.info('AppContextProvider mounted.');
