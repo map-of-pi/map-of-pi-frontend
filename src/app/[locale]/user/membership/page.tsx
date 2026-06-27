@@ -18,11 +18,11 @@ import {
   IVoucher
 } from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
-import { translatePurchaseOptions, translateSellerCategory } from "@/utils/translate";
+import { translatePurchaseOptions } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
-import { fetchUserVouchers, redeemVoucher, verifyVoucher } from "@/services/voucherApi";
+import { fetchUserVouchers, redeemVoucher } from "@/services/voucherApi";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
@@ -30,9 +30,9 @@ export default function MembershipPage() {
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
-  const [verifiedVoucher, setVerifiedVoucher] = useState<{voucherId: string, membershipClass: MembershipClassType} | null>(null);
+  const [selectedVoucher, setSelectedVoucher] = useState<IVoucher | null>(null);
   const [verifiedMembership, setVerifiedMembership] = useState<MembershipOption | null>(null);
-  const [availableVouchers, setAvailableVouchers] = useState<IVoucher[]>([]);
+  const [VoucherList, setAVoucherList] = useState<IVoucher[]>([]);
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -67,17 +67,19 @@ export default function MembershipPage() {
     setIsSaveLoading(false);
   }
 
-  const handleVoucherPick = async (voucher: IVoucher) => {
-    if (!voucher._id) return
-    setVerifiedVoucher({voucherId: voucher._id, membershipClass: voucher.membership_class})
-  }
+  const handleVoucherPick = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const voucherId = e.target.value;
+  if (!voucherId) return;
+  const found = VoucherList.find((v) => v._id === voucherId) ?? null;
+  setSelectedVoucher(found);
+};
 
   const handleVoucherRedemption = async () => {
-    if (!currentUser || !verifiedVoucher) return;
+    if (!currentUser || !selectedVoucher?._id) return;
 
     setIsSaveLoading(true);
     try {
-      const result = await redeemVoucher(verifiedVoucher.voucherId);
+      const result = await redeemVoucher(selectedVoucher._id);
       if (!result.success) {
         showAlert(result.error || t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_REDEMPTION_MESSAGE'));
       } else {
@@ -89,8 +91,7 @@ export default function MembershipPage() {
       logger.error("Error redeeming voucher", {error})
     } finally {
       setIsSaveLoading(false);
-      setVerifiedVoucher(null);
-      setVerifiedVoucher(null);
+      setSelectedVoucher(null);
       setVerifiedMembership(null)
     }
   }
@@ -116,11 +117,10 @@ export default function MembershipPage() {
     await payWithPi(paymentData, onPaymentComplete, onPaymentError);
   } 
 
-    useEffect(() => {
+  useEffect(() => {
     const loadMembershipList = async () => { 
       try {
         const subList = await fetchMembershipList();
-
         setMembershipList(subList!);
         setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
       } catch (error) {
@@ -140,9 +140,9 @@ export default function MembershipPage() {
           showAlert(res?.error)
         }
 
-        setAvailableVouchers(res.vouchers || []);
+        setAVoucherList(res.vouchers || []);
         if (res.vouchers && res.vouchers.length>0) {
-          handleVoucherPick(res.vouchers[0])
+          setSelectedVoucher(res.vouchers[0])
         }
       } catch (error) {
         showAlert('Error fetching user voucher');
@@ -220,26 +220,31 @@ export default function MembershipPage() {
               {translatePurchaseOptions(option.value, t)}
             </div>
           ))}
+
           {selectedMethod === MembershipBuyType.VOUCHER && (
             <>
-            {availableVouchers.length > 0 ? (
+            {VoucherList.length > 0 ? (
               <Select
                 label={'Available vouchers'}
                 name="voucherSelector"
-                value={availableVouchers[0]}
-                onChange={verifyVoucher}
-                options={availableVouchers}
+                value={selectedVoucher?._id}
+                onChange={handleVoucherPick}  // now receives e: ChangeEvent<HTMLSelectElement>
+                options={VoucherList.map((v) => ({
+                  name: v.voucher_code,
+                  value: v._id
+                }))}
                 disable={false}
               />
             ) : (
               <Input
                 label={'Vouchers'}
                 name="voucherSelector"
-                value={availableVouchers[0]}
+                value="You don't have any membership"
                 style={{
                   backgroundColor: '#d0d0d0',
                   cursor: 'not-allowed',
                 }}
+                disabled
               />
             )}
 
@@ -268,19 +273,19 @@ export default function MembershipPage() {
 
             <div className="mb-5 mt-3 flex justify-between">
               <Button
-                label={`${verifiedVoucher ? 'Redeem' : 'Pick'}`}
-                disabled={isSaveLoading || !verifiedVoucher}
+                label={`${selectedVoucher ? 'Redeem' : 'Pick'}`}
+                disabled={isSaveLoading || !selectedVoucher}
                 styles={{
                   color: '#ffc153',
                   height: '40px',
                   padding: '10px 15px',
                   marginLeft: 'auto'
                 }}
-                onClick={verifiedVoucher ? handleVoucherRedemption : handleVoucherPick}
+                onClick={selectedVoucher ? handleVoucherRedemption : handleVoucherPick}
               />
             </div> 
           </> 
-          )}
+        )}
           
         </div>
       </div>
@@ -295,7 +300,8 @@ export default function MembershipPage() {
             <div
               key={index}
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-              onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }>
+              onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }
+            >
               {                                       
                 selectedMembership === option.value ? (
                   // <IoCheckmark />
