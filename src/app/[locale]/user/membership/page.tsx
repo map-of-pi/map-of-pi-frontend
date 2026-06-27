@@ -8,7 +8,6 @@ import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
 import { dummyList } from "@/constants/mock"
 import { 
-  IMembership,
   MembershipClassType, 
   MembershipOption, 
   membershipBuyOptions, 
@@ -31,8 +30,8 @@ export default function MembershipPage() {
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
   const [selectedVoucher, setSelectedVoucher] = useState<IVoucher | null>(null);
-  const [verifiedMembership, setVerifiedMembership] = useState<MembershipOption | null>(null);
-  const [VoucherList, setAVoucherList] = useState<IVoucher[]>([]);
+  const [voucherMembership, setVoucherMembership] = useState<MembershipOption | null>(null);
+  const [voucherList, setAVoucherList] = useState<IVoucher[]>([]);
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -70,8 +69,9 @@ export default function MembershipPage() {
   const handleVoucherPick = (e: React.ChangeEvent<HTMLSelectElement>) => {
   const voucherId = e.target.value;
   if (!voucherId) return;
-  const found = VoucherList.find((v) => v._id === voucherId) ?? null;
+  const found = voucherList.find((v) => v._id === voucherId) ?? null;
   setSelectedVoucher(found);
+  setVoucherMembership(membershipList.find((m) => m.value ===found?.membership_class) ?? null)
 };
 
   const handleVoucherRedemption = async () => {
@@ -92,7 +92,7 @@ export default function MembershipPage() {
     } finally {
       setIsSaveLoading(false);
       setSelectedVoucher(null);
-      setVerifiedMembership(null)
+      setVoucherMembership(null)
     }
   }
   
@@ -142,7 +142,9 @@ export default function MembershipPage() {
 
         setAVoucherList(res.vouchers || []);
         if (res.vouchers && res.vouchers.length>0) {
-          setSelectedVoucher(res.vouchers[0])
+          const firstVucher = res.vouchers[0];
+          setSelectedVoucher(firstVucher)
+          setVoucherMembership(membershipList.find((m) => m.value ===firstVucher?.membership_class) ?? null)
         }
       } catch (error) {
         showAlert('Error fetching user voucher');
@@ -200,13 +202,13 @@ export default function MembershipPage() {
         <p className="text-gray-600 text-sm mt-1">{userMembership?.mappi_balance || 0} mappi</p>
       </div>
 
-      <div className="mb-5">
-        <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
-        </h2>
+      <h2 className={SUBHEADER}>
+        {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
+      </h2>
 
-        <div className="">
-          {membershipBuyOptions.map((option, index) => (
+      <div className="">
+        <div className="mb-5">
+          {membershipBuyOptions.map((option, index) => 
             <div
               key={index}
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
@@ -219,130 +221,131 @@ export default function MembershipPage() {
               )}
               {translatePurchaseOptions(option.value, t)}
             </div>
-          ))}
+          )}
+        </div>
 
-          {selectedMethod === MembershipBuyType.VOUCHER && (
-            <>
-            {VoucherList.length > 0 ? (
-              <Select
-                label={'Available vouchers'}
-                name="voucherSelector"
-                value={selectedVoucher?._id}
-                onChange={handleVoucherPick}  // now receives e: ChangeEvent<HTMLSelectElement>
-                options={VoucherList.map((v) => ({
-                  name: v.voucher_code,
-                  value: v._id
-                }))}
-                disable={false}
-              />
-            ) : (
-              <Input
-                label={'Vouchers'}
-                name="voucherSelector"
-                value="You don't have any membership"
-                style={{
-                  backgroundColor: '#d0d0d0',
-                  cursor: 'not-allowed',
-                }}
-                disabled
-              />
-            )}
+        <h2 className={SUBHEADER}>
+          {selectedMethod === MembershipBuyType.VOUCHER ?
+            'Pick from Available vouchers' + ': ' :
+            t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '
+          }
+        </h2>
 
-            {verifiedMembership && <div
-              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-            >                                     
-              {/* <IoCheckmark /> */}
-              <div className="p-1 bg-green-700 rounded"></div>
+        {selectedMethod === MembershipBuyType.VOUCHER ? 
+          <div>
+              {voucherList.length > 0 ? 
+                <Select
+                  name="voucherSelector"
+                  value={selectedVoucher?._id}
+                  onChange={handleVoucherPick}  // now receives e: ChangeEvent<HTMLSelectElement>
+                  options={voucherList.map((v) => ({
+                    name: v.voucher_code,
+                    value: v._id
+                  }))}
+                /> 
+                  : 
+                <Input
+                  label={'Pick from Available vouchers'}
+                  value="You don't have any membership"
+                  style={{
+                    backgroundColor: '#d0d0d0',
+                    cursor: 'not-allowed',
+                  }}
+                  disabled
+                />
+              }            
+
+              {selectedVoucher && voucherMembership && <>
+                <div
+                  className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+                >                                     
+                  {/* <IoCheckmark /> */}
+                  <div className="p-1 bg-green-700 rounded"></div>
+                      
+                  {`${voucherMembership?.value}  ${isSingleMappi(voucherMembership?.value)
+                    ? "Mappi" 
+                    : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: voucherMembership.duration ?? '' })
+                  }`} 
                   
-              {`${verifiedMembership?.value}  ${isSingleMappi(verifiedMembership?.value)
-                ? "Mappi" 
-                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: verifiedMembership.duration ?? '' })
-              }`} 
-              
-              <MembershipIcon 
-                category={verifiedMembership?.value!} 
-                className="ml-1"
-                styleComponent={{
-                  display: "inline-block",
-                  objectFit: "contain",
-                  verticalAlign: "middle"
-                }}
-              />
-              <span> {verifiedMembership.cost}Pi</span>
-            </div>}
-
+                  <MembershipIcon 
+                    category={voucherMembership?.value!} 
+                    className="ml-1"
+                    styleComponent={{
+                      display: "inline-block",
+                      objectFit: "contain",
+                      verticalAlign: "middle"
+                    }}
+                  />
+                  <span> {voucherMembership.cost}Pi</span>
+                </div>
+                
+                <div className="mb-5 mt-3 flex justify-between">
+                  <Button
+                    label='Redeem'
+                    disabled={isSaveLoading || !selectedVoucher}
+                    styles={{
+                      color: '#ffc153',
+                      height: '40px',
+                      padding: '10px 15px',
+                      marginLeft: 'auto'
+                    }}
+                    onClick={handleVoucherRedemption}
+                  />
+                </div> 
+              </>}
+          </div> 
+          :
+          <div>
+            <div>
+              {membershipList && membershipList.length> 0 && membershipList.map((option, index) => (
+                <div
+                  key={index}
+                  className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+                  onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }
+                >
+                  {                                       
+                    selectedMembership === option.value ? (
+                      // <IoCheckmark />
+                      <div className="p-1 bg-green-700 rounded"></div>
+                      ) : (
+                      // <IoClose />
+                      <div className="p-1 bg-yellow-400 rounded"></div>                  
+                    )
+                  }
+                  {`${option.value}  ${isSingleMappi(option.value)
+                    ? "Mappi" 
+                    : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
+                  }`} 
+                  
+                  <MembershipIcon 
+                    category={option.value} 
+                    className="ml-1"
+                    styleComponent={{
+                      display: "inline-block",
+                      objectFit: "contain",
+                      verticalAlign: "middle"
+                    }}
+                  />
+                  <span> {option.cost}Pi</span>
+                </div>
+              ))}
+            </div>
             <div className="mb-5 mt-3 flex justify-between">
               <Button
-                label={`${selectedVoucher ? 'Redeem' : 'Pick'}`}
-                disabled={isSaveLoading || !selectedVoucher}
+                label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
+                disabled={isSaveLoading || totalAmount <= 0}
                 styles={{
                   color: '#ffc153',
                   height: '40px',
                   padding: '10px 15px',
                   marginLeft: 'auto'
                 }}
-                onClick={selectedVoucher ? handleVoucherRedemption : handleVoucherPick}
+                onClick={handleBuy}
               />
-            </div> 
-          </> 
-        )}
-          
-        </div>
-      </div>
-
-       {selectedMethod === MembershipBuyType.BUY && <div className="mb-5">
-        <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '}
-        </h2>
-
-        <div className="">
-          {membershipList && membershipList.length> 0 && membershipList.map((option, index) => (
-            <div
-              key={index}
-              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-              onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }
-            >
-              {                                       
-                selectedMembership === option.value ? (
-                  // <IoCheckmark />
-                  <div className="p-1 bg-green-700 rounded"></div>
-                  ) : (
-                  // <IoClose />
-                  <div className="p-1 bg-yellow-400 rounded"></div>                  
-                )
-              }
-              {`${option.value}  ${isSingleMappi(option.value)
-                ? "Mappi" 
-                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
-              }`} 
-              
-              <MembershipIcon 
-                category={option.value} 
-                className="ml-1"
-                styleComponent={{
-                  display: "inline-block",
-                  objectFit: "contain",
-                  verticalAlign: "middle"
-                }}
-              />
-              <span> {option.cost}Pi</span>
             </div>
-          ))}
-        </div>
-        <div className="mb-5 mt-3 flex justify-between">
-          <Button
-            label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
-            disabled={isSaveLoading || totalAmount <= 0}
-            styles={{
-              color: '#ffc153',
-              height: '40px',
-              padding: '10px 15px',
-              marginLeft: 'auto'
-            }}
-            onClick={handleBuy}
-          />
-        </div>
-      </div>}      
+          </div>
+        }
+      </div>     
     </div>
   );
 }
