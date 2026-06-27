@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Hɛnɔnɔn",
         "PHOTO": "Wɛnɔ kpɔ nɔn",
         "SELLING_DURATION_LABEL": "Hwenu ojle  è sà é ɖò aklunɔzángbe gbla mɛ lɛ",
+        "MAPPI_COST_PREVIEW": "Ènyí ná xó Mappi {mappi_count}",
+        "MAPPI_REFUND_PREVIEW": "A ná sɔ̀ Mappi {mappi_count} gbè na wò",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "É ɖò azɔ̌ wà wɛ",
           "EXPIRED": "Ojle lo Ko wá yì"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Sa ɖo {expired_by_date} mɛ",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kpɔ ɖo xóxó ná wá nɔ́ ɖè {remaining_weeks} wékè wɛ̀ lɛ̀ ɖò"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kpɔ ɖo xóxó ná wá nɔ́ ɖè {remaining_weeks} wékè wɛ̀ lɛ̀ ɖò",
+          "DURATION_MINIMUM": "Àsìwá xwéɖeɖe náà gbọ́dọ̀ jẹ́ ó kéré tán ọ̀sẹ̀ kan"
         }
       }
     },

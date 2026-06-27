@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Àpejúwe",
         "PHOTO": "Fọ́tò",
         "SELLING_DURATION_LABEL": "Àkókò títà ní ọsẹ",
+        "MAPPI_COST_PREVIEW": "Èyí yóò na {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "A ó da {mappi_count} Mappi padà fún ọ",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Ṣiṣẹ́",
           "EXPIRED": "Tí parí"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Títà ní {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kò le dín àkókò tita kù ju ọ̀sẹ̀ {remaining_weeks} tó ku lọ"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kò le dín àkókò tita kù ju ọ̀sẹ̀ {remaining_weeks} tó ku lọ",
+          "DURATION_MINIMUM": "Àkókò ìpolówó gbọ́dọ̀ jẹ́ ó kéré tán ọ̀sẹ̀ kan"
         }
       }
     },

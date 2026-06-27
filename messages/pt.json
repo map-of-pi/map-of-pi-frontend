@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Descrição",
         "PHOTO": "Foto",
         "SELLING_DURATION_LABEL": "Duração de venda em semanas",
+        "MAPPI_COST_PREVIEW": "Isto custará {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "Serão reembolsados {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Ativo",
           "EXPIRED": "Expirado"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Vender até {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A duração de venda não pode ser reduzida abaixo das {remaining_weeks} semanas restantes"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A duração de venda não pode ser reduzida abaixo das {remaining_weeks} semanas restantes",
+          "DURATION_MINIMUM": "A duração do anúncio deve ser de pelo menos 1 semana"
         }
       }
     },

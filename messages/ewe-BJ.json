@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "Nyateƒe",
         "PHOTO": "Dzeƒo",
         "SELLING_DURATION_LABEL": "Dɔɖɔɖoɖo vɔɖu awu me wo kpɔ wo dɔa",
+        "MAPPI_COST_PREVIEW": "Esia axɔ Mappi {mappi_count}",
+        "MAPPI_REFUND_PREVIEW": "Woadzra Mappi {mappi_count} na wò",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Gblɔ nyaɖe",
           "EXPIRED": "Nyaɖe ɖe va tso"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Dɔ nu {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Mele nyɔnu ɖe ɖɔɖɔ la ƒe ŋkeke ƒe ɣeyiɣi kple {remaining_weeks} si le eme o"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Mele nyɔnu ɖe ɖɔɖɔ la ƒe ŋkeke ƒe ɣeyiɣi kple {remaining_weeks} si le eme o",
+          "DURATION_MINIMUM": "Ele be nudzraɖoɖo la nali aɖeke sue wu kwasiɖa 1 o"
         }
       }
     },

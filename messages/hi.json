@@ -130,6 +130,8 @@
         "DESCRIPTION_LABEL": "विवरण",
         "PHOTO": "फ़ोटो",
         "SELLING_DURATION_LABEL": "हफ्तों में बिक्री की अवधि",
+        "MAPPI_COST_PREVIEW": "इसके लिए {mappi_count} Mappi खर्च होंगे",
+        "MAPPI_REFUND_PREVIEW": "आपको {mappi_count} Mappi वापस मिलेंगे",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "सक्रिय", 
           "EXPIRED": "समाप्त हो गया"
@@ -145,7 +147,8 @@
         },
         "SELLING_EXPIRATION_DATE": "द्वारा बेचें {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "बिक्री की अवधि {remaining_weeks} सप्ताह से कम नहीं की जा सकती"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "बिक्री की अवधि {remaining_weeks} सप्ताह से कम नहीं की जा सकती",
+          "DURATION_MINIMUM": "लिस्टिंग की अवधि कम से कम 1 सप्ताह होनी चाहिए"
         }
       }
     },
