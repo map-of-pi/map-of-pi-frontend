@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "구매할 멤버십 또는 Mappi 선택",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "멤버십 ({duration}주)",
       "PICK_BUY_METHOD_LABEL": "구매 방법 선택",
+      "NO_ACTIVE_MEMBERSHIP": "활성화된 멤버십이 없습니다",
       "PURCHASE_OPTIONS": {
         "PAY_WITH_PI": "Pi로 결제",
         "WATCH_ADS": "광고 보기 (무료)",
         "USE_VOUCHER": "바우처 코드 사용 (무료)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "바우처 코드 입력",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "사용 가능한 바우처 중에서 선택하세요",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "멤버십이 성공적으로 활성화되었습니다",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "멤버십 데이터 로드 실패",
@@ -131,7 +133,7 @@
         "PHOTO": "사진",
         "SELLING_DURATION_LABEL": "판매 기간 (주 단위)",
         "MAPPI_COST_PREVIEW": "이 작업에는 {mappi_count} Mappi가 필요합니다",
-"MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi가 환불됩니다",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi가 환불됩니다",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "활성",
           "EXPIRED": "만료됨"
@@ -344,6 +346,7 @@
     "COPY": "복사",
     "ADD_ITEM": "항목 추가",
     "CHECKOUT": "결제하기",
+    "REDEEM": "사용하기",
     "DELETE": "삭제",
     "CONFIRM_DELETE": "정말로 이 항목을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
     "SAVE": "저장",

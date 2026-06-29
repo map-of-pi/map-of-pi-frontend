@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa Mappi a wopɛ sɛ wotɔ",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "abɔntenkɔmu ({duration} nna nsia)",
       "PICK_BUY_METHOD_LABEL": "Paw sɔ adeɛ kwan",
+      "NO_ACTIVE_MEMBERSHIP": "Wonni membasip biara",
       "PURCHASE_OPTIONS": {
         "PAY_WITH_PI": "Tua Pi so",
         "WATCH_ADS": "Hwɛ ads (free)",
         "USE_VOUCHER": "Fa voucher code (free)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Bɔ voucher code",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Yi paw fi voucher ahorow a ɛwɔ hɔ mu",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship no ayɛ active yie",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Ɛyɛɛ mfomso wɔ membɛship data no so",
@@ -344,6 +346,7 @@
     "COPY": "Fa",
     "ADD_ITEM": "Ka Item",
     "CHECKOUT": "Tua ka",
+    "REDEEM": "Gye",
     "DELETE": "Popa",
     "CONFIRM_DELETE": "Wopɛ sɛ wopopa saa item yi? Saa nsɛm no rentumi mfa.",
     "SAVE": "Sie",

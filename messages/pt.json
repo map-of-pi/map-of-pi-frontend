@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Escolha adesão ou Mappi para comprar",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "adesão ({duration} semanas)",
       "PICK_BUY_METHOD_LABEL": "Escolha o método de compra",
+      "NO_ACTIVE_MEMBERSHIP": "Você não tem nenhuma adesão ativa",
       "PURCHASE_OPTIONS": {
         "PAY_WITH_PI": "Pagar com π",
         "WATCH_ADS": "Ver anúncios (grátis)",
         "USE_VOUCHER": "Usar código de voucher (grátis)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Inserir código de voucher",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Escolha entre os vouchers disponíveis",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Adesão ativada com sucesso",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Falha ao carregar dados de adesão",
@@ -344,6 +346,7 @@
     "COPY": "Copiar",
     "ADD_ITEM": "Adicionar Artigo",
     "CHECKOUT": "Finalizar Compra",
+    "REDEEM": "Resgatar",
     "DELETE": "Eliminar",
     "CONFIRM_DELETE": "Tem a certeza que quer eliminar este artigo? Esta ação não pode ser desfeita.",
     "SAVE": "Guardar",

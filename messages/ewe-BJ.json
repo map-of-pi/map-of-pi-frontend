@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Tia nudɔwɔlaƒe alo Mappi be nàɖɔ",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "dzidzɔla ({duration} kɔsiɖa)",
       "PICK_BUY_METHOD_LABEL": "Tia ɖɔɖɔ nu vovotɔ",
+      "NO_ACTIVE_MEMBERSHIP": "Membasip a le edzi o mele asiwò o",
       "PURCHASE_OPTIONS": {
         "PAY_WITH_PI": "Tɔ Pi",
         "WATCH_ADS": "Kɔ ads (free)",
         "USE_VOUCHER": "Tɔ voucher code (free)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Ɖe voucher kɔda me",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Tia voucher siwo li la dome",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship la wótsɔ ɖe eme gɔ̃ hã",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Membeshiip data la akpɔm le eme",
@@ -344,6 +346,7 @@
     "COPY": "Kɔpi",
     "ADD_ITEM": "Tsɔ nyateƒe",
     "CHECKOUT": "Ɖoɖoɖo si gbɔ",
+    "REDEEM": "Xɔ",
     "DELETE": "Zɔ",
     "CONFIRM_DELETE": "Míe nya dzɔ aɖe be woanɔ anyi sia dzi nyuie? Woate ŋu kɔ woanɔ anyiŋú gɔme o.",
     "SAVE": "Ŋutɔ",

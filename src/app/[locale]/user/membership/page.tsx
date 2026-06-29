@@ -17,11 +17,11 @@ import {
   IVoucher
 } from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
+import { fetchUserVouchers, redeemVoucher } from "@/services/voucherApi";
 import { translatePurchaseOptions } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
 import logger from "../../../../../logger.config.mjs";
-import { fetchUserVouchers, redeemVoucher } from "@/services/voucherApi";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
@@ -31,7 +31,7 @@ export default function MembershipPage() {
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
   const [selectedVoucher, setSelectedVoucher] = useState<IVoucher | null>(null);
   const [voucherMembership, setVoucherMembership] = useState<MembershipOption | null>(null);
-  const [voucherList, setAVoucherList] = useState<IVoucher[]>([]);
+  const [voucherList, setVoucherList] = useState<IVoucher[]>([]);
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -67,12 +67,12 @@ export default function MembershipPage() {
   }
 
   const handleVoucherPick = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  const voucherId = e.target.value;
-  if (!voucherId) return;
-  const found = voucherList.find((v) => v._id === voucherId) ?? null;
-  setSelectedVoucher(found);
-  setVoucherMembership(membershipList.find((m) => m.value ===found?.membership_class) ?? null)
-};
+    const voucherId = e.target.value;
+    if (!voucherId) return;
+    const found = voucherList.find((v) => v._id === voucherId) ?? null;
+    setSelectedVoucher(found);
+    setVoucherMembership(membershipList.find((m) => m.value ===found?.membership_class) ?? null);
+  };
 
   const handleVoucherRedemption = async () => {
     if (!currentUser || !selectedVoucher?._id) return;
@@ -140,7 +140,7 @@ export default function MembershipPage() {
           showAlert(res?.error)
         }
 
-        setAVoucherList(res.vouchers || []);
+        setVoucherList(res.vouchers || []);
         if (res.vouchers && res.vouchers.length>0) {
           const firstVucher = res.vouchers[0];
           setSelectedVoucher(firstVucher)
@@ -245,8 +245,8 @@ export default function MembershipPage() {
                 /> 
                   : 
                 <Input
-                  label={'Pick from Available vouchers'}
-                  value="You don't have any membership"
+                  label={t('SCREEN.MEMBERSHIP.PICK_FROM_AVAILABLE_VOUCHERS')}
+                  value={t('SCREEN.MEMBERSHIP.NO_ACTIVE_MEMBERSHIP')}
                   style={{
                     backgroundColor: '#d0d0d0',
                     cursor: 'not-allowed',
@@ -281,7 +281,7 @@ export default function MembershipPage() {
                 
                 <div className="mb-5 mt-3 flex justify-between">
                   <Button
-                    label='Redeem'
+                    label={t('SHARED.REDEEM')}
                     disabled={isSaveLoading || !selectedVoucher}
                     styles={{
                       color: '#ffc153',

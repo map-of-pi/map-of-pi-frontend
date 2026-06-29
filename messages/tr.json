@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Satın almak için üyelik veya Mappi'yi seçin",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "Üyelik ({duration} Haftalar)",
       "PICK_BUY_METHOD_LABEL": "Satın alma yöntemini seç",
+      "NO_ACTIVE_MEMBERSHIP": "Aktif bir üyeliğiniz yok",
       "PURCHASE_OPTIONS": {
         "PAY_WITH_PI": "Ile öde Pi",
         "WATCH_ADS": "Reklamları izleyin (ücretsiz)",
         "USE_VOUCHER": "Bir kupon kodu kullanın (ücretsiz)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Kupon kodunu girin",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Mevcut kuponlar arasından seçim yapın",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Üyelik başarıyla etkinleştirildi",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Üyelik verileri yüklenemedi",
@@ -344,6 +346,7 @@
     "COPY": "Kopya",
     "ADD_ITEM": "Öğe Ekle",
     "CHECKOUT": "Ödeme",
+    "REDEEM": "Kullan",
     "DELETE": "Silmek",
     "CONFIRM_DELETE": "Bu öğeyi gerçekten silmek istiyor musunuz? Bu işlem geri alınamaz.",
     "SAVE": "Korumak",
