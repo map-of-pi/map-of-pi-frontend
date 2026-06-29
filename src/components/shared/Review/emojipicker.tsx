@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect, useContext, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { createReview, updateReview } from '@/services/reviewsApi';
-import removeUrls from '@/utils/sanitize';
+import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';

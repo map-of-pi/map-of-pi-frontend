@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Pick membership or Mappi to buy",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membership ({duration} weeks)",
       "PICK_BUY_METHOD_LABEL": "Pick buy method",
+      "NO_ACTIVE_MEMBERSHIP": "You don't have any membership",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Pay with π",
+        "PAY_WITH_PI": "Pay with Pi",
         "WATCH_ADS": "Watch ads (free)",
         "USE_VOUCHER": "Use a voucher code (free)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Enter voucher code",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Pick from available vouchers",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membership activated successfully",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Failed to load membership data",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Description",
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Selling duration in weeks",
+        "MAPPI_COST_PREVIEW": "This will cost {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "This will refund {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Active", 
           "EXPIRED": "Expired"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Sell by {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Selling duration cannot be reduced below the {remaining_weeks} weeks remaining"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Selling duration cannot be reduced below the {remaining_weeks} weeks remaining",
+          "DURATION_MINIMUM": "Listing duration must be at least 1 week"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Copy",
     "ADD_ITEM": "Add Item",
     "CHECKOUT": "Checkout",
+    "REDEEM": "Redeem",
     "DELETE": "Delete",
     "CONFIRM_DELETE": "Do you really want to delete this item? This action cannot be undone.",
     "SAVE": "Save",

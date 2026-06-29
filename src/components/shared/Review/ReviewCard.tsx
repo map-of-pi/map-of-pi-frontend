@@ -9,13 +9,12 @@ import { getImageSrc } from '@/utils/image';
 interface ReviewCardProps {
   review: ReviewInt;
   currentUserId?: string;
-  userFallbackImage: string | null;
 }
 
-export function ReviewCard({ review, currentUserId, userFallbackImage }: ReviewCardProps) {
+export function ReviewCard({ review, currentUserId }: ReviewCardProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const imgSrc = getImageSrc(review.image, userFallbackImage);
+  const imgSrc = getImageSrc(review.image);
 
   return (
     <div className="seller_item_container mb-5">

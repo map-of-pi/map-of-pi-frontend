@@ -1,26 +1,52 @@
 'use client';
 
-import { useState, SetStateAction, useContext, useEffect, useRef } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import Image from "next/image";
-import { ConfirmDialogX, Notification } from "../confirm";
-import { Button } from "../Forms/Buttons/Buttons";
-import { TextArea, Input, FileInput, Select } from "../Forms/Inputs/Inputs";
-import { ISeller, PickedItems, SellerItem, ShopItemData, StockLevelType } from "@/constants/types";
-import { addOrUpdateSellerItem, deleteSellerItem, fetchSellerItems } from "@/services/sellerApi";
-import { getRemainingWeeks } from "@/utils/selleritem";
-import removeUrls from "@/utils/sanitize";
-import { getStockLevelOptions } from "@/utils/translate";
-import { AppContext } from "../../../../context/AppContextProvider";
+import {
+  useState,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
+import { useTranslations, useLocale } from 'next-intl';
+import Image from 'next/image';
+import { ConfirmDialogX, Notification } from '../confirm';
+import { Button } from '../Forms/Buttons/Buttons';
+import { TextArea, Input, FileInput, Select } from '../Forms/Inputs/Inputs';
+import {
+  ISeller,
+  PickedItems,
+  SellerItem,
+  ShopItemData,
+  StockLevelType,
+} from '@/constants/types';
+import {
+  addOrUpdateSellerItem,
+  deleteSellerItem,
+  fetchSellerItems,
+} from '@/services/sellerApi';
+import { getRemainingWeeks } from '@/utils/selleritem';
+import { removeUrls } from '@/utils/sanitize';
+import { getStockLevelOptions } from '@/utils/translate';
+import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
+
+// ---------------------------------------------------------------------------
+// OnlineShopping (parent)
+// ---------------------------------------------------------------------------
 
 export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
   const t = useTranslations();
-  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[]>([]);
-  const [isAddItemEnabled, setIsAddItemEnabled] = useState(false);
-  const [focusedItemId, setFocusedItemId] = useState<string | null>(null);
-  const [isNewItem, setIsNewItem] = useState<boolean>(false);
+  const { userMembership, refreshUserMembership } = useContext(AppContext);
 
+  const [dbSellerItems, setDbSellerItems] = useState<SellerItem[]>([]);
+  // True while the new-item card is visible
+  const [isAddingNew, setIsAddingNew] = useState(false);
+  // Which card is scrolled into view
+  const [focusedItemId, setFocusedItemId] = useState<string | null>(null);
+
+  // IntersectionObserver – tracks which card is centred in the scroll view
   const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -28,7 +54,7 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const itemId = entry.target.getAttribute("data-id");
+            const itemId = entry.target.getAttribute('data-id');
             if (itemId) setFocusedItemId(itemId);
           }
         });
@@ -38,374 +64,457 @@ export default function OnlineShopping({ dbSeller }: { dbSeller: ISeller }) {
     return () => observer.current?.disconnect();
   }, []);
 
-  const handleShopItemRef = (node: HTMLElement | null) => {
+  const handleShopItemRef = useCallback((node: HTMLElement | null) => {
     if (node && observer.current) observer.current.observe(node);
-  };
+  }, []);
 
-  // Fetch seller items once
+  // Fetch seller items once on mount
   useEffect(() => {
-    const getSellerItems = async (seller_id: string) => {
+    if (!dbSeller) return;
+    const load = async () => {
       try {
-        const items = await fetchSellerItems(seller_id);
+        const items = await fetchSellerItems(dbSeller.seller_id);
         setDbSellerItems(items || []);
       } catch (error) {
         logger.error('Error fetching seller items data:', error);
         setDbSellerItems([]);
       }
     };
-    if (dbSeller) getSellerItems(dbSeller.seller_id);
+    load();
   }, [dbSeller]);
 
-  // Update only the affected item
-  const handleUpdateItem = (updatedItem: SellerItem) => {
-    setDbSellerItems((prev) => {
-      // If new item, add to list
-      if (updatedItem && (!updatedItem._id || !prev.some(i => i._id === updatedItem._id))) {
-        return [...prev, updatedItem];
-      }
-      // Otherwise, update in place
-      return prev.map((item) => item._id === updatedItem._id ? updatedItem : item);
-    });
-    setIsNewItem(false);
-  };
+  // Called by ShopItem after a successful save
+  const handleUpdateItem = useCallback(
+    (updatedItem: SellerItem) => {
+      setDbSellerItems((prev) => {
+        const exists = prev.some((i) => i._id === updatedItem._id);
+        return exists
+          ? prev.map((i) => (i._id === updatedItem._id ? updatedItem : i))
+          : [...prev, updatedItem];
+      });
+      setIsAddingNew(false);
+      // Re-fetch membership so mappi_balance reflects the deduction
+      refreshUserMembership?.();
+    },
+    [refreshUserMembership]
+  );
 
-  // Remove only the affected item
-  const handleDeleteItem = (itemId: string) => {
-    setDbSellerItems((prev) => prev.filter((item) => item._id !== itemId));
-    setIsNewItem(false);
-  };
+  // Called by ShopItem after a successful delete
+  const handleDeleteItem = useCallback(
+    (itemId: string) => {
+      setDbSellerItems((prev) => prev.filter((i) => i._id !== itemId));
+      setIsAddingNew(false);
+      refreshUserMembership?.();
+    },
+    [refreshUserMembership]
+  );
 
   const emptyForm: SellerItem = {
     seller_id: dbSeller.seller_id as string,
-    name: "",
-    _id: "",
+    name: '',
+    _id: '',
     duration: 1,
-    price: {$numberDecimal: '0.01'},
-    description: "",
-    image: "",
+    price: { $numberDecimal: '0.01' },
+    description: '',
+    image: '',
     stock_level: StockLevelType.available_1,
   };
 
   return (
-    <>        
-      <div className="mb-4">
-        <h2 className='text-gray-500 text-lg'>
-          {t('SCREEN.SELLER_REGISTRATION.MAPPI_ALLOWANCE_LABEL')}: 999
+    <>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-gray-500 text-lg">
+          {t('SCREEN.SELLER_REGISTRATION.MAPPI_ALLOWANCE_LABEL')}:{' '}
+          {userMembership?.mappi_balance ?? '—'}
         </h2>
         <Button
           label={t('SHARED.ADD_ITEM')}
-          disabled={isAddItemEnabled}
-          onClick={() => setIsNewItem(true)}
+          // Disable while a new-item card is already open
+          disabled={isAddingNew}
+          onClick={() => setIsAddingNew(true)}
           styles={{
             color: '#ffc153',
             height: '40px',
             padding: '10px 15px',
-            marginLeft: 'auto',
           }}
         />
       </div>
+
       <div className="overflow-x-auto p-2 gap-x-5 mb-5 w-full flex">
-        {isNewItem && 
+        {isAddingNew && (
           <ShopItem
-            key={'new'}
+            key="new"
             existingItem={emptyForm}
             isActive={true}
-            refCallback={handleShopItemRef} // Attach observer
-            setIsAddItemEnabled={setIsAddItemEnabled}
+            refCallback={handleShopItemRef}
             onUpdate={handleUpdateItem}
             onDelete={handleDeleteItem}
-            setIsNewItem={setIsNewItem}
-          /> 
-        }
+            onCancelNew={() => setIsAddingNew(false)}
+          />
+        )}
         {dbSellerItems.map((item) => (
           <ShopItem
             key={item._id}
             existingItem={item}
-            isActive={focusedItemId === item._id}
-            refCallback={handleShopItemRef} // Attach observer
-            setIsAddItemEnabled={setIsAddItemEnabled}
+            isActive={focusedItemId === item._id || dbSellerItems.length === 1}
+            refCallback={handleShopItemRef}
             onUpdate={handleUpdateItem}
             onDelete={handleDeleteItem}
-          /> 
-        ))            
-        }
+          />
+        ))}
       </div>
     </>
   );
 }
 
-// --- ShopItem: Optimized to call parent handlers ---
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns the projected Mappi balance change for the given duration edit.
+ *
+ * Mirrors backend resolveDurationChange semantics:
+ *  - New item:            positive cost = ceil(duration)
+ *  - Existing, extended:  positive cost = added weeks
+ *  - Existing, reduced:   negative value = refunded weeks (capped by remaining weeks)
+ *  - No change:           0
+ */
+export function previewMappiCost(
+  existingItem: SellerItem,
+  newDuration: number
+): number {
+  const isNew = !existingItem._id;
+  const isExpired =
+    !!existingItem.expired_by && new Date(existingItem.expired_by) < new Date();
+
+  // New items AND expired items are relists: full duration is charged, no refund.
+  if (isNew || isExpired) {
+    return Math.max(1, Math.ceil(newDuration));
+  }
+
+  const prevDuration = existingItem.duration ?? 0;
+  const delta = newDuration - prevDuration;
+
+  if (delta === 0) return 0;
+  if (delta > 0) return Math.ceil(delta); // cost
+
+  // Reduction → refund preview (backend clamps to remaining weeks)
+  return delta;
+}
+
+// ---------------------------------------------------------------------------
+// ShopItem
+// ---------------------------------------------------------------------------
+
 export const ShopItem: React.FC<{
   existingItem: SellerItem;
   isActive: boolean;
   refCallback: (node: HTMLElement | null) => void;
-  setIsAddItemEnabled: React.Dispatch<SetStateAction<boolean>>;
   onUpdate: (item: SellerItem) => void;
   onDelete: (itemId: string) => void;
-  setIsNewItem?: (val: boolean) => void;
-}> = ({
-  existingItem,
-  isActive,
-  refCallback,
-  setIsAddItemEnabled,
-  onUpdate,
-  onDelete,
-  setIsNewItem,
-}) => {
+  onCancelNew?: () => void;
+}> = ({ existingItem, isActive, refCallback, onUpdate, onDelete, onCancelNew }) => {
   const locale = useLocale();
   const t = useTranslations();
-  
-  const [item, setItem] = useState<SellerItem>(existingItem);
-  const [formData, setFormData] = useState<ShopItemData>({
-    seller_id: item.seller_id || '',
-    name: item.name || '',
-    description: item.description || '',
-    duration: item.duration || 1,
-    price: item.price?.$numberDecimal?.toString(),
-    image: item.image || '',
-    stock_level: item.stock_level || getStockLevelOptions(t)[0].name,
-    expired_by: item.expired_by, 
-    _id: item._id || ''
-  });
-  
+  const { showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
+
+  // Derive initial form state from existingItem
+  const initialFormData = useCallback(
+    (src: SellerItem): ShopItemData => ({
+      seller_id: src.seller_id || '',
+      name: src.name || '',
+      description: src.description || '',
+      duration: src.duration || 1,
+      price: src.price?.$numberDecimal?.toString() ?? '0.01',
+      image: src.image || '',
+      stock_level: src.stock_level || getStockLevelOptions(t)[0].name,
+      expired_by: src.expired_by,
+      _id: src._id || '',
+    }),
+    [t]
+  );
+
+  const [formData, setFormData] = useState<ShopItemData>(() =>
+    initialFormData(existingItem)
+  );
   const [previewImage, setPreviewImage] = useState<string>(
-    formData?.image || '',
+    existingItem.image || ''
   );
   const [showPopup, setShowPopup] = useState(false);
-  const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [dialogueMessage, setDialogueMessage] = useState<string>('');
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogueMessage, setDialogueMessage] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const { showAlert, isSaveLoading, setIsSaveLoading } = useContext(AppContext);
-  const [sellingStatus, setSellingStatus] = useState('');
-  const [formattedDate, setFormattedDate] = useState('');
+  // True when any field has been changed from the saved state
+  const [isDirty, setIsDirty] = useState(false);
 
-  // Handle image upload
+  // ---- Derived display values (no stale-item risk) -----------------------
+
+  const sellingStatus = useMemo(() => {
+    if (!existingItem.expired_by) return '';
+    const isActive = new Date(existingItem.expired_by) > new Date();
+    return isActive
+      ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE')
+      : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED');
+  }, [existingItem.expired_by, t]);
+
+  const formattedDate = useMemo(() => {
+    if (!existingItem.expired_by) return '';
+    return new Intl.DateTimeFormat(locale || 'en-US', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    }).format(new Date(existingItem.expired_by));
+  }, [existingItem.expired_by, locale]);
+
+  // Mappi cost preview — reacts immediately to duration changes
+  const mappiCostPreview = useMemo(
+    () => previewMappiCost(existingItem, formData.duration),
+    [existingItem, formData.duration]
+  );
+
+  // Re-sync form when existingItem identity changes (e.g. after parent re-fetches)
+  useEffect(() => {
+    setFormData(initialFormData(existingItem));
+    setPreviewImage(existingItem.image || '');
+    setIsDirty(false);
+    setFile(null);
+  }, [existingItem, initialFormData]);
+
+  // ---- Handlers ----------------------------------------------------------
+
   const handleAddImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0]; // only take the first file
-    if (selectedFile) {
-      setFile(selectedFile);
-
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreviewImage(objectUrl);
-      logger.info('Image selected for upload:', { selectedFile });
-
-      setIsAddItemEnabled(true);
-    }
+    const selectedFile = e.target.files?.[0];
+    if (!selectedFile) return;
+    setFile(selectedFile);
+    setPreviewImage(URL.createObjectURL(selectedFile));
+    setIsDirty(true);
+    logger.info('Image selected for upload:', { selectedFile });
   };
 
   const handleChange = (
     e:
-      | React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >
-      | { name: string; value: string },
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+      | { name: string; value: string }
   ) => {
-    // handle such scenarios where the event might not have the typical e.target structure i.e., PhoneInput.
     const name = 'target' in e ? e.target.name : e.name;
     const value = 'target' in e ? e.target.value : e.value;
-    // Create a new object with the updated form data
-    const updatedFormData = {
-      ...formData,
-      [name]: value,
-    };
-    setFormData(updatedFormData);
-  
-    // enable or disable add item button based on form inputs
-    const isFormFilled = Object.values(updatedFormData).some((v) => v !== '');
-    setIsAddItemEnabled(isFormFilled);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setIsDirty(true);
   };
-    
+
   const handleIncrement = () => {
-    const updatedQuantity = parseInt(formData.duration.toString()) + 1;
-    setFormData({ ...formData, duration: updatedQuantity });
-    setIsAddItemEnabled(true); // Enable add item button
+    setFormData((prev) => ({
+      ...prev,
+      duration: (parseInt(prev.duration.toString()) || 1) + 1,
+    }));
+    setIsDirty(true);
   };
-    
+
   const handleDecrement = () => {
-    if ((formData.duration || 0) > 1) {
-      const updatedQuantity = parseInt(formData.duration.toString()) - 1;
-      setFormData({ ...formData, duration: updatedQuantity });
-      setIsAddItemEnabled(true); // Enable add item button
-    }
+    setFormData((prev) => {
+      const current = parseInt(prev.duration.toString()) || 1;
+      return current > 1 ? { ...prev, duration: current - 1 } : prev;
+    });
+    setIsDirty(true);
   };
 
   const handleSave = async () => {
-    // Return early if reduced duration is greater than remaining weeks
-    const remainingWeeks = getRemainingWeeks(item);
-    const reducedDuration = item.duration - formData.duration;
+    // Validate: can't reduce duration below remaining weeks
+    const remainingWeeks = getRemainingWeeks(existingItem);
+    const reducedDuration = existingItem.duration - formData.duration;
+    const isExpired =
+      !!existingItem.expired_by &&
+      new Date(existingItem.expired_by) < new Date();
 
-    if (reducedDuration > remainingWeeks) {
-      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS', {
-        remaining_weeks: remainingWeeks
-      }));
+    // Reduction-below-remaining-weeks check only applies to ACTIVE listings.
+    if (!isExpired && reducedDuration > remainingWeeks) {
+      setDialogueMessage(
+        t(
+          'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.REDUCED_DURATION_BELOW_REMAINING_WEEKS',
+          { remaining_weeks: remainingWeeks }
+        )
+      );
+      setShowDialog(true);
+      return;
+    }
+
+    if (formData.duration < 1) {
+      setDialogueMessage(
+        t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.VALIDATION.DURATION_MINIMUM')
+      );
       setShowDialog(true);
       return;
     }
 
     setIsSaveLoading(true);
-    const formDataToSend = new FormData();
-    formDataToSend.append('name', removeUrls(formData.name || '').trim());
-    formDataToSend.append('_id', formData._id || '');
-    formDataToSend.append('description', removeUrls(formData.description || '').trim());
-    formDataToSend.append('duration', formData.duration?.toString() || '1');
-    formDataToSend.append('seller_id', formData.seller_id || '');
-    formDataToSend.append('stock_level', formData.stock_level || '1 available');
-    formDataToSend.append('price', parseFloat(formData.price).toFixed(3).toString() || '0.01');
 
-    // Add file if provided
-    if (file) {
-      formDataToSend.append('image', file);
-    }
+    const payload = new FormData();
+    payload.append('name', removeUrls(formData.name || '').trim());
+    payload.append('_id', formData._id || '');
+    payload.append('description', removeUrls(formData.description || '').trim());
+    payload.append('duration', formData.duration?.toString() || '1');
+    payload.append('seller_id', formData.seller_id || '');
+    payload.append('stock_level', formData.stock_level || '1 available');
+    payload.append(
+      'price',
+      parseFloat(formData.price).toFixed(3) || '0.010'
+    );
+    if (file) payload.append('image', file);
 
     try {
-      logger.info('Form data being sent:', Object.fromEntries(formDataToSend.entries()));
-
-      // Send data to backend
-      const data = await addOrUpdateSellerItem(formDataToSend);
+      logger.info('Saving seller item:', Object.fromEntries(payload.entries()));
+      const data = await addOrUpdateSellerItem(payload);
 
       if (data) {
-        setItem(data.sellerItem);
         onUpdate(data.sellerItem);
-        setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT', {
-            mappi_count: data.consumedMappi
-        }));
+        setIsDirty(false);
+        setDialogueMessage(
+          t(
+            'SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT',
+            { mappi_count: data.consumedMappi }
+          )
+        );
         setShowDialog(true);
-        setIsAddItemEnabled(false);
-        showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_SAVED'));
-        if (setIsNewItem) setIsNewItem(false);
+        showAlert(
+          t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_SAVED')
+        );
+        onCancelNew?.();
       }
     } catch (error) {
       logger.error('Error saving seller item:', error);
-      showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_SAVE'));
-      setDialogueMessage(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT'));
-        setShowDialog(true);
+      showAlert(
+        t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_SAVE')
+      );
+      setDialogueMessage(
+        t(
+          'SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT'
+        )
+      );
+      setShowDialog(true);
     } finally {
       setIsSaveLoading(false);
     }
   };
 
-  
-  const handleDelete = async (item_id: string)=> {
-    if (!item_id || item_id ==='') {
-      return showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SELLER_ITEM_NOT_FOUND'));     
+  const handleDelete = async (item_id: string) => {
+    if (!item_id) {
+      showAlert(
+        t('SCREEN.SELLER_REGISTRATION.VALIDATION.SELLER_ITEM_NOT_FOUND')
+      );
+      return;
     }
-      
     try {
       const resp = await deleteSellerItem(item_id);
       if (resp) {
-        onDelete(item_id); // Only remove this item in parent state
-        setIsAddItemEnabled(false);
-        showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_DELETED'));
-        if (setIsNewItem) setIsNewItem(false);
+        onDelete(item_id);
+        showAlert(
+          t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SELLER_ITEM_DELETED')
+        );
+        onCancelNew?.();
       }
     } catch (error) {
       logger.error('Error deleting seller item:', error);
-      showAlert(t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_DELETE'));                
-    }
-  }
-  
-  useEffect(() => {
-    setItem(existingItem);
-    setFormData({
-      seller_id: existingItem.seller_id || '',
-      name: existingItem.name || '',
-      description: existingItem.description || '',
-      duration: existingItem.duration || 1,
-      price: existingItem.price?.$numberDecimal?.toString(),
-      image: existingItem.image || '',
-      stock_level: existingItem.stock_level || getStockLevelOptions(t)[0].name,
-      expired_by: existingItem.expired_by,
-      _id: existingItem._id || ''
-    });
-    if (item?.expired_by) {
-      const expiredDate = new Date(item.expired_by);
-      const isActive = expiredDate > new Date();
-      setSellingStatus(
-        isActive 
-          ? t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.ACTIVE') 
-          : t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_STATUS_OPTIONS.EXPIRED')
+      showAlert(
+        t('SCREEN.SELLER_REGISTRATION.VALIDATION.FAILED_SELLER_ITEM_DELETE')
       );
+    }
+  };
 
-      setFormattedDate(
-        new Intl.DateTimeFormat(locale || 'en-US', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true,
-        }).format(expiredDate)
-      );
-    }
-  }, [existingItem, t]);
+  const isNewItem = !existingItem._id;
 
   return (
     <>
       <div
         ref={refCallback}
-        data-id={item._id} // Add a unique identifier for each item
-        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer 
-          ${isActive ? '' : 'opacity-50 pointer-events-none'}`}
+        data-id={existingItem._id || 'new'}
+        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer ${
+          isActive ? '' : 'opacity-50 pointer-events-none'
+        }`}
       >
-        <Notification message={dialogueMessage} showDialog={showDialog} setShowDialog={setShowDialog} />
+        <Notification
+          message={dialogueMessage}
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+        />
+
         <div className="p-3">
+          {/* Name + Price */}
           <div className="flex gap-x-4">
             <div className="flex-auto w-64">
               <Input
-                label={t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.ITEM_LABEL') + ':'}
+                label={
+                  t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.ITEM_LABEL') + ':'
+                }
                 name="name"
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
-                disabled={!isActive} // Disable if not active
+                disabled={!isActive}
               />
             </div>
-        
             <div className="flex-auto w-32">
               <div className="flex items-center gap-2">
                 <Input
-                  label={t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'}
+                  label={
+                    t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'
+                  }
                   name="price"
                   type="number"
                   value={formData.price}
                   onChange={handleChange}
-                  disabled={!isActive} // Disable if not active
+                  disabled={!isActive}
                 />
-                <p className="text-gray-500 text-sm">π</p>
+                <p className="text-gray-500 text-sm">Pi</p>
               </div>
             </div>
           </div>
+
+          {/* Description + Image */}
           <div className="flex gap-x-4">
             <div className="flex-auto w-64">
               <TextArea
-                label={t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL') + ':'}
+                label={
+                  t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL') +
+                  ':'
+                }
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                disabled={!isActive} // Disable if not active
+                disabled={!isActive}
                 styles={{ height: '100px' }}
               />
             </div>
             <div className="flex-auto w-32 gap-2">
               <label className="block text-[17px] text-[#333333]">
-                {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO') + ':'}
+                {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO') +
+                  ':'}
               </label>
               <FileInput
                 imageUrl={previewImage}
                 handleAddImage={handleAddImage}
-                height={'h-[100px]'}
+                height="h-[100px]"
                 hideCaption={true}
               />
             </div>
           </div>
+
+          {/* Stock level */}
           <Select
-            label={t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.STOCK_LABEL') + ':'}
+            label={
+              t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.STOCK_LABEL') + ':'
+            }
             name="stock_level"
             value={formData.stock_level}
             onChange={handleChange}
             options={getStockLevelOptions(t)}
             disabled={!isActive}
           />
+
+          {/* Duration stepper */}
           <label className="text-[18px] text-[#333333]">
             {t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_DURATION_LABEL')}:
           </label>
@@ -413,68 +522,76 @@ export const ShopItem: React.FC<{
             <div className="flex gap-2 items-center justify-between mr-4">
               <button
                 className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
-                  !isActive || formData.duration <= 1 ? `bg-[grey]` : `bg-primary`
+                  !isActive || formData.duration <= 1 ? 'bg-[grey]' : 'bg-primary'
                 }`}
-                onClick={handleDecrement} // Decrement handler
+                onClick={handleDecrement}
                 disabled={!isActive || formData.duration <= 1}
               >
                 -
               </button>
-
               <input
                 name="duration"
                 type="number"
                 value={formData.duration}
                 onChange={handleChange}
-                className={`p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[65px]`}
-                disabled={!isActive} // Disable if not active
+                className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[65px]"
+                disabled={!isActive}
               />
-
               <button
                 className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
-                  !isActive ? `bg-[grey]` : `bg-primary`
+                  !isActive ? 'bg-[grey]' : 'bg-primary'
                 }`}
-                onClick={handleIncrement} // Increment handler
+                onClick={handleIncrement}
                 disabled={!isActive}
               >
                 +
               </button>
             </div>
+
             <Button
               label={t('SHARED.DELETE')}
-              disabled={!isActive} // Disable if not active
-              styles={{
-                color: '#ffc153',
-                height: '40px',
-                padding: '5px 8px',
-                width: "100%"
-              }}
+              disabled={!isActive || isNewItem}
+              styles={{ color: '#ffc153', height: '40px', padding: '5px 8px', width: '100%' }}
               onClick={() => setShowPopup(true)}
             />
             <Button
               label={t('SHARED.SAVE')}
-              disabled={!isActive || isSaveLoading} // Disable if not active
-              styles={{
-                color: '#ffc153',
-                height: '40px',
-                padding: '10px 15px',
-                width: "100%"
-              }}
+              disabled={!isActive || isSaveLoading || !isDirty}
+              styles={{ color: '#ffc153', height: '40px', padding: '10px 15px', width: '100%' }}
               onClick={handleSave}
             />
           </div>
-          <div className="mt-3">
-            {item?.expired_by && (
+
+          {/* Mappi cost / refund preview */}
+          {isActive && isDirty && mappiCostPreview !== 0 && (
+            <p className="mt-2 text-sm text-amber-600">
+              {mappiCostPreview > 0
+                ? t(
+                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_COST_PREVIEW',
+                    { mappi_count: mappiCostPreview }
+                  )
+                : t(
+                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_REFUND_PREVIEW',
+                    { mappi_count: Math.abs(mappiCostPreview) }
+                  )}
+            </p>
+          )}
+
+          {/* Expiry status */}
+          {existingItem.expired_by && (
+            <div className="mt-3">
               <label className="text-[14px] text-[#333333]">
                 <span className="fw-bold text-lg">{sellingStatus}: </span>
-                {t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_EXPIRATION_DATE', {
-                  expired_by_date: formattedDate,
-                })}
+                {t(
+                  'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_EXPIRATION_DATE',
+                  { expired_by_date: formattedDate }
+                )}
               </label>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
+
       {showPopup && (
         <ConfirmDialogX
           toggle={() => setShowPopup(false)}
@@ -486,65 +603,66 @@ export const ShopItem: React.FC<{
   );
 };
 
+// ---------------------------------------------------------------------------
+// ListItem  (buyer-side read-only card)
+// ---------------------------------------------------------------------------
+
 export const ListItem: React.FC<{
   item: SellerItem;
-  pickedItems: PickedItems[],
-  setPickedItems:React.Dispatch<SetStateAction<PickedItems[]>>
-  totalAmount: number,
-  setTotalAmount:React.Dispatch<SetStateAction<number>>
+  pickedItems: PickedItems[];
+  setPickedItems: React.Dispatch<SetStateAction<PickedItems[]>>;
+  totalAmount: number;
+  setTotalAmount: React.Dispatch<SetStateAction<number>>;
   refCallback: (node: HTMLElement | null) => void;
-}> = ({ item, refCallback, setPickedItems, pickedItems=[], totalAmount, setTotalAmount }) => {
+}> = ({ item, refCallback, setPickedItems, pickedItems = [], totalAmount, setTotalAmount }) => {
   const t = useTranslations();
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const [quantity, setQuantity] = useState<number>(1)
-
-  // Reset quantity when item changes
+  // Reset quantity when the item shown changes
   useEffect(() => {
     setQuantity(1);
-  }, [item]);
+  }, [item._id]);
 
-  const handlePicked = (itemId: string, price: number): void => {
+  const isPicked = useMemo(
+    () => pickedItems.some((p) => p.itemId === item._id),
+    [pickedItems, item._id]
+  );
+
+  const itemPrice = useMemo(
+    () => parseFloat(item.price?.$numberDecimal ?? item.price?.toString() ?? '0'),
+    [item.price]
+  );
+
+  const handlePicked = (itemId: string) => {
     setPickedItems((prev) => {
-      const existingItem = prev.find((item) => item.itemId === itemId);
-      let newTotalAmount = totalAmount;
-  
-      if (existingItem) {
-        // If item exists, remove it
-        newTotalAmount -= price * existingItem.quantity;
-        setTotalAmount(newTotalAmount);
-        return prev.filter((item) => item.itemId !== itemId);
-      } else {
-        // If item doesn't exist, add it
-        const newItem = { itemId, quantity };
-        newTotalAmount += price * quantity;
-        setTotalAmount(newTotalAmount);
-        return [...prev, newItem];
+      const existing = prev.find((p) => p.itemId === itemId);
+
+      if (existing) {
+        // Remove: subtract what was actually added at pick time
+        setTotalAmount((t) => parseFloat((t - itemPrice * existing.quantity).toFixed(8)));
+        return prev.filter((p) => p.itemId !== itemId);
       }
+
+      // Add: use the current local quantity
+      setTotalAmount((t) => parseFloat((t + itemPrice * quantity).toFixed(8)));
+      return [...prev, { itemId, quantity }];
     });
   };
 
-  const quantityLimit = (stockLevel: StockLevelType) => {
-    switch (stockLevel) {
-      case StockLevelType.available_1:
-        return 1;
-      case StockLevelType.available_2:
-        return 2;
-      case StockLevelType.available_3:
-        return 3;
-      default:
-        return 9999; // Default value if no stock level matches
+  const maxQuantity = useMemo(() => {
+    switch (item.stock_level) {
+      case StockLevelType.available_1: return 1;
+      case StockLevelType.available_2: return 2;
+      case StockLevelType.available_3: return 3;
+      default: return 9999;
     }
-  };
-  
-  const handleIncrement = () => {
-    setQuantity((prev) => Math.min(quantityLimit(item.stock_level), prev + 1));
-  };
+  }, [item.stock_level]);
 
-  const handleDecrement = () => {
+  const handleIncrement = () =>
+    setQuantity((prev) => Math.min(maxQuantity, prev + 1));
+
+  const handleDecrement = () =>
     setQuantity((prev) => Math.max(1, prev - 1));
-  };
-
-  const isPicked = pickedItems.find((picked) => picked.itemId === item._id);
 
   return (
     <div
@@ -555,24 +673,31 @@ export const ListItem: React.FC<{
       }`}
     >
       <div className="p-3">
+        {/* Name + Price */}
         <div className="flex gap-x-4">
           <div className="flex-auto w-64">
             <Input
-              label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.ITEM_LABEL') + ':'}
+              label={
+                t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.ITEM_LABEL') +
+                ':'
+              }
               name="name"
               type="text"
               value={item.name}
               disabled={true}
             />
           </div>
-
           <div className="flex-auto w-32">
             <div className="flex items-center gap-2">
               <Input
-                label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'}
+                label={
+                  t(
+                    'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PRICE_LABEL'
+                  ) + ':'
+                }
                 name="price"
                 type="number"
-                value={item.price?.$numberDecimal || item.price.toString()}
+                value={item.price?.$numberDecimal ?? item.price?.toString()}
                 disabled={true}
               />
               <p className="text-gray-500 text-sm">π</p>
@@ -580,10 +705,15 @@ export const ListItem: React.FC<{
           </div>
         </div>
 
+        {/* Description + Image */}
         <div className="flex gap-x-4">
           <div className="flex-auto w-64">
             <TextArea
-              label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL') + ':'}
+              label={
+                t(
+                  'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.DESCRIPTION_LABEL'
+                ) + ':'
+              }
               name="description"
               value={item.description}
               disabled={true}
@@ -592,59 +722,69 @@ export const ListItem: React.FC<{
           </div>
           <div className="flex-auto w-32 gap-2">
             <label className="block text-[17px] text-[#333333]">
-              {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO') + ':'}
+              {t(
+                'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PHOTO'
+              ) + ':'}
             </label>
             <Image
               src={item.image || ''}
               height={50}
               width={50}
-              alt="image"
-              className={'h-[100px] w-auto'}
+              alt={item.name || 'item image'}
+              className="h-[100px] w-auto"
             />
           </div>
         </div>
 
+        {/* Quantity stepper */}
         <label className="text-[18px] text-[#333333]">
-          {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.BUYING_QUANTITY_LABEL')}:
+          {t(
+            'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.BUYING_QUANTITY_LABEL'
+          )}
+          :
         </label>
         <div className="flex items-center gap-4 w-full mt-1">
           <div className="flex gap-2 items-center justify-between mr-4">
             <button
               className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
-                quantity <= 1 || isPicked ? `bg-[grey]` : `bg-primary`
+                quantity <= 1 || isPicked ? 'bg-[grey]' : 'bg-primary'
               }`}
               onClick={handleDecrement}
-              disabled={isPicked? true : false }
+              disabled={isPicked || quantity <= 1}
             >
               -
             </button>
             <input
-              name="duration"
+              name="quantity"
               type="number"
               value={quantity}
+              readOnly
               className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[65px]"
-              disabled={isPicked? true : false}
+              disabled={isPicked}
             />
             <button
               className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
-                isPicked ? `bg-[grey]` : `bg-primary`
+                isPicked || quantity >= maxQuantity ? 'bg-[grey]' : 'bg-primary'
               }`}
               onClick={handleIncrement}
-              disabled={isPicked? true : false} 
+              disabled={isPicked || quantity >= maxQuantity}
             >
               +
             </button>
           </div>
 
           <Button
-            label={isPicked ? 
-              t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.UNPICK_LABEL') : 
-              t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PICK_LABEL')}
-            styles={{
-              color: '#ffc153',
-              width: '100%',
-            }}
-            onClick={() => handlePicked(item._id, parseFloat(item.price.$numberDecimal))}
+            label={
+              isPicked
+                ? t(
+                    'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.UNPICK_LABEL'
+                  )
+                : t(
+                    'SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PICK_LABEL'
+                  )
+            }
+            styles={{ color: '#ffc153', width: '100%' }}
+            onClick={() => handlePicked(item._id)}
           />
         </div>
       </div>

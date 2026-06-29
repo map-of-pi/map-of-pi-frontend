@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Hilbijêre endametiya an Mappi kirîn",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "endamî ({duration} hefteyan)",
       "PICK_BUY_METHOD_LABEL": "Rêbaza kirînê hilbijêrin",
+      "NO_ACTIVE_MEMBERSHIP": "Tu endamtiyek çalak tune ye",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Bi bidin π",
+        "PAY_WITH_PI": "Bi bidin Pi",
         "WATCH_ADS": "Reklaman temaşe bikin (bêpere)",
         "USE_VOUCHER": "Koda kuponê bikar bînin (belaş)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Koda voucherê binivîse",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Ji voucherên berdest hilbijêre",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Endamtî bi serkeftî hate aktîfkirin",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Barkirina daneyên endametiyê neserket",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Terîf",
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Demjimêra firotanê di hefteyan de",
+        "MAPPI_COST_PREVIEW": "{mappi_count} Mappi dê were xerc kirin",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi dê were vegerandin",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Jîr",
           "EXPIRED": "Dema derbas bû"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "bifiroşe {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Demjimêra firotanê nikare ji binê wê were kêmkirin {remaining_weeks} hefte mane"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Demjimêra firotanê nikare ji binê wê were kêmkirin {remaining_weeks} hefte mane",
+          "DURATION_MINIMUM": "Demjimêra daxistinê divê herî kêm 1 hefte be"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Kopî",
     "ADD_ITEM": "Babetê lê zêde bike",
     "CHECKOUT": "Lêkolîn",
+    "REDEEM": "Bikar bîne",
     "DELETE": "Jêbirin",
     "CONFIRM_DELETE": "Bi rastî dixwazî vê tiştê jê bibî? Ev çalakî nayê vegerandin.",
     "SAVE": "Rizgarkirin",

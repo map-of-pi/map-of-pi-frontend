@@ -30,7 +30,10 @@ import {
   getFulfillmentMethodOptions,
   getSellerCategoryOptions,
 } from '@/utils/translate';
-import removeUrls from '../../../../utils/sanitize';
+import {
+  removeUrls,
+  removeUrlsFromEmailField,
+} from '../../../../utils/sanitize';
 
 import { AppContext } from '../../../../../context/AppContextProvider';
 import logger from '../../../../../logger.config.mjs';
@@ -264,7 +267,10 @@ const SellerRegistrationForm = () => {
       removeUrls(formData.sellerDescription),
     );
     formDataToSend.append('address', removeUrls(formData.sellerAddress));
-    formDataToSend.append('email', formData.email ?? '');
+    formDataToSend.append(
+      'email',
+      removeUrlsFromEmailField(formData.email ?? ''),
+    );
     formDataToSend.append(
       'phone_number',
       formData.phone_number?.toString() ?? '',
@@ -351,16 +357,16 @@ const SellerRegistrationForm = () => {
       <div className="w-full md:w-[500px] md:mx-auto p-4">
         <div className="w-full flex flex-col items-center mb-5">
           <h3 className="text-gray-400 text-sm flex items-center">
-            {dbSeller ? dbSeller.name : ''}
-            <MembershipIcon
-              category={userMembership}
+            {dbSeller ? dbSeller.name : ''} 
+            {userMembership && <MembershipIcon 
+              category={userMembership?.membership_class} 
               className="ml-1"
               styleComponent={{
                 display: 'inline-block',
                 objectFit: 'contain',
                 verticalAlign: 'middle',
               }}
-            />
+            />}
           </h3>
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
@@ -604,12 +610,11 @@ const SellerRegistrationForm = () => {
           {/* List Items | Online Shopping */}
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
-              header={t(
-                'SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL',
-              )}
-              open={false}>
-              {dbSeller && <OnlineShopping dbSeller={dbSeller} />}
-              <div>
+              header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ITEMS_LIST_LABEL')}
+              open={true}>
+              
+              <div className='rounded-md'>
+                {dbSeller && <OnlineShopping dbSeller={dbSeller} />}
                 <Select
                   label={t(
                     'SCREEN.SELLER_REGISTRATION.FULFILLMENT_METHOD_TYPE.FULFILLMENT_METHOD_TYPE_LABEL',
@@ -655,17 +660,9 @@ const SellerRegistrationForm = () => {
           {/*Order Fulfillment | Online Shopping */}
           {isOnlineShoppingEnabled && (
             <ToggleCollapse
-              header={t(
-                'SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL',
-              )}
-              open={false}>
-              {dbSeller && (
-                <ListOrder
-                  user_id={dbSeller.seller_id}
-                  user_name={dbSeller.name}
-                  seller_type={dbSeller.seller_type}
-                />
-              )}
+                header={t('SCREEN.SELLER_REGISTRATION.SELLER_ONLINE_SHOPPING_ORDER_FULFILLMENT_LABEL')}
+                open={true}>
+              {dbSeller && <ListOrder user_id={dbSeller.seller_id} user_name={dbSeller.name} seller_type={dbSeller.seller_type}/>}
             </ToggleCollapse>
           )}
         </div>
