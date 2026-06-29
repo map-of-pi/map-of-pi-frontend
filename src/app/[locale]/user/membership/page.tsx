@@ -133,6 +133,8 @@ export default function MembershipPage() {
   }, []);
 
   useEffect(() => {
+    if (!currentUser?.pi_uid) return;
+
     const getVouchers = async () => { 
       try {
         const res = await fetchUserVouchers();
@@ -142,9 +144,9 @@ export default function MembershipPage() {
 
         setVoucherList(res.vouchers || []);
         if (res.vouchers && res.vouchers.length>0) {
-          const firstVucher = res.vouchers[0];
-          setSelectedVoucher(firstVucher)
-          setVoucherMembership(membershipList.find((m) => m.value ===firstVucher?.membership_class) ?? null)
+          const firstVoucher = res.vouchers[0];
+          setSelectedVoucher(firstVoucher)
+          setVoucherMembership(membershipList.find((m) => m.value ===firstVoucher?.membership_class) ?? null)
         }
       } catch (error) {
         showAlert('Error fetching user voucher');
@@ -153,7 +155,7 @@ export default function MembershipPage() {
     };
 
     getVouchers();
-  }, []);
+  }, [currentUser?.pi_uid]);
 
   return (
     <div className="w-full h-screen md:w-[500px] md:mx-auto p-4">
@@ -226,7 +228,7 @@ export default function MembershipPage() {
 
         <h2 className={SUBHEADER}>
           {selectedMethod === MembershipBuyType.VOUCHER ?
-            'Pick from Available vouchers' + ': ' :
+            t('SCREEN.MEMBERSHIP.PICK_FROM_AVAILABLE_VOUCHERS') + ': ' :
             t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '
           }
         </h2>
@@ -237,7 +239,7 @@ export default function MembershipPage() {
                 <Select
                   name="voucherSelector"
                   value={selectedVoucher?._id}
-                  onChange={handleVoucherPick}  // now receives e: ChangeEvent<HTMLSelectElement>
+                  onChange={handleVoucherPick}
                   options={voucherList.map((v) => ({
                     name: v.voucher_code,
                     value: v._id

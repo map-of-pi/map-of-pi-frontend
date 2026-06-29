@@ -1,6 +1,7 @@
-import { IMembership, IVoucher, MembershipClassType } from "@/constants/types";
-import logger from "../../logger.config.mjs"
+import axios from "axios";
 import axiosClient from "@/config/client";
+import { IMembership, IVoucher } from "@/constants/types";
+import logger from "../../logger.config.mjs"
 
 export interface IUserVouchersResult {
   success: boolean;
@@ -37,7 +38,9 @@ export const fetchUserVouchers = async (): Promise<IUserVouchersResult> => {
     logger.error('get user voucher encountered an error:', error);
     return {
       success: false,
-      error: "Unexpected error getting user voucher. Please try again later."
+      error: axios.isAxiosError(error)
+        ? error.response?.data?.message || "Unexpected error getting user voucher. Please try again later."
+        : "Unexpected error getting user voucher. Please try again later."
     };
   }
 };
@@ -61,7 +64,9 @@ export const redeemVoucher = async (voucher_id: string): Promise<IVoucherRedempt
     logger.error('Redeem user voucher encountered an error:', error);
     return {
       success: false,
-      error: "Unexpected error redeeming voucher. Please try again later."
+      error: axios.isAxiosError(error)
+        ? error.response?.data?.message || "Unexpected error redeeming voucher. Please try again later."
+        : "Unexpected error redeeming voucher. Please try again later."
     };
   }
 };
