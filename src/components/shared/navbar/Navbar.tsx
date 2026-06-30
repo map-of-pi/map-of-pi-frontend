@@ -99,6 +99,11 @@ function Navbar() {
             </Link>
           </div>
           <div className={`${styles.nav_item}`}>
+            <Link href="/admin/app-management">
+              Admin
+            </Link>
+          </div>
+          <div className={`${styles.nav_item}`}>
             <Link href="/" onClick={handleClick}>
               <FiHelpCircle size={24} className={'text-secondary'} />
             </Link>
