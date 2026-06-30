@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import TabShuttle, { TabItem } from '@/components/shared/TabShuttle';
-import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
+import { fetchMembershipList } from "@/services/membershipApi"
 import { MembershipClassType, MembershipOption } from '@/constants/types';
 import { dummyList } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
@@ -10,18 +10,12 @@ import { useTranslations } from 'next-intl';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import Navbar from '@/components/shared/navbar/Navbar';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
+import { AppContext } from '../../../../../context/AppContextProvider';
+import { addVoucher } from '@/services/voucherApi';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type TabId = 'statistics' | 'adminregister' | 'addvouchers';
-
-type MembershipTier =
-  | 'single_mappi'
-  | 'white'
-  | 'green'
-  | 'gold'
-  | 'double_gold'
-  | 'triple_gold';
 
 interface StatsData {
   registeredUsers: number;
@@ -67,15 +61,6 @@ const MOCK_STATS: StatsData = {
 const MOCK_ADMINS = ['peejenn', 'swoocn', '<xxx>', '<yyy>', '<zzz>'];
 const PERMANENT_ADMINS = new Set(['peejenn', 'swoocn']);
 
-const MEMBERSHIP_TIERS: { value: MembershipTier; label: string; icon: string }[] = [
-  { value: 'single_mappi',  label: 'Single mappi',        icon: '🟡' },
-  { value: 'white',         label: 'White membership',    icon: '⚪' },
-  { value: 'green',         label: 'Green membership',    icon: '🟢' },
-  { value: 'gold',          label: 'Gold membership',     icon: '🟡' },
-  { value: 'double_gold',   label: 'Double gold membership', icon: '🟠' },
-  { value: 'triple_gold',   label: 'Triple gold membership', icon: '🔴' },
-];
-
 const HEADER = 'font-bold text-lg md:text-2xl';
 const SUBHEADER = 'font-bold mb-2';
 
@@ -104,7 +89,7 @@ function formatDateTime(date: Date): string {
 // ---- Reusable stats table ----
 function StatsTable({ rows }: { rows: [string, number][] }) {
   return (
-    <section className="relative rounded-lg border border-gray-600 mb-7 p-4">
+    <section className="relative rounded-lg border border-primary mb-7 p-4">
       <table className="w-full">
         <tbody>
           {rows.map(([label, val]) => (
@@ -209,8 +194,8 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
   return (
     <div className="w-full h-full" >
       <div className="mb-5">
+        <h1 className='font-bold mb-2'>Pioneer username: :</h1>
         <Input
-          label={"Pioneer username"}
           placeholder="Admin Pi username to be added/removed"
           type="text"
           value={piUsernameInput}
@@ -245,7 +230,7 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
 
       <h1 className='font-bold mb-2'>List of admins:</h1>
       <div 
-        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 p-4`}
+        className={`relative border border-primary rounded-lg mb-7 p-4`}
       >
         <ul className="amp-admin-list">
           {admins.map(name => (
@@ -273,18 +258,11 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
   );
 }
 
-// ---- Add Vouchers Tab ----
-interface AddVouchersTabProps {
-  onNavbarMessage: (msg: string) => void;
-}
-
-function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
+function AddVouchersTab() {
   const [membershipList, setMembershipList] = useState<MembershipOption[]>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [recipient, setRecipient]     = useState('');
-  const [piUsernameInput, setPiUsernameInput] = useState<string>("")
-  const [voucherCode, setVoucherCode] = useState('GreenForFree');
-  const [tier, setTier]               = useState<MembershipTier>('green');
+  const [voucherCode, setVoucherCode] = useState('1xGreenForFree');
   const [validityDays, setValidityDays] = useState<string>('20');
   const [popup, setPopup]             = useState<{
     mode: 'confirm' | 'error';
@@ -293,6 +271,7 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
     validUntil?: string;
   } | null>(null);
 
+  const { showAlert, setIsSaveLoading, currentUser, isSaveLoading } = useContext(AppContext);
   const t = useTranslations();
 
   const handleSave = () => {
@@ -301,15 +280,11 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
     if (!recipient.trim())       errors.push('Pioneer name is required.');
     if (!voucherCode.trim())     errors.push('Voucher code is required.');
     if (/\s/.test(voucherCode))  errors.push('Voucher code must not contain spaces.');
+    if (!currentUser)            errors.push('unauthorized user');
 
     const days = parseInt(validityDays, 10);
     if (!validityDays || isNaN(days) || days < 1 || days > 20)
       errors.push('Validity period must be an integer from 1 to 20.');
-
-    // Mock user-exists check
-    const knownPioneers = ['peejenn', 'swoocn', 'testuser1'];
-    if (recipient.trim() && !knownPioneers.includes(recipient.trim()))
-      errors.push(`Pioneer "${recipient.trim()}" is not in the Map of Pi user table.`);
 
     if (errors.length > 0) {
       setPopup({ mode: 'error', message: errors.join('\n') });
@@ -317,22 +292,39 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
     }
 
     const validUntil = addDays(new Date(), days);
-    const tierLabel = MEMBERSHIP_TIERS.find(t => t.value === tier)?.label ?? tier;
+    const tierLabel = membershipList.find(t => t.value === selectedMembership)?.value ?? selectedMembership;
 
-    // Mock "already has voucher" check
-    const alreadyHas = recipient.trim() === 'testuser1' && tier === 'green';
 
     setPopup({
       mode: 'confirm',
       message: `You're setting up a ${tierLabel} voucher named "${voucherCode}" for pioneer ${recipient.trim()} which must be redeemed by ${formatDateTime(validUntil)}, i.e. within ${days} day${days !== 1 ? 's' : ''}.`,
-      alreadyHas,
       validUntil: formatDateTime(validUntil),
     });
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    setIsSaveLoading(true);
+      try {
+        const days = parseInt(validityDays, 10);
+        const validUntil = addDays(new Date(), days);
+        const result = await addVoucher({
+          pi_username: recipient,
+          voucher_code: voucherCode,
+          membership_class: selectedMembership,
+          expiry_date: validUntil
+        });
+        if (!result.success) {
+          showAlert(result.error || 'unable to assign voucher');
+        } else {
+          showAlert('Assign voucher successfully');
+        }
+      } catch (error) {
+        showAlert('error adding voucher');
+      } finally {
+        setIsSaveLoading(false);
+      }
     setPopup(null);
-    onNavbarMessage('Voucher saved');
+    showAlert('Voucher saved');
   };
 
   useEffect(() => {
@@ -341,6 +333,7 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
         const subList = await fetchMembershipList();
 
         setMembershipList(subList!);
+        setSelectedMembership(MembershipClassType.GREEN)
       } catch (error) {
         // showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
         console.error("Error loading membership", {error})
@@ -358,9 +351,9 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
             label={"Pioneer username"}
             placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
             type="text"
-            value={piUsernameInput}
+            value={recipient}
             name="piUsername"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPiUsernameInput(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setRecipient(e.target.value)}
           />
         </div>
 
@@ -414,6 +407,20 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setValidityDays(e.target.value)}
           />
         </div>
+
+        <div className="mb-5 mt-3 flex justify-between">
+          <Button
+            label={'Assign'}
+            disabled={isSaveLoading}
+            styles={{
+              color: '#ffc153',
+              height: '40px',
+              padding: '10px 15px',
+              marginLeft: 'auto'
+            }}
+            onClick={handleSave}
+          />
+        </div> 
       </div>
 
       {/* Confirm popup */}
@@ -459,7 +466,7 @@ function AddVouchersTab({ onNavbarMessage }: AddVouchersTabProps) {
 
 const TABS: TabItem[] = [
   { id: 'statistics',    label: 'Statistics' },
-  { id: 'adminregister', label: 'Admin register' },
+  { id: 'adminregister', label: 'Admin registration' },
   { id: 'addvouchers',   label: 'Add vouchers' },
 ];
 
@@ -526,7 +533,7 @@ export default function AppManagementPage({
         />
       )}
       {selectedTab === 'addvouchers' && (
-        <AddVouchersTab onNavbarMessage={showNavbarMessage} />
+        <AddVouchersTab />
       )}
     </div>
   );
