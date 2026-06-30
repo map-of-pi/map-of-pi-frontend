@@ -431,7 +431,8 @@ export const ShopItem: React.FC<{
       <div
         ref={refCallback}
         data-id={existingItem._id || 'new'}
-        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer ${
+        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer
+          flex-shrink-0 w-[88%] sm:w-[85%] md:w-[70%] snap-start ${
           isActive ? '' : 'opacity-50 pointer-events-none'
         }`}
       >
