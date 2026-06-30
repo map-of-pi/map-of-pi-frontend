@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "सदस्यता या Mappi खरीदें चुनें",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "सदस्यता ({duration} सप्ताह)",
       "PICK_BUY_METHOD_LABEL": "खरीदने की विधि चुनें",
+      "NO_ACTIVE_MEMBERSHIP": "आपके पास कोई सक्रिय सदस्यता नहीं है",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "π के साथ भुगतान करें",
+        "PAY_WITH_PI": "Pi के साथ भुगतान करें",
         "WATCH_ADS": "विज्ञापन देखें (फ्री)",
         "USE_VOUCHER": "वाउचर कोड का उपयोग करें (फ्री)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "वाउचर कोड दर्ज करें",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "उपलब्ध वाउचर में से चुनें",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "सदस्यता सफलतापूर्वक सक्रिय कर दी गई है",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "सदस्यता डेटा लोड करने में विफल",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "विवरण",
         "PHOTO": "फ़ोटो",
         "SELLING_DURATION_LABEL": "हफ्तों में बिक्री की अवधि",
+        "MAPPI_COST_PREVIEW": "इसके लिए {mappi_count} Mappi खर्च होंगे",
+        "MAPPI_REFUND_PREVIEW": "आपको {mappi_count} Mappi वापस मिलेंगे",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "सक्रिय", 
           "EXPIRED": "समाप्त हो गया"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "द्वारा बेचें {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "बिक्री की अवधि {remaining_weeks} सप्ताह से कम नहीं की जा सकती"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "बिक्री की अवधि {remaining_weeks} सप्ताह से कम नहीं की जा सकती",
+          "DURATION_MINIMUM": "लिस्टिंग की अवधि कम से कम 1 सप्ताह होनी चाहिए"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "कॉपी",
     "ADD_ITEM": "आइटम जोड़ें",
     "CHECKOUT": "भुगतान-स्थल",
+    "REDEEM": "रिडीम करें",
     "DELETE": "मिटाएं",
     "CONFIRM_DELETE": "क्या आप वास्तव में इस आइटम को हटाना चाहते हैं? इस क्रिया को पूर्ववत नहीं किया जा सकता है।",
     "SAVE": "बचाओ",
