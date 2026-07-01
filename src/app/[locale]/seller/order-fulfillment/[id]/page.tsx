@@ -36,15 +36,17 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [orderItems, setOrderItems] = useState<OrderItemType[]>([]);
   const [buyerName, setBuyerName] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
 
   useEffect(() => {
-    const getOrder= async (id: string) => {
+    const getOrder = async (id: string) => {
       try {
         const data = await fetchOrderById(id);
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
           setBuyerName(data.pi_username);
+          setIsCompleted(data.order.status === OrderStatusType.Completed);
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
@@ -56,7 +58,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
     };
     
     getOrder(orderId);
-  }, [orderId]);
+  }, [orderId, refreshCount]);
   
   const handleFulfillment = async (itemId: string, status: OrderItemStatus) => {
     try {
@@ -92,16 +94,16 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
     try {
       logger.info(`Updating order status to ${status} with id: ${orderId}`);
-      const data = await updateOrderStatus(orderId, status);
+      const order = await updateOrderStatus(orderId, status);
 
-      if (data) {
-        setCurrentOrder(data.order);
-        setOrderItems(data.orderItems);
-        setBuyerName(data.pi_username);
+      if (order) {
+        setCurrentOrder(order);
+        setBuyerName(order.pi_username);
 
         // Background sync with BE (optional, to avoid drift)
         const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
         setOrdersCount(count);
+        setRefreshCount(refreshCount + 1)
       } else {
         logger.warn("Failed to update completed order on the server.");
         // Rollback if API fails
@@ -307,6 +309,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         <TextArea
           name="buying_details"
           value={currentOrder?.buyer_fulfillment_description}
+          disabled
         />
         <div className="flex flex-col gap-y-4">
           <Button
