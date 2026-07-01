@@ -181,7 +181,8 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
       <div className="overflow-x-auto p-2 mb-5 mt-3 flex gap-x-5">
         {orderItems && orderItems.length>0 && orderItems.map((item, index)=>(<div
           data-id={item._id}
-          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 ${
+          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7
+          flex-shrink-0 w-[88%] sm:w-[85%] md:w-[70%] snap-start ${
             item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ? 
             'bg-yellow-100' : ''
           }`}
@@ -246,44 +247,42 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
             <label className="text-[18px] text-[#333333]">
               {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.BUYING_QUANTITY_LABEL')}:
             </label>
-            <div className="flex items-center gap-3 w-full mt-1">
-              <div className="flex gap-2 items-center justify-between mr-2">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mt-1 w-full min-w-0">
+              <div className="flex items-center shrink-0">
                 <input
                   name="duration"
                   type="number"
                   value={item.quantity}
-                  className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[100px]"
+                  className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] w-[65px] shrink-0"
                   disabled={true}
                 />
               </div>
-              <Button
-                label={t('SHARED.RESET')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={isCompleted || !(item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded)}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Pending)}
-              />
 
-              <Button
-                label={t('SHARED.REFUND')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Refunded)}
-              />
-              <Button
-                label={t('SHARED.FULFILLED')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={item.status===OrderItemStatus.Fulfilled || item.status===OrderItemStatus.Refunded}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Fulfilled)}
-              />
+              {/* Action buttons */}
+              <div className="flex items-center justify-between gap-2 ml-auto min-w-0">
+                <Button
+                  label={t('SHARED.RESET')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={isCompleted || !(item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded)}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Pending)}
+                />
+
+                <Button
+                  label={t('SHARED.REFUND')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Refunded)}
+                />
+                <Button
+                  label={t('SHARED.FULFILLED')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={item.status===OrderItemStatus.Fulfilled || item.status===OrderItemStatus.Refunded}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Fulfilled)}
+                />
+              </div>
             </div>
           </div>
         </div>
