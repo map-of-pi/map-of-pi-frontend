@@ -244,12 +244,13 @@ function Sidebar(props: any) {
     }
   };
 
-  const handleChildMenu = (title: any, code: string) => {
-    logger.debug(`Child menu item selected: ${title}, Code: ${code}`);
-    if (title === 'Languages') {
-      router.replace(pathname, { locale: code });
-      props.setToggleDis(false);
-    }
+ const handleChildMenu = (title: any, code: string) => {
+  logger.debug(`Child menu item selected: ${title}, Code: ${code}`);
+  if (title === 'Languages') {
+    document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=31536000; SameSite=Lax`;
+    router.replace(pathname, { locale: code });
+    props.setToggleDis(false);
+  }
     if (title === 'Themes') {
       code === 'dark' ? setTheme('dark') : setTheme('light');
       props.setToggleDis(false);
