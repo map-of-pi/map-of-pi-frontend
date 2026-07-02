@@ -431,7 +431,8 @@ export const ShopItem: React.FC<{
       <div
         ref={refCallback}
         data-id={existingItem._id || 'new'}
-        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer ${
+        className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 cursor-pointer
+          flex-shrink-0 w-[88%] sm:w-[85%] md:w-[70%] snap-start ${
           isActive ? '' : 'opacity-50 pointer-events-none'
         }`}
       >
@@ -518,10 +519,11 @@ export const ShopItem: React.FC<{
           <label className="text-[18px] text-[#333333]">
             {t('SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.SELLING_DURATION_LABEL')}:
           </label>
-          <div className="flex items-center gap-4 w-full mt-1">
-            <div className="flex gap-2 items-center justify-between mr-4">
+          <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mt-1 w-full min-w-0">
+            {/* Stepper */}
+            <div className="flex items-center gap-1 shrink-0">
               <button
-                className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
+                className={`text-[#ffc153] text-2xl font-bold rounded-full w-8 h-8 flex items-center justify-center shrink-0 ${
                   !isActive || formData.duration <= 1 ? 'bg-[grey]' : 'bg-primary'
                 }`}
                 onClick={handleDecrement}
@@ -534,11 +536,11 @@ export const ShopItem: React.FC<{
                 type="number"
                 value={formData.duration}
                 onChange={handleChange}
-                className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[65px]"
+                className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] w-[65px] shrink-0"
                 disabled={!isActive}
               />
               <button
-                className={`text-[#ffc153] text-3xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${
+                className={`text-[#ffc153] text-2xl font-bold rounded-full w-8 h-8 flex items-center justify-center shrink-0 ${
                   !isActive ? 'bg-[grey]' : 'bg-primary'
                 }`}
                 onClick={handleIncrement}
@@ -548,18 +550,23 @@ export const ShopItem: React.FC<{
               </button>
             </div>
 
-            <Button
-              label={t('SHARED.DELETE')}
-              disabled={!isActive || isNewItem}
-              styles={{ color: '#ffc153', height: '40px', padding: '5px 8px', width: '100%' }}
-              onClick={() => setShowPopup(true)}
-            />
-            <Button
-              label={t('SHARED.SAVE')}
-              disabled={!isActive || isSaveLoading || !isDirty}
-              styles={{ color: '#ffc153', height: '40px', padding: '10px 15px', width: '100%' }}
-              onClick={handleSave}
-            />
+            {/* Delete / Save */}
+            <div className="flex items-center justify-between gap-2 ml-auto min-w-0">
+              <Button
+                label={t('SHARED.DELETE')}
+                disabled={!isActive || isNewItem}
+                styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                className="min-w-0"
+                onClick={() => setShowPopup(true)}
+              />
+              <Button
+                label={t('SHARED.SAVE')}
+                disabled={!isActive || isSaveLoading || !isDirty}
+                styles={{ color: '#ffc153', height: '40px', padding: '10px 15px' }}
+                className="min-w-0"
+                onClick={handleSave}
+              />
+            </div>
           </div>
 
           {/* Mappi cost / refund preview */}
