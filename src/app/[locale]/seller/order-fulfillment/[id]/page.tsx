@@ -324,15 +324,6 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
             onClick={()=>handleCompleted(OrderStatusType.Completed)}
           />
 
-          <Button
-            label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_DISPATCHED_COLLECTED_LABEL')}
-            styles={{
-              color: '#ffc153',
-              height: '40px',
-              padding: '15px 20px',
-              width:'100%'
-            }}
-          />
         </div>
       </div>
     </div>
