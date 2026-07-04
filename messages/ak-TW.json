@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa Mappi a wopɛ sɛ wotɔ",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "abɔntenkɔmu ({duration} nna nsia)",
       "PICK_BUY_METHOD_LABEL": "Paw sɔ adeɛ kwan",
+      "NO_ACTIVE_MEMBERSHIP": "Wonni membasip biara",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Tua π so",
+        "PAY_WITH_PI": "Tua Pi so",
         "WATCH_ADS": "Hwɛ ads (free)",
         "USE_VOUCHER": "Fa voucher code (free)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Bɔ voucher code",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Yi paw fi voucher ahorow a ɛwɔ hɔ mu",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Membɛship no ayɛ active yie",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Ɛyɛɛ mfomso wɔ membɛship data no so",
@@ -129,7 +131,9 @@
         "STOCK_LABEL": "Stock level",
         "DESCRIPTION_LABEL": "Nkyerɛmu",
         "PHOTO": "Mfonini",
-        "SELLING_DURATION_LABEL": "Bere a wopɛ sɛ wotɔn mu (nnawɔtwe mu)",
+        "SELLING_DURATION_LABEL": "Bere a wɔbɛtɔn no (nnawɔtwe mu)",
+        "MAPPI_COST_PREVIEW": "Eyi bɛgye Mappi {mappi_count}",
+        "MAPPI_REFUND_PREVIEW": "Wobɛsan anya Mappi {mappi_count}",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Wɔtɔn so",
           "EXPIRED": "Asesa"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Tɔn ansa na ɛsi {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Wontumi nsɔ bere no ase sen nna {remaining_weeks} a aka"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Wontumi nsɔ bere no ase sen nna {remaining_weeks} a aka",
+          "DURATION_MINIMUM": "Ɛsɛ sɛ nneɛma a wɔreto no tena hɔ dapɛn 1 anaa nea ɛboro saa"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Fa",
     "ADD_ITEM": "Ka Item",
     "CHECKOUT": "Tua ka",
+    "REDEEM": "Gye",
     "DELETE": "Popa",
     "CONFIRM_DELETE": "Wopɛ sɛ wopopa saa item yi? Saa nsɛm no rentumi mfa.",
     "SAVE": "Sie",

@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Chọn tư cách thành viên hoặc Mappi để mua",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "thành viên ({duration} tuần)",
       "PICK_BUY_METHOD_LABEL": "Chọn phương thức mua",
+      "NO_ACTIVE_MEMBERSHIP": "Bạn không có gói thành viên nào đang hoạt động",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Thanh toán bằng π",
+        "PAY_WITH_PI": "Thanh toán bằng Pi",
         "WATCH_ADS": "Xem quảng cáo (miễn phí)",
         "USE_VOUCHER": "Sử dụng mã voucher (miễn phí)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Nhập mã voucher",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Chọn từ các voucher có sẵn",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Kích hoạt hội viên thành công",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Không tải được dữ liệu hội viên",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Mô tả",
         "PHOTO": "Ảnh",
         "SELLING_DURATION_LABEL": "Thời gian bán hàng (tính theo tuần)",
+        "MAPPI_COST_PREVIEW": "Việc này sẽ tốn {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "Bạn sẽ được hoàn lại {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Đang hoạt động",
           "EXPIRED": "Đã hết hạn"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Bán trước {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Thời gian bán không thể giảm xuống dưới {remaining_weeks} tuần",
+          "DURATION_MINIMUM": "Thời gian đăng bán phải ít nhất là 1 tuần"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Sao chép",
     "ADD_ITEM": "Thêm mục",
     "CHECKOUT": "Thanh toán",
+    "REDEEM": "Đổi",
     "DELETE": "Xóa",
     "CONFIRM_DELETE": "Bạn có thực sự muốn xóa mục này không? Hành động này không thể hoàn tác.",
     "SAVE": "Lưu",

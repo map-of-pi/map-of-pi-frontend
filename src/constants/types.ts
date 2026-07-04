@@ -91,12 +91,20 @@ export interface MembershipBuyOption {
 }
 
 export const membershipBuyOptions: MembershipBuyOption[] = [
-  { value: MembershipBuyType.BUY, label: 'Pay with pi' },
-  { value: MembershipBuyType.ADS, label: 'Watch ads (free)' },
-  { value: MembershipBuyType.VOUCHER, label: 'Use a voucher code (free)' },
+  { value: MembershipBuyType.BUY, label: "Pay with pi" },
+  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
 ];
 
 export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
+
+export interface IVoucher {
+  _id?: string;
+  voucher_code: string;
+  membership_class: MembershipClassType;
+  pi_uid: string | null;       // null = open/developer voucher (e.g. 1stOnlineShop)
+  expiry_date: Date | null;    // null = no expiry
+  redeemed_at: Date | null;    // set to Date.now() on redemption
+};
 
 // ========================
 // SELLER MODELS
