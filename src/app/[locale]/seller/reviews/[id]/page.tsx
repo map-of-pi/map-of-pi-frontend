@@ -8,6 +8,7 @@ import { ReviewCard } from '@/components/shared/Review/ReviewCard';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
+import logger from '../../../../../../logger.config.mjs';
 import {
   processReviews,
   useCursorInfiniteScroll,
@@ -81,7 +82,10 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
       triggerRefresh();
     } catch (error: any) {
-      console.error(error);
+      logger.error(
+        'Failed to activate Trust Protect:',
+        error?.response?.data || error,
+      );
 
       showAlert(
         error?.response?.data?.message || 'Failed to activate Trust Protect.',
