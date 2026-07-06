@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Zaɓi ƙungiya ko Mappi don siya",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "memba ({duration} makonni)",
       "PICK_BUY_METHOD_LABEL": "Zaɓi hanyar siya",
+      "NO_ACTIVE_MEMBERSHIP": "Ba ka da wata membobinsu mai aiki",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Biya da π",
+        "PAY_WITH_PI": "Biya da Pi",
         "WATCH_ADS": "Kalli talla (kyauta)",
         "USE_VOUCHER": "Yi amfani da lambar voucher (kyauta)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Shigar da lambar voucher",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Zaɓi daga cikin voucher da ake da su",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "An kunna memba cikin nasara",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "An kasa loda bayanan memba",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Bayani",
         "PHOTO": "Hoto",
         "SELLING_DURATION_LABEL": "Tsawon lokacin siyarwa a makonni",
+        "MAPPI_COST_PREVIEW": "Wannan zai kashe {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "Za a mayar maka da {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Aiki",
           "EXPIRED": "Ƙarewa"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Sayarwa kafin {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {remaining_weeks} ba"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "Ba za a iya rage lokacin sayarwa kasa da makonni {remaining_weeks} ba",
+          "DURATION_MINIMUM": "Tsawon lokacin talla dole ne ya kasance aƙalla mako 1"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Kwafi",
     "ADD_ITEM": "Ƙara abu",
     "CHECKOUT": "Biya kuɗi",
+    "REDEEM": "Karɓa",
     "DELETE": "Goge",
     "CONFIRM_DELETE": "Shin da gaske kake son share wannan abu? Wannan aiki ba zai iya dawowa ba.",
     "SAVE": "Ajiye",

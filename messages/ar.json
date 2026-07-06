@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو Mappi للشراء",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
       "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
+      "NO_ACTIVE_MEMBERSHIP": "ليس لديك أي عضوية",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "الدفع بواسطة π",
+        "PAY_WITH_PI": "الدفع بواسطة Pi",
         "WATCH_ADS": "شاهد الإعلانات (مجاني)",
         "USE_VOUCHER": "استخدم رمز القسيمة (مجاني)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "أدخل رمز القسيمة",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "اختر من القسائم المتاحة",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "تم تفعيل العضوية بنجاح",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "فشل في تحميل بيانات العضوية",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "الوصف",
         "PHOTO": "الصورة",
         "SELLING_DURATION_LABEL": "مدة البيع بالأسابيع",
+        "MAPPI_COST_PREVIEW": "ستكون التكلفة {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "سيتم رد {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "نشط",
           "EXPIRED": "منتهي الصلاحية"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "يباع بتاريخ صلاحية {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {remaining_weeks} أسابيع"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "لا يمكن تقليل مدة البيع إلى أقل من {remaining_weeks} أسابيع",
+          "DURATION_MINIMUM": "يجب ألا تقل مدة الإدراج عن أسبوع واحد"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "نسخ",
     "ADD_ITEM": "إضافة منتج",
     "CHECKOUT": "الدفع",
+    "REDEEM": "استرداد",
     "DELETE": "حذف",
     "CONFIRM_DELETE": "هل تريد حقًا حذف هذا المنتج؟ لا يمكن التراجع عن هذا الإجراء.",
     "SAVE": "حفظ",

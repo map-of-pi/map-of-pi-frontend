@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "購入するメンバーシップまたはMappiを選択",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "メンバーシップ（{duration} 週間）",
       "PICK_BUY_METHOD_LABEL": "購入方法を選択",
+      "NO_ACTIVE_MEMBERSHIP": "有効なメンバーシップがありません",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "πで支払う",
+        "PAY_WITH_PI": "Piで支払う",
         "WATCH_ADS": "広告を見る（無料）",
         "USE_VOUCHER": "バウチャーコードを使用（無料）"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "バウチャーコードを入力",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "利用可能なバウチャーから選択",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "メンバーシップが正常に有効化されました",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "メンバーシップデータの読み込みに失敗しました",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "説明",
         "PHOTO": "写真",
         "SELLING_DURATION_LABEL": "販売期間（週間単位）",
+        "MAPPI_COST_PREVIEW": "これには {mappi_count} Mappi が必要です",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi が返金されます",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "アクティブ",
           "EXPIRED": "期限切れ"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "販売期限 {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "販売期間は {remaining_weeks} 週間未満に短縮できません"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "販売期間は {remaining_weeks} 週間未満に短縮できません",
+          "DURATION_MINIMUM": "掲載期間は最低1週間である必要があります"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "コピー",
     "ADD_ITEM": "アイテムを追加",
     "CHECKOUT": "お会計",
+    "REDEEM": "引き換える",
     "DELETE": "削除",
     "CONFIRM_DELETE": "本当にこのアイテムを削除しますか？この操作は元に戻せません。",
     "SAVE": "保存",
