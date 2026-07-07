@@ -1,23 +1,23 @@
 'use client';
 
 import { useTranslations } from "next-intl";
-import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from "react";
 import { Button } from "@/components/shared/Forms/Buttons/Buttons";
-import { Input } from "@/components/shared/Forms/Inputs/Inputs";
+import { Input, Select } from "@/components/shared/Forms/Inputs/Inputs";
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { payWithPi } from "@/config/payment";
 import { dummyList } from "@/constants/mock"
 import { 
-  IMembership,
   MembershipClassType, 
   MembershipOption, 
   membershipBuyOptions, 
   MembershipBuyType,
   PaymentDataType, 
-  PaymentType 
+  PaymentType, 
+  IVoucher
 } from "@/constants/types"
 import { fetchMembership, fetchMembershipList } from "@/services/membershipApi"
+import { fetchUserVouchers, redeemVoucher } from "@/services/voucherApi";
 import { translatePurchaseOptions } from "@/utils/translate";
 
 import { AppContext } from "../../../../../context/AppContextProvider";
@@ -25,13 +25,14 @@ import logger from "../../../../../logger.config.mjs";
 
 export default function MembershipPage() {
   const { currentUser, showAlert, userMembership, setUserMembership, setIsSaveLoading, isSaveLoading } = useContext(AppContext);
-  const [membershipData, setMembershipData] = useState<IMembership | null>(null);
-  const [membershipList, setMembershipList] = useState<MembershipOption[] | null>(dummyList);
+  const [membershipList, setMembershipList] = useState<MembershipOption[]>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
   const [totalAmount, setTotalAmount] = useState<number>(0.00);
   const [selectedMethod, setSelectedMethod] = useState<MembershipBuyType>(MembershipBuyType.BUY);
+  const [selectedVoucher, setSelectedVoucher] = useState<IVoucher | null>(null);
+  const [voucherMembership, setVoucherMembership] = useState<MembershipOption | null>(null);
+  const [voucherList, setVoucherList] = useState<IVoucher[]>([]);
 
-  const router = useRouter();
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
@@ -40,22 +41,15 @@ export default function MembershipPage() {
     if (!currentUser?.pi_uid) return;
     try {
       logger.info(`Loading membership data for: ${currentUser.pi_uid}`);
-      const subList = await fetchMembershipList();
-      setMembershipList(subList);
-
       const data = await fetchMembership();
-      setMembershipData(data);
-      setUserMembership(data? data?.membership_class: userMembership);
-      setSelectedMembership(data?.membership_class || userMembership);
+
+      setUserMembership(data ? data : userMembership);
+      setSelectedMembership(data?.membership_class || userMembership?.membership_class || MembershipClassType.CASUAL);
     } catch (error) {
       showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
       logger.error("Error loading membership", {error})
     }
   };
-
-  useEffect(() => {
-    loadMembership();
-  }, [currentUser]);
 
   const isSingleMappi = (newClass: MembershipClassType) => { 
     return newClass === MembershipClassType.SINGLE
@@ -63,13 +57,43 @@ export default function MembershipPage() {
 
   const onPaymentComplete = async (data:any) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE'));
-    await loadMembership();  
+    loadMembership()
     setIsSaveLoading(false);  
   }
   
   const onPaymentError = (error: Error) => {
     showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_MEMBERSHIP_PAYMENT_MESSAGE'));
     setIsSaveLoading(false);
+  }
+
+  const handleVoucherPick = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const voucherId = e.target.value;
+    if (!voucherId) return;
+    const found = voucherList.find((v) => v._id === voucherId) ?? null;
+    setSelectedVoucher(found);
+    setVoucherMembership(membershipList.find((m) => m.value ===found?.membership_class) ?? null);
+  };
+
+  const handleVoucherRedemption = async () => {
+    if (!currentUser || !selectedVoucher?._id) return;
+
+    setIsSaveLoading(true);
+    try {
+      const result = await redeemVoucher(selectedVoucher._id);
+      if (!result.success) {
+        showAlert(result.error || t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_REDEMPTION_MESSAGE'));
+      } else {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.SUCCESSFUL_VOUCHER_REDEMPTION_MESSAGE'));
+        setUserMembership(result.membership || userMembership);
+      }
+    } catch (error) {
+      showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_VOUCHER_REDEMPTION_MESSAGE'));
+      logger.error("Error redeeming voucher", {error})
+    } finally {
+      setIsSaveLoading(false);
+      setSelectedVoucher(null);
+      setVoucherMembership(null)
+    }
   }
   
   const handleBuy = async () => {
@@ -93,18 +117,72 @@ export default function MembershipPage() {
     await payWithPi(paymentData, onPaymentComplete, onPaymentError);
   } 
 
+  useEffect(() => {
+    const loadMembershipList = async () => { 
+      try {
+        const subList = await fetchMembershipList();
+        setMembershipList(subList!);
+        setSelectedMembership(userMembership?.membership_class || MembershipClassType.CASUAL);
+      } catch (error) {
+        showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    loadMembershipList();
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser?.pi_uid) return;
+
+    const getVouchers = async () => { 
+      try {
+        const res = await fetchUserVouchers();
+        if (!res.success && res.error) {
+          showAlert(res?.error)
+        }
+
+        setVoucherList(res.vouchers || []);
+        if (res.vouchers && res.vouchers.length>0) {
+          const firstVoucher = res.vouchers[0];
+          setSelectedVoucher(firstVoucher)
+          setVoucherMembership(membershipList.find((m) => m.value ===firstVoucher?.membership_class) ?? null)
+        }
+      } catch (error) {
+        showAlert('Error fetching user voucher');
+        logger.error("Error loading membership", {error})
+      }
+    };
+
+    getVouchers();
+  }, [currentUser?.pi_uid]);
+
   return (
-    <div className="w-full md:w-[500px] md:mx-auto p-4">
-      <h1 className={HEADER}>
-        {t('SCREEN.MEMBERSHIP.MEMBERSHIP_HEADER')}
-      </h1>
+    <div className="w-full h-screen md:w-[500px] md:mx-auto p-4">
+      <div className="w-full flex flex-col items-center mb-5">
+        <h3 className="text-gray-400 text-sm flex items-center">
+          {currentUser ? currentUser.user_name : ''} 
+          {userMembership&& <MembershipIcon 
+            category={userMembership.membership_class} 
+            className="ml-1"
+            styleComponent={{
+              display: "inline-block",
+              objectFit: "contain",
+              verticalAlign: "middle"
+            }}
+          />}
+        </h3>
+        <h1 className={HEADER}>
+          {t('SCREEN.MEMBERSHIP.MEMBERSHIP_HEADER')}
+        </h1>
+      </div>
 
       <div className="mb-5">
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_CLASS_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">
-          {membershipData?.membership_class || userMembership}
+        <p className="text-gray-600 text-sm mt-1">
+          {userMembership?.membership_class}
         </p>
       </div>
 
@@ -112,9 +190,9 @@ export default function MembershipPage() {
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">
-          {membershipData?.membership_expiry_date
-            ? new Date(membershipData.membership_expiry_date).toLocaleString()
+        <p className="text-gray-600 text-sm mt-1">
+          {userMembership?.membership_expiry_date
+            ? new Date(userMembership.membership_expiry_date).toLocaleString()
             : t('SCREEN.MEMBERSHIP.CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP')}
         </p>
       </div>
@@ -123,56 +201,16 @@ export default function MembershipPage() {
         <h2 className={SUBHEADER}>
           {t('SCREEN.MEMBERSHIP.MAPPI_ALLOWANCE_REMAINING_LABEL') + ': '}
         </h2>
-        <p className="text-gray-600 text-xs mt-1">{membershipData?.mappi_balance || 0}</p>
+        <p className="text-gray-600 text-sm mt-1">{userMembership?.mappi_balance || 0} mappi</p>
       </div>
 
-      <div className="mb-5">
-        <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '}
-        </h2>
+      <h2 className={SUBHEADER}>
+        {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
+      </h2>
 
-        <div className="">
-          {membershipList && membershipList.length> 0 && membershipList.map((option, index) => (
-            <div
-              key={index}
-              className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
-              onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }>
-              {                                       
-                selectedMembership === option.value ? (
-                  // <IoCheckmark />
-                  <div className="p-1 bg-green-700 rounded"></div>
-                  ) : (
-                  // <IoClose />
-                  <div className="p-1 bg-yellow-400 rounded"></div>                  
-                )
-              }
-              {`${option.value}  ${isSingleMappi(option.value)
-                ? "Mappi" 
-                : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
-              }`} 
-              
-              <MembershipIcon 
-                category={option.value} 
-                className="ml-1"
-                styleComponent={{
-                  display: "inline-block",
-                  objectFit: "contain",
-                  verticalAlign: "middle"
-                }}
-              />
-              <span> {option.cost}π</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mb-5">
-        <h2 className={SUBHEADER}>
-          {t('SCREEN.MEMBERSHIP.PICK_BUY_METHOD_LABEL') + ': '}
-        </h2>
-
-        <div className="">
-          {membershipBuyOptions.map((option, index) => (
+      <div className="">
+        <div className="mb-5">
+          {membershipBuyOptions.map((option, index) => 
             <div
               key={index}
               className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
@@ -185,42 +223,131 @@ export default function MembershipPage() {
               )}
               {translatePurchaseOptions(option.value, t)}
             </div>
-          ))}
-          {selectedMethod === MembershipBuyType.VOUCHER && (
-            <div className="mb-4">
-              <Input
-                label={""}
-                placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
-                type="email"
-                name="email"
-              />
-            </div>)
-          }
+          )}
         </div>
-      </div>
 
-      <div className="mb-5 mt-3 flex justify-between">
-        <Button
-          label="Watch Ads"
-          styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
-          }}
-          onClick={() => router.push(`/user/watch-ads`)}
-        />
-        <Button
-          label={selectedMethod === MembershipBuyType.ADS ? 
-            t('SHARED.WATCH') : t('SHARED.BUY')}
-          disabled={isSaveLoading || totalAmount <= 0}
-          styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
-          }}
-          onClick={handleBuy}
-        />
-      </div>
+        <h2 className={SUBHEADER}>
+          {selectedMethod === MembershipBuyType.VOUCHER ?
+            t('SCREEN.MEMBERSHIP.PICK_FROM_AVAILABLE_VOUCHERS') + ': ' :
+            t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL') + ': '
+          }
+        </h2>
+
+        {selectedMethod === MembershipBuyType.VOUCHER ? 
+          <div>
+              {voucherList.length > 0 ? 
+                <Select
+                  name="voucherSelector"
+                  value={selectedVoucher?._id}
+                  onChange={handleVoucherPick}
+                  options={voucherList.map((v) => ({
+                    name: v.voucher_code,
+                    value: v._id
+                  }))}
+                /> 
+                  : 
+                <Input
+                  label={t('SCREEN.MEMBERSHIP.PICK_FROM_AVAILABLE_VOUCHERS')}
+                  value={t('SCREEN.MEMBERSHIP.NO_ACTIVE_MEMBERSHIP')}
+                  style={{
+                    backgroundColor: '#d0d0d0',
+                    cursor: 'not-allowed',
+                  }}
+                  disabled
+                />
+              }            
+
+              {selectedVoucher && voucherMembership && <>
+                <div
+                  className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+                >                                     
+                  {/* <IoCheckmark /> */}
+                  <div className="p-1 bg-green-700 rounded"></div>
+                      
+                  {`${voucherMembership?.value}  ${isSingleMappi(voucherMembership?.value)
+                    ? "Mappi" 
+                    : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: voucherMembership.duration ?? '' })
+                  }`} 
+                  
+                  <MembershipIcon 
+                    category={voucherMembership?.value!} 
+                    className="ml-1"
+                    styleComponent={{
+                      display: "inline-block",
+                      objectFit: "contain",
+                      verticalAlign: "middle"
+                    }}
+                  />
+                  <span> {voucherMembership.cost}Pi</span>
+                </div>
+                
+                <div className="mb-5 mt-3 flex justify-between">
+                  <Button
+                    label={t('SHARED.REDEEM')}
+                    disabled={isSaveLoading || !selectedVoucher}
+                    styles={{
+                      color: '#ffc153',
+                      height: '40px',
+                      padding: '10px 15px',
+                      marginLeft: 'auto'
+                    }}
+                    onClick={handleVoucherRedemption}
+                  />
+                </div> 
+              </>}
+          </div> 
+          :
+          <div>
+            <div>
+              {membershipList && membershipList.length> 0 && membershipList.map((option, index) => (
+                <div
+                  key={index}
+                  className="mb-1 flex gap-2 pr-7 items-center cursor-pointer text-nowrap"
+                  onClick={() => {setSelectedMembership(option.value); setTotalAmount(option.cost)} }
+                >
+                  {                                       
+                    selectedMembership === option.value ? (
+                      // <IoCheckmark />
+                      <div className="p-1 bg-green-700 rounded"></div>
+                      ) : (
+                      // <IoClose />
+                      <div className="p-1 bg-yellow-400 rounded"></div>                  
+                    )
+                  }
+                  {`${option.value}  ${isSingleMappi(option.value)
+                    ? "Mappi" 
+                    : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
+                  }`} 
+                  
+                  <MembershipIcon 
+                    category={option.value} 
+                    className="ml-1"
+                    styleComponent={{
+                      display: "inline-block",
+                      objectFit: "contain",
+                      verticalAlign: "middle"
+                    }}
+                  />
+                  <span> {option.cost}Pi</span>
+                </div>
+              ))}
+            </div>
+            <div className="mb-5 mt-3 flex justify-between">
+              <Button
+                label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
+                disabled={isSaveLoading || totalAmount <= 0}
+                styles={{
+                  color: '#ffc153',
+                  height: '40px',
+                  padding: '10px 15px',
+                  marginLeft: 'auto'
+                }}
+                onClick={handleBuy}
+              />
+            </div>
+          </div>
+        }
+      </div>     
     </div>
   );
 }

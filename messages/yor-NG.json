@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Yan ìṣọkan tàbí Mappi láti rà",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "ìmọ̀lára ({duration} ọ̀sẹ̀)",
       "PICK_BUY_METHOD_LABEL": "Yan ọ̀nà rira",
+      "NO_ACTIVE_MEMBERSHIP": "O kò ní ọmọ ẹgbẹ́ kankan tí ó ń ṣiṣẹ́",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Sanwo pẹlu π",
+        "PAY_WITH_PI": "Sanwo pẹlu Pi",
         "WATCH_ADS": "Wo ìpolówó (fẹ́fẹ́)",
         "USE_VOUCHER": "Lo koodu voucher (fẹ́fẹ́)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Tẹ kóòdù voucher",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Yan lára àwọn voucher tó wà",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Ìforúkọsílẹ̀ ọmọ ẹgbẹ́ ti ṣàkóso ní àṣeyọrí",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "A kò lè gbé data ọmọ ẹgbẹ́ wọlé",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Àpejúwe",
         "PHOTO": "Fọ́tò",
         "SELLING_DURATION_LABEL": "Àkókò títà ní ọsẹ",
+        "MAPPI_COST_PREVIEW": "Èyí yóò na {mappi_count} Mappi",
+        "MAPPI_REFUND_PREVIEW": "A ó da {mappi_count} Mappi padà fún ọ",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Ṣiṣẹ́",
           "EXPIRED": "Tí parí"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "Títà ní {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kò le dín àkókò tita kù ju ọ̀sẹ̀ {remaining_weeks} tó ku lọ"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "A kò le dín àkókò tita kù ju ọ̀sẹ̀ {remaining_weeks} tó ku lọ",
+          "DURATION_MINIMUM": "Àkókò ìpolówó gbọ́dọ̀ jẹ́ ó kéré tán ọ̀sẹ̀ kan"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Daakọ",
     "ADD_ITEM": "Fikun un Item",
     "CHECKOUT": "Sanwo",
+    "REDEEM": "Lo",
     "DELETE": "Pàdánù",
     "CONFIRM": "Jẹrisi",  
     "CONFIRM_DELETE": "Ṣé o dájú pé o fẹ́ pa àyọkà yìí? Ìṣe yìí kò lè tún ṣe.",

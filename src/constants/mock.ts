@@ -10,37 +10,37 @@ export const dummyList: MembershipOption[] = [
   {
     value: MembershipClassType.SINGLE,
     mappi_allowance: 1,
-    cost: 0.2,
+    cost: 2,
     duration: 0,
   },
   {
     value: MembershipClassType.WHITE,
-    mappi_allowance: 20,
-    cost: 1,
-    duration: 3,
+    mappi_allowance: 0,
+    cost: 10,
+    duration: 50,
   },
   {
     value: MembershipClassType.GREEN,
-    mappi_allowance: 50,
-    cost: 2,
+    mappi_allowance: 20,
+    cost: 20,
     duration: 4,
   },
   {
     value: MembershipClassType.GOLD,
     mappi_allowance: 100,
-    cost: 5,
+    cost: 50,
     duration: 10,
   },
   {
     value: MembershipClassType.DOUBLE_GOLD,
-    mappi_allowance: 200,
-    cost: 10,
+    mappi_allowance: 400,
+    cost: 100,
     duration: 20,
   },
   {
     value: MembershipClassType.TRIPLE_GOLD,
-    mappi_allowance: 300,
-    cost: 20,
+    mappi_allowance: 2000,
+    cost: 200,
     duration: 50,
   }
 ];
