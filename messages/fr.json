@@ -56,12 +56,14 @@
       "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Choisissez l’adhésion ou Mappi à acheter",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "adhésion ({duration} semaines)",
       "PICK_BUY_METHOD_LABEL": "Choisissez la méthode d’achat",
+      "NO_ACTIVE_MEMBERSHIP": "Vous n'avez aucun abonnement actif",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Payer avec π",
+        "PAY_WITH_PI": "Payer avec Pi",
         "WATCH_ADS": "Regarder les publicités (gratuit)",
         "USE_VOUCHER": "Utiliser un code voucher (gratuit)"
       },
       "ENTER_VOUCHER_CODE_PLACEHOLDER": "Entrez le code du bon",
+      "PICK_FROM_AVAILABLE_VOUCHERS": "Choisissez parmi les bons disponibles",
       "VALIDATION": {
         "SUCCESSFUL_MEMBERSHIP_ACTIVATION_MESSAGE": "Adhésion activée avec succès",
         "FAILED_LOAD_MEMBERSHIP_MESSAGE": "Échec du chargement des données d’adhésion",
@@ -130,6 +132,8 @@
         "DESCRIPTION_LABEL": "Description",
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Durée de vente en semaines",
+        "MAPPI_COST_PREVIEW": "{mappi_count} Mappi seront facturés",
+        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi seront remboursés",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Actif",
           "EXPIRED": "Expiré"
@@ -145,7 +149,8 @@
         },
         "SELLING_EXPIRATION_DATE": "À vendre avant le {expired_by_date}",
         "VALIDATION": {
-          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "La durée de vente ne peut pas être réduite en dessous de {remaining_weeks} semaines"
+          "REDUCED_DURATION_BELOW_REMAINING_WEEKS": "La durée de vente ne peut pas être réduite en dessous de {remaining_weeks} semaines",
+          "DURATION_MINIMUM": "La durée de l'annonce doit être d'au moins 1 semaine"
         }
       }
     },
@@ -341,6 +346,7 @@
     "COPY": "Copier",
     "ADD_ITEM": "Ajouter un article",
     "CHECKOUT": "Paiement",
+    "REDEEM": "Utiliser",
     "DELETE": "Supprimer",
     "CONFIRM_DELETE": "Voulez-vous vraiment supprimer cet élément? Cette action est irréversible.",
     "SAVE": "Enregistrer",

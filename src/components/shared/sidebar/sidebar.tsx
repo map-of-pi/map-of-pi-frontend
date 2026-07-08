@@ -34,7 +34,7 @@ import {
   fetchUserSettings,
 } from '@/services/userSettingsApi';
 import { fetchToggle } from '@/services/toggleApi';
-import removeUrls from '@/utils/sanitize';
+import { removeUrls } from '@/utils/sanitize';
 import { getFindMeOptions } from '@/utils/translate';
 
 import { AppContext } from '../../../../context/AppContextProvider';

@@ -22,11 +22,8 @@ export const fetchSellers = async (bounds: L.LatLngBounds, searchQuery?: string)
     const response = await axiosClient.post('/sellers/fetch', requestPayload);
     
     if (response.status === 200) {
-      return response.data;
-    } 
-
-    if (response.status === 204) {
-      return [];
+      const data = response.data;
+      return Array.isArray(data) ? data : data?.sellers ?? [];
     }
       
     return null;
