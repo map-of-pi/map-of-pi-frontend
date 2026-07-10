@@ -12,6 +12,9 @@ import Navbar from '@/components/shared/navbar/Navbar';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
+import { fetchSummaryStatistics } from '@/services/statisticsApi';
+import logger from '../../../../../logger.config.mjs';
+import { set } from 'lodash';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -20,7 +23,6 @@ type TabId = 'statistics' | 'adminregister' | 'addvouchers';
 interface StatsData {
   registeredUsers: number;
   sellers: number;
-  buyers: number;
   reviews: number;
   itemsListed: number;
   ordersCreated: number;
@@ -39,23 +41,22 @@ interface NavbarMessageState {
 // ─── Mock data / API stubs ────────────────────────────────────────────────────
 
 const MOCK_STATS: StatsData = {
-  registeredUsers: 12_847,
-  sellers: 3_201,
-  buyers: 9_422,
-  reviews: 5_110,
-  itemsListed: 18_934,
-  ordersCreated: 7_654,
-  ordersFulfilled: 6_982,
-  orderedItems: 24_315,
+  registeredUsers: 0,
+  sellers: 0,
+  reviews: 0,
+  itemsListed: 0,
+  ordersCreated: 0,
+  ordersFulfilled: 0,
+  orderedItems: 0,
   membershipTotals: {
-    White: 7_201,
-    Green: 3_104,
-    Gold: 1_522,
-    'Double Gold': 688,
-    'Triple Gold': 332,
+    White: 0,
+    Green: 0,
+    Gold: 0,
+    'Double Gold': 0,
+    'Triple Gold': 0,
   },
-  totalMembers: 12_847,
-  individualMappi: 4_209,
+  totalMembers: 0,
+  individualMappi: 0,
 };
 
 const MOCK_ADMINS = ['peejenn', 'swoocn', '<xxx>', '<yyy>', '<zzz>'];
@@ -88,6 +89,7 @@ function formatDateTime(date: Date): string {
 
 // ---- Reusable stats table ----
 function StatsTable({ rows }: { rows: [string, number][] }) {
+  
   return (
     <section className="relative rounded-lg border border-primary mb-7 p-4">
       <table className="w-full">
@@ -115,7 +117,6 @@ function StatisticsTab({ stats }: { stats: StatsData }) {
   const rows: [string, number][] = [
     ['Registered users', stats.registeredUsers],
     ['Sellers',          stats.sellers],
-    ['Buyers',           stats.buyers],
     ['Reviews',          stats.reviews],
     ['Items listed',     stats.itemsListed],
     ['Orders created',   stats.ordersCreated],
@@ -484,7 +485,7 @@ export default function AppManagementPage({
   isPermanentAdmin = false,
 }: AppManagementPageProps) {
   const [selectedTab, setSelectedTab] = useState<TabId>('statistics');
-  const [stats]                       = useState<StatsData>(MOCK_STATS);
+  const [stats, setStats]             = useState<StatsData>(MOCK_STATS);
   const [navMsg, setNavMsg]           = useState<NavbarMessageState>({ text: 'Map of Pi Admin', active: false });
   const navTimerRef                   = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -498,6 +499,49 @@ export default function AppManagementPage({
 
   useEffect(() => () => {
     if (navTimerRef.current) clearTimeout(navTimerRef.current);
+  }, []);
+
+  // Load statistics on mount
+  useEffect(() => () => {   
+    if (!isAdmin) return;
+
+    const loadStats = async () => {
+      try {
+        const result = await fetchSummaryStatistics();
+        
+        if (result.success && result.usageStats && result.membershipStats) {
+          setStats({
+            registeredUsers: result.usageStats.totalUsers,
+            sellers: result.usageStats.totalSellers,
+            reviews: result.usageStats.totalReviews,
+
+            itemsListed: result.usageStats.totalSellerItems,
+            ordersCreated: result.usageStats.totalOrders,
+            ordersFulfilled: result.usageStats.fulfilledOrders,
+            orderedItems: result.usageStats.totalOrderItems,
+            
+            membershipTotals: {
+              White: result.membershipStats.totalActiveWhiteMembers,
+              Green: result.membershipStats.totalActiveGreenMembers,
+              Gold: result.membershipStats.totalActiveGoldMembers,
+              'Double Gold': result.membershipStats.totalActiveDoubleGoldMembers,
+              'Triple Gold': result.membershipStats.totalActiveTripleGoldMembers,
+            },
+
+            totalMembers: result.membershipStats.totalActiveMembers,
+            individualMappi: result.membershipStats.totalActiveMappiBalance,
+          });
+
+          // logger.info('Summary statistics fetched successfully', { result });
+        }
+
+      } catch (error) {
+        logger.error('Error fetching summary statistics:', error);
+        setStats(MOCK_STATS);
+      }
+    };
+
+    loadStats();
   }, []);
 
   if (!isAdmin) {
