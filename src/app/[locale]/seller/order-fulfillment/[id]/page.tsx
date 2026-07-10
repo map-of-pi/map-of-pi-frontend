@@ -26,7 +26,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   
   const locale = useLocale();
   const t = useTranslations();
-  const { setOrdersCount } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
 
   const orderId = params.id;
   const sellerName = searchParams.seller_name;
@@ -36,31 +36,48 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [orderItems, setOrderItems] = useState<OrderItemType[]>([]);
   const [buyerName, setBuyerName] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [refreshCount, setRefreshCount] = useState<number>(0);
 
   useEffect(() => {
-    const getOrder = async (id: string) => {
+    let mounted = true;
+
+    const getOrder = async () => {
       try {
-        const data = await fetchOrderById(id);
+        const data = await fetchOrderById(orderId);
+
+        if (!mounted) return;
+
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
+
           setBuyerName(data.pi_username);
-          setIsCompleted(data.order.status === OrderStatusType.Completed);
+          setIsCompleted(
+            data.order.status === OrderStatusType.Completed
+          );
+
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
-          setBuyerName('');
+          setBuyerName("");
         }
+
       } catch (error) {
-        logger.error('Error fetching order item data:', error);
+        logger.error("Error fetching order", error);
       }
     };
-    
-    getOrder(orderId);
+
+    getOrder();
+
+    return () => {
+      mounted = false;
+    };
   }, [orderId, refreshCount]);
   
   const handleFulfillment = async (itemId: string, status: OrderItemStatus) => {
+    if (!currentUser || isUpdatingStatus) return;
+
     try {
       logger.info(`Updating order item status to ${status} with id: ${itemId}`);
       const updateItem = await updateOrderItemStatus(itemId, status);
@@ -81,37 +98,26 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   };
 
   const handleCompleted = async (status: OrderStatusType) => {
-    const prev = currentOrder;
-    if (!prev) return;
+    if (!currentUser || !currentOrder || isUpdatingStatus) return;
 
-    // Optimistic local update
-    setIsCompleted(true);
-    
-    // If the previous status was Pending and now it's Completed, decrement the counter
-    if (prev.status === OrderStatusType.Pending && status === OrderStatusType.Completed) {
-      setOrdersCount((c) => Math.max(0, c - 1)); // optimistic badge update
-    }
+    setIsUpdatingStatus(true);
 
     try {
-      logger.info(`Updating order status to ${status} with id: ${orderId}`);
-      const order = await updateOrderStatus(orderId, status);
+      logger.info(`Updating order ${orderId} to ${status}`);
 
-      if (order) {
-        setCurrentOrder(order);
-        setBuyerName(order.pi_username);
-
-        // Background sync with BE (optional, to avoid drift)
-        const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
-        setOrdersCount(count);
-        setRefreshCount(refreshCount + 1)
-      } else {
-        logger.warn("Failed to update completed order on the server.");
-        // Rollback if API fails
-        setIsCompleted(false);
+      const updatedOrder = await updateOrderStatus(orderId, status);
+      if (!updatedOrder) {
+        throw new Error("Server returned no order.");
       }
-    }
-    catch (error) {
-      logger.error(`Error updating order status to ${status}:`, error);
+
+      setCurrentOrder(updatedOrder);
+      setRefreshCount((count) => count + 1);
+
+    } catch (error) {
+      logger.error("Failed to update order", error);
+
+    } finally {
+      setIsUpdatingStatus(false);
     }
   };
 
@@ -314,7 +320,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         <div className="flex flex-col gap-y-4">
           <Button
             label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_COMPLETED_LABEL')}
-            disabled={isCompleted}
+            disabled={isCompleted || isUpdatingStatus}
             styles={{
               color: '#ffc153',
               height: '40px',
