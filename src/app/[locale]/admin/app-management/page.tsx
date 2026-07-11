@@ -285,7 +285,7 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
 
         <Button
           label="Remove"
-          disabled={!isPermanentAdmin || !piUsernameInput.trim()}
+          disabled={!piUsernameInput.trim()}
           styles={{
             color: '#ffc153',
             height: '40px',
