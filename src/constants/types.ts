@@ -41,6 +41,17 @@ export interface IUserSettings {
 // Select specific fields from IUserSettings
 export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'trust_meter_rating'>;
 
+export interface AdminType {
+  _id: string;
+  user_id: string;
+  pi_uid: string;
+  username: string;
+  role: "admin" | "superadmin";
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // ========================
 // MEMBERSHIP MODELS
 // ========================

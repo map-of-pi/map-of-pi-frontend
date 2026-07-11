@@ -3,7 +3,7 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import TabShuttle, { TabItem } from '@/components/shared/TabShuttle';
 import { fetchMembershipList } from "@/services/membershipApi"
-import { MembershipClassType, MembershipOption } from '@/constants/types';
+import { AdminType, MembershipClassType, MembershipOption } from '@/constants/types';
 import { dummyList } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { useTranslations } from 'next-intl';
@@ -13,8 +13,8 @@ import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
 import { fetchSummaryStatistics } from '@/services/statisticsApi';
+import { getAdmins, createAdmin, deleteAdmin } from "@/services/adminApi";
 import logger from '../../../../../logger.config.mjs';
-import { set } from 'lodash';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -150,46 +150,106 @@ interface AdminRegisterTabProps {
 }
 
 function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTabProps) {
-  const [admins, setAdmins] = useState<string[]>(MOCK_ADMINS);
-  const [piUsernameInput, setPiUsernameInput] = useState('');
-  const [popupMsg, setPopupMsg] = useState<string | null>(null);
+  const [admins, setAdmins] = useState<AdminType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [popupMsg, setPopupMsg] = useState("");
+  const [piUsernameInput, setPiUsernameInput] = useState("");
 
   const t = useTranslations();
 
-  const handleAdd = () => {
-    const name = piUsernameInput.trim();
-    if (!name) return;
+  useEffect(() => {
+    loadAdmins();
+  }, []);
 
-    // Validation
-    const allUsers = [...admins, 'testuser1', 'testuser2']; // mock user table
-    if (!allUsers.includes(name)) {
-      setPopupMsg('Pioneer is not a Map of Pi user');
-      return;
+  const loadAdmins = async () => {
+    setLoading(true);
+
+    try {
+      const result = await getAdmins({
+        page: 1,
+        limit: 100,
+      });
+
+      if (result.success) {
+        setAdmins(result.data);
+
+        logger.info("Admins fetched successfully.", result);
+      }
+    } catch (error: any) {
+      logger.error("Failed to fetch admins.", error);
+      setPopupMsg(
+        error?.response?.data?.message ??
+          "Unable to fetch admins."
+      );
+    } finally {
+      setLoading(false);
     }
-    if (admins.includes(name)) {
-      setPopupMsg('Pioneer is already an admin');
-      return;
-    }
-    setAdmins(prev => [...prev, name]);
-    setPiUsernameInput('');
-    onNavbarMessage('Admin table updated');
   };
 
-  const handleRemove = () => {
-    const name = piUsernameInput.trim();
-    if (!name) return;
+  const handleAdd = async () => {
+    const username = piUsernameInput.trim();
 
-    if (!admins.includes(name)) {
-      setPopupMsg('Pioneer is not an admin');
+    if (!username) return;
+
+    try {
+      const result = await createAdmin({
+        username,
+        role: "admin",
+      });
+
+      if (result.success) {
+        setAdmins((prev) => [...prev, result.data]);
+
+        setPiUsernameInput("");
+
+        onNavbarMessage("Admin added successfully.");
+
+        logger.info("Admin created.", result.data);
+      }
+    } catch (error: any) {
+      logger.error(error);
+
+      setPopupMsg(
+        error?.response?.data?.message ??
+          "Unable to add admin."
+      );
+    }
+  };
+
+  const handleRemove = async () => {
+    const username = piUsernameInput.trim();
+
+    if (!username) return;
+
+    const admin = admins.find(
+      (a) => a.username === username
+    );
+
+    if (!admin) {
+      setPopupMsg("Pioneer is not an admin.");
       return;
     }
-    if (PERMANENT_ADMINS.has(name)) {
-      setPopupMsg('Pioneer is a permanent admin so cannot be deleted');
-      return;
+
+    try {
+      const result = await deleteAdmin(admin._id);
+
+      if (result.success) {
+        setAdmins((prev) =>
+          prev.filter((a) => a._id !== admin._id)
+        );
+
+        setPiUsernameInput("");
+
+        onNavbarMessage("Admin removed successfully.");
+      }
+    } catch (error: any) {
+      logger.error(error);
+
+      setPopupMsg(
+        error?.response?.data?.message ??
+          "Unable to remove admin."
+      );
     }
-    setAdmins(prev => prev.filter(a => a !== name));
-    setPiUsernameInput('');
-    onNavbarMessage('Admin table updated');
   };
 
   return (
@@ -208,7 +268,7 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
       <div className="flex items-center justify-between mb-7">
         <Button
           label="Add"
-          disabled={!isPermanentAdmin || !piUsernameInput.trim()}
+          disabled={!piUsernameInput.trim()}
           styles={{
             color: '#ffc153',
             height: '40px',
@@ -234,9 +294,9 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
         className={`relative border border-primary rounded-lg mb-7 p-4`}
       >
         <ul className="amp-admin-list">
-          {admins.map(name => (
-            <li key={name} className={`amp-admin-list__item${PERMANENT_ADMINS.has(name) ? ' amp-admin-list__item--permanent' : ''}`}>
-              {name}
+          {admins.map(admin => (
+            <li key={admin._id} className={`amp-admin-list__item${PERMANENT_ADMINS.has(admin.username) ? ' amp-admin-list__item--permanent' : ''}`}>
+              {admin.username}
             </li>
           ))}
         </ul>
@@ -248,7 +308,7 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
           <div className="amp-popup">
             <p className="amp-popup__body">{popupMsg}</p>
             <div className="amp-popup__actions">
-              <button className="amp-btn amp-btn--outline" onClick={() => setPopupMsg(null)}>
+              <button className="amp-btn amp-btn--outline" onClick={() => setPopupMsg("")}>
                 Cancel
               </button>
             </div>
@@ -570,12 +630,14 @@ export default function AppManagementPage({
       {selectedTab === 'statistics' && (
         <StatisticsTab stats={stats} />
       )}
+
       {selectedTab === 'adminregister' && (
         <AdminRegisterTab
           isPermanentAdmin={isPermanentAdmin}
           onNavbarMessage={showNavbarMessage}
         />
       )}
+
       {selectedTab === 'addvouchers' && (
         <AddVouchersTab />
       )}
