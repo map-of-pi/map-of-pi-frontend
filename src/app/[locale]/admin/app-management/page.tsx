@@ -198,7 +198,13 @@ function AdminRegisterTab({ isPermanentAdmin, onNavbarMessage }: AdminRegisterTa
       });
 
       if (result.success) {
-        setAdmins((prev) => [...prev, result.data]);
+        setAdmins((prev) => {
+          const exists = prev.some(
+            (admin) => admin.username === result.data.username
+          );
+
+          return exists ? prev : [...prev, result.data];
+        });
 
         setPiUsernameInput("");
 
