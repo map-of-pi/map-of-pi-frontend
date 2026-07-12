@@ -318,7 +318,7 @@ const AdminRegisterTab = () => {
   );
 }
 
-function AddVouchersTab() {
+const AddVouchersTab = () => {
   const { showAlert, setIsSaveLoading, currentUser, isSaveLoading } = useContext(AppContext);
   const t = useTranslations();
 
