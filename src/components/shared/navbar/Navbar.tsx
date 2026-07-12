@@ -18,6 +18,7 @@ import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 import { MembershipClassType } from '@/constants/types';
+import { authenticateAdmin } from '@/services/adminApi';
 
 function Navbar() {
   const router = useRouter();
@@ -27,6 +28,7 @@ function Navbar() {
 
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const {
     isSigningInUser, 
@@ -35,7 +37,8 @@ function Navbar() {
     isSaveLoading, 
     userMembership, 
     notificationsCount, 
-    ordersCount 
+    ordersCount,
+    currentUser 
   } = useContext(AppContext);
 
   // check if the current page is the homepage
@@ -43,6 +46,27 @@ function Navbar() {
     setIsHomePage(pathname === '/' || pathname === `/${locale}`);
     if (!isHomePage) logger.info(`HomePage Pathname is ${pathname}`);
   }, [pathname, locale]);
+
+  useEffect(() => {
+    if (!currentUser || isSigningInUser) return
+
+    const authAdmin = async () => {    
+      try {
+        const result = await authenticateAdmin();
+
+        if (result.success) {
+          setIsAdmin(true);
+          logger.info("Admins fetched successfully.", result);
+        }
+
+      } catch (error: any) {
+        logger.error("Admin authentication failed.", error);
+        setIsAdmin(false);
+      }
+    };
+    
+    authAdmin();
+  }, [currentUser]);
 
   const handleBackBtn = () => router.back();
   const handleMenu = () => setSidebarToggle(prev => !prev);
@@ -88,8 +112,9 @@ function Navbar() {
               <MdHome size={24} className={`${(isHomePage || isSaveLoading) ? 'text-tertiary' : 'text-secondary'}`} />
             </Link>
           </div>
-          <div className={`${styles.nav_item} disabled`}>
-            <Link href="/">
+
+          <div className={`${styles.nav_item}  ${(!isAdmin) && 'disabled'}`}>
+            <Link href={ isAdmin ? '/admin/app-management' : `/${locale}` }>
               <Image
                 src="/images/logo.svg"
                 alt="Map of Pi Home Logo"
@@ -98,16 +123,13 @@ function Navbar() {
               />
             </Link>
           </div>
-          <div className={`${styles.nav_item}`}>
-            <Link href="/admin/app-management">
-              Admin
-            </Link>
-          </div>
+
           <div className={`${styles.nav_item}`}>
             <Link href="/" onClick={handleClick}>
               <FiHelpCircle size={24} className={'text-secondary'} />
             </Link>
           </div>
+
           <div className={`${styles.nav_item}`}>
             <Link
               href=""
