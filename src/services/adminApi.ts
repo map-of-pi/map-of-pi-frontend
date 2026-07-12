@@ -36,6 +36,17 @@ export const getAdmins = async (params?: GetAdminsParams) => {
   }
 };
 
+export const authenticateAdmin = async () => {
+  try {
+    const response = await axiosClient.get("/admins/me");
+
+    return response.data;
+  } catch (error) {
+    logger.error("Failed to authenticate admins.", error);
+    throw error;
+  }
+};
+
 /**
  * Create admin
  */
