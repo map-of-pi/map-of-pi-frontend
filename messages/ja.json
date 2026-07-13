@@ -214,7 +214,9 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "このパイオニアが受けたレビュー",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "パイオニア {search_value} に対するレビューは見つかりませんでした",
-        "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした"
+        "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect を使用するたびに 100 Mappi が消費されます。Mappi の残高を増やすには、Membership 画面を使用してください。",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect を有効化できませんでした。"
       }
     },
     "EDIT_REVIEW": {

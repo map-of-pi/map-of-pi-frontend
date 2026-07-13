@@ -214,7 +214,9 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "التقييمات التي تلقاها هذا المستخدم", 
       "VALIDATION": { 
         "NO_REVIEWS_FOUND": "لم يتم العثور على تقييمات للمستخدم {search_value}", 
-        "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}" 
+        "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "كل استخدام لميزة Trust Protect يستهلك 100 Mappi. استخدم شاشة Membership لزيادة رصيد Mappi الخاص بك.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "فشل في تفعيل Trust Protect."
       } 
     },
     "EDIT_REVIEW": {

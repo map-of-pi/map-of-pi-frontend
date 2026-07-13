@@ -8,12 +8,12 @@ import { ReviewCard } from '@/components/shared/Review/ReviewCard';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
-import logger from '../../../../../../logger.config.mjs';
 import {
   processReviews,
   useCursorInfiniteScroll,
 } from '@/hooks/useInfiniteReviews';
 import { fetchReviews, activateTrustProtect } from '@/services/reviewsApi';
+import logger from '../../../../../../logger.config.mjs';
 import { AppContext } from '../../../../../../context/AppContextProvider';
 
 interface SellerReviewsProps {
@@ -24,11 +24,10 @@ interface SellerReviewsProps {
 function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, showAlert } = useContext(AppContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const { showAlert } = useContext(AppContext);
   // Displayed user state — starts as the route owner
   const [toUser, setToUser] = useState(params.id);
   const [displayName, setDisplayName] = useState(searchParams.user_name ?? '');
@@ -74,6 +73,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     process: (data) => processReviews(data, locale),
     dependencies: [toUser, searchQuery, refreshKey],
   });
+
   const handleTrustProtect = async (reviewId: string) => {
     try {
       await activateTrustProtect(reviewId);
@@ -87,11 +87,20 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         error?.response?.data || error,
       );
 
+      if (error?.response?.data?.code === 'TRUST_PROTECT_INSUFFICIENT_MAPPI') {
+        showAlert(
+          t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_INSUFFICIENT_MAPPI'),
+        );
+        return;
+      }
+
       showAlert(
-        error?.response?.data?.message || 'Failed to activate Trust Protect.',
+        error?.response?.data?.message ||
+          t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
       );
     }
   };
+  
   const {
     items: receivedReviews,
     loading: loadingReceived,

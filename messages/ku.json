@@ -214,7 +214,9 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Nirxandinên ku ji hêla vî pêşeng ve hatine wergirtin",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ji bo Pioneer ti nirxandin nehat dîtin {search_value}",
-        "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû"
+        "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Her carê ku Trust Protect bikar bînî, 100 Mappi tê xerckirin. Ji bo zêdekirina balansa Mappi ya xwe, ekrana Membership bikar bîne.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect nehat çalakkirin."
       }
     },
     "EDIT_REVIEW": {
