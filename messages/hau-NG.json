@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ba a sami bita ga Mai-tushen {search_value} ba",
         "NO_PIONEER_FOUND": "Ba a sami Mai-tushen {search_value} ba",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "An kunna Trust Protect cikin nasara.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Kowane amfani da Trust Protect yana cin 100 Mappi. Yi amfani da allon Membership don ƙara ma'aunin Mappi ɗinka.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "An kasa kunna Trust Protect."
       }

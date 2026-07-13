@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "पायनियर के लिए कोई समीक्षा नहीं मिली {search_value}",
         "NO_PIONEER_FOUND": "अग्रणी {search_value} नहीं मिला",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect सफलतापूर्वक सक्रिय किया गया।",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect का प्रत्येक उपयोग 100 Mappi खर्च करता है। अपना Mappi बैलेंस बढ़ाने के लिए Membership स्क्रीन का उपयोग करें।",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect सक्रिय नहीं किया जा सका।"
       }

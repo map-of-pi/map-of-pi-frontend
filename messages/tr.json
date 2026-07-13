@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Öncü için yorum bulunamadı {search_value}",
         "NO_PIONEER_FOUND": "Öncü {search_value} Bulunamadı",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect başarıyla etkinleştirildi.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 100 Mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect etkinleştirilemedi."
       }

@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "未找到先鋒 {search_value} 的評論",
         "NO_PIONEER_FOUND": "未找到先鋒 {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已成功啟用。",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都會消耗 100 Mappi。請使用 Membership 頁面來增加您的 Mappi 餘額。",
         "TRUST_PROTECT_ACTIVATION_FAILED": "無法啟用 Trust Protect。"
       }

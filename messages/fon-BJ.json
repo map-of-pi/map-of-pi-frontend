@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ɖo_Ɖɔ_Ɖɔ nu Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Mɔ_pionnier {search_value} a",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect wá xwla nyuie.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect zãzã ɖeɖeɖe bɛ xɔ Mappi 100. Zã Membership screen lɛ bɛ nàgblɔ Mappi wò tɔ́ lɛ sɔ gbɔ.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect mɛ tɔn xwla o."
       }

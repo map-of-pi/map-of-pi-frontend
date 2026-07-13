@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Yennyae nsɛnkɔm biara maa Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Yennyae Pioneer a ɔyɛ {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect ayɛ adwuma yiye.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect biara a wode bedi dwuma no de Mappi 100 di dwuma. Fa Membership krataafa no ma wo Mappi dodow no nkɔ anim.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Antumi ankanyan Trust Protect."
       }

@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Không tìm thấy đánh giá cho Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Không tìm thấy Pioneer {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect đã được kích hoạt thành công.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Mỗi lần sử dụng Trust Protect sẽ tiêu tốn 100 Mappi. Hãy sử dụng màn hình Membership để tăng số dư Mappi của bạn.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Không thể kích hoạt Trust Protect."
       }

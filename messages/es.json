@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "No se encontraron reseñas para el Pionero {search_value}",
         "NO_PIONEER_FOUND": "Pionero {search_value} no encontrado",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect se ha activado correctamente.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Cada uso de Trust Protect consume 100 Mappi. Utiliza la pantalla Membership para aumentar tu saldo de Mappi.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "No se pudo activar Trust Protect."
       }

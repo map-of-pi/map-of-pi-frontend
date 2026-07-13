@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "No reviews found for Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Pioneer {search_value} not found",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect activated successfully.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Each use of Trust Protect consumes 100 Mappi. Use the Membership screen to increase your Mappi balance.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Failed to activate Trust Protect."
       }

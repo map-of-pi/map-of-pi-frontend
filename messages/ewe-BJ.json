@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Womekpɔ numetoto aɖeke na Mɔɖela {search_value}",
         "NO_PIONEER_FOUND": "Mɔɖela Pionnier {search_value} mekpɔe o",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Woɖe Trust Protect dzi nyuie.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect ƒe zãzã ɖesiaɖe xɔ Mappi 100. Zã Membership ƒe agbalẽ aɖeŋu la be nàtsɔ asɔ Mappi si le asiwò la dzi.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Míetɔ́ ŋu wɔ Trust Protect dzo o."
       }

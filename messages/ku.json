@@ -215,6 +215,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ji bo Pioneer ti nirxandin nehat dîtin {search_value}",
         "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect bi serkeftî hate çalakkirin.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Her carê ku Trust Protect bikar bînî, 100 Mappi tê xerckirin. Ji bo zêdekirina balansa Mappi ya xwe, ekrana Membership bikar bîne.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect nehat çalakkirin."
       }

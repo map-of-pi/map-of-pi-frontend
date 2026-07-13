@@ -78,7 +78,8 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     try {
       await activateTrustProtect(reviewId);
 
-      showAlert('Trust Protect activated successfully');
+      showAlert(
+        t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_SUCCESSFUL'),);
 
       triggerRefresh();
     } catch (error: any) {
@@ -95,8 +96,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       }
 
       showAlert(
-        error?.response?.data?.message ||
-          t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
+        t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
       );
     }
   };
