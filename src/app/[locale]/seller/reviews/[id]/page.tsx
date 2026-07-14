@@ -25,7 +25,8 @@ interface SellerReviewsProps {
 function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const { currentUser, showAlert } = useContext(AppContext);
+  const { currentUser, showAlert, refreshUserMembership } =
+    useContext(AppContext);
 
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -78,6 +79,13 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
   const handleTrustProtect = async (reviewId: string) => {
     try {
       await activateTrustProtect(reviewId);
+
+      refreshUserMembership().catch((membershipRefreshError) => {
+        logger.error(
+          'Failed to refresh membership after Trust Protect:',
+          membershipRefreshError,
+        );
+      });
 
       showAlert(
         t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_SUCCESSFUL'),);
