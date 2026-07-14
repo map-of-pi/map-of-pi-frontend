@@ -216,6 +216,11 @@
         "NO_REVIEWS_FOUND": "Yennyae nsɛnkɔm biara maa Pioneer {search_value}",
         "NO_PIONEER_FOUND": "Yennyae Pioneer a ɔyɛ {search_value}",
         "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect ayɛ adwuma yiye.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "Wɔanhu saa review yi. Yɛ srɛ, san yɛ screen no foforo na san bɔ mmɔden bio.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "Wɔanhu saa review yi. Ebia wɔayi afi hɔ anaa wɔasesa no.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer a onyaa saa review yi nkutoo na obetumi de Trust Protect adi dwuma.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Wɔde Trust Protect adi dwuma dedaw wɔ saa review yi so.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect betumi adi dwuma wɔ review ahorow a wɔde [DESPAIR] rating ama nkutoo.",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect biara a wode bedi dwuma no de Mappi 100 di dwuma. Fa Membership krataafa no ma wo Mappi dodow no nkɔ anim.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Antumi ankanyan Trust Protect."
       }

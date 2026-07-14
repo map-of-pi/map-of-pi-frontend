@@ -216,6 +216,11 @@
         "NO_REVIEWS_FOUND": "未找到先锋 {search_value} 的评论",
         "NO_PIONEER_FOUND": "未找到先锋 {search_value}",
         "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已成功启用。",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "找不到此评论。请刷新页面后重试。",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "找不到此评论。该评论可能已被删除或修改。",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此评论的 Pioneer 才能使用 Trust Protect。",
+        "TRUST_PROTECT_ALREADY_APPLIED": "此评论已应用 Trust Protect。",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect 只能用于带有 [DESPAIR] 评级的评论。",
         "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都会消耗 100 Mappi。请使用 Membership 页面来增加您的 Mappi 余额。",
         "TRUST_PROTECT_ACTIVATION_FAILED": "无法启用 Trust Protect。"
       }

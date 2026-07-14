@@ -7,6 +7,7 @@ import EmojiPicker from '@/components/shared/Review/emojipicker';
 import { ReviewCard } from '@/components/shared/Review/ReviewCard';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
+import { isTrustProtectErrorCode } from '@/constants/errors';
 import { IReviewOutput, ReviewInt } from '@/constants/types';
 import {
   processReviews,
@@ -88,15 +89,12 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         error?.response?.data || error,
       );
 
-      if (error?.response?.data?.code === 'TRUST_PROTECT_INSUFFICIENT_MAPPI') {
-        showAlert(
-          t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_INSUFFICIENT_MAPPI'),
-        );
-        return;
-      }
+      const errorCode = error?.response?.data?.code;
 
       showAlert(
-        t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
+        isTrustProtectErrorCode(errorCode)
+          ? t(`SCREEN.REVIEWS.VALIDATION.${errorCode}`)
+          : t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
       );
     }
   };
