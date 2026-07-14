@@ -97,13 +97,17 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
     try {
       logger.info(`Updating order status to ${status} with id: ${orderId}`);
-      const data = await updateOrderStatus(orderId, status);
+      const updatedOrder = await updateOrderStatus(orderId, status);
 
-      if (data) {
-        setCurrentOrder(data.order);
-        setOrderItems(data.orderItems);
-        setBuyerName(data.pi_username);
-        setBuyerWalletAddress(data.buyer_wallet_address || '');
+      if (updatedOrder) {
+        const refreshedOrder = await fetchOrderById(orderId);
+
+        if (refreshedOrder) {
+          setCurrentOrder(refreshedOrder.order);
+          setOrderItems(refreshedOrder.orderItems);
+          setBuyerName(refreshedOrder.pi_username);
+          setBuyerWalletAddress(refreshedOrder.buyer_wallet_address || '');
+        }
 
         // Background sync with BE (optional, to avoid drift)
         const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
