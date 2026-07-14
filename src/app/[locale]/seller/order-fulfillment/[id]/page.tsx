@@ -38,7 +38,9 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [buyerWalletAddress, setBuyerWalletAddress] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [copied, setCopied] = useState(false);
-  const canCopyWallet = Boolean(buyerWalletAddress);
+  
+  const displayedBuyerWalletAddress = buyerWalletAddress || t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE');
+  const canCopyWallet = Boolean(displayedBuyerWalletAddress);
 
   useEffect(() => {
     const getOrder = async (id: string) => {
@@ -124,10 +126,10 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   };
 
   const handleCopyWallet = async () => {
-    if (!buyerWalletAddress) return;
+    if (!displayedBuyerWalletAddress) return;
 
     try {
-      await navigator.clipboard.writeText(buyerWalletAddress);
+      await navigator.clipboard.writeText(displayedBuyerWalletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 1200);
     } catch (error) {
@@ -169,7 +171,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
               <div className="mt-3">
                 <label className="block text-[17px] text-[#333333] mb-1">
-                  Buyer wallet address
+                  {t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_LABEL')}
                 </label>
 
                 <div
@@ -188,11 +190,13 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-[14px] text-[#333333] break-all">
-                      {buyerWalletAddress || '-'}
+                      {displayedBuyerWalletAddress}
                     </span>
 
                     <span className="text-[13px] text-[#1d724b] whitespace-nowrap">
-                      {!canCopyWallet ? 'No wallet address' : copied ? 'Copied!' : 'Tap to copy'}
+                      {copied
+                        ? t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_COPIED_LABEL')
+                        : t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_COPY_LABEL')}
                     </span>
                   </div>
                 </div>

@@ -175,6 +175,10 @@
         "FULFILLED": "Yerine getirildi"
       },
       "ORDER_COMPLETED_LABEL": "Sipariş Tamamlandı",
+      "BUYER_WALLET_ADDRESS_LABEL": "Alıcının cüzdan adresi",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Cüzdan adresini istemek için alıcıyla iletişime geçin.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Kopyalamak için dokunun",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Kopyalandı",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Sipariş Gönderildi/Toplandı"
     },
     "BUY_FROM_SELLER": {

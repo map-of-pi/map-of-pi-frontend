@@ -175,6 +175,10 @@
         "FULFILLED": "Pêk anîn"
       },
       "ORDER_COMPLETED_LABEL": "Siparîş qediya",
+      "BUYER_WALLET_ADDRESS_LABEL": "Wallet address ya kiryar",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Ji bo daxwaza wallet address, bi wergir re têkilî daynin.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Ji bo kopîkirinê pêl bikin",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Hat kopîkirin",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Siparîş Hat Şandin/Hat Wergirtin"
     },
     "BUY_FROM_SELLER": {

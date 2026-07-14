@@ -175,6 +175,10 @@
         "FULFILLED": "Tramitado"
       },
       "ORDER_COMPLETED_LABEL": "Pedido completado",
+      "BUYER_WALLET_ADDRESS_LABEL": "Dirección de la billetera del comprador",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Contacta al destinatario para solicitar la dirección de la billetera.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Toca para copiar",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Copiado",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Pedido despachado/recogido"
     },
     "BUY_FROM_SELLER": {

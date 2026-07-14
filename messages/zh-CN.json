@@ -175,6 +175,10 @@
         "FULFILLED": "订单已完成"
       },
       "ORDER_COMPLETED_LABEL": "订单已完成",
+      "BUYER_WALLET_ADDRESS_LABEL": "买家钱包地址",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "请联系收款人以获取钱包地址。",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "点击复制",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "已复制",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "订单已发货/已收取"
     },
     "BUY_FROM_SELLER": {

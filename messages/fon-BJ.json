@@ -175,6 +175,10 @@
         "FULFILLED": "Wɛ klu"
       },
       "ORDER_COMPLETED_LABEL": "Wɛgbɛ tɔn",
+      "BUYER_WALLET_ADDRESS_LABEL": "Asìwàtɔ wallet address",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Kpɔ̀ amɛ̀ si ná xɔ̀ nɔ̀ náà bɛ̀ nà bìá wallet address tɔ̀n.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Tɛ́ bɛ̀ nà kɔpí",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Kɔpí",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Wɛgbɛ dɔ / tɔn hɔn"
     },
     "BUY_FROM_SELLER": {

@@ -175,6 +175,10 @@
         "FULFILLED": "Fulfilled"
       },
       "ORDER_COMPLETED_LABEL": "Order Completed",
+      "BUYER_WALLET_ADDRESS_LABEL": "Buyer wallet address",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Contact the recipient to request wallet address",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Tap to copy",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Copied",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Order Dispatched/Collected"
     },
     "BUY_FROM_SELLER": {

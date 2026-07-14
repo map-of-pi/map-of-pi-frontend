@@ -175,6 +175,10 @@
         "FULFILLED": "A ti pari aṣẹ naa"
       },
       "ORDER_COMPLETED_LABEL": "Àṣẹ parí",
+      "BUYER_WALLET_ADDRESS_LABEL": "Adirẹsi apamọwọ olùrà",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Kan sí olùgbà láti béèrè fún adirẹsi apamọwọ.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Fọwọ́ kan láti daakọ",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "A ti daakọ",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Àṣẹ ránṣẹ́ / ti gba"
     },
     "BUY_FROM_SELLER": {
