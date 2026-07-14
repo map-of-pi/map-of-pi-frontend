@@ -215,7 +215,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Bewertungen von diesem Pionier erhalten",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Keine Bewertungen für Pionier gefunden {search_value}",
-        "NO_PIONEER_FOUND": "Pionier {search_value} Nicht gefunden"  
+        "NO_PIONEER_FOUND": "Pionier {search_value} Nicht gefunden",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect wurde erfolgreich aktiviert.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "Diese Bewertung konnte nicht gefunden werden. Bitte aktualisieren Sie den Bildschirm und versuchen Sie es erneut.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "Diese Bewertung konnte nicht gefunden werden. Sie wurde möglicherweise entfernt oder geändert.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Nur der Pioneer, der diese Bewertung erhalten hat, kann Trust Protect verwenden.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect wurde bereits auf diese Bewertung angewendet.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect kann nur für Bewertungen mit der Bewertung [DESPAIR] verwendet werden.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Jede Nutzung von Trust Protect verbraucht 100 Mappi. Verwende den Membership-Bildschirm, um dein Mappi-Guthaben zu erhöhen.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect konnte nicht aktiviert werden."
       }
     },
     "EDIT_REVIEW": {
