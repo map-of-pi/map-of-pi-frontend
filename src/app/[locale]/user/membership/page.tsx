@@ -118,6 +118,10 @@ export default function MembershipPage() {
   } 
 
   useEffect(() => {
+    loadMembership();
+  }, [currentUser?.pi_uid]);
+
+  useEffect(() => {
     const loadMembershipList = async () => { 
       try {
         const subList = await fetchMembershipList();

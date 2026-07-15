@@ -214,7 +214,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Reviews received by this pioneer",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "No reviews found for Pioneer {search_value}",
-        "NO_PIONEER_FOUND": "Pioneer {search_value} not found"
+        "NO_PIONEER_FOUND": "Pioneer {search_value} not found",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect activated successfully",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "This review could not be found. Please refresh the screen and try again.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "This review could not be found. It may have been removed or changed.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Only the Pioneer who received this review can use Trust Protect.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect has already been applied to this review.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect can only be used on reviews with a [DESPAIR] rating.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Each use of Trust Protect consumes 100 Mappi. Use the Membership screen to increase your Mappi balance.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Failed to activate Trust Protect."
       }
     },
     "EDIT_REVIEW": {
