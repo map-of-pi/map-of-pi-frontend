@@ -342,10 +342,7 @@ function Sidebar(props: any) {
     const formDataToSend = new FormData();
     formDataToSend.append('user_name', removeUrls(formData.user_name));
     formDataToSend.append('findme', formData.findme);
-
-    if (formData.wallet_address) {
-      formDataToSend.append('wallet_address', removeUrls(formData.wallet_address));
-    }
+    formDataToSend.append('wallet_address', removeUrls(formData.wallet_address ?? ''));
     // add the image if it exists
     if (file) {
       formDataToSend.append('image', file);

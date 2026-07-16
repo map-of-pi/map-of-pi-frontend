@@ -175,6 +175,10 @@
         "FULFILLED": "発送済み"
       },
       "ORDER_COMPLETED_LABEL": "注文完了",
+      "BUYER_WALLET_ADDRESS_LABEL": "購入者のウォレットアドレス",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "ウォレットアドレスを取得するには、受取人に連絡してください。",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "タップしてコピー",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "コピーしました",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "注文発送／受取済み"
     },
     "BUY_FROM_SELLER": {
@@ -214,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "このパイオニアが受けたレビュー",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "パイオニア {search_value} に対するレビューは見つかりませんでした",
-        "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした"
+        "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect が正常に有効化されました。",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "このレビューは見つかりませんでした。画面を更新してもう一度お試しください。",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "このレビューは見つかりませんでした。削除または変更された可能性があります。",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "このレビューを受け取った Pioneer のみが Trust Protect を使用できます。",
+        "TRUST_PROTECT_ALREADY_APPLIED": "このレビューにはすでに Trust Protect が適用されています。",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect は [DESPAIR] 評価のレビューにのみ使用できます。",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect を使用するたびに 100 Mappi が消費されます。Mappi の残高を増やすには、Membership 画面を使用してください。",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect を有効化できませんでした。"
       }
     },
     "EDIT_REVIEW": {

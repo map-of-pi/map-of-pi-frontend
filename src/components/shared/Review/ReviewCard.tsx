@@ -9,9 +9,14 @@ import { getImageSrc } from '@/utils/image';
 interface ReviewCardProps {
   review: ReviewInt;
   currentUserId?: string;
+  onTrustProtect?: (reviewId: string) => void;
 }
 
-export function ReviewCard({ review, currentUserId }: ReviewCardProps) {
+export function ReviewCard({
+  review,
+  currentUserId,
+  onTrustProtect,
+}: ReviewCardProps) {
   const t = useTranslations();
   const locale = useLocale();
   const imgSrc = getImageSrc(review.image);
@@ -54,16 +59,25 @@ export function ReviewCard({ review, currentUserId }: ReviewCardProps) {
 
       {/* Actions */}
       <div className="flex justify-between items-center mt-2 w-full">
+        {onTrustProtect &&
+          review.receiverId === currentUserId &&
+          review.reaction === 'Despair' &&
+          !review.trust_protected && (
+            <button
+              type="button"
+              onClick={() => onTrustProtect(review.reviewId)}>
+              <OutlineBtn label="Trust Protect" />
+            </button>
+          )}
+
         {review.giverId === currentUserId && (
           <Link
-            href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}
-          >
+            href={`/${locale}/seller/reviews/${review.reviewId}/edit?user_name=${encodeURIComponent(review.receiver)}`}>
             <OutlineBtn label={t('SHARED.EDIT')} />
           </Link>
         )}
         <Link
-          href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}
-        >
+          href={`/${locale}/seller/reviews/feedback/${review.reviewId}?user_name=${encodeURIComponent(review.giver)}`}>
           <OutlineBtn label={t('SHARED.REPLY')} />
         </Link>
       </div>

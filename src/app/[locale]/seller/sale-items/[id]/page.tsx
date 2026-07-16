@@ -366,7 +366,7 @@ export default function BuyFromSellerForm({
                   <Button
                     label={
                       t('SHARED.CHECKOUT') +
-                      ` (${totalAmount.toFixed(3).toString()} π)`
+                      ` (${totalAmount.toFixed(3).toString()} Pi)`
                     }
                     disabled={!(pickedItems.length > 0)}
                     styles={{
