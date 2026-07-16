@@ -175,6 +175,10 @@
         "FULFILLED": "تم التنفيذ"
       },
       "ORDER_COMPLETED_LABEL": "تم إكمال الطلب",
+      "BUYER_WALLET_ADDRESS_LABEL": "عنوان محفظة المشتري",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "تواصل مع المستلم لطلب عنوان المحفظة.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "اضغط للنسخ",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "تم النسخ",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "تم شحن/استلام الطلب"
     },
     "BUY_FROM_SELLER": {
@@ -214,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "التقييمات التي تلقاها هذا المستخدم", 
       "VALIDATION": { 
         "NO_REVIEWS_FOUND": "لم يتم العثور على تقييمات للمستخدم {search_value}", 
-        "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}" 
+        "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "تم تفعيل Trust Protect بنجاح",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "تعذر العثور على هذا التقييم. يرجى تحديث الشاشة والمحاولة مرة أخرى.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "تعذر العثور على هذا التقييم. ربما تمت إزالته أو تغييره.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "يمكن فقط لـ Pioneer الذي تلقى هذا التقييم استخدام Trust Protect.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "تم تطبيق Trust Protect بالفعل على هذا التقييم.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "لا يمكن استخدام Trust Protect إلا مع التقييمات التي تحمل تصنيف [DESPAIR].",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "كل استخدام لميزة Trust Protect يستهلك 100 Mappi. استخدم شاشة Membership لزيادة رصيد Mappi الخاص بك.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "فشل في تفعيل Trust Protect."
       } 
     },
     "EDIT_REVIEW": {

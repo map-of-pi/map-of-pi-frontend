@@ -175,6 +175,10 @@
         "FULFILLED": "Wɛ klu"
       },
       "ORDER_COMPLETED_LABEL": "Wɛgbɛ tɔn",
+      "BUYER_WALLET_ADDRESS_LABEL": "Asìwàtɔ wallet address",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Kpɔ̀ amɛ̀ si ná xɔ̀ nɔ̀ náà bɛ̀ nà bìá wallet address tɔ̀n.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Tɛ́ bɛ̀ nà kɔpí",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Kɔpí",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Wɛgbɛ dɔ / tɔn hɔn"
     },
     "BUY_FROM_SELLER": {
@@ -214,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Xóɖɔɖókpɔ́ e nukɔntɔ́ élɔ́ yí é",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ɖo_Ɖɔ_Ɖɔ nu Pioneer {search_value}",
-        "NO_PIONEER_FOUND": "Mɔ_pionnier {search_value} a"
+        "NO_PIONEER_FOUND": "Mɔ_pionnier {search_value} a",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect wá xwla nyuie.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "A ma nyi review enẹ o. Jọ̀wọ́, gbugbɔ screen náà bo gbìmọ̀ lẹ́ẹ̀kansi.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "A ma nyi review enẹ o. Ó ṣeé ṣe kí wọ́n yọ ọ tàbí kí wọ́n yí i padà.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer kɛ́kɛ́ tɔn bɛ xɔ review enẹ wɛ̀ ko lɛ́ sɛ́ Trust Protect.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect wá zã ɖe review enẹ ji xoxo.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect lɛ́ sɛ́ zã ɖe review siwo xɔ [DESPAIR] rating ko ji.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect zãzã ɖeɖeɖe bɛ xɔ Mappi 100. Zã Membership screen lɛ bɛ nàgblɔ Mappi wò tɔ́ lɛ sɔ gbɔ.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect mɛ tɔn xwla o."
       }
     },
     "EDIT_REVIEW": {

@@ -68,7 +68,7 @@ export const ListOrder: React.FC<{
                     value={item.total_amount.$numberDecimal || item.total_amount.$numberDecimal.toString()}
                     disabled={true}
                   />
-                  <p className="text-gray-500 text-sm">π</p>
+                  <p className="text-gray-500 text-sm">Pi</p>
                 </div>
               </div>
             </div>

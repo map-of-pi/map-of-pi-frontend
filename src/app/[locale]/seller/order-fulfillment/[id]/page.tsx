@@ -3,19 +3,18 @@
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import { Button } from "@/components/shared/Forms/Buttons/Buttons";
+import { Button, CopyButton } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
-import { 
-  fetchOrderById, 
-  updateOrderStatus, 
-  updateOrderItemStatus, 
-  fetchSellerOrders 
+import {
+  fetchOrderById,
+  updateOrderStatus,
+  updateOrderItemStatus
 } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
-import { 
-  getFulfillmentMethodOptions, 
-  translateSellerCategory 
+import {
+  getFulfillmentMethodOptions,
+  translateSellerCategory
 } from "@/utils/translate";
 import { AppContext } from '../../../../../../context/AppContextProvider';
 import logger from '../../../../../../logger.config.mjs';
@@ -23,10 +22,10 @@ import logger from '../../../../../../logger.config.mjs';
 export default function OrderItemPage({ params, searchParams }: { params: { id: string }, searchParams: { seller_name: string, seller_type: string } }) {
   const HEADER = 'font-bold text-lg md:text-2xl';
   const SUBHEADER = 'font-bold mb-2';
-  
+
   const locale = useLocale();
   const t = useTranslations();
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, setOrdersCount } = useContext(AppContext);
 
   const orderId = params.id;
   const sellerName = searchParams.seller_name;
@@ -35,9 +34,12 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [currentOrder, setCurrentOrder] = useState<PartialOrderType | null>(null);
   const [orderItems, setOrderItems] = useState<OrderItemType[]>([]);
   const [buyerName, setBuyerName] = useState<string>('');
+  const [buyerWalletAddress, setBuyerWalletAddress] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [refreshCount, setRefreshCount] = useState<number>(0);
+
+  const displayedBuyerWalletAddress = buyerWalletAddress || t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE');
 
   useEffect(() => {
     let mounted = true;
@@ -53,6 +55,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
           setOrderItems(data.orderItems);
 
           setBuyerName(data.pi_username);
+          setBuyerWalletAddress(data.buyer_wallet_address || '');
           setIsCompleted(
             data.order.status === OrderStatusType.Completed
           );
@@ -60,7 +63,8 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
-          setBuyerName("");
+          setBuyerName('');
+          setBuyerWalletAddress('');
         }
 
       } catch (error) {
@@ -100,22 +104,35 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const handleCompleted = async (status: OrderStatusType) => {
     if (!currentUser || !currentOrder || isUpdatingStatus) return;
 
+    const shouldDecrementOrdersCount =
+      currentOrder.status === OrderStatusType.Pending &&
+      status === OrderStatusType.Completed;
+
     setIsUpdatingStatus(true);
+    setIsCompleted(status === OrderStatusType.Completed);
+
+    if (shouldDecrementOrdersCount) {
+      setOrdersCount((count) => Math.max(0, count - 1));
+    }
 
     try {
       logger.info(`Updating order ${orderId} to ${status}`);
-
       const updatedOrder = await updateOrderStatus(orderId, status);
+
       if (!updatedOrder) {
         throw new Error("Server returned no order.");
       }
 
       setCurrentOrder(updatedOrder);
+      setIsCompleted(updatedOrder.status === OrderStatusType.Completed);
       setRefreshCount((count) => count + 1);
-
     } catch (error) {
       logger.error("Failed to update order", error);
+      setIsCompleted(currentOrder.status === OrderStatusType.Completed);
 
+      if (shouldDecrementOrdersCount) {
+        setOrdersCount((count) => count + 1);
+      }
     } finally {
       setIsUpdatingStatus(false);
     }
@@ -163,7 +180,22 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   value={currentOrder.total_amount.$numberDecimal || currentOrder.total_amount.$numberDecimal.toString()}
                   disabled={true}
                 />
-                <p className="text-gray-500 text-sm">π</p>
+                <p className="text-gray-500 text-sm">Pi</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-1">
+            <label className="block text-[17px] text-[#333333] mb-1">
+              {t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_LABEL')}
+            </label>
+
+            <div className="p-[10px] rounded-xl border-[#BDBDBD] border-[2px] w-full">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[14px] text-[#333333] break-all flex-1 min-w-0">
+                  {displayedBuyerWalletAddress}
+                </span>
+
+                <CopyButton textToCopy={buyerWalletAddress} />
               </div>
             </div>
           </div>
@@ -187,7 +219,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         {t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDERED_ITEMS_SUBHEADER')}
       </h2>
       <div className="overflow-x-auto p-2 mb-5 mt-3 flex gap-x-5">
-        {orderItems && orderItems.length>0 && orderItems.map((item, index)=>(<div
+        {orderItems && orderItems.length > 0 && orderItems.map((item, index) => (<div
           data-id={item._id}
           className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7
           flex-shrink-0 w-[88%] sm:w-[85%] md:w-[70%] snap-start ${
@@ -217,7 +249,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                     value={item.subtotal.$numberDecimal || item.subtotal.$numberDecimal.toString()}
                     disabled={true}
                   />
-                  <p className="text-gray-500 text-sm">π</p>
+                  <p className="text-gray-500 text-sm">Pi</p>
                 </div>
               </div>
             </div>
@@ -325,7 +357,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
               color: '#ffc153',
               height: '40px',
               padding: '15px 20px',
-              width:'100%'
+              width: '100%'
             }}
             onClick={()=>handleCompleted(OrderStatusType.Completed)}
           />

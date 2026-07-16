@@ -175,6 +175,10 @@
         "FULFILLED": "訂單已完成"
       },
       "ORDER_COMPLETED_LABEL": "訂單已完成",
+      "BUYER_WALLET_ADDRESS_LABEL": "買家錢包地址",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "請聯絡收款人以取得錢包地址。",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "點擊複製",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "已複製",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "訂單已發貨/已收取"
     },
     "BUY_FROM_SELLER": {
@@ -214,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "該先鋒收到的評論",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "未找到先鋒 {search_value} 的評論",
-        "NO_PIONEER_FOUND": "未找到先鋒 {search_value}"
+        "NO_PIONEER_FOUND": "未找到先鋒 {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已成功啟用。",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "找不到此評論。請重新整理頁面後再試一次。",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "找不到此評論。此評論可能已被刪除或修改。",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此評論的 Pioneer 才能使用 Trust Protect。",
+        "TRUST_PROTECT_ALREADY_APPLIED": "此評論已套用 Trust Protect。",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect 只能用於具有 [DESPAIR] 評級的評論。",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都會消耗 100 Mappi。請使用 Membership 頁面來增加您的 Mappi 餘額。",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "無法啟用 Trust Protect。"
       }
     },
     "EDIT_REVIEW": {
