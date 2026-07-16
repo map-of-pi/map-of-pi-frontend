@@ -58,7 +58,7 @@
       "PICK_BUY_METHOD_LABEL": "Escolha o método de compra",
       "NO_ACTIVE_MEMBERSHIP": "Você não tem nenhuma adesão ativa",
       "PURCHASE_OPTIONS": {
-        "PAY_WITH_PI": "Pagar com π",
+        "PAY_WITH_PI": "Pagar com Pi",
         "WATCH_ADS": "Ver anúncios (grátis)",
         "USE_VOUCHER": "Usar código de voucher (grátis)"
       },
@@ -175,6 +175,10 @@
         "FULFILLED": "Concluído"
       },
       "ORDER_COMPLETED_LABEL": "Encomenda Concluída",
+      "BUYER_WALLET_ADDRESS_LABEL": "Endereço da carteira do comprador",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Contacte o destinatário para solicitar o endereço da carteira.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Toque para copiar",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Copiado",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Encomenda Enviada/Recolhida"
     },
     "BUY_FROM_SELLER": {

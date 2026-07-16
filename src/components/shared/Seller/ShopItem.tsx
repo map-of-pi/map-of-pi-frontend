@@ -700,7 +700,7 @@ export const ListItem: React.FC<{
                 value={item.price?.$numberDecimal ?? item.price?.toString()}
                 disabled={true}
               />
-              <p className="text-gray-500 text-sm">π</p>
+              <p className="text-gray-500 text-sm">Pi</p>
             </div>
           </div>
         </div>

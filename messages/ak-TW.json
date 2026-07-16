@@ -175,6 +175,10 @@
     	"FULFILLED": "Wɔadi so"
       },
       "ORDER_COMPLETED_LABEL": "Hyɛdeɛ No Awie",
+      "BUYER_WALLET_ADDRESS_LABEL": "Ɔtɔfo sika kotoku adrɛs",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Frɛ nea ɔbɛgye no na bisa ne sika kotoku adrɛs.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Ka so na fa",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Wɔafa",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Hyɛdeɛ No Asoma/Agye"
     },
     "BUY_FROM_SELLER": {

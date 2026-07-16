@@ -176,6 +176,10 @@
         "FULFILLED": "Erfüllt"
       },
       "ORDER_COMPLETED_LABEL": "Bestellung abgeschlossen",
+      "BUYER_WALLET_ADDRESS_LABEL": "Wallet-Adresse des Käufers",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Kontaktiere den Empfänger, um die Wallet-Adresse anzufordern.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Zum Kopieren tippen",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Kopiert",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Bestellung Versandt/Gesammelt"
     },
     "BUY_FROM_SELLER": {

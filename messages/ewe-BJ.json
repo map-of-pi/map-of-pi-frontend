@@ -175,6 +175,10 @@
         "FULFILLED": "Wòtsɔ nu"
       },
       "ORDER_COMPLETED_LABEL": "Nusɔɔsi dzo",
+      "BUYER_WALLET_ADDRESS_LABEL": "Axɔla ƒe wallet address",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Kpɔ ame si axɔe la eye nàbia eƒe wallet address.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Tsi to ekpɔ be nàkɔpi",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Wokɔpi",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Nusɔɔsi dzi tɔ̃wo / gbeɖeɖewo"
     },
     "BUY_FROM_SELLER": {

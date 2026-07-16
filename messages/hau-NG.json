@@ -175,6 +175,10 @@
         "FULFILLED": "An cika"
       },
       "ORDER_COMPLETED_LABEL": "An kammala oda",
+      "BUYER_WALLET_ADDRESS_LABEL": "Adireshin wallet na mai siya",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Tuntuɓi wanda zai karɓa don neman wallet address.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Taɓa don kwafi",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "An kwafa",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "An tura/karɓi oda"
     },
     "BUY_FROM_SELLER": {

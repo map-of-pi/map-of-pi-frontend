@@ -175,6 +175,10 @@
         "FULFILLED": "이행됨"
       },
       "ORDER_COMPLETED_LABEL": "주문 완료",
+      "BUYER_WALLET_ADDRESS_LABEL": "구매자 지갑 주소",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "지갑 주소를 요청하려면 수신자에게 문의하세요.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "탭하여 복사",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "복사됨",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "주문 발송/수령"
     },
     "BUY_FROM_SELLER": {

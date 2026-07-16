@@ -105,7 +105,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
                   value={currentOrder.total_amount.$numberDecimal || currentOrder.total_amount.$numberDecimal.toString()}
                   disabled={true}
                 />
-                <p className="text-gray-500 text-sm">π</p>
+                <p className="text-gray-500 text-sm">Pi</p>
               </div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
                     value={item.subtotal.$numberDecimal || item.subtotal.$numberDecimal.toString()}
                     disabled={true}
                   />
-                  <p className="text-gray-500 text-sm">π</p>
+                  <p className="text-gray-500 text-sm">Pi</p>
                 </div>
               </div>
             </div>

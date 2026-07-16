@@ -175,6 +175,10 @@
         "FULFILLED": "पूर्ण"
       },
       "ORDER_COMPLETED_LABEL": "आदेश पूरा हुआ",
+      "BUYER_WALLET_ADDRESS_LABEL": "खरीदार का wallet address",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "wallet address प्राप्त करने के लिए प्राप्तकर्ता से संपर्क करें।",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "कॉपी करने के लिए टैप करें",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "कॉपी हो गया",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "आदेश भेजा गया/संग्रहित"
     },
     "BUY_FROM_SELLER": {
