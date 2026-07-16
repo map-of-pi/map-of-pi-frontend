@@ -3,7 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import { Button } from "@/components/shared/Forms/Buttons/Buttons";
+import { Button, CopyButton } from "@/components/shared/Forms/Buttons/Buttons";
 import { Input, Select, TextArea } from "@/components/shared/Forms/Inputs/Inputs";
 import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } from "@/constants/types";
 import {
@@ -37,10 +37,8 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [buyerName, setBuyerName] = useState<string>('');
   const [buyerWalletAddress, setBuyerWalletAddress] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
-  const [copied, setCopied] = useState(false);
   
   const displayedBuyerWalletAddress = buyerWalletAddress || t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE');
-  const canCopyWallet = Boolean(displayedBuyerWalletAddress);
 
   useEffect(() => {
     const getOrder = async (id: string) => {
@@ -125,18 +123,6 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
     }
   };
 
-  const handleCopyWallet = async () => {
-    if (!displayedBuyerWalletAddress) return;
-
-    try {
-      await navigator.clipboard.writeText(displayedBuyerWalletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1200);
-    } catch (error) {
-      logger.error('Error copying buyer wallet address:', error);
-    }
-  };
-
   const orderDateTime = resolveDate(currentOrder?.createdAt, locale);
 
   return (
@@ -168,39 +154,6 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                 value={buyerName}
                 disabled={true}
               />
-
-              <div className="mt-3">
-                <label className="block text-[17px] text-[#333333] mb-1">
-                  {t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_LABEL')}
-                </label>
-
-                <div
-                  role={canCopyWallet ? "button" : undefined}
-                  tabIndex={canCopyWallet ? 0 : -1}
-                  onClick={canCopyWallet ? handleCopyWallet : undefined}
-                  onKeyDown={(e) => {
-                    if (!canCopyWallet) return;
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleCopyWallet();
-                    }
-                  }}
-                  className={`p-[10px] rounded-xl border-[#BDBDBD] border-[2px] w-full ${canCopyWallet ? 'cursor-pointer' : 'cursor-default opacity-60'
-                    }`}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[14px] text-[#333333] break-all">
-                      {displayedBuyerWalletAddress}
-                    </span>
-
-                    <span className="text-[13px] text-[#1d724b] whitespace-nowrap">
-                      {copied
-                        ? t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_COPIED_LABEL')
-                        : t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_COPY_LABEL')}
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div className="flex-auto w-32">
@@ -213,6 +166,21 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   disabled={true}
                 />
                 <p className="text-gray-500 text-sm">π</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3">
+            <label className="block text-[17px] text-[#333333] mb-1">
+              {t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_LABEL')}
+            </label>
+
+            <div className="p-[10px] rounded-xl border-[#BDBDBD] border-[2px] w-full">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[14px] text-[#333333] break-all flex-1 min-w-0">
+                  {displayedBuyerWalletAddress}
+                </span>
+
+                <CopyButton textToCopy={buyerWalletAddress} />
               </div>
             </div>
           </div>
@@ -235,10 +203,10 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
       <h2 className={SUBHEADER}>
         {t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDERED_ITEMS_SUBHEADER')}
       </h2>
-      <div className="overflow-x-auto p-2 mb-5 mt-3 flex gap-x-5">
+      <div className="overflow-x-auto mb-5 mt-3 flex gap-x-5">
         {orderItems && orderItems.length > 0 && orderItems.map((item, index) => (<div
           data-id={item._id}
-          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
+          className={`relative w-full flex-none border-2 border-gray-600 rounded-lg mb-7 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
               'bg-yellow-100' : ''
             }`}
           key={index}
