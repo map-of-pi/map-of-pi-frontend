@@ -175,6 +175,10 @@
         "FULFILLED": "تم التنفيذ"
       },
       "ORDER_COMPLETED_LABEL": "تم إكمال الطلب",
+      "BUYER_WALLET_ADDRESS_LABEL": "عنوان محفظة المشتري",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "تواصل مع المستلم لطلب عنوان المحفظة.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "اضغط للنسخ",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "تم النسخ",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "تم شحن/استلام الطلب"
     },
     "BUY_FROM_SELLER": {

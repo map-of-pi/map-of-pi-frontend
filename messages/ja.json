@@ -175,6 +175,10 @@
         "FULFILLED": "発送済み"
       },
       "ORDER_COMPLETED_LABEL": "注文完了",
+      "BUYER_WALLET_ADDRESS_LABEL": "購入者のウォレットアドレス",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "ウォレットアドレスを取得するには、受取人に連絡してください。",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "タップしてコピー",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "コピーしました",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "注文発送／受取済み"
     },
     "BUY_FROM_SELLER": {

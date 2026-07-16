@@ -175,6 +175,10 @@
         "FULFILLED": "訂單已完成"
       },
       "ORDER_COMPLETED_LABEL": "訂單已完成",
+      "BUYER_WALLET_ADDRESS_LABEL": "買家錢包地址",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "請聯絡收款人以取得錢包地址。",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "點擊複製",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "已複製",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "訂單已發貨/已收取"
     },
     "BUY_FROM_SELLER": {

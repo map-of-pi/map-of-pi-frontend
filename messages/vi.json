@@ -175,6 +175,10 @@
         "FULFILLED": "Đơn hàng đã được xử lý"
       },
       "ORDER_COMPLETED_LABEL": "Đơn hàng hoàn thành",
+      "BUYER_WALLET_ADDRESS_LABEL": "Địa chỉ ví của người mua",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Liên hệ người nhận để yêu cầu địa chỉ ví.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Nhấn để sao chép",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Đã sao chép",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Đơn hàng đã gửi/đã nhận"
     },
     "BUY_FROM_SELLER": {

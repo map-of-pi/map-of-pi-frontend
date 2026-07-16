@@ -175,6 +175,10 @@
         "FULFILLED": "Exécuté"
       },
       "ORDER_COMPLETED_LABEL": "Commande terminée",
+      "BUYER_WALLET_ADDRESS_LABEL": "Adresse du portefeuille de l'acheteur",
+      "BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE": "Contactez le destinataire pour demander l'adresse du portefeuille.",
+      "BUYER_WALLET_ADDRESS_COPY_LABEL": "Appuyez pour copier",
+      "BUYER_WALLET_ADDRESS_COPIED_LABEL": "Copié",
       "ORDER_DISPATCHED_COLLECTED_LABEL": "Commande expédiée/collectée"
     },
     "BUY_FROM_SELLER": {
