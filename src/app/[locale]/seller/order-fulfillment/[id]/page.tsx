@@ -165,11 +165,11 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   value={currentOrder.total_amount.$numberDecimal || currentOrder.total_amount.$numberDecimal.toString()}
                   disabled={true}
                 />
-                <p className="text-gray-500 text-sm">π</p>
+                <p className="text-gray-500 text-sm">Pi</p>
               </div>
             </div>
           </div>
-          <div className="mt-3">
+          <div className="mt-1">
             <label className="block text-[17px] text-[#333333] mb-1">
               {t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_LABEL')}
             </label>
@@ -203,10 +203,10 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
       <h2 className={SUBHEADER}>
         {t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDERED_ITEMS_SUBHEADER')}
       </h2>
-      <div className="overflow-x-auto mb-5 mt-3 flex gap-x-5">
+      <div className="overflow-x-auto mb-5 mt-1 flex gap-x-5">
         {orderItems && orderItems.length > 0 && orderItems.map((item, index) => (<div
           data-id={item._id}
-          className={`relative w-full flex-none border-2 border-gray-600 rounded-lg mb-7 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
+          className={`relative w-full flex-none border-2 border-gray-600 rounded-lg mb-5 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
               'bg-yellow-100' : ''
             }`}
           key={index}
@@ -232,7 +232,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                     value={item.subtotal.$numberDecimal || item.subtotal.$numberDecimal.toString()}
                     disabled={true}
                   />
-                  <p className="text-gray-500 text-sm">π</p>
+                  <p className="text-gray-500 text-sm">Pi</p>
                 </div>
               </div>
             </div>
