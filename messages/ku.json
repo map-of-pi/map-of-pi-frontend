@@ -218,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Nirxandinên ku ji hêla vî pêşeng ve hatine wergirtin",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ji bo Pioneer ti nirxandin nehat dîtin {search_value}",
-        "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû"
+        "NO_PIONEER_FOUND": "Destpêker {search_value} peyda nebû",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect bi serkeftî hate çalakkirin.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "Ev review nehat dîtin. Ji kerema xwe ekranê nûve bikin û dîsa biceribînin.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "Ev review nehat dîtin. Dibe ku hate rakirin an guhertin.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Tenê Pioneer ku ev review wergirtiye dikare Trust Protect bikar bîne.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect berê li ser vê reviewê hate sepandin.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect tenê dikare ji bo reviewên bi [DESPAIR] rating were bikaranîn.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Her carê ku Trust Protect bikar bînî, 100 Mappi tê xerckirin. Ji bo zêdekirina balansa Mappi ya xwe, ekrana Membership bikar bîne.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect nehat çalakkirin."
       }
     },
     "EDIT_REVIEW": {

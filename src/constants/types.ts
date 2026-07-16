@@ -4,21 +4,21 @@
 export enum DeviceLocationType {
   Automatic = 'auto',
   GPS = 'deviceGPS',
-  SearchCenter = 'searchCenter'
-};
+  SearchCenter = 'searchCenter',
+}
 
 export interface IUser {
   pi_uid: string;
   pi_username: string;
   user_name: string;
-};
+}
 
 export interface IUserSettings {
   user_settings_id?: string | null;
   user_name?: string | null;
   email?: string | null;
   phone_number?: string | null;
-  image?: string; 
+  image?: string;
   findme?: string;
   trust_meter_rating: number;
   wallet_address?: string | null;
@@ -36,32 +36,35 @@ export interface IUserSettings {
     include_trust_level_50: boolean | undefined;
     include_trust_level_0: boolean | undefined;
   };
-};
+}
 
 // Select specific fields from IUserSettings
-export type PartialUserSettings = Pick<IUserSettings, 'user_name' | 'trust_meter_rating'>;
+export type PartialUserSettings = Pick<
+  IUserSettings,
+  'user_name' | 'trust_meter_rating'
+>;
 
 // ========================
 // MEMBERSHIP MODELS
 // ========================
 export enum MembershipClassType {
-  SINGLE = "Single",
-  CASUAL = "Casual",
-  WHITE = "White",
-  GREEN = "Green",
-  GOLD = "Gold",
-  DOUBLE_GOLD = "Double Gold",
-  TRIPLE_GOLD = "Triple Gold",
-};
+  SINGLE = 'Single',
+  CASUAL = 'Casual',
+  WHITE = 'White',
+  GREEN = 'Green',
+  GOLD = 'Gold',
+  DOUBLE_GOLD = 'Double Gold',
+  TRIPLE_GOLD = 'Triple Gold',
+}
 
 export enum MembershipBuyType {
-  BUY = "Buy",
-  ADS = "Watch ads (free)",
-  VOUCHER = "Use a voucher code (free)",
-};
+  BUY = 'Buy',
+  ADS = 'Watch ads (free)',
+  VOUCHER = 'Use a voucher code (free)',
+}
 
 type MembershipPaymentMetadataType = {
-  membership_class: MembershipClassType
+  membership_class: MembershipClassType;
 };
 
 export interface IMembership {
@@ -73,7 +76,7 @@ export interface IMembership {
   mappi_balance: number;
   mappi_used_to_date?: number;
   createdAt?: string;
-};
+}
 
 export interface MembershipOption {
   value: MembershipClassType;
@@ -90,7 +93,6 @@ export interface MembershipBuyOption {
 export const membershipBuyOptions: MembershipBuyOption[] = [
   { value: MembershipBuyType.BUY, label: "Pay with pi" },
   { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
-  // { value: MembershipBuyType.ADS, label: "Watch ads (free)" },
 ];
 
 export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
@@ -109,18 +111,18 @@ export interface IVoucher {
 // ========================
 export enum FulfillmentType {
   CollectionByBuyer = 'Collection by buyer',
-  DeliveredToBuyer = 'Delivered to buyer'
-};
+  DeliveredToBuyer = 'Delivered to buyer',
+}
 
 export enum StockLevelType {
-  available_1 = '1 available', 
-  available_2 = '2 available', 
+  available_1 = '1 available',
+  available_2 = '2 available',
   available_3 = '3 available',
-  many = 'Many available', 
-  made_to_order = 'Made to order', 
-  ongoing_service = 'Ongoing service', 
-  sold = 'Sold'
-};
+  many = 'Many available',
+  made_to_order = 'Made to order',
+  ongoing_service = 'Ongoing service',
+  sold = 'Sold',
+}
 
 export interface ISeller {
   seller_id: string;
@@ -141,19 +143,31 @@ export interface ISeller {
   fulfillment_method: FulfillmentType;
   fulfillment_description?: string;
   isRestricted: boolean;
-};
+}
 
 export enum SellerType {
-  active_seller = 'activeSeller', 
-  inactive_seller = 'inactiveSeller', 
+  active_seller = 'activeSeller',
+  inactive_seller = 'inactiveSeller',
   test_seller = 'testSeller',
-  holiday_seller = 'holidaySeller'
-};
+  holiday_seller = 'holidaySeller',
+}
 
-export type PartialSeller = Pick<ISeller, 'seller_id' | 'name' | 'image' | 'seller_type' | 'sell_map_center' | 'isRestricted' | 'coordinates'>;
+export type PartialSeller = Pick<
+  ISeller,
+  | 'seller_id'
+  | 'name'
+  | 'image'
+  | 'seller_type'
+  | 'sell_map_center'
+  | 'isRestricted'
+  | 'coordinates'
+>;
 
 // Combined interface representing a seller with selected user settings
-export interface ISellerWithSettings extends PartialSeller, PartialUserSettings, PartialUserMembership {};
+export interface ISellerWithSettings
+  extends PartialSeller,
+    PartialUserSettings,
+    PartialUserMembership {}
 
 export type SellerItem = {
   _id: string;
@@ -179,7 +193,7 @@ export type ShopItemData = {
   duration: number;
   stock_level: StockLevelType;
   image?: string;
-  price:  string;
+  price: string;
   created_at?: Date;
   updated_at?: Date;
   expired_by?: Date;
@@ -197,7 +211,8 @@ export interface IReviewFeedback {
   comment: string;
   image: string;
   review_date: string;
-};
+  trust_protected: boolean;
+}
 
 export interface ReviewInt {
   heading: string;
@@ -211,7 +226,9 @@ export interface ReviewInt {
   reaction: string;
   unicode: string;
   image: string;
-};
+  rating: number;
+  trust_protected: boolean;
+}
 
 export type PartialReview = {
   giver: string;
@@ -226,115 +243,127 @@ export interface IReviewOutput extends IReviewFeedback, PartialReview {}
 export enum OrderStatusType {
   Initialized = 'initialized',
   Pending = 'pending',
-  Completed = 'completed', 
-  Cancelled = 'cancelled'
-};
+  Completed = 'completed',
+  Cancelled = 'cancelled',
+}
 
-export enum OrderItemStatus { 
+export enum OrderItemStatus {
   Refunded = 'refunded',
-  Fulfilled = "fulfilled",
+  Fulfilled = 'fulfilled',
   Pending = 'pending',
-};
+}
 
 export interface OrderType {
   _id: string;
   buyer_id: {
-    pi_username: string
+    pi_username: string;
   };
   seller_id: {
-    name: string
+    name: string;
   };
   payment_id: string;
-  total_amount: {$numberDecimal: number};
+  total_amount: { $numberDecimal: number };
   status: OrderStatusType;
   is_paid: boolean;
   is_fulfilled: boolean;
-  fulfillment_method: FulfillmentType | undefined,
-  seller_fulfillment_description:string | undefined,
-  buyer_fulfillment_description: string
+  fulfillment_method: FulfillmentType | undefined;
+  seller_fulfillment_description: string | undefined;
+  buyer_fulfillment_description: string;
   createdAt?: Date;
   updatedAt?: Date;
-};
+}
 
-export interface PartialOrderType extends Pick<OrderType, '_id' | 'buyer_id' | 'seller_id'| 'total_amount' | 'createdAt' |  'status' | 'fulfillment_method' | 'seller_fulfillment_description' | 'buyer_fulfillment_description' > {};
+export interface PartialOrderType
+  extends Pick<
+    OrderType,
+    | '_id'
+    | 'buyer_id'
+    | 'seller_id'
+    | 'total_amount'
+    | 'createdAt'
+    | 'status'
+    | 'fulfillment_method'
+    | 'seller_fulfillment_description'
+    | 'buyer_fulfillment_description'
+  > {}
 
 export interface OrderItemType {
   _id: string;
   order: string;
   seller_item_id: SellerItem | null;
   quantity: number;
-  subtotal: {$numberDecimal: number};
+  subtotal: { $numberDecimal: number };
   status: OrderItemStatus;
   createdAt?: Date;
   updatedAt?: Date;
-};
+}
 
 export interface PickedItems {
-  itemId: string,
-  quantity: number,
-};
+  itemId: string;
+  quantity: number;
+}
 
 // ========================
 // PAYMENT MODELS
 // ========================
 export enum PaymentType {
-  Membership = 'Membership', 
-  BuyerCheckout = 'Buyer Checkout'
-};
+  Membership = 'Membership',
+  BuyerCheckout = 'Buyer Checkout',
+}
 
 export enum U2UPaymentStatus {
-  Pending = 'Pending', 
+  Pending = 'Pending',
   U2ACompleted = 'U2A Completed',
   U2AFailed = 'U2A Failed',
   A2UCompleted = 'A2U Completed',
   A2UFailed = 'A2U Failed',
-  Completed = 'Completed'
-};
+  Completed = 'Completed',
+}
 
 export type OrderPaymentMetadataType = {
-  items: PickedItems[],
-  buyer: string,
-  seller: string,
-  fulfillment_method: FulfillmentType | undefined,
-  seller_fulfillment_description:string | undefined,
-  buyer_fulfillment_description: string
+  items: PickedItems[];
+  buyer: string;
+  seller: string;
+  fulfillment_method: FulfillmentType | undefined;
+  seller_fulfillment_description: string | undefined;
+  buyer_fulfillment_description: string;
 };
 
 export type PaymentDataType = {
   amount: number;
   memo: string;
   metadata: {
-    payment_type: PaymentType,
-    OrderPayment?: OrderPaymentMetadataType,
-    MembershipPayment?: MembershipPaymentMetadataType
-  }
+    payment_type: PaymentType;
+    OrderPayment?: OrderPaymentMetadataType;
+    MembershipPayment?: MembershipPaymentMetadataType;
+  };
 };
 
 export interface PaymentDTO {
-  amount: number,
-  user_uid: string,
-  created_at: string,
-  identifier: string,
-  memo: string,
+  amount: number;
+  user_uid: string;
+  created_at: string;
+  identifier: string;
+  memo: string;
   metadata: {
-    payment_type: PaymentType,
-    OrderPayment?: OrderPaymentMetadataType,
-    MembershipPayment?: MembershipPaymentMetadataType
-  },
+    payment_type: PaymentType;
+    OrderPayment?: OrderPaymentMetadataType;
+    MembershipPayment?: MembershipPaymentMetadataType;
+  };
   status: {
-    developer_approved: boolean,
-    transaction_verified: boolean,
-    developer_completed: boolean,
-    cancelled: boolean,
-    user_cancelled: boolean,
-  },
-  to_address: string,
+    developer_approved: boolean;
+    transaction_verified: boolean;
+    developer_completed: boolean;
+    cancelled: boolean;
+    user_cancelled: boolean;
+  };
+  to_address: string;
   transaction: null | {
-    txid: string,
-    verified: boolean,
-    _link: string,
-  },
-};
+    txid: string;
+    verified: boolean;
+    _link: string;
+  };
+}
 
 export interface PaymentCrossReferenceType {
   _id: string;
@@ -346,7 +375,7 @@ export interface PaymentCrossReferenceType {
   a2u_completed_at: Date;
   createdAt: Date;
   updatedAt: Date;
-};
+}
 
 export interface TransactionType {
   _id: string;
@@ -359,7 +388,7 @@ export interface TransactionType {
   txid: string | null;
   cancelled: boolean;
   createdAt?: Date;
-};
+}
 
 // ========================
 // NOTIFICATION MODELS

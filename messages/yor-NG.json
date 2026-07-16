@@ -218,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Àwọn àyẹ̀wò tí aṣáájú-ọ̀nà yìí gbàkò rí fún Pionnier yi",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ko si awọn awotẹlẹ ti o rii fun Pioneer {search_value}",
-        "NO_PIONEER_FOUND": "Pionnier a kò rí aṣáájú-ọ̀nà {search_value}"  
+        "NO_PIONEER_FOUND": "Pionnier a kò rí aṣáájú-ọ̀nà {search_value}",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect ti ṣiṣẹ́ ní àṣeyọrí.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "A kò rí review yìí. Jọ̀wọ́ tún ojú-ìbojú náà ṣe kí o sì tún gbìyànjú lẹ́ẹ̀kansi.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "A kò rí review yìí. Ó ṣeé ṣe kí wọ́n ti yọ ọ́ kúrò tàbí kí wọ́n ti yí i padà.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer tí ó gba review yìí nìkan ló lè lo Trust Protect.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect ti wà lórí review yìí tẹ́lẹ̀.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect lè ṣee lò lórí review tí ó ní rating [DESPAIR] nìkan.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Lílo Trust Protect kọ̀ọ̀kan máa ń lo 100 Mappi. Lo ojú-ìbojú Membership láti pọ̀si ìwọ̀ntúnwọ̀nsì Mappi rẹ.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "A kò lè mú Trust Protect ṣiṣẹ́."
       }
     },
     "EDIT_REVIEW": {

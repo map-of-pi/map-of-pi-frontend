@@ -218,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Sharhi da wannan jagora ya samu",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Ba a sami bita ga Mai-tushen {search_value} ba",
-        "NO_PIONEER_FOUND": "Ba a sami Mai-tushen {search_value} ba"
+        "NO_PIONEER_FOUND": "Ba a sami Mai-tushen {search_value} ba",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "An kunna Trust Protect cikin nasara.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "Ba a sami wannan review ba. Da fatan za a sabunta allon sannan a sake gwadawa.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "Ba a sami wannan review ba. Wataƙila an cire shi ko an canza shi.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer da ya karɓi wannan review ne kaɗai zai iya amfani da Trust Protect.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "An riga an yi amfani da Trust Protect a wannan review.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Ana iya amfani da Trust Protect ne kawai a kan review mai [DESPAIR] rating.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Kowane amfani da Trust Protect yana cin 100 Mappi. Yi amfani da allon Membership don ƙara ma'aunin Mappi ɗinka.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "An kasa kunna Trust Protect."
       }
     },
     "EDIT_REVIEW": {

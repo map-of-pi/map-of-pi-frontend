@@ -218,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "इस अग्रणी द्वारा प्राप्त समीक्षाएं",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "पायनियर के लिए कोई समीक्षा नहीं मिली {search_value}",
-        "NO_PIONEER_FOUND": "अग्रणी {search_value} नहीं मिला"  
+        "NO_PIONEER_FOUND": "अग्रणी {search_value} नहीं मिला",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect सफलतापूर्वक सक्रिय किया गया।",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "यह review नहीं मिला। कृपया स्क्रीन को रीफ़्रेश करें और पुनः प्रयास करें।",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "यह review नहीं मिला। हो सकता है कि इसे हटा दिया गया हो या इसमें बदलाव किया गया हो।",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "केवल वही Pioneer जिसने यह review प्राप्त किया है, Trust Protect का उपयोग कर सकता है।",
+        "TRUST_PROTECT_ALREADY_APPLIED": "इस review पर Trust Protect पहले ही लागू किया जा चुका है।",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect का उपयोग केवल उन review पर किया जा सकता है जिनकी rating [DESPAIR] है।",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect का प्रत्येक उपयोग 100 Mappi खर्च करता है। अपना Mappi बैलेंस बढ़ाने के लिए Membership स्क्रीन का उपयोग करें।",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect सक्रिय नहीं किया जा सका।"
       }
     },
     "EDIT_REVIEW": {

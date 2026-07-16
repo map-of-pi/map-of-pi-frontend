@@ -218,7 +218,15 @@
       "REVIEWS_RECEIVED_SECTION_HEADER": "Bu öncü tarafından alınan yorumlar",
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Öncü için yorum bulunamadı {search_value}",
-        "NO_PIONEER_FOUND": "Öncü {search_value} Bulunamadı"
+        "NO_PIONEER_FOUND": "Öncü {search_value} Bulunamadı",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect başarıyla etkinleştirildi.",
+        "TRUST_PROTECT_INVALID_REVIEW_ID": "Bu inceleme bulunamadı. Lütfen ekranı yenileyip tekrar deneyin.",
+        "TRUST_PROTECT_REVIEW_NOT_FOUND": "Bu inceleme bulunamadı. Kaldırılmış veya değiştirilmiş olabilir.",
+        "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Trust Protect'i yalnızca bu incelemeyi alan Pioneer kullanabilir.",
+        "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect bu incelemeye zaten uygulanmış.",
+        "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect yalnızca [DESPAIR] derecelendirmesine sahip incelemelerde kullanılabilir.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 100 Mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
+        "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect etkinleştirilemedi."
       }
     },
     "EDIT_REVIEW": {
