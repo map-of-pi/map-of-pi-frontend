@@ -127,7 +127,8 @@ function Sidebar(props: any) {
   const [showPrivacyPolicyModel, setShowPrivacyPolicyModel] = useState(false);
   const [showTermsOfServiceModel, setShowTermsOfServiceModel] = useState(false);
   const [isNameSaveEnabled, setIsNameSaveEnabled] = useState(false);
-  const [isPersonalisationSaveEnabled, setIsPersonalisationSaveEnabled] = useState(false);  const [filterLoading, setFilterLoading] = useState({
+  const [isPersonalisationSaveEnabled, setIsPersonalisationSaveEnabled] = useState(false);
+  const [filterLoading, setFilterLoading] = useState({
     include_active_sellers: false,
     include_inactive_sellers: false,
     include_test_sellers: false,
