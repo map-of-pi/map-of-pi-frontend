@@ -25,7 +25,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
   const locale = useLocale();
   const t = useTranslations();
-  const { currentUser, setOrdersCount } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
 
   const orderId = params.id;
   const sellerName = searchParams.seller_name;
@@ -104,16 +104,8 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const handleCompleted = async (status: OrderStatusType) => {
     if (!currentUser || !currentOrder || isUpdatingStatus) return;
 
-    const shouldDecrementOrdersCount =
-      currentOrder.status === OrderStatusType.Pending &&
-      status === OrderStatusType.Completed;
-
     setIsUpdatingStatus(true);
     setIsCompleted(status === OrderStatusType.Completed);
-
-    if (shouldDecrementOrdersCount) {
-      setOrdersCount((count) => Math.max(0, count - 1));
-    }
 
     try {
       logger.info(`Updating order ${orderId} to ${status}`);
@@ -129,10 +121,6 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
     } catch (error) {
       logger.error("Failed to update order", error);
       setIsCompleted(currentOrder.status === OrderStatusType.Completed);
-
-      if (shouldDecrementOrdersCount) {
-        setOrdersCount((count) => count + 1);
-      }
     } finally {
       setIsUpdatingStatus(false);
     }
