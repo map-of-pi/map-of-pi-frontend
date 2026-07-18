@@ -14,10 +14,10 @@ export const AddButton = (props: any) => {
 };
 
 export const Button = (props: any) => {
-  const { styles, icon, label, disabled, onClick } = props;
+  const { styles, icon, label, disabled, onClick, className = '' } = props;
   return (
     <button
-      className={`px-4 py-1 ${disabled ? `bg-[grey]` : `bg-primary`} text-white rounded-md flex gap-1 cursor-pointer items-center justify-center `}
+      className={`px-4 py-1 ${disabled ? `bg-[grey]` : `bg-primary`} text-white rounded-md flex gap-1 cursor-pointer items-center justify-center ${className}`}
       style={styles}
       disabled={disabled}
       onClick={onClick}>
