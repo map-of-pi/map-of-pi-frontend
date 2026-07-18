@@ -147,7 +147,7 @@ export const updateOrderStatus = async (orderId: string, orderStatus: string) =>
 export const updateOrderItemStatus = async (itemId: string, itemStatus: string) => {
   try {
     logger.info(`Update order item status to ${itemStatus} with id: ${itemId}`);
-    const response = await axiosClient.put(`/orders/item/${itemId}`, {itemStatus});
+    const response = await axiosClient.put(`/orders/item/${itemId}`, { orderItemStatus: itemStatus });
     if (response.status === 200) {
       logger.info(`Update order item status successful with Status ${response.status}`, {
         data: response.data

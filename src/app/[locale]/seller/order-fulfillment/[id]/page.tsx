@@ -9,8 +9,7 @@ import { OrderItemStatus, OrderItemType, OrderStatusType, PartialOrderType } fro
 import {
   fetchOrderById,
   updateOrderStatus,
-  updateOrderItemStatus,
-  fetchSellerOrders
+  updateOrderItemStatus
 } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
 import {
@@ -26,7 +25,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
 
   const locale = useLocale();
   const t = useTranslations();
-  const { setOrdersCount } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
 
   const orderId = params.id;
   const sellerName = searchParams.seller_name;
@@ -37,33 +36,52 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   const [buyerName, setBuyerName] = useState<string>('');
   const [buyerWalletAddress, setBuyerWalletAddress] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
-  
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+  const [refreshCount, setRefreshCount] = useState<number>(0);
+
   const displayedBuyerWalletAddress = buyerWalletAddress || t('SCREEN.SELLER_ORDER_FULFILLMENT.BUYER_WALLET_ADDRESS_NOT_PROVIDED_MESSAGE');
 
   useEffect(() => {
-    const getOrder = async (id: string) => {
+    let mounted = true;
+
+    const getOrder = async () => {
       try {
-        const data = await fetchOrderById(id);
+        const data = await fetchOrderById(orderId);
+
+        if (!mounted) return;
+
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
+
           setBuyerName(data.pi_username);
           setBuyerWalletAddress(data.buyer_wallet_address || '');
+          setIsCompleted(
+            data.order.status === OrderStatusType.Completed
+          );
+
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
           setBuyerName('');
           setBuyerWalletAddress('');
         }
+
       } catch (error) {
-        logger.error('Error fetching order item data:', error);
+        logger.error("Error fetching order", error);
       }
     };
 
-    getOrder(orderId);
-  }, [orderId]);
+    getOrder();
 
+    return () => {
+      mounted = false;
+    };
+  }, [orderId, refreshCount]);
+  
   const handleFulfillment = async (itemId: string, status: OrderItemStatus) => {
+    if (!currentUser || isUpdatingStatus) return;
+
     try {
       logger.info(`Updating order item status to ${status} with id: ${itemId}`);
       const updateItem = await updateOrderItemStatus(itemId, status);
@@ -84,42 +102,27 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
   };
 
   const handleCompleted = async (status: OrderStatusType) => {
-    const prev = currentOrder;
-    if (!prev) return;
+    if (!currentUser || !currentOrder || isUpdatingStatus) return;
 
-    // Optimistic local update
-    setIsCompleted(true);
-
-    // If the previous status was Pending and now it's Completed, decrement the counter
-    if (prev.status === OrderStatusType.Pending && status === OrderStatusType.Completed) {
-      setOrdersCount((c) => Math.max(0, c - 1)); // optimistic badge update
-    }
+    setIsUpdatingStatus(true);
+    setIsCompleted(status === OrderStatusType.Completed);
 
     try {
-      logger.info(`Updating order status to ${status} with id: ${orderId}`);
+      logger.info(`Updating order ${orderId} to ${status}`);
       const updatedOrder = await updateOrderStatus(orderId, status);
 
-      if (updatedOrder) {
-        const refreshedOrder = await fetchOrderById(orderId);
-
-        if (refreshedOrder) {
-          setCurrentOrder(refreshedOrder.order);
-          setOrderItems(refreshedOrder.orderItems);
-          setBuyerName(refreshedOrder.pi_username);
-          setBuyerWalletAddress(refreshedOrder.buyer_wallet_address || '');
-        }
-
-        // Background sync with BE (optional, to avoid drift)
-        const { count } = await fetchSellerOrders({ skip: 0, limit: 1, status: 'pending' });
-        setOrdersCount(count);
-      } else {
-        logger.warn("Failed to update completed order on the server.");
-        // Rollback if API fails
-        setIsCompleted(false);
+      if (!updatedOrder) {
+        throw new Error("Server returned no order.");
       }
-    }
-    catch (error) {
-      logger.error(`Error updating order status to ${status}:`, error);
+
+      setCurrentOrder(updatedOrder);
+      setIsCompleted(updatedOrder.status === OrderStatusType.Completed);
+      setRefreshCount((count) => count + 1);
+    } catch (error) {
+      logger.error("Failed to update order", error);
+      setIsCompleted(currentOrder.status === OrderStatusType.Completed);
+    } finally {
+      setIsUpdatingStatus(false);
     }
   };
 
@@ -203,12 +206,14 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
       <h2 className={SUBHEADER}>
         {t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDERED_ITEMS_SUBHEADER')}
       </h2>
-      <div className="overflow-x-auto mb-5 mt-1 flex gap-x-5">
+      <div className="overflow-x-auto p-2 mb-5 mt-3 flex gap-x-5">
         {orderItems && orderItems.length > 0 && orderItems.map((item, index) => (<div
           data-id={item._id}
-          className={`relative w-full flex-none border-2 border-gray-600 rounded-lg mb-5 ${item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ?
-              'bg-yellow-100' : ''
-            }`}
+          className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7
+          flex-shrink-0 w-[88%] sm:w-[85%] md:w-[70%] snap-start ${
+            item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded ? 
+            'bg-yellow-100' : ''
+          }`}
           key={index}
         >
           <div className="p-3">
@@ -270,44 +275,42 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
             <label className="text-[18px] text-[#333333]">
               {t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.BUYING_QUANTITY_LABEL')}:
             </label>
-            <div className="flex items-center gap-3 w-full mt-1">
-              <div className="flex gap-2 items-center justify-between mr-2">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 mt-1 w-full min-w-0">
+              <div className="flex items-center shrink-0">
                 <input
                   name="duration"
                   type="number"
                   value={item.quantity}
-                  className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] max-w-[100px]"
+                  className="p-[10px] block rounded-xl border-[#BDBDBD] bg-transparent outline-0 text-center focus:border-[#1d724b] border-[2px] w-[65px] shrink-0"
                   disabled={true}
                 />
               </div>
-              <Button
-                label={t('SHARED.RESET')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={isCompleted || !(item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded)}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Pending)}
-              />
 
-              <Button
-                label={t('SHARED.REFUND')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Refunded)}
-              />
-              <Button
-                label={t('SHARED.FULFILLED')}
-                styles={{
-                  color: '#ffc153',
-                  width: '100%',
-                }}
-                disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
-                onClick={() => handleFulfillment(item._id, OrderItemStatus.Fulfilled)}
-              />
+              {/* Action buttons */}
+              <div className="flex items-center justify-between gap-2 ml-auto min-w-0">
+                <Button
+                  label={t('SHARED.RESET')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={isCompleted || !(item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded)}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Pending)}
+                />
+
+                <Button
+                  label={t('SHARED.REFUND')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={item.status === OrderItemStatus.Fulfilled || item.status === OrderItemStatus.Refunded}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Refunded)}
+                />
+                <Button
+                  label={t('SHARED.FULFILLED')}
+                  styles={{ color: '#ffc153', height: '40px', padding: '5px 8px' }}
+                  className="min-w-0"
+                  disabled={item.status===OrderItemStatus.Fulfilled || item.status===OrderItemStatus.Refunded}
+                  onClick={() => handleFulfillment(item._id, OrderItemStatus.Fulfilled)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -332,29 +335,21 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
         <TextArea
           name="buying_details"
           value={currentOrder?.buyer_fulfillment_description}
+          disabled
         />
         <div className="flex flex-col gap-y-4">
           <Button
             label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_COMPLETED_LABEL')}
-            disabled={isCompleted}
+            disabled={isCompleted || isUpdatingStatus}
             styles={{
               color: '#ffc153',
               height: '40px',
               padding: '15px 20px',
               width: '100%'
             }}
-            onClick={() => handleCompleted(OrderStatusType.Completed)}
+            onClick={()=>handleCompleted(OrderStatusType.Completed)}
           />
 
-          <Button
-            label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_DISPATCHED_COLLECTED_LABEL')}
-            styles={{
-              color: '#ffc153',
-              height: '40px',
-              padding: '15px 20px',
-              width: '100%'
-            }}
-          />
         </div>
       </div>
     </div>
