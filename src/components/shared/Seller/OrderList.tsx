@@ -6,6 +6,7 @@ import { Input } from "../Forms/Inputs/Inputs";
 import { OrderStatusType, PartialOrderType } from "@/constants/types";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
+import { formatPiAmount, getBuyerUsername } from "@/utils/order";
 import logger from '../../../../logger.config.mjs';
 
 export const ListOrder: React.FC<{
@@ -54,7 +55,7 @@ export const ListOrder: React.FC<{
                   label={t('SHARED.PIONEER_LABEL') + ':'}
                   name="name"
                   type="text"
-                  value={item.buyer_id.pi_username}
+                  value={getBuyerUsername(item.buyer_id)}
                   disabled={true}
                 />
               </div>
@@ -65,7 +66,7 @@ export const ListOrder: React.FC<{
                     label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.TOTAL_PRICE_LABEL') + ':'}
                     name="price"
                     type="number"
-                    value={item.total_amount.$numberDecimal || item.total_amount.$numberDecimal.toString()}
+                    value={formatPiAmount(item.total_amount)}
                     disabled={true}
                   />
                   <p className="text-gray-500 text-sm">Pi</p>

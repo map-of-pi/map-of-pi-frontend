@@ -13,6 +13,7 @@ import {
   fetchSellerOrders
 } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
+import { formatPiAmount } from "@/utils/order";
 import {
   getFulfillmentMethodOptions,
   translateSellerCategory
@@ -162,7 +163,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                   label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.TOTAL_PRICE_LABEL')}
                   name="price"
                   type="number"
-                  value={currentOrder.total_amount.$numberDecimal || currentOrder.total_amount.$numberDecimal.toString()}
+                  value={formatPiAmount(currentOrder.total_amount)}
                   disabled={true}
                 />
                 <p className="text-gray-500 text-sm">Pi</p>
@@ -229,7 +230,7 @@ export default function OrderItemPage({ params, searchParams }: { params: { id: 
                     label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'}
                     name="price"
                     type="number"
-                    value={item.subtotal.$numberDecimal || item.subtotal.$numberDecimal.toString()}
+                    value={formatPiAmount(item.subtotal)}
                     disabled={true}
                   />
                   <p className="text-gray-500 text-sm">Pi</p>

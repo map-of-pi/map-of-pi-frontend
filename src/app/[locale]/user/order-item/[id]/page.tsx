@@ -12,6 +12,7 @@ import {
 } from "@/constants/types";
 import { fetchOrderById } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
+import { formatPiAmount, getSellerName } from "@/utils/order";
 import { 
   getFulfillmentMethodOptions, 
   translateOrderItemStatusType, 
@@ -42,7 +43,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
-          setSellerName(data.order.seller_id.name);
+          setSellerName(getSellerName(data.order?.seller_id));
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
@@ -102,7 +103,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
                   label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.TOTAL_PRICE_LABEL') + ':'}
                   name="Total price"
                   type="number"
-                  value={currentOrder.total_amount.$numberDecimal || currentOrder.total_amount.$numberDecimal.toString()}
+                  value={formatPiAmount(currentOrder.total_amount)}
                   disabled={true}
                 />
                 <p className="text-gray-500 text-sm">Pi</p>
@@ -171,7 +172,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
                     label={t('SCREEN.BUY_FROM_SELLER.ONLINE_SHOPPING.SELLER_ITEMS_FEATURE.PRICE_LABEL') + ':'}
                     name="price"
                     type="number"
-                    value={item.subtotal.$numberDecimal || item.subtotal.$numberDecimal.toString()}
+                    value={formatPiAmount(item.subtotal)}
                     disabled={true}
                   />
                   <p className="text-gray-500 text-sm">Pi</p>

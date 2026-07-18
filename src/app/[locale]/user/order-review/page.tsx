@@ -9,6 +9,7 @@ import { PartialOrderType, OrderStatusType } from '@/constants/types';
 import { fetchBuyerOrders } from '@/services/orderApi';
 import { useScrollablePagination } from '@/hooks/useScrollablePagination';
 import { resolveDate } from '@/utils/date';
+import { formatPiAmount, getSellerName } from '@/utils/order';
 import { translateOrderStatusType } from '@/utils/translate';
 
 import { AppContext } from '../../../../../context/AppContextProvider';
@@ -152,7 +153,7 @@ export default function OrderReviewPage() {
                       label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.SELLER_LABEL') + ':'}
                       name="name"
                       type="text"
-                      value={item.seller_id.name}
+                      value={getSellerName(item.seller_id)}
                       disabled={true}
                     />
                   </div>
@@ -163,7 +164,7 @@ export default function OrderReviewPage() {
                         label={t('SCREEN.SELLER_ORDER_FULFILLMENT.ORDER_HEADER_ITEMS_FEATURE.TOTAL_PRICE_LABEL') + ':'}
                         name="price"
                         type="number"
-                        value={item.total_amount.$numberDecimal || item.total_amount.$numberDecimal.toString()}
+                        value={formatPiAmount(item.total_amount)}
                         disabled={true}
                       />
                       <p className="text-gray-500 text-sm">Pi</p>
