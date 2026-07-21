@@ -6,7 +6,7 @@ import { Input } from "../Forms/Inputs/Inputs";
 import { OrderStatusType, PartialOrderType } from "@/constants/types";
 import { fetchSellerOrders } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
-import { formatPiAmount, getBuyerUsername } from "@/utils/order";
+import { formatPiAmount } from "@/utils/order";
 import logger from '../../../../logger.config.mjs';
 
 export const ListOrder: React.FC<{
@@ -55,7 +55,7 @@ export const ListOrder: React.FC<{
                   label={t('SHARED.PIONEER_LABEL') + ':'}
                   name="name"
                   type="text"
-                  value={getBuyerUsername(item.buyer_id)}
+                  value={item.buyer_id?.pi_username || ''}
                   disabled={true}
                 />
               </div>

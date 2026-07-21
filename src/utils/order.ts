@@ -1,5 +1,5 @@
-// Order payloads can include legacy or partially populated values, so these
-// helpers keep display-only fields from crashing the order screens.
+// Order payloads can include legacy values, so this helper keeps display-only
+// amount fields from crashing the order screens.
 
 type DecimalValue =
   | number
@@ -8,15 +8,6 @@ type DecimalValue =
   | undefined
   | {
       $numberDecimal?: number | string | null;
-    };
-
-type OrderPartyValue =
-  | string
-  | null
-  | undefined
-  | {
-      name?: string | null;
-      pi_username?: string | null;
     };
 
 export const formatPiAmount = (amount: DecimalValue): string => {
@@ -28,14 +19,4 @@ export const formatPiAmount = (amount: DecimalValue): string => {
 
   const decimal = amount.$numberDecimal;
   return decimal === null || decimal === undefined ? '' : decimal.toString();
-};
-
-export const getSellerName = (seller: OrderPartyValue): string => {
-  if (!seller || typeof seller === 'string') return '';
-  return seller.name ?? '';
-};
-
-export const getBuyerUsername = (buyer: OrderPartyValue): string => {
-  if (!buyer || typeof buyer === 'string') return '';
-  return buyer.pi_username ?? '';
 };

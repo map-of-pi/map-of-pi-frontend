@@ -1,8 +1,4 @@
-import {
-  formatPiAmount,
-  getBuyerUsername,
-  getSellerName,
-} from '../../src/utils/order';
+import { formatPiAmount } from '../../src/utils/order';
 
 describe('formatPiAmount', () => {
   it('formats Mongo Decimal128 JSON values', () => {
@@ -21,31 +17,5 @@ describe('formatPiAmount', () => {
     expect(formatPiAmount(undefined)).toBe('');
     expect(formatPiAmount({})).toBe('');
     expect(formatPiAmount({ $numberDecimal: null })).toBe('');
-  });
-});
-
-describe('getSellerName', () => {
-  it('returns the seller name when the seller is populated', () => {
-    expect(getSellerName({ name: 'Seller A' })).toBe('Seller A');
-  });
-
-  it('returns an empty string for missing or unpopulated sellers', () => {
-    expect(getSellerName(null)).toBe('');
-    expect(getSellerName(undefined)).toBe('');
-    expect(getSellerName('seller-id')).toBe('');
-    expect(getSellerName({})).toBe('');
-  });
-});
-
-describe('getBuyerUsername', () => {
-  it('returns the buyer username when the buyer is populated', () => {
-    expect(getBuyerUsername({ pi_username: 'alice' })).toBe('alice');
-  });
-
-  it('returns an empty string for missing or unpopulated buyers', () => {
-    expect(getBuyerUsername(null)).toBe('');
-    expect(getBuyerUsername(undefined)).toBe('');
-    expect(getBuyerUsername('buyer-id')).toBe('');
-    expect(getBuyerUsername({})).toBe('');
   });
 });

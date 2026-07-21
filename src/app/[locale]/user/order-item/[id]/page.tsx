@@ -12,7 +12,7 @@ import {
 } from "@/constants/types";
 import { fetchOrderById } from "@/services/orderApi";
 import { resolveDate } from "@/utils/date";
-import { formatPiAmount, getSellerName } from "@/utils/order";
+import { formatPiAmount } from "@/utils/order";
 import { 
   getFulfillmentMethodOptions, 
   translateOrderItemStatusType, 
@@ -43,7 +43,7 @@ export default function ReviewOrderItemPage({ params, searchParams }: { params: 
         if (data) {
           setCurrentOrder(data.order);
           setOrderItems(data.orderItems);
-          setSellerName(getSellerName(data.order?.seller_id));
+          setSellerName(data.order?.seller_id?.name || '');
         } else {
           setCurrentOrder(null);
           setOrderItems([]);
