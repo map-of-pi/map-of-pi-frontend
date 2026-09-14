@@ -91,8 +91,8 @@ export interface MembershipBuyOption {
 }
 
 export const membershipBuyOptions: MembershipBuyOption[] = [
-  { value: MembershipBuyType.BUY, label: "Pay with pi" },
-  { value: MembershipBuyType.VOUCHER, label: "Use a voucher code (free)" },
+  { value: MembershipBuyType.BUY, label: 'Pay with pi' },
+  { value: MembershipBuyType.VOUCHER, label: 'Use a voucher code (free)' },
 ];
 
 export type PartialUserMembership = Pick<IMembership, 'membership_class'>;
@@ -101,10 +101,10 @@ export interface IVoucher {
   _id?: string;
   voucher_code: string;
   membership_class: MembershipClassType;
-  pi_uid: string | null;       // null = open/developer voucher (e.g. 1stOnlineShop)
-  expiry_date: Date | null;    // null = no expiry
-  redeemed_at: Date | null;    // set to Date.now() on redemption
-};
+  pi_uid: string | null; // null = open/developer voucher (e.g. 1stOnlineShop)
+  expiry_date: Date | null; // null = no expiry
+  redeemed_at: Date | null; // set to Date.now() on redemption
+}
 
 // ========================
 // SELLER MODELS
@@ -165,9 +165,7 @@ export type PartialSeller = Pick<
 
 // Combined interface representing a seller with selected user settings
 export interface ISellerWithSettings
-  extends PartialSeller,
-    PartialUserSettings,
-    PartialUserMembership {}
+  extends PartialSeller, PartialUserSettings, PartialUserMembership {}
 
 export type SellerItem = {
   _id: string;
@@ -273,19 +271,18 @@ export interface OrderType {
   updatedAt?: Date;
 }
 
-export interface PartialOrderType
-  extends Pick<
-    OrderType,
-    | '_id'
-    | 'buyer_id'
-    | 'seller_id'
-    | 'total_amount'
-    | 'createdAt'
-    | 'status'
-    | 'fulfillment_method'
-    | 'seller_fulfillment_description'
-    | 'buyer_fulfillment_description'
-  > {}
+export interface PartialOrderType extends Pick<
+  OrderType,
+  | '_id'
+  | 'buyer_id'
+  | 'seller_id'
+  | 'total_amount'
+  | 'createdAt'
+  | 'status'
+  | 'fulfillment_method'
+  | 'seller_fulfillment_description'
+  | 'buyer_fulfillment_description'
+> {}
 
 export interface OrderItemType {
   _id: string;
@@ -401,4 +398,6 @@ export type NotificationType = {
   reason: string;
   createdAt: string;
   updatedAt: string;
+  target_type?: string;
+  target_id?: string;
 };
