@@ -18,7 +18,7 @@ import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 import { MembershipClassType } from '@/constants/types';
-import { authenticateAdmin } from '@/services/adminApi';
+import { authenticateAdmin } from '@/services/appManagerApi';
 
 function Navbar() {
   const router = useRouter();

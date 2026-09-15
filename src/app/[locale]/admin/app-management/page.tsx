@@ -12,8 +12,8 @@ import Navbar from '@/components/shared/navbar/Navbar';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
-import { fetchSummaryStatistics } from '@/services/statisticsApi';
-import { getAdmins, createAdmin, deleteAdmin } from "@/services/adminApi";
+import { fetchSummaryStatistics } from '@/services/appManagerApi';
+import { getAdmins, createAdmin, deleteAdmin } from "@/services/appManagerApi";
 import logger from '../../../../../logger.config.mjs';
 import { ConfirmDialogX } from '@/components/shared/confirm';
 
@@ -148,7 +148,6 @@ const AdminRegisterTab = () => {
 
   const [admins, setAdmins] = useState<AdminType[]>([]);
   const [piUsernameInput, setPiUsernameInput] = useState("");
-  const [selectedRole, setSelectedRole] = useState<"superadmin" | "admin">("admin");
 
   const t = useTranslations();
 
@@ -188,10 +187,7 @@ const AdminRegisterTab = () => {
     if (!username || !currentUser) return;
 
     try {
-      const result = await createAdmin({
-        username,
-        role: selectedRole,
-      });
+      const result = await createAdmin({ username });
 
       if (result.success) {
         setAdmins((prev) => {
@@ -242,13 +238,13 @@ const AdminRegisterTab = () => {
 
         setPiUsernameInput("");
 
-        showAlert("Admin removed successfully.");
+        showAlert(result.message || "Admin removed successfully.");
       }
     } catch (error: any) {
       logger.error(error);
 
       showAlert(
-        error?.response?.data?.message ??
+        error?.message ??
           "Unable to remove admin."
       );
     }
@@ -256,26 +252,15 @@ const AdminRegisterTab = () => {
 
   return (
     <div className="w-full h-full" >
-      <div className='w-full flex align-items gap-2 mb-5'>
-        <div className="">
-          <h1 className='font-bold mb-2'>Pioneer username:</h1>
-          <Input
-            placeholder="Admin Pi username to be added/removed"
-            type="text"
-            value={piUsernameInput}
-            name="piUsername"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPiUsernameInput(e.target.value)}
-          />
-        </div>
-
-        <div className="ms-auto">
-          <h1 className='font-bold mb-2'>Role:</h1>
-          <Select
-            value={selectedRole}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedRole(e.target.value as "superadmin" | "admin")}
-            options={[{name: "superadmin", value: "superadmin"}, {name: "admin", value: "admin"}]}
-          />
-        </div>
+      <div className='w-full gap-2 mb-5'>
+        <h1 className='font-bold mb-2'>Pioneer username:</h1>
+        <Input
+          placeholder="Admin Pi username to be added/removed"
+          type="text"
+          value={piUsernameInput}
+          name="piUsername"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPiUsernameInput(e.target.value)}
+        />      
       </div>
 
       <div className="flex items-center justify-between mb-7">
