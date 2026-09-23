@@ -1,6 +1,7 @@
 import axiosClient from "@/config/client";
 import logger from "../../logger.config.mjs";
 import axios from "axios";
+import { getApiError } from "@/utils/getApiError";
 
 export interface GetAdminsParams {
   page?: number;
@@ -11,26 +12,23 @@ export interface GetAdminsParams {
 /**
  * Get all admins
  */
-export const getAdmins = async (params?: GetAdminsParams) => {
+export const getAppManagers = async (params?: GetAdminsParams) => {
   try {
     const response = await axiosClient.get("/app-managers", {
       params,
     });
-
     return response.data;
   } catch (error) {
-    logger.error("Failed to fetch admins.", error);
-    throw error;
+    const message = getApiError(error, "Failed to load admins.");
+    throw new Error(message) ;
   }
 };
 
-export const authenticateAdmin = async () => {
+export const authenticateAppManager = async () => {
   try {
     const response = await axiosClient.get("/app-managers/me");
-
     return response.data;
   } catch (error) {
-    logger.error("Failed to authenticate admins.", error);
     throw error;
   }
 };
@@ -38,7 +36,7 @@ export const authenticateAdmin = async () => {
 /**
  * Create admin
  */
-export const createAdmin = async (
+export const addAppManager = async (
   payload: {username: string}
 ) => {
   try {
@@ -48,27 +46,23 @@ export const createAdmin = async (
     );
 
     return response.data;
-  } catch (error) {
-    logger.error("Failed to create admin.", error);
-    throw error;
+  } catch (error:any) {
+    const message = getApiError(error, "Unable to add admin.");
+    throw new Error(message) ;
   }
 };
 
 /**
  * Delete admin
  */
-export const deleteAdmin = async (
-  adminId: string
-) => {
+export const deleteAppManager = async (adminId: string) => {
   try {
-    const response = await axiosClient.delete(
-      `/app-managers/${adminId}`
-    );
+    const response = await axiosClient.delete(`/app-managers/${adminId}`);
 
     return response.data;
   } catch (error) {
-    logger.error("Failed to delete admin.", error);
-    throw error;
+    const message = getApiError(error, "Failed to delete admin.");
+    throw new Error(message) ;
   }
 };
 

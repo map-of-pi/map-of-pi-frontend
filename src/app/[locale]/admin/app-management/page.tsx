@@ -7,15 +7,15 @@ import { AdminType, MembershipClassType, MembershipOption } from '@/constants/ty
 import { dummyList, MOCK_STATS, StatsData, SUBHEADER } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { useTranslations } from 'next-intl';
-import { Input, Select } from '@/components/shared/Forms/Inputs/Inputs';
+import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import Navbar from '@/components/shared/navbar/Navbar';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
 import { fetchSummaryStatistics } from '@/services/appManagerApi';
-import { getAdmins, createAdmin, deleteAdmin } from "@/services/appManagerApi";
+import { getAppManagers, addAppManager, deleteAppManager } from "@/services/appManagerApi";
 import logger from '../../../../../logger.config.mjs';
-import { ConfirmDialogX } from '@/components/shared/confirm';
+import { ConfirmDialogX, Notification } from '@/components/shared/confirm';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type TabId = 'statistics' | 'adminregister' | 'addvouchers';
@@ -148,19 +148,21 @@ const AdminRegisterTab = () => {
 
   const [admins, setAdmins] = useState<AdminType[]>([]);
   const [piUsernameInput, setPiUsernameInput] = useState("");
+  const [showDialog, setShowDialog]  =  useState<boolean>(false);
+  const [dialogMessage, setDialogMessage] = useState<string> ("")
 
   const t = useTranslations();
 
   useEffect(() => {
     if (!currentUser || isSigningInUser) return;
-    loadAdmins();
+    loadManagers();
   }, [currentUser]);
 
-  const loadAdmins = async () => {
+  const loadManagers = async () => {
     setIsSaveLoading(true);
 
     try {
-      const result = await getAdmins({
+      const result = await getAppManagers({
         page: 1,
         limit: 100,
       });
@@ -171,11 +173,11 @@ const AdminRegisterTab = () => {
         logger.info("Admins fetched successfully.", result);
       }
     } catch (error: any) {
-      logger.error("Failed to fetch admins.", error);
-      showAlert(
-        error?.response?.data?.message ??
+      setDialogMessage(
+        error?.message ??
           "Unable to fetch admins."
       );
+      setShowDialog(true)
     } finally {
       setIsSaveLoading(false);
     }
@@ -183,35 +185,33 @@ const AdminRegisterTab = () => {
 
   const handleAdd = async () => {
     const username = piUsernameInput.trim();
-
     if (!username || !currentUser) return;
+    
+    setIsSaveLoading(true)
 
     try {
-      const result = await createAdmin({ username });
+      const result = await addAppManager({ username });
 
       if (result.success) {
         setAdmins((prev) => {
           const exists = prev.some(
             (admin) => admin.username === result.data.username
           );
-
           return exists ? prev : [...prev, result.data];
         });
-
         setPiUsernameInput("");
-
         showAlert("Admin added successfully.");
-
-        logger.info("Admin created.", result.data);
       }
     } catch (error: any) {
-      logger.error(error);
-
-      showAlert(
-        error?.response?.data?.message ??
+      setDialogMessage(
+        error.message ??
           "Unable to add admin."
       );
+      setShowDialog(true)
+    } finally {
+      setIsSaveLoading(false)
     }
+
   };
 
   const handleRemove = async () => {
@@ -228,8 +228,9 @@ const AdminRegisterTab = () => {
       return;
     }
 
+    setIsSaveLoading(true)
     try {
-      const result = await deleteAdmin(admin._id);
+      const result = await deleteAppManager(admin._id);
 
       if (result.success) {
         setAdmins((prev) =>
@@ -237,16 +238,15 @@ const AdminRegisterTab = () => {
         );
 
         setPiUsernameInput("");
-
         showAlert(result.message || "Admin removed successfully.");
       }
     } catch (error: any) {
-      logger.error(error);
-
-      showAlert(
-        error?.message ??
-          "Unable to remove admin."
+      setDialogMessage(
+        error.message 
       );
+      setShowDialog(true)
+    } finally {
+      setIsSaveLoading(false)
     }
   };
 
@@ -299,6 +299,12 @@ const AdminRegisterTab = () => {
           ))}
         </ul>
       </div>
+
+      <Notification 
+        message={dialogMessage} 
+        showDialog={showDialog} 
+        setShowDialog={setShowDialog} 
+      />
     </div>
   );
 }

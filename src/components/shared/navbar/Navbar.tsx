@@ -18,7 +18,7 @@ import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 import { MembershipClassType } from '@/constants/types';
-import { authenticateAdmin } from '@/services/appManagerApi';
+import { authenticateAppManager } from '@/services/appManagerApi';
 
 function Navbar() {
   const router = useRouter();
@@ -28,7 +28,7 @@ function Navbar() {
 
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAppManager, setIsAppManager] = useState(false);
 
   const {
     isSigningInUser, 
@@ -50,22 +50,18 @@ function Navbar() {
   useEffect(() => {
     if (!currentUser || isSigningInUser) return
 
-    const authAdmin = async () => {    
+    const authAppManager = async () => {    
       try {
-        const result = await authenticateAdmin();
-
+        const result = await authenticateAppManager();
         if (result.success) {
-          setIsAdmin(true);
-          logger.info("Admins fetched successfully.", result);
+          setIsAppManager(true);
         }
-
       } catch (error: any) {
-        logger.error("Admin authentication failed.", error);
-        setIsAdmin(false);
+        setIsAppManager(false);
       }
     };
     
-    authAdmin();
+    authAppManager();
   }, [currentUser]);
 
   const handleBackBtn = () => router.back();
@@ -113,8 +109,8 @@ function Navbar() {
             </Link>
           </div>
 
-          <div className={`${styles.nav_item}  ${(!isAdmin) && 'disabled'}`}>
-            <Link href={ isAdmin ? '/admin/app-management' : `/${locale}` }>
+          <div className={`${styles.nav_item}  ${(!isAppManager) && 'disabled'}`}>
+            <Link href={ isAppManager ? '/AppManager/app-management' : `/${locale}` }>
               <Image
                 src="/images/logo.svg"
                 alt="Map of Pi Home Logo"
