@@ -32,6 +32,7 @@ export default function MembershipPage() {
   const [selectedVoucher, setSelectedVoucher] = useState<IVoucher | null>(null);
   const [voucherMembership, setVoucherMembership] = useState<MembershipOption | null>(null);
   const [voucherList, setVoucherList] = useState<IVoucher[]>([]);
+  const [referralUsername, setReferralUsername] = useState<string>("");
 
   const t = useTranslations();
   const HEADER = 'font-bold text-lg md:text-2xl';
@@ -336,6 +337,18 @@ export default function MembershipPage() {
                 </div>
               ))}
             </div>
+            <Input
+              id="referralUsername"
+              name="referralUsername"
+              style={{
+                  marginTop: '0.75rem',
+                }}
+              placeholder="Enter referral code for free mappi BoostUp"
+              value={referralUsername}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setReferralUsername(e.target.value)
+              }
+            />
             <div className="mb-5 mt-3 flex justify-between">
               <Button
                 label={`${t('SHARED.BUY')} (${totalAmount}Pi)`}
