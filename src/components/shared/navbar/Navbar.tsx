@@ -110,7 +110,7 @@ function Navbar() {
           </div>
 
           <div className={`${styles.nav_item}  ${(!isAppManager) && 'disabled'}`}>
-            <Link href={ isAppManager ? '/AppManager/app-management' : `/${locale}` }>
+            <Link href={ isAppManager ? '/admin/app-management' : `/${locale}` }>
               <Image
                 src="/images/logo.svg"
                 alt="Map of Pi Home Logo"
