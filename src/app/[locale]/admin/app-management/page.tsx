@@ -8,7 +8,6 @@ import { dummyList, MOCK_STATS, StatsData, SUBHEADER } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
-import Navbar from '@/components/shared/navbar/Navbar';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
