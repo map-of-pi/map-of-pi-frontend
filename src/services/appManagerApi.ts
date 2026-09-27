@@ -1,6 +1,4 @@
 import axiosClient from "@/config/client";
-import logger from "../../logger.config.mjs";
-import axios from "axios";
 import { getApiError } from "@/utils/getApiError";
 
 export interface GetAdminsParams {
@@ -92,16 +90,9 @@ export interface summaryStatisticsResult {
 
 export const fetchSummaryStatistics = async (): Promise<summaryStatisticsResult> => {
   try {
-    logger.info(`get summary statistics`);
     const response = await axiosClient.get("/app-managers/statistics");
 
-    logger.info(`summary statistics response received with Status ${response.status}`, {
-      response
-    });
-
     if (response.status !== 200) {
-      logger.info(`Invalid summary statistics received, ${response.data.message}`);
-
       return {
         success: false,
         error: response.data.message
@@ -110,12 +101,9 @@ export const fetchSummaryStatistics = async (): Promise<summaryStatisticsResult>
 
     return response.data;
   } catch (error) {
-    logger.error('get summary statistics encountered an error:', error);
     return {
       success: false,
-      error: axios.isAxiosError(error)
-        ? error.response?.data?.message || "Unexpected error getting summary statistics. Please try again later."
-        : "Unexpected error getting summary statistics. Please try again later."
+      error: getApiError(error, "Unexpected error getting summary statistics. Please try again later.") || "Unexpected error getting summary statistics. Please try again later."
     };
   }
 };

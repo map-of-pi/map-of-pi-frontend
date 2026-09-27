@@ -13,7 +13,6 @@ import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
 import { fetchSummaryStatistics } from '@/services/appManagerApi';
 import { getAppManagers, addAppManager, deleteAppManager } from "@/services/appManagerApi";
-import logger from '../../../../../logger.config.mjs';
 import { ConfirmDialogX, Notification } from '@/components/shared/confirm';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -102,7 +101,6 @@ const StatisticsTab = () => {
           });
         }
       } catch (error) {
-        logger.error('Error fetching summary statistics:', error);
         setStats(MOCK_STATS);
       }
     };
@@ -143,7 +141,6 @@ const AdminRegisterTab = () => {
   const { showAlert, setIsSaveLoading, currentUser, isSigningInUser } = useContext(AppContext);
 
   const [admins, setAdmins] = useState<AdminType[]>([]);
-  const [currentAdmin, setCurrentAdmin] = useState<AdminType | null>(null);
   const [isPermanentAdmin, setIsPermanentAdmin] = useState<boolean>(false)
   const [piUsernameInput, setPiUsernameInput] = useState("");
   const [showDialog, setShowDialog]  =  useState<boolean>(false);
@@ -152,10 +149,7 @@ const AdminRegisterTab = () => {
   const t = useTranslations();
 
   useEffect(() => {
-    if (!currentUser || isSigningInUser) {
-      setCurrentAdmin(null);
-      return;
-    }
+    if (!currentUser || isSigningInUser) return;
 
     loadManagers(currentUser);
   }, [currentUser, isSigningInUser]);
@@ -173,7 +167,6 @@ const AdminRegisterTab = () => {
         const admins: AdminType[] = result.data ?? [];
 
         setAdmins(admins);
-        logger.info("ADMINs : ", admins)
 
         const admin = admins.find(
           (item) =>
@@ -181,15 +174,9 @@ const AdminRegisterTab = () => {
             item.username === user.pi_username
         );
 
-        setCurrentAdmin(admin ?? null);
         setIsPermanentAdmin(admin?.role === AppManagerRoleType.permanentAdmin)
-
-        logger.info("Admins fetched successfully.", {
-          currentAdmin: admin,
-        });
       }
     } catch (error: any) {
-      setCurrentAdmin(null);
 
       setDialogMessage(
         error?.message ?? "Unable to fetch admins."

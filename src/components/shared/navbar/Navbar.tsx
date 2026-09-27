@@ -16,7 +16,6 @@ import { MdHome } from 'react-icons/md';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon'; 
 import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
-import logger from '../../../../logger.config.mjs';
 import { MembershipClassType } from '@/constants/types';
 import { authenticateAppManager } from '@/services/appManagerApi';
 
@@ -44,7 +43,6 @@ function Navbar() {
   // check if the current page is the homepage
   useEffect(() => {
     setIsHomePage(pathname === '/' || pathname === `/${locale}`);
-    if (!isHomePage) logger.info(`HomePage Pathname is ${pathname}`);
   }, [pathname, locale]);
 
   useEffect(() => {
