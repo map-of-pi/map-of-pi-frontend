@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import TabShuttle, { TabItem } from '@/components/shared/TabShuttle';
 import { fetchMembershipList } from "@/services/membershipApi"
-import { AdminType, MembershipClassType, MembershipOption } from '@/constants/types';
+import { AdminType, AppManagerRoleType, IUser, MembershipClassType, MembershipOption } from '@/constants/types';
 import { dummyList, MOCK_STATS, StatsData, SUBHEADER } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { useTranslations } from 'next-intl';
@@ -19,7 +19,7 @@ import { ConfirmDialogX, Notification } from '@/components/shared/confirm';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type TabId = 'statistics' | 'adminregister' | 'addvouchers';
-const PERMANENT_ADMINS = new Set(['peejenn', 'swoocn']);
+const PERMANENT_ADMINS = new Set(['peejenn', 'swoocn'] );
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -69,16 +69,16 @@ const StatsTable = ({ rows }: { rows: [string, number][] }) => {
 // ---- Statistics Tab ----
 const StatisticsTab = () => {
   const { currentUser, isSigningInUser } = useContext(AppContext);
-  const [stats, setStats]             = useState<StatsData>(MOCK_STATS);
+  const [stats, setStats] = useState<StatsData>(MOCK_STATS);
 
   // Load statistics on mount
-  useEffect(() => () => {   
+  useEffect(() => {
     if (!currentUser || isSigningInUser) return;
 
     const loadStats = async () => {
       try {
         const result = await fetchSummaryStatistics();
-        
+
         if (result.success && result.usageStats && result.membershipStats) {
           setStats({
             registeredUsers: result.usageStats.totalUsers,
@@ -89,7 +89,7 @@ const StatisticsTab = () => {
             ordersCreated: result.usageStats.totalOrders,
             ordersFulfilled: result.usageStats.fulfilledOrders,
             orderedItems: result.usageStats.totalOrderItems,
-            
+
             membershipTotals: {
               White: result.membershipStats.totalActiveWhiteMembers,
               Green: result.membershipStats.totalActiveGreenMembers,
@@ -101,10 +101,7 @@ const StatisticsTab = () => {
             totalMembers: result.membershipStats.totalActiveMembers,
             individualMappi: result.membershipStats.totalActiveMappiBalance,
           });
-
-          // logger.info('Summary statistics fetched successfully', { result });
         }
-
       } catch (error) {
         logger.error('Error fetching summary statistics:', error);
         setStats(MOCK_STATS);
@@ -112,7 +109,7 @@ const StatisticsTab = () => {
     };
 
     loadStats();
-  }, [currentUser]);
+  }, [currentUser, isSigningInUser]);
 
   const rows: [string, number][] = [
     ['Registered users', stats.registeredUsers],
@@ -147,18 +144,24 @@ const AdminRegisterTab = () => {
   const { showAlert, setIsSaveLoading, currentUser, isSigningInUser } = useContext(AppContext);
 
   const [admins, setAdmins] = useState<AdminType[]>([]);
+  const [currentAdmin, setCurrentAdmin] = useState<AdminType | null>(null);
+  const [isPermanentAdmin, setIsPermanentAdmin] = useState<boolean>(false)
   const [piUsernameInput, setPiUsernameInput] = useState("");
   const [showDialog, setShowDialog]  =  useState<boolean>(false);
-  const [dialogMessage, setDialogMessage] = useState<string> ("")
+  const [dialogMessage, setDialogMessage] = useState<string> ("");
 
   const t = useTranslations();
 
   useEffect(() => {
-    if (!currentUser || isSigningInUser) return;
-    loadManagers();
-  }, [currentUser]);
+    if (!currentUser || isSigningInUser) {
+      setCurrentAdmin(null);
+      return;
+    }
 
-  const loadManagers = async () => {
+    loadManagers(currentUser);
+  }, [currentUser, isSigningInUser]);
+
+  const loadManagers = async (user: IUser) => {
     setIsSaveLoading(true);
 
     try {
@@ -168,16 +171,31 @@ const AdminRegisterTab = () => {
       });
 
       if (result.success) {
-        setAdmins(result.data);
+        const admins: AdminType[] = result.data ?? [];
 
-        logger.info("Admins fetched successfully.", result);
+        setAdmins(admins);
+        logger.info("ADMINs : ", admins)
+
+        const admin = admins.find(
+          (item) =>
+            item.pi_uid === user.pi_uid &&
+            item.username === user.pi_username
+        );
+
+        setCurrentAdmin(admin ?? null);
+        setIsPermanentAdmin(admin?.role === AppManagerRoleType.permanentAdmin)
+
+        logger.info("Admins fetched successfully.", {
+          currentAdmin: admin,
+        });
       }
     } catch (error: any) {
+      setCurrentAdmin(null);
+
       setDialogMessage(
-        error?.message ??
-          "Unable to fetch admins."
+        error?.message ?? "Unable to fetch admins."
       );
-      setShowDialog(true)
+      setShowDialog(true);
     } finally {
       setIsSaveLoading(false);
     }
@@ -251,59 +269,69 @@ const AdminRegisterTab = () => {
   };
 
   return (
-    <div className="w-full h-full" >
-      <div className='w-full gap-2 mb-5'>
-        <h1 className='font-bold mb-2'>Pioneer username:</h1>
+    <div className="w-full h-full">
+      <div className="w-full gap-2 mb-5">
+        <h1 className="font-bold mb-2">Pioneer username:</h1>
+
         <Input
           placeholder="Admin Pi username to be added/removed"
           type="text"
           value={piUsernameInput}
           name="piUsername"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPiUsernameInput(e.target.value)}
-        />      
+          disabled={!isPermanentAdmin}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPiUsernameInput(e.target.value)
+          }
+        />
       </div>
 
       <div className="flex items-center justify-between mb-7">
         <Button
           label="Add"
-          disabled={!piUsernameInput.trim()}
+          disabled={!isPermanentAdmin || !piUsernameInput.trim()}
           styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
+            color: "#ffc153",
+            height: "40px",
+            padding: "10px 15px",
           }}
           onClick={handleAdd}
         />
 
         <Button
           label="Remove"
-          disabled={!piUsernameInput.trim()}
+          disabled={!isPermanentAdmin || !piUsernameInput.trim()}
           styles={{
-            color: '#ffc153',
-            height: '40px',
-            padding: '10px 15px',
+            color: "#ffc153",
+            height: "40px",
+            padding: "10px 15px",
           }}
           onClick={handleRemove}
         />
       </div>
 
-      <h1 className='font-bold mb-2'>List of admins:</h1>
-      <div 
-        className={`relative border border-primary rounded-lg mb-7 p-4`}
-      >
+      <h1 className="font-bold mb-2">List of admins:</h1>
+
+      <div className="relative border border-primary rounded-lg mb-7 p-4">
         <ul className="amp-admin-list">
-          {admins.map(admin => (
-            <li key={admin._id} className={`amp-admin-list__item${PERMANENT_ADMINS.has(admin.username) ? ' amp-admin-list__item--permanent' : ''}`}>
+          {admins.map((admin) => (
+            <li
+              key={admin._id}
+              className={`amp-admin-list__item${
+                PERMANENT_ADMINS.has(admin.username)
+                  ? " amp-admin-list__item--permanent"
+                  : ""
+              }`}
+            >
               {admin.username}
             </li>
           ))}
         </ul>
       </div>
 
-      <Notification 
-        message={dialogMessage} 
-        showDialog={showDialog} 
-        setShowDialog={setShowDialog} 
+      <Notification
+        message={dialogMessage}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
       />
     </div>
   );
@@ -509,7 +537,6 @@ export default function AppManagementPage() {
 
   return (
     <div className="w-full h-full h-min-screen md:w-[500px] md:mx-auto p-4">
-      <Navbar />
       <h1 className='font-bold text-lg md:text-2xl text-center mb-4'>
         App Management
       </h1>

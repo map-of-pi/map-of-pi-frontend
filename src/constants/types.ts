@@ -44,12 +44,17 @@ export type PartialUserSettings = Pick<
   'user_name' | 'trust_meter_rating'
 >;
 
+export enum AppManagerRoleType {
+  admin = "Admin",
+  permanentAdmin = "Permanent Admin"
+}
+
 export interface AdminType {
   _id: string;
   user_id: string;
   pi_uid: string;
   username: string;
-  role: "admin" | "superadmin";
+  role: AppManagerRoleType;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

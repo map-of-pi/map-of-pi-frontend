@@ -80,7 +80,7 @@ function Navbar() {
       {t('SHARED.LOADING_SCREEN_MESSAGE')}
     </div>
   ) : (
-    "Map of Pi"
+    isAppManager ? "Map of Pi Admin" : "Map of Pi"
   );
 
   return (
