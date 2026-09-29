@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import TabShuttle, { TabItem } from '@/components/shared/TabShuttle';
+import TabShuttle, { TabItem } from '@/components/shared/tabShuttle/TabShuttle';
 import { fetchMembershipList } from "@/services/membershipApi"
 import { AdminType, AppManagerRoleType, IUser, MembershipClassType, MembershipOption } from '@/constants/types';
 import { dummyList, MOCK_STATS, StatsData, SUBHEADER } from '@/constants/mock';
@@ -25,11 +25,11 @@ const fmt = (n: number) => {
   return n.toLocaleString();
 }
 
-const addDays = (date: Date, days: number): Date => {
-  const d = new Date(date);
-  d.setUTCDate(d.getUTCDate() + days);
-  d.setUTCHours(0, 0, 0, 0);
-  return d;
+const addDays = (date: Date, validity_period: number): Date => {
+  const expiry_date = new Date(date);
+  expiry_date.setUTCDate(expiry_date.getUTCDate() + validity_period);
+  expiry_date.setUTCHours(23, 59, 59, 999);
+  return expiry_date;
 }
 
 const formatDateTime = (date: Date): string => {
@@ -329,12 +329,12 @@ const AddVouchersTab = () => {
 
   const [membershipList, setMembershipList] = useState<MembershipOption[]>(dummyList);
   const [selectedMembership, setSelectedMembership] = useState<MembershipClassType>(MembershipClassType.GREEN);
-  const [recipient, setRecipient]     = useState('');
+  const [recipient, setRecipient] = useState('');
   
-  const [voucherCode, setVoucherCode] = useState('1xGreenForFree');
+  const [voucherCode, setVoucherCode] = useState('GreenForFree');
   const [validityDays, setValidityDays] = useState<string>('20');
-  const [popup, setPopup]             = useState<boolean>(false);
-  const [notifiMessage, setNotifiMessage]             = useState<string>('');
+  const [popup, setPopup] = useState<boolean>(false);
+  const [notifiMessage, setNotifiMessage] = useState<string>('');
 
   const handleSave = () => {
     const errors: string[] = [];
