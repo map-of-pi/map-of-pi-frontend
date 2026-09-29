@@ -16,8 +16,8 @@ import { MdHome } from 'react-icons/md';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon'; 
 import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
-import logger from '../../../../logger.config.mjs';
 import { MembershipClassType } from '@/constants/types';
+import { authenticateAppManager } from '@/services/appManagerApi';
 
 function Navbar() {
   const router = useRouter();
@@ -27,6 +27,7 @@ function Navbar() {
 
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
+  const [isAppManager, setIsAppManager] = useState(false);
 
   const {
     isSigningInUser, 
@@ -35,14 +36,31 @@ function Navbar() {
     isSaveLoading, 
     userMembership, 
     notificationsCount, 
-    ordersCount 
+    ordersCount,
+    currentUser 
   } = useContext(AppContext);
 
   // check if the current page is the homepage
   useEffect(() => {
     setIsHomePage(pathname === '/' || pathname === `/${locale}`);
-    if (!isHomePage) logger.info(`HomePage Pathname is ${pathname}`);
   }, [pathname, locale]);
+
+  useEffect(() => {
+    if (!currentUser || isSigningInUser) return
+
+    const authAppManager = async () => {    
+      try {
+        const result = await authenticateAppManager();
+        if (result.success) {
+          setIsAppManager(true);
+        }
+      } catch (error: any) {
+        setIsAppManager(false);
+      }
+    };
+    
+    authAppManager();
+  }, [currentUser]);
 
   const handleBackBtn = () => router.back();
   const handleMenu = () => setSidebarToggle(prev => !prev);
@@ -60,7 +78,7 @@ function Navbar() {
       {t('SHARED.LOADING_SCREEN_MESSAGE')}
     </div>
   ) : (
-    "Map of Pi"
+    isAppManager ? "Map of Pi Admin" : "Map of Pi"
   );
 
   return (
@@ -88,8 +106,9 @@ function Navbar() {
               <MdHome size={24} className={`${(isHomePage || isSaveLoading) ? 'text-tertiary' : 'text-secondary'}`} />
             </Link>
           </div>
-          <div className={`${styles.nav_item} disabled`}>
-            <Link href="/">
+
+          <div className={`${styles.nav_item}  ${(!isAppManager) && 'disabled'}`}>
+            <Link href={ isAppManager ? '/admin/app-management' : `/${locale}` }>
               <Image
                 src="/images/logo.svg"
                 alt="Map of Pi Home Logo"
@@ -98,11 +117,13 @@ function Navbar() {
               />
             </Link>
           </div>
+
           <div className={`${styles.nav_item}`}>
             <Link href="/" onClick={handleClick}>
               <FiHelpCircle size={24} className={'text-secondary'} />
             </Link>
           </div>
+
           <div className={`${styles.nav_item}`}>
             <Link
               href=""
