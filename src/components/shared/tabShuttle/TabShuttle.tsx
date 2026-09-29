@@ -1,4 +1,5 @@
 'use client';
+import styles from './TabShuttle.module.css';
 
 import React, {
   useRef,
@@ -126,9 +127,9 @@ export default function TabShuttle({
   );
 
   return (
-    <div className="tab-shuttle-wrapper mb-5">
+    <div className={`${styles.tab_shuttle_wrapper} mb-5`}>
       <div
-        className="tab-shuttle-track"
+        className={`${styles.tab_shuttle_track}`}
         ref={trackRef}
         role="tablist"
       >
@@ -142,7 +143,7 @@ export default function TabShuttle({
               aria-selected={isSelected}
               aria-controls={`tabpanel-${tab.id}`}
               id={`tab-${tab.id}`}
-              className={`tab-shuttle-pill${isSelected ? ' tab-shuttle-pill--selected' : ''}`}
+              className={`${styles.tab_shuttle_pill} ${isSelected ?  styles.tab_shuttle_pill__selected : ''}`}
               onClick={() => handlePillClick(tab.id)}
               style={{
                 paddingTop:    PILL_V_PADDING_PX,
