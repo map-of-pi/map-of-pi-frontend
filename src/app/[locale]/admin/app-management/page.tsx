@@ -89,9 +89,9 @@ const StatisticsTab = () => {
             orderedItems: result.usageStats.totalOrderItems,
 
             membershipTotals: {
-              White: result.membershipStats.totalActiveWhiteMembers,
-              Green: result.membershipStats.totalActiveGreenMembers,
-              Gold: result.membershipStats.totalActiveGoldMembers,
+              'White': result.membershipStats.totalActiveWhiteMembers,
+              'Green': result.membershipStats.totalActiveGreenMembers,
+              'Gold': result.membershipStats.totalActiveGoldMembers,
               'Double Gold': result.membershipStats.totalActiveDoubleGoldMembers,
               'Triple Gold': result.membershipStats.totalActiveTripleGoldMembers,
             },
