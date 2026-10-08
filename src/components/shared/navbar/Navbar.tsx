@@ -77,9 +77,7 @@ function Navbar() {
       <ImSpinner2 className="animate-spin mr-2 ml-1" />
       {t('SHARED.LOADING_SCREEN_MESSAGE')}
     </div>
-  ) : (
-    isAppManager ? "Map of Pi Admin" : "Map of Pi"
-  );
+  ) : "Map of Pi" ;
 
   return (
     <>
@@ -108,7 +106,7 @@ function Navbar() {
           </div>
 
           <div className={`${styles.nav_item}  ${(!isAppManager) && 'disabled'}`}>
-            <Link href={ isAppManager ? '/admin/app-management' : `/${locale}` }>
+            <Link href={ isAppManager ? `/${locale}/admin/app-management` : `/${locale}` }>
               <Image
                 src="/images/logo.svg"
                 alt="Map of Pi Home Logo"
