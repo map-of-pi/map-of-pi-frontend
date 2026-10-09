@@ -1,10 +1,26 @@
 'use client';
 
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { 
+  useContext, 
+  useEffect, 
+  useRef, 
+  useState 
+} from 'react';
 import TabShuttle, { TabItem } from '@/components/shared/tabShuttle/TabShuttle';
 import { fetchMembershipList } from "@/services/membershipApi"
-import { AdminType, AppManagerRoleType, IUser, MembershipClassType, MembershipOption } from '@/constants/types';
-import { dummyList, MOCK_STATS, StatsData, SUBHEADER } from '@/constants/mock';
+import { 
+  AdminType, 
+  AppManagerRoleType, 
+  IUser, 
+  MembershipClassType, 
+  MembershipOption 
+} from '@/constants/types';
+import { 
+  dummyList, 
+  MOCK_STATS, 
+  StatsData, 
+  SUBHEADER 
+} from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
@@ -12,12 +28,16 @@ import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
 import { fetchSummaryStatistics } from '@/services/appManagerApi';
-import { getAppManagers, addAppManager, deleteAppManager } from "@/services/appManagerApi";
+import { 
+  getAppManagers, 
+  addAppManager, 
+  deleteAppManager 
+} from "@/services/appManagerApi";
 import { ConfirmDialogX, Notification } from '@/components/shared/confirm';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type TabId = 'statistics' | 'adminregister' | 'addvouchers';
-const PERMANENT_ADMINS = new Set(['peejenn', 'swoocn'] );
+const PERMANENT_ADMINS = new Set(['peejenn', 'swoocn']);
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -215,7 +235,6 @@ const AdminRegisterTab = () => {
     } finally {
       setIsSaveLoading(false)
     }
-
   };
 
   const handleRemove = async () => {
@@ -507,7 +526,7 @@ const TABS: TabItem[] = [
 export default function AppManagementPage() {
   const { currentUser } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState<TabId>('statistics');
-  const navTimerRef                   = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const navTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => () => {
     if (navTimerRef.current) clearTimeout(navTimerRef.current);
