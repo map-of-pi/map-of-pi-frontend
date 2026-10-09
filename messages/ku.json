@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ji bo kirina dravdanê divê bikarhêner têkeve hesabê xwe"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Rêveberiya Appê",
+      "TABS": {
+        "STATISTICS": "Statîstîk",
+        "ADMIN_REGISTER": "Tomarkirina admin",
+        "ADD_VOUCHERS": "Voucheran lê zêde bike"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Hejmara bikaranînê",
+        "CURRENT_MEMBERSHIP_TOTALS": "Hejmara Membership ya niha",
+        "REGISTERED_USERS": "Bikarhênerên tomarkirî",
+        "SELLERS": "Firoşkar",
+        "REVIEWS": "Nirxandin",
+        "ITEMS_LISTED": "Berhemên lîstekirî",
+        "ORDERS_CREATED": "Fermanên hatine afirandin",
+        "ORDERS_FULFILLED": "Fermanên temamkirî",
+        "ORDERED_ITEMS": "Berhemên hatine daxwazkirin",
+        "TOTAL_MEMBERS": "Hejmara giştî ya endaman",
+        "INDIVIDUAL_MAPPI": "Mappi ya kesane"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Navê bikarhênerê Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Navê bikarhênerê Pi yê admin ku dê were zêdekirin/rakirin",
+        "ADD": "Lê zêde bike",
+        "REMOVE": "Rake",
+        "LIST_OF_ADMINS": "Lîsteya adminan:",
+        "ADMIN_ADDED": "Admin bi serkeftî hate zêdekirin.",
+        "ADMIN_REMOVED": "Admin bi serkeftî hate rakirin.",
+        "PIONEER_NOT_ADMIN": "Pioneer ne admin e.",
+        "FETCH_ADMINS_ERROR": "Admin nehatin wergirtin.",
+        "ADD_ADMIN_ERROR": "Admin nehat zêdekirin."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Navê bikarhênerê Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Wergirê voucherê",
+        "VOUCHER_CODE_LABEL": "Koda voucherê",
+        "VALIDITY_PERIOD_LABEL": "Dema derbasdarî",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Hejmara rojan",
+        "PIONEER_REQUIRED": "Navê Pioneer pêwîst e.",
+        "VOUCHER_CODE_REQUIRED": "Koda voucherê pêwîst e.",
+        "VOUCHER_CODE_NO_SPACES": "Di koda voucherê de divê valahî tune be.",
+        "UNAUTHORIZED_USER": "Bikarhênerê bêdestûr.",
+        "VALIDITY_PERIOD_INVALID": "Dema derbasdarî divê hejmareke tam ji 1 heta 20 be.",
+        "CONFIRM_MESSAGE": "Tu voucherê {tier} bi navê \"{voucherCode}\" ji bo Pioneer {pioneer} saz dikî, ku divê heta {validUntil}, ango di nav {days} {daysLabel} de, were bikaranîn.",
+        "DAY": "roj",
+        "DAYS": "roj",
+        "VOUCHER_SAVED": "Voucher hate tomarkirin",
+        "ASSIGN_VOUCHER_ERROR": "Voucher nehat veqetandin",
+        "ADD_VOUCHER_ERROR": "Di zêdekirina voucherê de çewtî çêbû",
+        "LOAD_MEMBERSHIP_ERROR": "Daneyên Membership nehatin barkirin"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Rêveberiya Firoşkar",
       "SELLER_RESTRICTION_MESSAGE": "Navenda Firotina we li herêmek e ku ji hêla Tora Pi ve hatî pejirandin, ji ber vê yekê nîşana nexşeya we dê ji hemî bikarhêneran re veşartî be.",

@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "O utilizador deve ter sessão iniciada para efetuar um pagamento"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Gestão da aplicação",
+      "TABS": {
+        "STATISTICS": "Estatísticas",
+        "ADMIN_REGISTER": "Registo de administradores",
+        "ADD_VOUCHERS": "Adicionar vouchers"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Números de utilização",
+        "CURRENT_MEMBERSHIP_TOTALS": "Totais atuais de Membership",
+        "REGISTERED_USERS": "Utilizadores registados",
+        "SELLERS": "Vendedores",
+        "REVIEWS": "Avaliações",
+        "ITEMS_LISTED": "Artigos anunciados",
+        "ORDERS_CREATED": "Encomendas criadas",
+        "ORDERS_FULFILLED": "Encomendas concluídas",
+        "ORDERED_ITEMS": "Artigos encomendados",
+        "TOTAL_MEMBERS": "Total de membros",
+        "INDIVIDUAL_MAPPI": "Mappi individual"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Nome de utilizador Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Nome de utilizador Pi do administrador a adicionar/remover",
+        "ADD": "Adicionar",
+        "REMOVE": "Remover",
+        "LIST_OF_ADMINS": "Lista de administradores:",
+        "ADMIN_ADDED": "Administrador adicionado com sucesso.",
+        "ADMIN_REMOVED": "Administrador removido com sucesso.",
+        "PIONEER_NOT_ADMIN": "Pioneer não é administrador.",
+        "FETCH_ADMINS_ERROR": "Não foi possível obter os administradores.",
+        "ADD_ADMIN_ERROR": "Não foi possível adicionar o administrador."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Nome de utilizador Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Destinatário do voucher",
+        "VOUCHER_CODE_LABEL": "Código do voucher",
+        "VALIDITY_PERIOD_LABEL": "Período de validade",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Número de dias",
+        "PIONEER_REQUIRED": "O nome do Pioneer é obrigatório.",
+        "VOUCHER_CODE_REQUIRED": "O código do voucher é obrigatório.",
+        "VOUCHER_CODE_NO_SPACES": "O código do voucher não pode conter espaços.",
+        "UNAUTHORIZED_USER": "Utilizador não autorizado.",
+        "VALIDITY_PERIOD_INVALID": "O período de validade deve ser um número inteiro entre 1 e 20.",
+        "CONFIRM_MESSAGE": "Está a configurar um voucher {tier} chamado \"{voucherCode}\" para o Pioneer {pioneer}, que deve ser resgatado até {validUntil}, ou seja, dentro de {days} {daysLabel}.",
+        "DAY": "dia",
+        "DAYS": "dias",
+        "VOUCHER_SAVED": "Voucher guardado",
+        "ASSIGN_VOUCHER_ERROR": "Não foi possível atribuir o voucher",
+        "ADD_VOUCHER_ERROR": "Erro ao adicionar o voucher",
+        "LOAD_MEMBERSHIP_ERROR": "Não foi possível carregar os dados de Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administração do Vendedor",
       "SELLER_RESTRICTION_MESSAGE": "O seu Centro de Venda está numa região sancionada pela Rede Pi, por isso o seu marcador no mapa ficará oculto para todos os utilizadores",

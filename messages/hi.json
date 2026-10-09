@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "भुगतान करने के लिए उपयोगकर्ता को लॉगिन करना आवश्यक है"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "ऐप प्रबंधन",
+      "TABS": {
+        "STATISTICS": "आँकड़े",
+        "ADMIN_REGISTER": "एडमिन पंजीकरण",
+        "ADD_VOUCHERS": "वाउचर जोड़ें"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "उपयोग के आँकड़े",
+        "CURRENT_MEMBERSHIP_TOTALS": "वर्तमान Membership की कुल संख्या",
+        "REGISTERED_USERS": "पंजीकृत उपयोगकर्ता",
+        "SELLERS": "विक्रेता",
+        "REVIEWS": "समीक्षाएँ",
+        "ITEMS_LISTED": "सूचीबद्ध आइटम",
+        "ORDERS_CREATED": "बनाए गए ऑर्डर",
+        "ORDERS_FULFILLED": "पूरे किए गए ऑर्डर",
+        "ORDERED_ITEMS": "ऑर्डर किए गए आइटम",
+        "TOTAL_MEMBERS": "कुल सदस्य",
+        "INDIVIDUAL_MAPPI": "व्यक्तिगत Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer उपयोगकर्ता नाम:",
+        "PIONEER_USERNAME_PLACEHOLDER": "जोड़ने/हटाने के लिए एडमिन का Pi उपयोगकर्ता नाम",
+        "ADD": "जोड़ें",
+        "REMOVE": "हटाएँ",
+        "LIST_OF_ADMINS": "एडमिन की सूची:",
+        "ADMIN_ADDED": "एडमिन सफलतापूर्वक जोड़ा गया।",
+        "ADMIN_REMOVED": "एडमिन सफलतापूर्वक हटाया गया।",
+        "PIONEER_NOT_ADMIN": "Pioneer एडमिन नहीं है।",
+        "FETCH_ADMINS_ERROR": "एडमिन की सूची प्राप्त नहीं की जा सकी।",
+        "ADD_ADMIN_ERROR": "एडमिन को जोड़ा नहीं जा सका।"
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer उपयोगकर्ता नाम",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "वाउचर प्राप्तकर्ता",
+        "VOUCHER_CODE_LABEL": "वाउचर कोड",
+        "VALIDITY_PERIOD_LABEL": "वैधता अवधि",
+        "VALIDITY_PERIOD_PLACEHOLDER": "दिनों की संख्या",
+        "PIONEER_REQUIRED": "Pioneer का नाम आवश्यक है।",
+        "VOUCHER_CODE_REQUIRED": "वाउचर कोड आवश्यक है।",
+        "VOUCHER_CODE_NO_SPACES": "वाउचर कोड में स्पेस नहीं होने चाहिए।",
+        "UNAUTHORIZED_USER": "अनधिकृत उपयोगकर्ता।",
+        "VALIDITY_PERIOD_INVALID": "वैधता अवधि 1 से 20 तक की पूर्ण संख्या होनी चाहिए।",
+        "CONFIRM_MESSAGE": "आप Pioneer {pioneer} के लिए \"{voucherCode}\" नाम का {tier} वाउचर सेट कर रहे हैं, जिसे {validUntil} तक, यानी {days} {daysLabel} के भीतर रिडीम करना होगा।",
+        "DAY": "दिन",
+        "DAYS": "दिन",
+        "VOUCHER_SAVED": "वाउचर सहेजा गया",
+        "ASSIGN_VOUCHER_ERROR": "वाउचर असाइन नहीं किया जा सका",
+        "ADD_VOUCHER_ERROR": "वाउचर जोड़ने में त्रुटि",
+        "LOAD_MEMBERSHIP_ERROR": "Membership डेटा लोड नहीं किया जा सका"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "विक्रेता प्रशासन",
       "SELLER_RESTRICTION_MESSAGE": "आपका विक्रय केंद्र ऐसे क्षेत्र में है जो Pi Network द्वारा प्रतिबंधित है, इसलिए आपका मानचित्र मार्कर सभी उपयोगकर्ताओं से छिपा रहेगा",

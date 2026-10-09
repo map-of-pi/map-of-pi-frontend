@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "يجب أن يقوم المستخدم بتسجيل الدخول لإجراء الدفع"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "إدارة التطبيق",
+      "TABS": {
+        "STATISTICS": "الإحصائيات",
+        "ADMIN_REGISTER": "تسجيل المسؤول",
+        "ADD_VOUCHERS": "إضافة قسائم"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "أرقام الاستخدام",
+        "CURRENT_MEMBERSHIP_TOTALS": "إجمالي العضويات الحالية",
+        "REGISTERED_USERS": "المستخدمون المسجلون",
+        "SELLERS": "البائعون",
+        "REVIEWS": "التقييمات",
+        "ITEMS_LISTED": "العناصر المدرجة",
+        "ORDERS_CREATED": "الطلبات التي تم إنشاؤها",
+        "ORDERS_FULFILLED": "الطلبات المكتملة",
+        "ORDERED_ITEMS": "العناصر المطلوبة",
+        "TOTAL_MEMBERS": "إجمالي الأعضاء",
+        "INDIVIDUAL_MAPPI": "Mappi الفردي"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "اسم مستخدم Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "اسم مستخدم Pi للمسؤول المراد إضافته/إزالته",
+        "ADD": "إضافة",
+        "REMOVE": "إزالة",
+        "LIST_OF_ADMINS": "قائمة المسؤولين:",
+        "ADMIN_ADDED": "تمت إضافة المسؤول بنجاح.",
+        "ADMIN_REMOVED": "تمت إزالة المسؤول بنجاح.",
+        "PIONEER_NOT_ADMIN": "Pioneer ليس مسؤولاً.",
+        "FETCH_ADMINS_ERROR": "تعذر جلب قائمة المسؤولين.",
+        "ADD_ADMIN_ERROR": "تعذر إضافة المسؤول."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "اسم مستخدم Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "مستلم القسيمة",
+        "VOUCHER_CODE_LABEL": "رمز القسيمة",
+        "VALIDITY_PERIOD_LABEL": "فترة الصلاحية",
+        "VALIDITY_PERIOD_PLACEHOLDER": "عدد الأيام",
+        "PIONEER_REQUIRED": "اسم Pioneer مطلوب.",
+        "VOUCHER_CODE_REQUIRED": "رمز القسيمة مطلوب.",
+        "VOUCHER_CODE_NO_SPACES": "يجب ألا يحتوي رمز القسيمة على مسافات.",
+        "UNAUTHORIZED_USER": "مستخدم غير مصرح له.",
+        "VALIDITY_PERIOD_INVALID": "يجب أن تكون فترة الصلاحية عددًا صحيحًا من 1 إلى 20.",
+        "CONFIRM_MESSAGE": "أنت بصدد إعداد قسيمة من فئة {tier} باسم \"{voucherCode}\" لـ Pioneer {pioneer}، ويجب استردادها بحلول {validUntil}، أي خلال {days} {daysLabel}.",
+        "DAY": "يوم",
+        "DAYS": "أيام",
+        "VOUCHER_SAVED": "تم حفظ القسيمة",
+        "ASSIGN_VOUCHER_ERROR": "تعذر تعيين القسيمة",
+        "ADD_VOUCHER_ERROR": "حدث خطأ أثناء إضافة القسيمة",
+        "LOAD_MEMBERSHIP_ERROR": "فشل تحميل بيانات Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "إدارة البائع",
       "SELLER_RESTRICTION_MESSAGE": "مركز البيع الخاص بك يقع في منطقة خاضعة للعقوبات من Pi Network، لذلك سيتم إخفاء علامتك على الخريطة عن جميع المستخدمين",

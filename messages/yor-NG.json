@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Olùmúlò gbọ́dọ̀ wọlé kí ó tó lè ṣe ìsanwó"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Ìṣàkóso App",
+      "TABS": {
+        "STATISTICS": "Àwọn ìṣirò",
+        "ADMIN_REGISTER": "Ìforúkọsílẹ̀ admin",
+        "ADD_VOUCHERS": "Fi voucher kún un"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Àwọn ìṣirò lílò",
+        "CURRENT_MEMBERSHIP_TOTALS": "Àpapọ̀ Membership lọ́wọ́lọ́wọ́",
+        "REGISTERED_USERS": "Àwọn olumulo tí wọ́n forúkọsílẹ̀",
+        "SELLERS": "Àwọn olùtajà",
+        "REVIEWS": "Àwọn àyẹ̀wò",
+        "ITEMS_LISTED": "Àwọn ọjà tí a tò sílẹ̀",
+        "ORDERS_CREATED": "Àwọn àṣẹ tí a ṣẹ̀dá",
+        "ORDERS_FULFILLED": "Àwọn àṣẹ tí a ti parí",
+        "ORDERED_ITEMS": "Àwọn ọjà tí a pa láṣẹ",
+        "TOTAL_MEMBERS": "Àpapọ̀ àwọn ọmọ ẹgbẹ́",
+        "INDIVIDUAL_MAPPI": "Mappi ti ẹnìkọ̀ọ̀kan"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Orúkọ olumulo Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Orúkọ olumulo Pi ti admin tí a ó fi kún un/yọ kúrò",
+        "ADD": "Fi kún un",
+        "REMOVE": "Yọ kúrò",
+        "LIST_OF_ADMINS": "Àkójọ àwọn admin:",
+        "ADMIN_ADDED": "A ti fi admin kún un ní àṣeyọrí.",
+        "ADMIN_REMOVED": "A ti yọ admin kúrò ní àṣeyọrí.",
+        "PIONEER_NOT_ADMIN": "Pioneer kì í ṣe admin.",
+        "FETCH_ADMINS_ERROR": "A kò lè gba àkójọ àwọn admin.",
+        "ADD_ADMIN_ERROR": "A kò lè fi admin kún un."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Orúkọ olumulo Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Olùgbà voucher",
+        "VOUCHER_CODE_LABEL": "Kóòdù voucher",
+        "VALIDITY_PERIOD_LABEL": "Àkókò ìfọwọ́sowọ́pọ̀",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Iye ọjọ́",
+        "PIONEER_REQUIRED": "Orúkọ Pioneer jẹ́ dandan.",
+        "VOUCHER_CODE_REQUIRED": "Kóòdù voucher jẹ́ dandan.",
+        "VOUCHER_CODE_NO_SPACES": "Kóòdù voucher kò gbọdọ̀ ní àlàfo.",
+        "UNAUTHORIZED_USER": "Olumulo tí kò ní àṣẹ.",
+        "VALIDITY_PERIOD_INVALID": "Àkókò ìfọwọ́sowọ́pọ̀ gbọdọ̀ jẹ́ odidi nọ́ńbà láti 1 sí 20.",
+        "CONFIRM_MESSAGE": "O ń ṣètò voucher {tier} tí orúkọ rẹ̀ jẹ́ \"{voucherCode}\" fún Pioneer {pioneer}, tí a gbọdọ̀ lò kí {validUntil} tó dé, ìyẹn ni, láàárín {days} {daysLabel}.",
+        "DAY": "ọjọ́",
+        "DAYS": "ọjọ́",
+        "VOUCHER_SAVED": "A ti fi voucher pamọ́",
+        "ASSIGN_VOUCHER_ERROR": "A kò lè fi voucher fún olumulo",
+        "ADD_VOUCHER_ERROR": "Àṣìṣe ṣẹlẹ̀ nígbà fífi voucher kún un",
+        "LOAD_MEMBERSHIP_ERROR": "A kò lè ṣàkójọpọ̀ data Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Isakoso Onisowo",
       "SELLER_RESTRICTION_MESSAGE": "Ile-iṣẹ tita rẹ wà ní agbègbè tí Pi Network ti ṣe àtìlẹyìn sí, nítorí náà a máa títìpa ami àtẹ̀jáde rẹ látinú maapu fún gbogbo àwọn onílo",

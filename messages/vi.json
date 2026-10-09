@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Người dùng phải đăng nhập để thực hiện thanh toán"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Quản lý ứng dụng",
+      "TABS": {
+        "STATISTICS": "Thống kê",
+        "ADMIN_REGISTER": "Đăng ký quản trị viên",
+        "ADD_VOUCHERS": "Thêm voucher"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Số liệu sử dụng",
+        "CURRENT_MEMBERSHIP_TOTALS": "Tổng số Membership hiện tại",
+        "REGISTERED_USERS": "Người dùng đã đăng ký",
+        "SELLERS": "Người bán",
+        "REVIEWS": "Đánh giá",
+        "ITEMS_LISTED": "Sản phẩm đã đăng bán",
+        "ORDERS_CREATED": "Đơn hàng đã tạo",
+        "ORDERS_FULFILLED": "Đơn hàng đã hoàn thành",
+        "ORDERED_ITEMS": "Sản phẩm đã đặt",
+        "TOTAL_MEMBERS": "Tổng số thành viên",
+        "INDIVIDUAL_MAPPI": "Mappi cá nhân"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Tên người dùng Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Tên người dùng Pi của quản trị viên cần thêm/xóa",
+        "ADD": "Thêm",
+        "REMOVE": "Xóa",
+        "LIST_OF_ADMINS": "Danh sách quản trị viên:",
+        "ADMIN_ADDED": "Đã thêm quản trị viên thành công.",
+        "ADMIN_REMOVED": "Đã xóa quản trị viên thành công.",
+        "PIONEER_NOT_ADMIN": "Pioneer không phải là quản trị viên.",
+        "FETCH_ADMINS_ERROR": "Không thể tải danh sách quản trị viên.",
+        "ADD_ADMIN_ERROR": "Không thể thêm quản trị viên."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Tên người dùng Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Người nhận voucher",
+        "VOUCHER_CODE_LABEL": "Mã voucher",
+        "VALIDITY_PERIOD_LABEL": "Thời hạn hiệu lực",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Số ngày",
+        "PIONEER_REQUIRED": "Tên Pioneer là bắt buộc.",
+        "VOUCHER_CODE_REQUIRED": "Mã voucher là bắt buộc.",
+        "VOUCHER_CODE_NO_SPACES": "Mã voucher không được chứa khoảng trắng.",
+        "UNAUTHORIZED_USER": "Người dùng không được phép.",
+        "VALIDITY_PERIOD_INVALID": "Thời hạn hiệu lực phải là số nguyên từ 1 đến 20.",
+        "CONFIRM_MESSAGE": "Bạn đang thiết lập voucher {tier} có tên \"{voucherCode}\" cho Pioneer {pioneer}. Voucher này phải được đổi trước {validUntil}, tức là trong vòng {days} {daysLabel}.",
+        "DAY": "ngày",
+        "DAYS": "ngày",
+        "VOUCHER_SAVED": "Đã lưu voucher",
+        "ASSIGN_VOUCHER_ERROR": "Không thể gán voucher",
+        "ADD_VOUCHER_ERROR": "Lỗi khi thêm voucher",
+        "LOAD_MEMBERSHIP_ERROR": "Không thể tải dữ liệu Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Quản Lý Người Bán",
       "SELLER_RESTRICTION_MESSAGE": "Trung tâm bán hàng của bạn nằm trong khu vực bị Pi Network cấm, vì vậy dấu bản đồ của bạn sẽ bị ẩn với tất cả người dùng",

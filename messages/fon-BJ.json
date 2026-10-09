@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Sɛ́sɛnɔ gbɛtɔ yì yí log in ɖò wɛ nɔ hɛn nu ka"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "App ɖɔɖɔ",
+      "TABS": {
+        "STATISTICS": "Xexlẽ",
+        "ADMIN_REGISTER": "Admin ŋkɔŋlɔ",
+        "ADD_VOUCHERS": "Sɔ voucher lɛ kpe ɖe eŋu"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Zinzɔn xexlẽ",
+        "CURRENT_MEMBERSHIP_TOTALS": "Membership lɛ xexlẽ towe",
+        "REGISTERED_USERS": "Mɛ si lɛ ŋlɔ ŋkɔ",
+        "SELLERS": "Nùsàtɔ lɛ",
+        "REVIEWS": "Review lɛ",
+        "ITEMS_LISTED": "Nù si lɛ ŋlɔ ɖi",
+        "ORDERS_CREATED": "Order si lɛ wɔ",
+        "ORDERS_FULFILLED": "Order si lɛ wu",
+        "ORDERED_ITEMS": "Nù si lɛ order",
+        "TOTAL_MEMBERS": "Member lɛ kpó",
+        "INDIVIDUAL_MAPPI": "Mɛ ɖokpo tɔn Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Admin Pi username si na yin kpe ɖe eŋu/ɖe ɖa",
+        "ADD": "Sɔ kpe ɖe eŋu",
+        "REMOVE": "Ɖe ɖa",
+        "LIST_OF_ADMINS": "Admin lɛ:",
+        "ADMIN_ADDED": "Admin yin kpe ɖe eŋu ganji.",
+        "ADMIN_REMOVED": "Admin yin ɖe ɖa ganji.",
+        "PIONEER_NOT_ADMIN": "Pioneer ɔ ma nyi Admin.",
+        "FETCH_ADMINS_ERROR": "Ma sixu mɔ Admin lɛ.",
+        "ADD_ADMIN_ERROR": "Ma sixu sɔ Admin kpe ɖe eŋu."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Mɛ si na xɔ voucher",
+        "VOUCHER_CODE_LABEL": "Voucher code",
+        "VALIDITY_PERIOD_LABEL": "Hwenu si e na nɔ nyi",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Azǎn lɛ xexlẽ",
+        "PIONEER_REQUIRED": "Pioneer ŋkɔ hiã.",
+        "VOUCHER_CODE_REQUIRED": "Voucher code hiã.",
+        "VOUCHER_CODE_NO_SPACES": "Voucher code ma ɖo nɔƒe ƒuƒlu ɖe eme.",
+        "UNAUTHORIZED_USER": "Mɛ ɔ ma ɖo mɔɖeɖe.",
+        "VALIDITY_PERIOD_INVALID": "Hwenu si e na nɔ nyi ɔ ɖo na nyi nɔmba blibo sɔ 1 yi 20.",
+        "CONFIRM_MESSAGE": "A ɖo {tier} voucher si ŋkɔ tɔn nyi \"{voucherCode}\" ɖi na Pioneer {pioneer}; e ɖo na yin zan jẹ {validUntil}, enɛ wɛ, le {days} {daysLabel} mɛ.",
+        "DAY": "azǎn",
+        "DAYS": "azǎn lɛ",
+        "VOUCHER_SAVED": "Voucher ɔ yin ɖo ɖi",
+        "ASSIGN_VOUCHER_ERROR": "Ma sixu sɔ voucher ɔ na mɛ ɔ",
+        "ADD_VOUCHER_ERROR": "Vodada wá le voucher ɔ kpekpe ɖe eŋu mɛ",
+        "LOAD_MEMBERSHIP_ERROR": "Ma sixu xɔ Membership data ɔ"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Dohwɛ ƒɛnu",
       "SELLER_RESTRICTION_MESSAGE": "Wɛ́n nɔn nu wɛ̀ gbà lɛ yì Pi Network tɔ́n sèsin wɛ̀, ɖe ɖò ɖò wɛ́n ɖò sù mapa xó xò wɛ̀ nɔn ɖokàn mì",

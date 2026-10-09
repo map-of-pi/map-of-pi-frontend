@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "User must be logged in to make a payment"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "App Management",
+      "TABS": {
+        "STATISTICS": "Statistics",
+        "ADMIN_REGISTER": "Admin registration",
+        "ADD_VOUCHERS": "Add vouchers"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Usage numbers",
+        "CURRENT_MEMBERSHIP_TOTALS": "Current membership totals",
+        "REGISTERED_USERS": "Registered users",
+        "SELLERS": "Sellers",
+        "REVIEWS": "Reviews",
+        "ITEMS_LISTED": "Items listed",
+        "ORDERS_CREATED": "Orders created",
+        "ORDERS_FULFILLED": "Orders fulfilled",
+        "ORDERED_ITEMS": "Ordered items",
+        "TOTAL_MEMBERS": "Total members",
+        "INDIVIDUAL_MAPPI": "Individual Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Admin Pi username to be added/removed",
+        "ADD": "Add",
+        "REMOVE": "Remove",
+        "LIST_OF_ADMINS": "List of admins:",
+        "ADMIN_ADDED": "Admin added successfully.",
+        "ADMIN_REMOVED": "Admin removed successfully.",
+        "PIONEER_NOT_ADMIN": "Pioneer is not an admin.",
+        "FETCH_ADMINS_ERROR": "Unable to fetch admins.",
+        "ADD_ADMIN_ERROR": "Unable to add admin."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Voucher recipient",
+        "VOUCHER_CODE_LABEL": "Voucher code",
+        "VALIDITY_PERIOD_LABEL": "Validity period",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Number of days",
+        "PIONEER_REQUIRED": "Pioneer name is required.",
+        "VOUCHER_CODE_REQUIRED": "Voucher code is required.",
+        "VOUCHER_CODE_NO_SPACES": "Voucher code must not contain spaces.",
+        "UNAUTHORIZED_USER": "Unauthorised user.",
+        "VALIDITY_PERIOD_INVALID": "Validity period must be an integer from 1 to 20.",
+        "CONFIRM_MESSAGE": "You're setting up a {tier} voucher named \"{voucherCode}\" for Pioneer {pioneer}, which must be redeemed by {validUntil}, i.e. within {days} {daysLabel}.",
+        "DAY": "day",
+        "DAYS": "days",
+        "VOUCHER_SAVED": "Voucher saved",
+        "ASSIGN_VOUCHER_ERROR": "Unable to assign voucher",
+        "ADD_VOUCHER_ERROR": "Error adding voucher",
+        "LOAD_MEMBERSHIP_ERROR": "Failed to load Membership data"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Seller Administration",
       "SELLER_RESTRICTION_MESSAGE": "Your Sell Centre is in a region sanctioned by Pi Network, so your map marker will be hidden from all users",

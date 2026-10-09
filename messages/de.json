@@ -72,6 +72,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Der Benutzer muss angemeldet sein, um eine Zahlung vorzunehmen"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "App-Verwaltung",
+      "TABS": {
+        "STATISTICS": "Statistiken",
+        "ADMIN_REGISTER": "Admin-Registrierung",
+        "ADD_VOUCHERS": "Gutscheine hinzufügen"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Nutzungszahlen",
+        "CURRENT_MEMBERSHIP_TOTALS": "Aktuelle Mitgliedschaftszahlen",
+        "REGISTERED_USERS": "Registrierte Benutzer",
+        "SELLERS": "Verkäufer",
+        "REVIEWS": "Bewertungen",
+        "ITEMS_LISTED": "Eingestellte Artikel",
+        "ORDERS_CREATED": "Erstellte Bestellungen",
+        "ORDERS_FULFILLED": "Abgeschlossene Bestellungen",
+        "ORDERED_ITEMS": "Bestellte Artikel",
+        "TOTAL_MEMBERS": "Mitglieder insgesamt",
+        "INDIVIDUAL_MAPPI": "Individuelle Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer-Benutzername:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Hinzuzufügender/zu entfernender Admin-Pi-Benutzername",
+        "ADD": "Hinzufügen",
+        "REMOVE": "Entfernen",
+        "LIST_OF_ADMINS": "Liste der Admins:",
+        "ADMIN_ADDED": "Admin erfolgreich hinzugefügt.",
+        "ADMIN_REMOVED": "Admin erfolgreich entfernt.",
+        "PIONEER_NOT_ADMIN": "Pioneer ist kein Admin.",
+        "FETCH_ADMINS_ERROR": "Admins konnten nicht abgerufen werden.",
+        "ADD_ADMIN_ERROR": "Admin konnte nicht hinzugefügt werden."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer-Benutzername",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Gutscheinempfänger",
+        "VOUCHER_CODE_LABEL": "Gutscheincode",
+        "VALIDITY_PERIOD_LABEL": "Gültigkeitsdauer",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Anzahl der Tage",
+        "PIONEER_REQUIRED": "Pioneer-Name ist erforderlich.",
+        "VOUCHER_CODE_REQUIRED": "Gutscheincode ist erforderlich.",
+        "VOUCHER_CODE_NO_SPACES": "Der Gutscheincode darf keine Leerzeichen enthalten.",
+        "UNAUTHORIZED_USER": "Nicht autorisierter Benutzer.",
+        "VALIDITY_PERIOD_INVALID": "Die Gültigkeitsdauer muss eine ganze Zahl zwischen 1 und 20 sein.",
+        "CONFIRM_MESSAGE": "Du richtest einen {tier}-Gutschein mit dem Namen \"{voucherCode}\" für Pioneer {pioneer} ein, der bis zum {validUntil}, d. h. innerhalb von {days} {daysLabel}, eingelöst werden muss.",
+        "DAY": "Tag",
+        "DAYS": "Tage",
+        "VOUCHER_SAVED": "Gutschein gespeichert",
+        "ASSIGN_VOUCHER_ERROR": "Gutschein konnte nicht zugewiesen werden",
+        "ADD_VOUCHER_ERROR": "Fehler beim Hinzufügen des Gutscheins",
+        "LOAD_MEMBERSHIP_ERROR": "Membership-Daten konnten nicht geladen werden"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Verkäuferverwaltung",
       "SELLER_RESTRICTION_MESSAGE": "Dein Verkaufszentrum befindet sich in einer von Pi Network sanktionierten Region, daher wird deine Kartenmarkierung für alle Nutzer verborgen",

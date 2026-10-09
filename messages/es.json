@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "El usuario debe iniciar sesión para realizar un pago"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Gestión de la aplicación",
+      "TABS": {
+        "STATISTICS": "Estadísticas",
+        "ADMIN_REGISTER": "Registro de administradores",
+        "ADD_VOUCHERS": "Añadir cupones"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Cifras de uso",
+        "CURRENT_MEMBERSHIP_TOTALS": "Totales actuales de membresías",
+        "REGISTERED_USERS": "Usuarios registrados",
+        "SELLERS": "Vendedores",
+        "REVIEWS": "Reseñas",
+        "ITEMS_LISTED": "Artículos publicados",
+        "ORDERS_CREATED": "Pedidos creados",
+        "ORDERS_FULFILLED": "Pedidos completados",
+        "ORDERED_ITEMS": "Artículos pedidos",
+        "TOTAL_MEMBERS": "Total de miembros",
+        "INDIVIDUAL_MAPPI": "Mappi individual"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Nombre de usuario de Pioneer:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Nombre de usuario de Pi del administrador que se añadirá/eliminará",
+        "ADD": "Añadir",
+        "REMOVE": "Eliminar",
+        "LIST_OF_ADMINS": "Lista de administradores:",
+        "ADMIN_ADDED": "Administrador añadido correctamente.",
+        "ADMIN_REMOVED": "Administrador eliminado correctamente.",
+        "PIONEER_NOT_ADMIN": "Pioneer no es administrador.",
+        "FETCH_ADMINS_ERROR": "No se pudieron obtener los administradores.",
+        "ADD_ADMIN_ERROR": "No se pudo añadir el administrador."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Nombre de usuario de Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Destinatario del cupón",
+        "VOUCHER_CODE_LABEL": "Código del cupón",
+        "VALIDITY_PERIOD_LABEL": "Periodo de validez",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Número de días",
+        "PIONEER_REQUIRED": "El nombre de Pioneer es obligatorio.",
+        "VOUCHER_CODE_REQUIRED": "El código del cupón es obligatorio.",
+        "VOUCHER_CODE_NO_SPACES": "El código del cupón no debe contener espacios.",
+        "UNAUTHORIZED_USER": "Usuario no autorizado.",
+        "VALIDITY_PERIOD_INVALID": "El periodo de validez debe ser un número entero entre 1 y 20.",
+        "CONFIRM_MESSAGE": "Estás configurando un cupón {tier} llamado \"{voucherCode}\" para Pioneer {pioneer}, que debe canjearse antes del {validUntil}, es decir, dentro de {days} {daysLabel}.",
+        "DAY": "día",
+        "DAYS": "días",
+        "VOUCHER_SAVED": "Cupón guardado",
+        "ASSIGN_VOUCHER_ERROR": "No se pudo asignar el cupón",
+        "ADD_VOUCHER_ERROR": "Error al añadir el cupón",
+        "LOAD_MEMBERSHIP_ERROR": "No se pudieron cargar los datos de Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administración del Vendedor",
       "SELLER_RESTRICTION_MESSAGE": "Tu centro de ventas está en una región sancionada por Pi Network, por lo que tu marcador en el mapa estará oculto para todos los usuarios",

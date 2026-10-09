@@ -71,6 +71,58 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "L’utilisateur doit être connecté pour effectuer un paiement"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Gestion de l'application",
+      "TABS": {
+        "STATISTICS": "Statistiques",
+        "ADMIN_REGISTER": "Enregistrement des administrateurs",
+        "ADD_VOUCHERS": "Ajouter des bons"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Chiffres d'utilisation",
+        "CURRENT_MEMBERSHIP_TOTALS": "Totaux actuels des adhésions",
+        "REGISTERED_USERS": "Utilisateurs enregistrés",
+        "SELLERS": "Vendeurs",
+        "REVIEWS": "Avis",
+        "ITEMS_LISTED": "Articles mis en vente",
+        "ORDERS_CREATED": "Commandes créées",
+        "ORDERS_FULFILLED": "Commandes honorées",
+        "ORDERED_ITEMS": "Articles commandés",
+        "TOTAL_MEMBERS": "Nombre total de membres",
+        "INDIVIDUAL_MAPPI": "Mappi individuel"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Nom d'utilisateur Pioneer :",
+        "PIONEER_USERNAME_PLACEHOLDER": "Nom d'utilisateur Pi de l'administrateur à ajouter/supprimer",
+        "ADD": "Ajouter",
+        "REMOVE": "Supprimer",
+        "LIST_OF_ADMINS": "Liste des administrateurs :",
+        "ADMIN_ADDED": "Administrateur ajouté avec succès.",
+        "ADMIN_REMOVED": "Administrateur supprimé avec succès.",
+        "PIONEER_NOT_ADMIN": "Pioneer n'est pas administrateur.",
+        "FETCH_ADMINS_ERROR": "Impossible de récupérer les administrateurs.",
+        "ADD_ADMIN_ERROR": "Impossible d'ajouter l'administrateur."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Nom d'utilisateur Pioneer",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Destinataire du bon",
+        "VOUCHER_CODE_LABEL": "Code du bon",
+        "VALIDITY_PERIOD_LABEL": "Période de validité",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Nombre de jours",
+        "PIONEER_REQUIRED": "Le nom du Pioneer est requis.",
+        "VOUCHER_CODE_REQUIRED": "Le code du bon est requis.",
+        "VOUCHER_CODE_NO_SPACES": "Le code du bon ne doit pas contenir d'espaces.",
+        "UNAUTHORIZED_USER": "Utilisateur non autorisé.",
+        "VALIDITY_PERIOD_INVALID": "La période de validité doit être un nombre entier compris entre 1 et 20.",
+        "CONFIRM_MESSAGE": "Vous configurez un bon {tier} nommé \"{voucherCode}\" pour Pioneer {pioneer}, qui doit être utilisé avant le {validUntil}, c'est-à-dire dans un délai de {days} {daysLabel}.",
+        "DAY": "jour",
+        "DAYS": "jours",
+        "VOUCHER_SAVED": "Bon enregistré",
+        "ASSIGN_VOUCHER_ERROR": "Impossible d'attribuer le bon",
+        "ADD_VOUCHER_ERROR": "Erreur lors de l'ajout du bon",
+        "LOAD_MEMBERSHIP_ERROR": "Échec du chargement des données Membership"
+      }
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administration du Vendeur",
       "SELLER_RESTRICTION_MESSAGE": "Votre centre de vente se trouve dans une région sanctionnée par Pi Network, votre repère sur la carte sera donc caché pour tous les utilisateurs",
