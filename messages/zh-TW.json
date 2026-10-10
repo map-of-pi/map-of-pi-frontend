@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "使用者必須登入才能進行付款"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "應用程式管理",
+      "TABS": {
+        "STATISTICS": "統計",
+        "ADMIN_REGISTER": "管理員註冊",
+        "ADD_VOUCHERS": "新增優惠券"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "使用數據",
+        "CURRENT_MEMBERSHIP_TOTALS": "目前 Membership 總數",
+        "REGISTERED_USERS": "已註冊使用者",
+        "SELLERS": "賣家",
+        "REVIEWS": "評論",
+        "ITEMS_LISTED": "已上架商品",
+        "ORDERS_CREATED": "已建立訂單",
+        "ORDERS_FULFILLED": "已完成訂單",
+        "ORDERED_ITEMS": "已訂購商品",
+        "TOTAL_MEMBERS": "會員總數",
+        "INDIVIDUAL_MAPPI": "個人 Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer 使用者名稱：",
+        "PIONEER_USERNAME_PLACEHOLDER": "要新增/移除的管理員 Pi 使用者名稱",
+        "ADD": "新增",
+        "REMOVE": "移除",
+        "LIST_OF_ADMINS": "管理員列表：",
+        "ADMIN_ADDED": "管理員新增成功。",
+        "ADMIN_REMOVED": "管理員移除成功。",
+        "PIONEER_NOT_ADMIN": "Pioneer 不是管理員。",
+        "FETCH_ADMINS_ERROR": "無法取得管理員列表。",
+        "ADD_ADMIN_ERROR": "無法新增管理員。",
+        "REMOVE_ADMIN_ERROR": "無法移除管理員。"
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer 使用者名稱",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "優惠券接收者",
+        "VOUCHER_CODE_LABEL": "優惠券代碼",
+        "VALIDITY_PERIOD_LABEL": "有效期限",
+        "VALIDITY_PERIOD_PLACEHOLDER": "天數",
+        "PIONEER_REQUIRED": "Pioneer 名稱為必填項目。",
+        "VOUCHER_CODE_REQUIRED": "優惠券代碼為必填項目。",
+        "VOUCHER_CODE_NO_SPACES": "優惠券代碼不得包含空格。",
+        "UNAUTHORIZED_USER": "未經授權的使用者。",
+        "VALIDITY_PERIOD_INVALID": "有效期限必須是 1 到 20 之間的整數。",
+        "CONFIRM_MESSAGE": "您正在為 Pioneer {pioneer} 設定名為 \"{voucherCode}\" 的 {tier} 優惠券，此優惠券必須在 {validUntil} 前兌換，也就是在 {days} {daysLabel} 內兌換。",
+        "DAY": "天",
+        "DAYS": "天",
+        "VOUCHER_SAVED": "優惠券已儲存",
+        "ASSIGN_VOUCHER_ERROR": "無法指派優惠券",
+        "ADD_VOUCHER_ERROR": "新增優惠券時發生錯誤",
+        "LOAD_MEMBERSHIP_ERROR": "無法載入 Membership 資料",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "賣家管理",
       "SELLER_RESTRICTION_MESSAGE": "您的銷售中心位於 Pi Network 制裁的地區，因此您的地圖標記將對所有使用者隱藏",

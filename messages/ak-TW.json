@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ɛsɛ sɛ ɔdehye no hyɛ mu ansa na ɔtumi yɛ sika so ka"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "App no sohwɛ",
+      "TABS": {
+        "STATISTICS": "Akontaabu",
+        "ADMIN_REGISTER": "Admin dinkyerɛw",
+        "ADD_VOUCHERS": "Fa vouchers ka ho"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Dwumadie dodow",
+        "CURRENT_MEMBERSHIP_TOTALS": "Membership dodow a ɛwɔ hɔ seesei",
+        "REGISTERED_USERS": "Wɔn a wɔakyerɛw wɔn din",
+        "SELLERS": "Adetɔnfo",
+        "REVIEWS": "Nsusuwii",
+        "ITEMS_LISTED": "Nneɛma a wɔakyerɛw sɛ wɔtɔn",
+        "ORDERS_CREATED": "Orders a wɔayɛ",
+        "ORDERS_FULFILLED": "Orders a wɔawie",
+        "ORDERED_ITEMS": "Nneɛma a wɔahyɛ sɛ wɔntɔ",
+        "TOTAL_MEMBERS": "Members nyinaa dodow",
+        "INDIVIDUAL_MAPPI": "Ankorankoro Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Admin Pi username a wɔde bɛka ho/ayi afi hɔ",
+        "ADD": "Fa ka ho",
+        "REMOVE": "Yi fi hɔ",
+        "LIST_OF_ADMINS": "Admin ahorow:",
+        "ADMIN_ADDED": "Wɔde Admin no aka ho yiye.",
+        "ADMIN_REMOVED": "Wɔayi Admin no afi hɔ yiye.",
+        "PIONEER_NOT_ADMIN": "Pioneer no nyɛ Admin.",
+        "FETCH_ADMINS_ERROR": "Antumi annya Admin ahorow no.",
+        "ADD_ADMIN_ERROR": "Antumi amfa Admin no anka ho.",
+        "REMOVE_ADMIN_ERROR": "Antumi anyi Admin no amfi hɔ."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Nea obegye voucher no",
+        "VOUCHER_CODE_LABEL": "Voucher code",
+        "VALIDITY_PERIOD_LABEL": "Bere a voucher no bɛyɛ adwuma",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Nna dodow",
+        "PIONEER_REQUIRED": "Ɛsɛ sɛ wode Pioneer din hyɛ mu.",
+        "VOUCHER_CODE_REQUIRED": "Ɛsɛ sɛ wode voucher code hyɛ mu.",
+        "VOUCHER_CODE_NO_SPACES": "Ɛnsɛ sɛ voucher code no wɔ spaces.",
+        "UNAUTHORIZED_USER": "Ɔdefo yi nni tumi.",
+        "VALIDITY_PERIOD_INVALID": "Ɛsɛ sɛ bere a ɛyɛ adwuma no yɛ akontaabu mũ fi 1 kosi 20.",
+        "CONFIRM_MESSAGE": "Woreyɛ {tier} voucher a ne din de \"{voucherCode}\" ama Pioneer {pioneer}, na ɛsɛ sɛ wɔde di dwuma ansa na {validUntil} adu, kyerɛ sɛ, wɔ {days} {daysLabel} mu.",
+        "DAY": "da",
+        "DAYS": "nna",
+        "VOUCHER_SAVED": "Wɔasie voucher no",
+        "ASSIGN_VOUCHER_ERROR": "Antumi amfa voucher no amma Pioneer no",
+        "ADD_VOUCHER_ERROR": "Mfomso bae bere a wɔde voucher no reka ho",
+        "LOAD_MEMBERSHIP_ERROR": "Antumi ankɔfa Membership data no",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Atɔnfoɔ Din Kɔm",
       "SELLER_RESTRICTION_MESSAGE": "Wo Sell Center no wɔ ɔman a Pi Network akyiw no mu, enti w’afidie a ɛda mapa so no bɛkata afi nnipa nyinaa ani so",

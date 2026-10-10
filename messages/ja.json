@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "支払いを行うにはユーザーがログインしている必要があります"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "アプリ管理",
+      "TABS": {
+        "STATISTICS": "統計",
+        "ADMIN_REGISTER": "管理者登録",
+        "ADD_VOUCHERS": "バウチャーを追加"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "利用状況",
+        "CURRENT_MEMBERSHIP_TOTALS": "現在のMembership合計",
+        "REGISTERED_USERS": "登録ユーザー",
+        "SELLERS": "販売者",
+        "REVIEWS": "レビュー",
+        "ITEMS_LISTED": "出品された商品",
+        "ORDERS_CREATED": "作成された注文",
+        "ORDERS_FULFILLED": "完了した注文",
+        "ORDERED_ITEMS": "注文された商品",
+        "TOTAL_MEMBERS": "メンバー総数",
+        "INDIVIDUAL_MAPPI": "個人のMappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneerユーザー名:",
+        "PIONEER_USERNAME_PLACEHOLDER": "追加/削除する管理者のPiユーザー名",
+        "ADD": "追加",
+        "REMOVE": "削除",
+        "LIST_OF_ADMINS": "管理者一覧:",
+        "ADMIN_ADDED": "管理者が正常に追加されました。",
+        "ADMIN_REMOVED": "管理者が正常に削除されました。",
+        "PIONEER_NOT_ADMIN": "Pioneerは管理者ではありません。",
+        "FETCH_ADMINS_ERROR": "管理者一覧を取得できませんでした。",
+        "ADD_ADMIN_ERROR": "管理者を追加できませんでした。",
+        "REMOVE_ADMIN_ERROR": "管理者を削除できませんでした。"
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneerユーザー名",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "バウチャーの受取人",
+        "VOUCHER_CODE_LABEL": "バウチャーコード",
+        "VALIDITY_PERIOD_LABEL": "有効期間",
+        "VALIDITY_PERIOD_PLACEHOLDER": "日数",
+        "PIONEER_REQUIRED": "Pioneer名は必須です。",
+        "VOUCHER_CODE_REQUIRED": "バウチャーコードは必須です。",
+        "VOUCHER_CODE_NO_SPACES": "バウチャーコードにスペースを含めることはできません。",
+        "UNAUTHORIZED_USER": "権限のないユーザーです。",
+        "VALIDITY_PERIOD_INVALID": "有効期間は1から20までの整数である必要があります。",
+        "CONFIRM_MESSAGE": "Pioneer {pioneer} に「{voucherCode}」という名前の {tier} バウチャーを設定しています。このバウチャーは {validUntil} まで、つまり {days} {daysLabel} 以内に引き換える必要があります。",
+        "DAY": "日",
+        "DAYS": "日",
+        "VOUCHER_SAVED": "バウチャーが保存されました",
+        "ASSIGN_VOUCHER_ERROR": "バウチャーを割り当てることができませんでした",
+        "ADD_VOUCHER_ERROR": "バウチャーの追加中にエラーが発生しました",
+        "LOAD_MEMBERSHIP_ERROR": "Membershipデータを読み込めませんでした",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "販売者管理",
       "SELLER_RESTRICTION_MESSAGE": "あなたの販売センターはPi Networkによって制裁された地域にあるため、あなたの地図のマーカーはすべてのユーザーから非表示になります",

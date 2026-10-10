@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Mai amfani dole ne ya shiga kafin yin biyan kuɗi"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Gudanar da App",
+      "TABS": {
+        "STATISTICS": "Ƙididdiga",
+        "ADMIN_REGISTER": "Rijistar admin",
+        "ADD_VOUCHERS": "Ƙara vouchers"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Adadin amfani",
+        "CURRENT_MEMBERSHIP_TOTALS": "Jimillar Membership na yanzu",
+        "REGISTERED_USERS": "Masu amfani da suka yi rajista",
+        "SELLERS": "Masu sayarwa",
+        "REVIEWS": "Reviews",
+        "ITEMS_LISTED": "Kayayyakin da aka jera",
+        "ORDERS_CREATED": "Orders da aka ƙirƙira",
+        "ORDERS_FULFILLED": "Orders da aka kammala",
+        "ORDERED_ITEMS": "Kayayyakin da aka yi order",
+        "TOTAL_MEMBERS": "Jimillar members",
+        "INDIVIDUAL_MAPPI": "Mappi na kowane mutum"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Admin Pi username da za a ƙara/cire",
+        "ADD": "Ƙara",
+        "REMOVE": "Cire",
+        "LIST_OF_ADMINS": "Jerin admins:",
+        "ADMIN_ADDED": "An ƙara admin cikin nasara.",
+        "ADMIN_REMOVED": "An cire admin cikin nasara.",
+        "PIONEER_NOT_ADMIN": "Pioneer ba admin ba ne.",
+        "FETCH_ADMINS_ERROR": "Ba a iya samun jerin admins ba.",
+        "ADD_ADMIN_ERROR": "Ba a iya ƙara admin ba.",
+        "REMOVE_ADMIN_ERROR": "Ba a iya cire admin ba."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Mai karɓar voucher",
+        "VOUCHER_CODE_LABEL": "Voucher code",
+        "VALIDITY_PERIOD_LABEL": "Lokacin inganci",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Adadin kwanaki",
+        "PIONEER_REQUIRED": "Ana buƙatar sunan Pioneer.",
+        "VOUCHER_CODE_REQUIRED": "Ana buƙatar voucher code.",
+        "VOUCHER_CODE_NO_SPACES": "Voucher code ba zai ƙunshi sarari ba.",
+        "UNAUTHORIZED_USER": "Mai amfani mara izini.",
+        "VALIDITY_PERIOD_INVALID": "Lokacin inganci dole ne ya zama cikakken lamba daga 1 zuwa 20.",
+        "CONFIRM_MESSAGE": "Kana saita {tier} voucher mai suna \"{voucherCode}\" ga Pioneer {pioneer}, wanda dole ne a karɓa kafin {validUntil}, wato cikin {days} {daysLabel}.",
+        "DAY": "rana",
+        "DAYS": "kwanaki",
+        "VOUCHER_SAVED": "An adana voucher",
+        "ASSIGN_VOUCHER_ERROR": "Ba a iya ba da voucher ba",
+        "ADD_VOUCHER_ERROR": "An sami kuskure wajen ƙara voucher",
+        "LOAD_MEMBERSHIP_ERROR": "An kasa loda bayanan Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Gudanar da Mai Sayarwa",
       "SELLER_RESTRICTION_MESSAGE": "Cibiyar kasuwancinka tana cikin yanki da Pi Network ta takaita, don haka alamarka a taswira za a ɓoye daga duk masu amfani",
