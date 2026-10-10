@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "تمت إزالة المسؤول بنجاح.",
         "PIONEER_NOT_ADMIN": "Pioneer ليس مسؤولاً.",
         "FETCH_ADMINS_ERROR": "تعذر جلب قائمة المسؤولين.",
-        "ADD_ADMIN_ERROR": "تعذر إضافة المسؤول."
+        "ADD_ADMIN_ERROR": "تعذر إضافة المسؤول.",
+        "REMOVE_ADMIN_ERROR": "تعذر إزالة المسؤول."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "اسم مستخدم Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "تم حفظ القسيمة",
         "ASSIGN_VOUCHER_ERROR": "تعذر تعيين القسيمة",
         "ADD_VOUCHER_ERROR": "حدث خطأ أثناء إضافة القسيمة",
-        "LOAD_MEMBERSHIP_ERROR": "فشل تحميل بيانات Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "فشل تحميل بيانات Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "إدارة البائع",

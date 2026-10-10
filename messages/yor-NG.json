@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "A ti yọ admin kúrò ní àṣeyọrí.",
         "PIONEER_NOT_ADMIN": "Pioneer kì í ṣe admin.",
         "FETCH_ADMINS_ERROR": "A kò lè gba àkójọ àwọn admin.",
-        "ADD_ADMIN_ERROR": "A kò lè fi admin kún un."
+        "ADD_ADMIN_ERROR": "A kò lè fi admin kún un.",
+        "REMOVE_ADMIN_ERROR": "A kò lè yọ admin kúrò."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Orúkọ olumulo Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "A ti fi voucher pamọ́",
         "ASSIGN_VOUCHER_ERROR": "A kò lè fi voucher fún olumulo",
         "ADD_VOUCHER_ERROR": "Àṣìṣe ṣẹlẹ̀ nígbà fífi voucher kún un",
-        "LOAD_MEMBERSHIP_ERROR": "A kò lè ṣàkójọpọ̀ data Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "A kò lè ṣàkójọpọ̀ data Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Isakoso Onisowo",

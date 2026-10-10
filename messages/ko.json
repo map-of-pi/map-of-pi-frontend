@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "관리자가 성공적으로 삭제되었습니다.",
         "PIONEER_NOT_ADMIN": "Pioneer는 관리자가 아닙니다.",
         "FETCH_ADMINS_ERROR": "관리자 목록을 불러올 수 없습니다.",
-        "ADD_ADMIN_ERROR": "관리자를 추가할 수 없습니다."
+        "ADD_ADMIN_ERROR": "관리자를 추가할 수 없습니다.",
+        "REMOVE_ADMIN_ERROR": "관리자를 삭제할 수 없습니다."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer 사용자 이름",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "바우처가 저장되었습니다",
         "ASSIGN_VOUCHER_ERROR": "바우처를 할당할 수 없습니다",
         "ADD_VOUCHER_ERROR": "바우처 추가 중 오류가 발생했습니다",
-        "LOAD_MEMBERSHIP_ERROR": "Membership 데이터를 불러오지 못했습니다"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Membership 데이터를 불러오지 못했습니다",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "판매자 관리",

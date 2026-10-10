@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "管理者が正常に削除されました。",
         "PIONEER_NOT_ADMIN": "Pioneerは管理者ではありません。",
         "FETCH_ADMINS_ERROR": "管理者一覧を取得できませんでした。",
-        "ADD_ADMIN_ERROR": "管理者を追加できませんでした。"
+        "ADD_ADMIN_ERROR": "管理者を追加できませんでした。",
+        "REMOVE_ADMIN_ERROR": "管理者を削除できませんでした。"
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneerユーザー名",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "バウチャーが保存されました",
         "ASSIGN_VOUCHER_ERROR": "バウチャーを割り当てることができませんでした",
         "ADD_VOUCHER_ERROR": "バウチャーの追加中にエラーが発生しました",
-        "LOAD_MEMBERSHIP_ERROR": "Membershipデータを読み込めませんでした"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Membershipデータを読み込めませんでした",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "販売者管理",

@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Administrateur supprimé avec succès.",
         "PIONEER_NOT_ADMIN": "Pioneer n'est pas administrateur.",
         "FETCH_ADMINS_ERROR": "Impossible de récupérer les administrateurs.",
-        "ADD_ADMIN_ERROR": "Impossible d'ajouter l'administrateur."
+        "ADD_ADMIN_ERROR": "Impossible d'ajouter l'administrateur.",
+        "REMOVE_ADMIN_ERROR": "Impossible de supprimer l'administrateur."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Nom d'utilisateur Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Bon enregistré",
         "ASSIGN_VOUCHER_ERROR": "Impossible d'attribuer le bon",
         "ADD_VOUCHER_ERROR": "Erreur lors de l'ajout du bon",
-        "LOAD_MEMBERSHIP_ERROR": "Échec du chargement des données Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Échec du chargement des données Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administration du Vendeur",

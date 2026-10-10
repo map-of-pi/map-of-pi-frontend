@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Admin removed successfully.",
         "PIONEER_NOT_ADMIN": "Pioneer is not an admin.",
         "FETCH_ADMINS_ERROR": "Unable to fetch admins.",
-        "ADD_ADMIN_ERROR": "Unable to add admin."
+        "ADD_ADMIN_ERROR": "Unable to add admin.",
+        "REMOVE_ADMIN_ERROR": "Unable to remove admin."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer username",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Voucher saved",
         "ASSIGN_VOUCHER_ERROR": "Unable to assign voucher",
         "ADD_VOUCHER_ERROR": "Error adding voucher",
-        "LOAD_MEMBERSHIP_ERROR": "Failed to load Membership data"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Failed to load Membership data",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Seller Administration",

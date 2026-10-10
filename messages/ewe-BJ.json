@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Woɖe Admin la le eme dzidzedzetɔe.",
         "PIONEER_NOT_ADMIN": "Pioneer la menye Admin o.",
         "FETCH_ADMINS_ERROR": "Womete ŋu xɔ Adminwo ƒe xexlẽme o.",
-        "ADD_ADMIN_ERROR": "Womete ŋu tsɔ Admin la kpe ɖe eŋu o."
+        "ADD_ADMIN_ERROR": "Womete ŋu tsɔ Admin la kpe ɖe eŋu o.",
+        "REMOVE_ADMIN_ERROR": "Womete ŋu ɖe Admin la le eme o."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer username",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Woɖo voucher la ɖi",
         "ASSIGN_VOUCHER_ERROR": "Womete ŋu tsɔ voucher la na ame o",
         "ADD_VOUCHER_ERROR": "Vodada va le voucher la tsɔtsɔ kpe ɖe eŋu me",
-        "LOAD_MEMBERSHIP_ERROR": "Womete ŋu xɔ Membership data o"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Womete ŋu xɔ Membership data o",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "ƒeƒeɖoɖoɖoɖo ƒe Nyɔnu",

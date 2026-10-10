@@ -102,7 +102,8 @@
         "ADMIN_REMOVED": "Admin erfolgreich entfernt.",
         "PIONEER_NOT_ADMIN": "Pioneer ist kein Admin.",
         "FETCH_ADMINS_ERROR": "Admins konnten nicht abgerufen werden.",
-        "ADD_ADMIN_ERROR": "Admin konnte nicht hinzugefügt werden."
+        "ADD_ADMIN_ERROR": "Admin konnte nicht hinzugefügt werden.",
+        "REMOVE_ADMIN_ERROR": "Admin konnte nicht entfernt werden."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer-Benutzername",
@@ -121,8 +122,10 @@
         "VOUCHER_SAVED": "Gutschein gespeichert",
         "ASSIGN_VOUCHER_ERROR": "Gutschein konnte nicht zugewiesen werden",
         "ADD_VOUCHER_ERROR": "Fehler beim Hinzufügen des Gutscheins",
-        "LOAD_MEMBERSHIP_ERROR": "Membership-Daten konnten nicht geladen werden"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Membership-Daten konnten nicht geladen werden",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Verkäuferverwaltung",

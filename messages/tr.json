@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Yönetici başarıyla kaldırıldı.",
         "PIONEER_NOT_ADMIN": "Pioneer bir yönetici değil.",
         "FETCH_ADMINS_ERROR": "Yöneticiler alınamadı.",
-        "ADD_ADMIN_ERROR": "Yönetici eklenemedi."
+        "ADD_ADMIN_ERROR": "Yönetici eklenemedi.",
+        "REMOVE_ADMIN_ERROR": "Yönetici kaldırılamadı."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer kullanıcı adı",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Kupon kaydedildi",
         "ASSIGN_VOUCHER_ERROR": "Kupon atanamadı",
         "ADD_VOUCHER_ERROR": "Kupon eklenirken hata oluştu",
-        "LOAD_MEMBERSHIP_ERROR": "Membership verileri yüklenemedi"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Membership verileri yüklenemedi",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Satıcı Yönetimi",

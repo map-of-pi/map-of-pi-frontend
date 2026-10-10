@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "管理員移除成功。",
         "PIONEER_NOT_ADMIN": "Pioneer 不是管理員。",
         "FETCH_ADMINS_ERROR": "無法取得管理員列表。",
-        "ADD_ADMIN_ERROR": "無法新增管理員。"
+        "ADD_ADMIN_ERROR": "無法新增管理員。",
+        "REMOVE_ADMIN_ERROR": "無法移除管理員。"
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer 使用者名稱",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "優惠券已儲存",
         "ASSIGN_VOUCHER_ERROR": "無法指派優惠券",
         "ADD_VOUCHER_ERROR": "新增優惠券時發生錯誤",
-        "LOAD_MEMBERSHIP_ERROR": "無法載入 Membership 資料"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "無法載入 Membership 資料",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "賣家管理",

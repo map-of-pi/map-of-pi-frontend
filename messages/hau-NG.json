@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "An cire admin cikin nasara.",
         "PIONEER_NOT_ADMIN": "Pioneer ba admin ba ne.",
         "FETCH_ADMINS_ERROR": "Ba a iya samun jerin admins ba.",
-        "ADD_ADMIN_ERROR": "Ba a iya ƙara admin ba."
+        "ADD_ADMIN_ERROR": "Ba a iya ƙara admin ba.",
+        "REMOVE_ADMIN_ERROR": "Ba a iya cire admin ba."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer username",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "An adana voucher",
         "ASSIGN_VOUCHER_ERROR": "Ba a iya ba da voucher ba",
         "ADD_VOUCHER_ERROR": "An sami kuskure wajen ƙara voucher",
-        "LOAD_MEMBERSHIP_ERROR": "An kasa loda bayanan Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "An kasa loda bayanan Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Gudanar da Mai Sayarwa",

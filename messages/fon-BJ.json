@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Admin yin ɖe ɖa ganji.",
         "PIONEER_NOT_ADMIN": "Pioneer ɔ ma nyi Admin.",
         "FETCH_ADMINS_ERROR": "Ma sixu mɔ Admin lɛ.",
-        "ADD_ADMIN_ERROR": "Ma sixu sɔ Admin kpe ɖe eŋu."
+        "ADD_ADMIN_ERROR": "Ma sixu sɔ Admin kpe ɖe eŋu.",
+        "REMOVE_ADMIN_ERROR": "Ma sixu ɖe Admin ɔ ɖa."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer username",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Voucher ɔ yin ɖo ɖi",
         "ASSIGN_VOUCHER_ERROR": "Ma sixu sɔ voucher ɔ na mɛ ɔ",
         "ADD_VOUCHER_ERROR": "Vodada wá le voucher ɔ kpekpe ɖe eŋu mɛ",
-        "LOAD_MEMBERSHIP_ERROR": "Ma sixu xɔ Membership data ɔ"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Ma sixu xɔ Membership data ɔ",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Dohwɛ ƒɛnu",

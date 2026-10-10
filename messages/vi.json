@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Đã xóa quản trị viên thành công.",
         "PIONEER_NOT_ADMIN": "Pioneer không phải là quản trị viên.",
         "FETCH_ADMINS_ERROR": "Không thể tải danh sách quản trị viên.",
-        "ADD_ADMIN_ERROR": "Không thể thêm quản trị viên."
+        "ADD_ADMIN_ERROR": "Không thể thêm quản trị viên.",
+        "REMOVE_ADMIN_ERROR": "Không thể xóa quản trị viên."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Tên người dùng Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Đã lưu voucher",
         "ASSIGN_VOUCHER_ERROR": "Không thể gán voucher",
         "ADD_VOUCHER_ERROR": "Lỗi khi thêm voucher",
-        "LOAD_MEMBERSHIP_ERROR": "Không thể tải dữ liệu Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Không thể tải dữ liệu Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Quản Lý Người Bán",

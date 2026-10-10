@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Admin bi serkeftî hate rakirin.",
         "PIONEER_NOT_ADMIN": "Pioneer ne admin e.",
         "FETCH_ADMINS_ERROR": "Admin nehatin wergirtin.",
-        "ADD_ADMIN_ERROR": "Admin nehat zêdekirin."
+        "ADD_ADMIN_ERROR": "Admin nehat zêdekirin.",
+        "REMOVE_ADMIN_ERROR": "Admin nehat rakirin."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Navê bikarhênerê Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Voucher hate tomarkirin",
         "ASSIGN_VOUCHER_ERROR": "Voucher nehat veqetandin",
         "ADD_VOUCHER_ERROR": "Di zêdekirina voucherê de çewtî çêbû",
-        "LOAD_MEMBERSHIP_ERROR": "Daneyên Membership nehatin barkirin"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Daneyên Membership nehatin barkirin",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Rêveberiya Firoşkar",

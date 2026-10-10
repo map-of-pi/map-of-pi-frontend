@@ -88,6 +88,7 @@ const StatsTable = ({ rows }: { rows: [string, number][] }) => {
 const StatisticsTab = () => {
   const { currentUser, isSigningInUser } = useContext(AppContext);
   const [stats, setStats] = useState<StatsData>(MOCK_STATS);
+  const t = useTranslations();
 
   // Load statistics on mount
   useEffect(() => {
@@ -129,28 +130,28 @@ const StatisticsTab = () => {
   }, [currentUser, isSigningInUser]);
 
   const rows: [string, number][] = [
-    ['Registered users', stats.registeredUsers],
-    ['Sellers',          stats.sellers],
-    ['Reviews',          stats.reviews],
-    ['Items listed',     stats.itemsListed],
-    ['Orders created',   stats.ordersCreated],
-    ['Orders fulfilled', stats.ordersFulfilled],
-    ['Ordered items',    stats.orderedItems],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.REGISTERED_USERS'), stats.registeredUsers],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.SELLERS'),          stats.sellers],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.REVIEWS'),          stats.reviews],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.ITEMS_LISTED'),     stats.itemsListed],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.ORDERS_CREATED'),   stats.ordersCreated],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.ORDERS_FULFILLED'), stats.ordersFulfilled],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.ORDERED_ITEMS'),    stats.orderedItems],
   ];
 
   const membershipRows: [string, number][] = [
     ...Object.entries(stats.membershipTotals) as [string, number][],
-    ['Total members',     stats.totalMembers],
-    ['Individual mappi',  stats.individualMappi],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.TOTAL_MEMBERS'),    stats.totalMembers],
+    [t('SCREEN.APP_MANAGEMENT.STATISTICS.INDIVIDUAL_MAPPI'), stats.individualMappi],
   ];
 
   return (
     <div className="w-full h-full">
 
-      <h2 className={SUBHEADER}>Usage numbers</h2>
+      <h2 className={SUBHEADER}>{t('SCREEN.APP_MANAGEMENT.STATISTICS.USAGE_NUMBERS')}</h2>
       <StatsTable rows={rows} />
 
-      <h2 className={SUBHEADER}>Current membership totals</h2>
+      <h2 className={SUBHEADER}>{t('SCREEN.APP_MANAGEMENT.STATISTICS.CURRENT_MEMBERSHIP_TOTALS')}</h2>
       <StatsTable rows={membershipRows} />
 
     </div>
@@ -199,7 +200,7 @@ const AdminRegisterTab = () => {
     } catch (error: any) {
 
       setDialogMessage(
-        error?.message ?? "Unable to fetch admins."
+        error?.message ?? t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.FETCH_ADMINS_ERROR')
       );
       setShowDialog(true);
     } finally {
@@ -224,12 +225,12 @@ const AdminRegisterTab = () => {
           return exists ? prev : [...prev, result.data];
         });
         setPiUsernameInput("");
-        showAlert("Admin added successfully.");
+        showAlert(t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADMIN_ADDED'));
       }
     } catch (error: any) {
       setDialogMessage(
         error.message ??
-          "Unable to add admin."
+          t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADD_ADMIN_ERROR')
       );
       setShowDialog(true)
     } finally {
@@ -247,7 +248,7 @@ const AdminRegisterTab = () => {
     );
 
     if (!admin) {
-      showAlert("Pioneer is not an admin.");
+      showAlert(t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.PIONEER_NOT_ADMIN'));
       return;
     }
 
@@ -261,11 +262,11 @@ const AdminRegisterTab = () => {
         );
 
         setPiUsernameInput("");
-        showAlert(result.message || "Admin removed successfully.");
+        showAlert(result.message || t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADMIN_REMOVED'));
       }
     } catch (error: any) {
       setDialogMessage(
-        error.message 
+        error.message ?? t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.REMOVE_ADMIN_ERROR')
       );
       setShowDialog(true)
     } finally {
@@ -276,10 +277,10 @@ const AdminRegisterTab = () => {
   return (
     <div className="w-full h-full">
       <div className="w-full gap-2 mb-5">
-        <h1 className="font-bold mb-2">Pioneer username:</h1>
+        <h1 className="font-bold mb-2">{t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.PIONEER_USERNAME_LABEL')}</h1>
 
         <Input
-          placeholder="Admin Pi username to be added/removed"
+          placeholder={t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.PIONEER_USERNAME_PLACEHOLDER')}
           type="text"
           value={piUsernameInput}
           name="piUsername"
@@ -292,7 +293,7 @@ const AdminRegisterTab = () => {
 
       <div className="flex items-center justify-between mb-7">
         <Button
-          label="Add"
+          label={t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADD')}
           disabled={!isPermanentAdmin || !piUsernameInput.trim()}
           styles={{
             color: "#ffc153",
@@ -303,7 +304,7 @@ const AdminRegisterTab = () => {
         />
 
         <Button
-          label="Remove"
+          label={t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.REMOVE')}
           disabled={!isPermanentAdmin || !piUsernameInput.trim()}
           styles={{
             color: "#ffc153",
@@ -314,7 +315,7 @@ const AdminRegisterTab = () => {
         />
       </div>
 
-      <h1 className="font-bold mb-2">List of admins:</h1>
+      <h1 className="font-bold mb-2">{t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.LIST_OF_ADMINS')}</h1>
 
       <div className="relative border border-primary rounded-lg mb-7 p-4">
         <ul className="amp-admin-list">
@@ -353,22 +354,22 @@ const AddVouchersTab = () => {
   const [voucherCode, setVoucherCode] = useState('GreenForFree');
   const [validityDays, setValidityDays] = useState<string>('20');
   const [popup, setPopup] = useState<boolean>(false);
-  const [notifiMessage, setNotifiMessage] = useState<string>('');
+  const [notificationMessage, setNotificationMessage] = useState<string>('');
 
   const handleSave = () => {
     const errors: string[] = [];
 
-    if (!recipient.trim())       errors.push('Pioneer name is required.');
-    if (!voucherCode.trim())     errors.push('Voucher code is required.');
-    if (/\s/.test(voucherCode))  errors.push('Voucher code must not contain spaces.');
-    if (!currentUser)            errors.push('unauthorized user');
+    if (!recipient.trim())       errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.PIONEER_REQUIRED'));
+    if (!voucherCode.trim())     errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_CODE_REQUIRED'));
+    if (/\s/.test(voucherCode))  errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_CODE_NO_SPACES'));
+    if (!currentUser)            errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.UNAUTHORIZED_USER'));
 
     const days = parseInt(validityDays, 10);
     if (!validityDays || isNaN(days) || days < 1 || days > 20)
-      errors.push('Validity period must be an integer from 1 to 20.');
+      errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VALIDITY_PERIOD_INVALID'));
 
     if (errors.length > 0) {
-      setNotifiMessage( errors.join('\n') );
+      setNotificationMessage( errors.join('\n') );
       setPopup(true);
       return;
     }
@@ -376,9 +377,14 @@ const AddVouchersTab = () => {
     const validUntil = addDays(new Date(), days);
     const tierLabel = membershipList.find(t => t.value === selectedMembership)?.value ?? selectedMembership;
 
-    setNotifiMessage(`You're setting up a ${tierLabel} voucher named 
-        "${voucherCode}" for pioneer ${recipient.trim()} which must be redeemed by 
-      ${formatDateTime(validUntil)}, i.e. within ${days} day${days !== 1 ? 's' : ''}.`);
+    setNotificationMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.CONFIRM_MESSAGE', {
+      tier: tierLabel,
+      voucherCode,
+      pioneer: recipient.trim(),
+      validUntil: formatDateTime(validUntil),
+      days,
+      daysLabel: t(`SCREEN.APP_MANAGEMENT.ADD_VOUCHER.${days === 1 ? 'DAY' : 'DAYS'}`),
+    }));
     setPopup(true);    
   };
 
@@ -394,13 +400,13 @@ const AddVouchersTab = () => {
       });
 
       if (!result.success) {
-        showAlert(result.error || 'unable to assign voucher');
+        showAlert(result.error || t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ASSIGN_VOUCHER_ERROR'));
       } else {
-        showAlert('Assign voucher successfully');
+        showAlert(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_SAVED'));
       }
       
     } catch (error) {
-      showAlert('error adding voucher');
+      showAlert(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ADD_VOUCHER_ERROR'));
     } finally {
       setIsSaveLoading(false);
       setPopup(false);
@@ -416,7 +422,7 @@ const AddVouchersTab = () => {
         setSelectedMembership(MembershipClassType.GREEN)
       } catch (error) {
         // showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
-        console.error("Error loading membership", {error})
+        console.error(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.LOAD_MEMBERSHIP_ERROR'), {error})
       }
     };
 
@@ -428,8 +434,8 @@ const AddVouchersTab = () => {
       <div className='w-full h-full'>
         <div className="mb-5">
           <Input
-            label={"Pioneer username"}
-            placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
+            label={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.PIONEER_USERNAME_LABEL')}
+            placeholder={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_RECIPIENT_PLACEHOLDER')}
             type="text"
             value={recipient}
             name="piUsername"
@@ -439,8 +445,8 @@ const AddVouchersTab = () => {
 
         <div className="mb-5">
           <Input
-            label={"Vouher code"}
-            placeholder={t('SCREEN.MEMBERSHIP.ENTER_VOUCHER_CODE_PLACEHOLDER')}
+            label={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_CODE_LABEL')}
+            placeholder={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_CODE_LABEL')}
             type="text"
             value={voucherCode}
             name="voucherCode"
@@ -479,8 +485,8 @@ const AddVouchersTab = () => {
 
         <div className="mt-5">
           <Input
-            label={"Validity Period"}
-            placeholder={'Number of days'}
+            label={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VALIDITY_PERIOD_LABEL')}
+            placeholder={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VALIDITY_PERIOD_PLACEHOLDER')}
             type="text"
             value={validityDays}
             name="voucherCode"
@@ -490,7 +496,7 @@ const AddVouchersTab = () => {
 
         <div className="mb-5 mt-3 flex justify-between">
           <Button
-            label={'Assign'}
+            label={t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.SAVE')}
             disabled={isSaveLoading}
             styles={{
               color: '#ffc153',
@@ -508,7 +514,7 @@ const AddVouchersTab = () => {
         <ConfirmDialogX 
           toggle={() => setPopup(false)}  
           handleClicked={handleConfirm}
-          message={notifiMessage}
+          message={notificationMessage}
         />
       )}
     </div>
@@ -517,16 +523,17 @@ const AddVouchersTab = () => {
 
 // ─── App Management Page ──────────────────────────────────────────────────────
 
-const TABS: TabItem[] = [
-  { id: 'statistics',    label: 'Statistics' },
-  { id: 'adminregister', label: 'Admin registration' },
-  { id: 'addvouchers',   label: 'Add vouchers' },
-];
-
 export default function AppManagementPage() {
   const { currentUser } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState<TabId>('statistics');
   const navTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const t = useTranslations();
+
+  const tabs: TabItem[] = [
+    { id: 'statistics',    label: t('SCREEN.APP_MANAGEMENT.TABS.STATISTICS') },
+    { id: 'adminregister', label: t('SCREEN.APP_MANAGEMENT.TABS.ADMIN_REGISTER') },
+    { id: 'addvouchers',   label: t('SCREEN.APP_MANAGEMENT.TABS.ADD_VOUCHERS') },
+  ];
 
   useEffect(() => () => {
     if (navTimerRef.current) clearTimeout(navTimerRef.current);
@@ -535,7 +542,7 @@ export default function AppManagementPage() {
   if (!currentUser) {
     return (
       <div className="amp-page">
-        <p className="amp-access-denied">You are not authenticated, please refresh the page.</p>
+        <p className="amp-access-denied">{t('SCREEN.APP_MANAGEMENT.AUTH_REQUIRED')}</p>
       </div>
     );
   }
@@ -543,12 +550,12 @@ export default function AppManagementPage() {
   return (
     <div className="w-full h-full h-min-screen md:w-[500px] md:mx-auto p-4">
       <h1 className='font-bold text-lg md:text-2xl text-center mb-4'>
-        App Management
+        {t('SCREEN.APP_MANAGEMENT.HEADER')}
       </h1>
 
       {/* Tab shuttle */}
       <TabShuttle
-        tabs={TABS}
+        tabs={tabs}
         selectedTabId={selectedTab}
         onTabChange={id => setSelectedTab(id as TabId)}
       />

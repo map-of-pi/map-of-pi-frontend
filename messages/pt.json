@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "Administrador removido com sucesso.",
         "PIONEER_NOT_ADMIN": "Pioneer não é administrador.",
         "FETCH_ADMINS_ERROR": "Não foi possível obter os administradores.",
-        "ADD_ADMIN_ERROR": "Não foi possível adicionar o administrador."
+        "ADD_ADMIN_ERROR": "Não foi possível adicionar o administrador.",
+        "REMOVE_ADMIN_ERROR": "Não foi possível remover o administrador."
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Nome de utilizador Pioneer",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "Voucher guardado",
         "ASSIGN_VOUCHER_ERROR": "Não foi possível atribuir o voucher",
         "ADD_VOUCHER_ERROR": "Erro ao adicionar o voucher",
-        "LOAD_MEMBERSHIP_ERROR": "Não foi possível carregar os dados de Membership"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Não foi possível carregar os dados de Membership",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Administração do Vendedor",

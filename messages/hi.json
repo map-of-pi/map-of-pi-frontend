@@ -101,7 +101,8 @@
         "ADMIN_REMOVED": "एडमिन सफलतापूर्वक हटाया गया।",
         "PIONEER_NOT_ADMIN": "Pioneer एडमिन नहीं है।",
         "FETCH_ADMINS_ERROR": "एडमिन की सूची प्राप्त नहीं की जा सकी।",
-        "ADD_ADMIN_ERROR": "एडमिन को जोड़ा नहीं जा सका।"
+        "ADD_ADMIN_ERROR": "एडमिन को जोड़ा नहीं जा सका।",
+        "REMOVE_ADMIN_ERROR": "एडमिन को हटाया नहीं जा सका।"
       },
       "ADD_VOUCHER": {
         "PIONEER_USERNAME_LABEL": "Pioneer उपयोगकर्ता नाम",
@@ -120,8 +121,10 @@
         "VOUCHER_SAVED": "वाउचर सहेजा गया",
         "ASSIGN_VOUCHER_ERROR": "वाउचर असाइन नहीं किया जा सका",
         "ADD_VOUCHER_ERROR": "वाउचर जोड़ने में त्रुटि",
-        "LOAD_MEMBERSHIP_ERROR": "Membership डेटा लोड नहीं किया जा सका"
-      }
+        "LOAD_MEMBERSHIP_ERROR": "Membership डेटा लोड नहीं किया जा सका",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "विक्रेता प्रशासन",
