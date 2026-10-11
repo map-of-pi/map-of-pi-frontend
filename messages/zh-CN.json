@@ -219,7 +219,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "未找到先锋 {search_value} 的评论",
         "NO_PIONEER_FOUND": "未找到先锋 {search_value}",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已成功启用。",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已应用",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "找不到此评论。请刷新页面后重试。",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "找不到此评论。该评论可能已被删除或修改。",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此评论的 Pioneer 才能使用 Trust Protect。",

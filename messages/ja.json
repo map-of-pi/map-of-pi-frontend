@@ -219,7 +219,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "パイオニア {search_value} に対するレビューは見つかりませんでした",
         "NO_PIONEER_FOUND": "パイオニア {search_value} が見つかりませんでした",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect が正常に有効化されました。",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect を適用しました",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "このレビューは見つかりませんでした。画面を更新してもう一度お試しください。",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "このレビューは見つかりませんでした。削除または変更された可能性があります。",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "このレビューを受け取った Pioneer のみが Trust Protect を使用できます。",

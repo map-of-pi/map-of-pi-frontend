@@ -219,7 +219,7 @@
       "VALIDATION": { 
         "NO_REVIEWS_FOUND": "لم يتم العثور على تقييمات للمستخدم {search_value}", 
         "NO_PIONEER_FOUND": "لم يتم العثور على المستخدم {search_value}",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "تم تفعيل Trust Protect بنجاح",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "تم تطبيق Trust Protect",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "تعذر العثور على هذا التقييم. يرجى تحديث الشاشة والمحاولة مرة أخرى.",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "تعذر العثور على هذا التقييم. ربما تمت إزالته أو تغييره.",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "يمكن فقط لـ Pioneer الذي تلقى هذا التقييم استخدام Trust Protect.",
