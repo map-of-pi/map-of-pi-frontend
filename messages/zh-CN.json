@@ -225,7 +225,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此评论的 Pioneer 才能使用 Trust Protect。",
         "TRUST_PROTECT_ALREADY_APPLIED": "此评论已应用 Trust Protect。",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect 只能用于带有 [DESPAIR] 评级的评论。",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都会消耗 100 Mappi。请使用 Membership 页面来增加您的 Mappi 余额。",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都会消耗 1000 Mappi。请使用 Membership 页面来增加您的 Mappi 余额。",
         "TRUST_PROTECT_ACTIVATION_FAILED": "无法启用 Trust Protect。"
       }
     },

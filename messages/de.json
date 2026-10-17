@@ -226,7 +226,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Nur der Pioneer, der diese Bewertung erhalten hat, kann Trust Protect verwenden.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect wurde bereits auf diese Bewertung angewendet.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect kann nur für Bewertungen mit der Bewertung [DESPAIR] verwendet werden.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Jede Nutzung von Trust Protect verbraucht 100 Mappi. Verwende den Membership-Bildschirm, um dein Mappi-Guthaben zu erhöhen.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Jede Nutzung von Trust Protect verbraucht 1000 Mappi. Verwende den Membership-Bildschirm, um dein Mappi-Guthaben zu erhöhen.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect konnte nicht aktiviert werden."
       }
     },
