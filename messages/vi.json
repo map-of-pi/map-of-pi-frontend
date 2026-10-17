@@ -225,7 +225,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Chỉ Pioneer đã nhận review này mới có thể sử dụng Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect đã được áp dụng cho review này.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect chỉ có thể được sử dụng cho các review có rating [DESPAIR].",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Mỗi lần sử dụng Trust Protect sẽ tiêu tốn 100 Mappi. Hãy sử dụng màn hình Membership để tăng số dư Mappi của bạn.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Mỗi lần sử dụng Trust Protect sẽ tiêu tốn 1000 Mappi. Hãy sử dụng màn hình Membership để tăng số dư Mappi của bạn.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Không thể kích hoạt Trust Protect."
       }
     },

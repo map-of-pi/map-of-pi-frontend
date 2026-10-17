@@ -225,7 +225,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Trust Protect'i yalnızca bu incelemeyi alan Pioneer kullanabilir.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect bu incelemeye zaten uygulanmış.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect yalnızca [DESPAIR] derecelendirmesine sahip incelemelerde kullanılabilir.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 100 Mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 1000 Mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect etkinleştirilemedi."
       }
     },
