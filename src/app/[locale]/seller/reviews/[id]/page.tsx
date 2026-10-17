@@ -5,7 +5,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import { ReviewCard } from '@/components/shared/Review/ReviewCard';
-import TrustProtectInsufficientMappiModal from '@/components/shared/Review/TrustProtectInsufficientMappiModal';
+import {
+  TrustProtectInsufficientMappiDialog,
+} from '@/components/shared/Review/TrustProtect';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { isTrustProtectErrorCode } from '@/constants/errors';
@@ -30,7 +32,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     useContext(AppContext);
 
   const [searchInput, setSearchInput] = useState('');
-  const [showInsufficientMappiModal, setShowInsufficientMappiModal] =
+  const [showInsufficientMappiDialog, setShowInsufficientMappiDialog] =
     useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   // Displayed user state — starts as the route owner
@@ -103,7 +105,7 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
       const errorCode = error?.response?.data?.code;
 
       if (errorCode === 'TRUST_PROTECT_INSUFFICIENT_MAPPI') {
-        setShowInsufficientMappiModal(true);
+        setShowInsufficientMappiDialog(true);
       } else {
         showAlert(
           isTrustProtectErrorCode(errorCode)
@@ -244,9 +246,9 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
         {loadingReceived && <Skeleton type="seller_review" />}
       </ToggleCollapse>
 
-      <TrustProtectInsufficientMappiModal
-        isOpen={showInsufficientMappiModal}
-        onClose={() => setShowInsufficientMappiModal(false)}
+      <TrustProtectInsufficientMappiDialog
+        isOpen={showInsufficientMappiDialog}
+        onClose={() => setShowInsufficientMappiDialog(false)}
       />
     </div>
   );
