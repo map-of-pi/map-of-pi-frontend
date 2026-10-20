@@ -219,7 +219,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "未找到先鋒 {search_value} 的評論",
         "NO_PIONEER_FOUND": "未找到先鋒 {search_value}",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已成功啟用。",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect 已套用",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "找不到此評論。請重新整理頁面後再試一次。",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "找不到此評論。此評論可能已被刪除或修改。",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此評論的 Pioneer 才能使用 Trust Protect。",

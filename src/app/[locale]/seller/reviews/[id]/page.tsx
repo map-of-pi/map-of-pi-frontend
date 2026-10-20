@@ -5,6 +5,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import { FormControl, TextField } from '@mui/material';
 import EmojiPicker from '@/components/shared/Review/emojipicker';
 import { ReviewCard } from '@/components/shared/Review/ReviewCard';
+import {
+  TrustProtectInsufficientMappiDialog,
+} from '@/components/shared/Review/TrustProtect';
 import ToggleCollapse from '@/components/shared/Seller/ToggleCollapse';
 import Skeleton from '@/components/skeleton/skeleton';
 import { isTrustProtectErrorCode } from '@/constants/errors';
@@ -29,6 +32,8 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
     useContext(AppContext);
 
   const [searchInput, setSearchInput] = useState('');
+  const [showInsufficientMappiDialog, setShowInsufficientMappiDialog] =
+    useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   // Displayed user state — starts as the route owner
   const [toUser, setToUser] = useState(params.id);
@@ -99,11 +104,15 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
       const errorCode = error?.response?.data?.code;
 
-      showAlert(
-        isTrustProtectErrorCode(errorCode)
-          ? t(`SCREEN.REVIEWS.VALIDATION.${errorCode}`)
-          : t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
-      );
+      if (errorCode === 'TRUST_PROTECT_INSUFFICIENT_MAPPI') {
+        setShowInsufficientMappiDialog(true);
+      } else {
+        showAlert(
+          isTrustProtectErrorCode(errorCode)
+            ? t(`SCREEN.REVIEWS.VALIDATION.${errorCode}`)
+            : t('SCREEN.REVIEWS.VALIDATION.TRUST_PROTECT_ACTIVATION_FAILED'),
+        );
+      }
     }
   };
   
@@ -236,6 +245,11 @@ function SellerReviews({ params, searchParams }: SellerReviewsProps) {
 
         {loadingReceived && <Skeleton type="seller_review" />}
       </ToggleCollapse>
+
+      <TrustProtectInsufficientMappiDialog
+        isOpen={showInsufficientMappiDialog}
+        onClose={() => setShowInsufficientMappiDialog(false)}
+      />
     </div>
   );
 }
