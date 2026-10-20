@@ -219,7 +219,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "Womekpɔ numetoto aɖeke na Mɔɖela {search_value}",
         "NO_PIONEER_FOUND": "Mɔɖela Pionnier {search_value} mekpɔe o",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Woɖe Trust Protect dzi nyuie.",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Woɖe Trust Protect dzi",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "Míekpɔ review sia o. Taflatse gbugbɔ screen la eye nàte ŋu agbugbɔ adze.",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "Míekpɔ review sia o. Ate ŋu anye be woɖe eɖa alo wotrɔ asi le eŋu.",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer si xɔ review sia ko koe ate ŋu azã Trust Protect.",

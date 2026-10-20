@@ -219,7 +219,7 @@
       "VALIDATION": {
         "NO_REVIEWS_FOUND": "개척자 {search_value}에 대한 리뷰를 찾을 수 없습니다",
         "NO_PIONEER_FOUND": "개척자 {search_value}를 찾을 수 없습니다",
-        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect가 성공적으로 활성화되었습니다.",
+        "TRUST_PROTECT_ACTIVATION_SUCCESSFUL": "Trust Protect가 적용됨",
         "TRUST_PROTECT_INVALID_REVIEW_ID": "이 리뷰를 찾을 수 없습니다. 화면을 새로고침한 후 다시 시도해 주세요.",
         "TRUST_PROTECT_REVIEW_NOT_FOUND": "이 리뷰를 찾을 수 없습니다. 삭제되었거나 변경되었을 수 있습니다.",
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "이 리뷰를 받은 Pioneer만 Trust Protect를 사용할 수 있습니다.",
