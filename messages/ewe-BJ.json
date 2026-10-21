@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ɛsɛ be ƒeɖeɖe la nà log in abe alea nàtsɔ ka"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "App dzikpɔkpɔ",
+      "TABS": {
+        "STATISTICS": "Xexlẽme",
+        "ADMIN_REGISTER": "Admin ŋkɔŋlɔ",
+        "ADD_VOUCHERS": "Tsɔ voucherwo kpe ɖe eŋu"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Zãzã ƒe xexlẽme",
+        "CURRENT_MEMBERSHIP_TOTALS": "Membership ƒe xexlẽme le fifia",
+        "REGISTERED_USERS": "Zãlawo siwo ŋlɔ ŋkɔ",
+        "SELLERS": "Nudzralawo",
+        "REVIEWS": "Numeɖeɖewo",
+        "ITEMS_LISTED": "Nu siwo woŋlɔ ɖe xexlẽ me",
+        "ORDERS_CREATED": "Order siwo wowɔ",
+        "ORDERS_FULFILLED": "Order siwo wowu enu",
+        "ORDERED_ITEMS": "Nu siwo wobla order na",
+        "TOTAL_MEMBERS": "Members katã ƒe xexlẽme",
+        "INDIVIDUAL_MAPPI": "Ame ɖeka ƒe Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Admin Pi username si woatsɔ akpe ɖe eŋu/aɖe le eme",
+        "ADD": "Tsɔ kpe ɖe eŋu",
+        "REMOVE": "Ɖe le eme",
+        "LIST_OF_ADMINS": "Adminwo ƒe xexlẽme:",
+        "ADMIN_ADDED": "Wotsɔ Admin la kpe ɖe eŋu dzidzedzetɔe.",
+        "ADMIN_REMOVED": "Woɖe Admin la le eme dzidzedzetɔe.",
+        "PIONEER_NOT_ADMIN": "Pioneer la menye Admin o.",
+        "FETCH_ADMINS_ERROR": "Womete ŋu xɔ Adminwo ƒe xexlẽme o.",
+        "ADD_ADMIN_ERROR": "Womete ŋu tsɔ Admin la kpe ɖe eŋu o.",
+        "REMOVE_ADMIN_ERROR": "Womete ŋu ɖe Admin la le eme o."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer username",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Ame si axɔ voucher",
+        "VOUCHER_CODE_LABEL": "Voucher code",
+        "VALIDITY_PERIOD_LABEL": "Ɣeyiɣi si wòle ŋusẽ me",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Ŋkekewo ƒe xexlẽme",
+        "PIONEER_REQUIRED": "Ele be nàŋlɔ Pioneer ƒe ŋkɔ.",
+        "VOUCHER_CODE_REQUIRED": "Ele be nàŋlɔ voucher code.",
+        "VOUCHER_CODE_NO_SPACES": "Megana nɔƒe ƒuƒlu nanɔ voucher code la me o.",
+        "UNAUTHORIZED_USER": "Zãla si mekpɔ mɔɖeɖe o.",
+        "VALIDITY_PERIOD_INVALID": "Ɣeyiɣi si wòle ŋusẽ me la ele be wòanye nɔmba blibo tso 1 va se ɖe 20.",
+        "CONFIRM_MESSAGE": "Èle {tier} voucher si ŋkɔe nye \"{voucherCode}\" ɖo ɖi na Pioneer {pioneer}; ele be woazãe hafi {validUntil} nava, si nye le {days} {daysLabel} me.",
+        "DAY": "ŋkeke",
+        "DAYS": "ŋkekewo",
+        "VOUCHER_SAVED": "Woɖo voucher la ɖi",
+        "ASSIGN_VOUCHER_ERROR": "Womete ŋu tsɔ voucher la na ame o",
+        "ADD_VOUCHER_ERROR": "Vodada va le voucher la tsɔtsɔ kpe ɖe eŋu me",
+        "LOAD_MEMBERSHIP_ERROR": "Womete ŋu xɔ Membership data o",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "ƒeƒeɖoɖoɖoɖo ƒe Nyɔnu",
       "SELLER_RESTRICTION_MESSAGE": "Wo ƒe Sell Center le region si Pi Network le be nye be menya ɖe, eye wò map marker la katã be ɖo ɖe amedzrowo nu",

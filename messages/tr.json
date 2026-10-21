@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "Ödeme yapmak için kullanıcının oturum açmış olması gerekir"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "Uygulama Yönetimi",
+      "TABS": {
+        "STATISTICS": "İstatistikler",
+        "ADMIN_REGISTER": "Yönetici kaydı",
+        "ADD_VOUCHERS": "Kupon ekle"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "Kullanım sayıları",
+        "CURRENT_MEMBERSHIP_TOTALS": "Mevcut Membership toplamları",
+        "REGISTERED_USERS": "Kayıtlı kullanıcılar",
+        "SELLERS": "Satıcılar",
+        "REVIEWS": "Değerlendirmeler",
+        "ITEMS_LISTED": "Listelenen ürünler",
+        "ORDERS_CREATED": "Oluşturulan siparişler",
+        "ORDERS_FULFILLED": "Tamamlanan siparişler",
+        "ORDERED_ITEMS": "Sipariş edilen ürünler",
+        "TOTAL_MEMBERS": "Toplam üye sayısı",
+        "INDIVIDUAL_MAPPI": "Bireysel Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer kullanıcı adı:",
+        "PIONEER_USERNAME_PLACEHOLDER": "Eklenecek/kaldırılacak yöneticinin Pi kullanıcı adı",
+        "ADD": "Ekle",
+        "REMOVE": "Kaldır",
+        "LIST_OF_ADMINS": "Yönetici listesi:",
+        "ADMIN_ADDED": "Yönetici başarıyla eklendi.",
+        "ADMIN_REMOVED": "Yönetici başarıyla kaldırıldı.",
+        "PIONEER_NOT_ADMIN": "Pioneer bir yönetici değil.",
+        "FETCH_ADMINS_ERROR": "Yöneticiler alınamadı.",
+        "ADD_ADMIN_ERROR": "Yönetici eklenemedi.",
+        "REMOVE_ADMIN_ERROR": "Yönetici kaldırılamadı."
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer kullanıcı adı",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "Kupon alıcısı",
+        "VOUCHER_CODE_LABEL": "Kupon kodu",
+        "VALIDITY_PERIOD_LABEL": "Geçerlilik süresi",
+        "VALIDITY_PERIOD_PLACEHOLDER": "Gün sayısı",
+        "PIONEER_REQUIRED": "Pioneer adı gereklidir.",
+        "VOUCHER_CODE_REQUIRED": "Kupon kodu gereklidir.",
+        "VOUCHER_CODE_NO_SPACES": "Kupon kodu boşluk içermemelidir.",
+        "UNAUTHORIZED_USER": "Yetkisiz kullanıcı.",
+        "VALIDITY_PERIOD_INVALID": "Geçerlilik süresi 1 ile 20 arasında bir tam sayı olmalıdır.",
+        "CONFIRM_MESSAGE": "Pioneer {pioneer} için \"{voucherCode}\" adlı bir {tier} kuponu oluşturuyorsunuz. Bu kupon {validUntil} tarihine kadar, yani {days} {daysLabel} içinde kullanılmalıdır.",
+        "DAY": "gün",
+        "DAYS": "gün",
+        "VOUCHER_SAVED": "Kupon kaydedildi",
+        "ASSIGN_VOUCHER_ERROR": "Kupon atanamadı",
+        "ADD_VOUCHER_ERROR": "Kupon eklenirken hata oluştu",
+        "LOAD_MEMBERSHIP_ERROR": "Membership verileri yüklenemedi",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "Satıcı Yönetimi",
       "SELLER_RESTRICTION_MESSAGE": "YSatış Merkezimiz Pi Network tarafından onaylanmış bir bölgededir, bu nedenle harita işaretleyiciniz tüm kullanıcılara gizlenecektir",

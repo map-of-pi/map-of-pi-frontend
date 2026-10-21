@@ -71,6 +71,61 @@
         "USER_NOT_LOGGED_IN_PAYMENT_MESSAGE": "用户必须登录才能进行支付"
       }
     },
+    "APP_MANAGEMENT": {
+      "HEADER": "应用管理",
+      "TABS": {
+        "STATISTICS": "统计",
+        "ADMIN_REGISTER": "管理员注册",
+        "ADD_VOUCHERS": "添加优惠券"
+      },
+      "STATISTICS": {
+        "USAGE_NUMBERS": "使用数据",
+        "CURRENT_MEMBERSHIP_TOTALS": "当前 Membership 总数",
+        "REGISTERED_USERS": "注册用户",
+        "SELLERS": "卖家",
+        "REVIEWS": "评论",
+        "ITEMS_LISTED": "已上架商品",
+        "ORDERS_CREATED": "已创建订单",
+        "ORDERS_FULFILLED": "已完成订单",
+        "ORDERED_ITEMS": "已订购商品",
+        "TOTAL_MEMBERS": "会员总数",
+        "INDIVIDUAL_MAPPI": "个人 Mappi"
+      },
+      "ADMIN_REGISTER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer 用户名：",
+        "PIONEER_USERNAME_PLACEHOLDER": "要添加/移除的管理员 Pi 用户名",
+        "ADD": "添加",
+        "REMOVE": "移除",
+        "LIST_OF_ADMINS": "管理员列表：",
+        "ADMIN_ADDED": "管理员添加成功。",
+        "ADMIN_REMOVED": "管理员移除成功。",
+        "PIONEER_NOT_ADMIN": "Pioneer 不是管理员。",
+        "FETCH_ADMINS_ERROR": "无法获取管理员列表。",
+        "ADD_ADMIN_ERROR": "无法添加管理员。",
+        "REMOVE_ADMIN_ERROR": "无法移除管理员。"
+      },
+      "ADD_VOUCHER": {
+        "PIONEER_USERNAME_LABEL": "Pioneer 用户名",
+        "VOUCHER_RECIPIENT_PLACEHOLDER": "优惠券接收者",
+        "VOUCHER_CODE_LABEL": "优惠券代码",
+        "VALIDITY_PERIOD_LABEL": "有效期",
+        "VALIDITY_PERIOD_PLACEHOLDER": "天数",
+        "PIONEER_REQUIRED": "Pioneer 名称为必填项。",
+        "VOUCHER_CODE_REQUIRED": "优惠券代码为必填项。",
+        "VOUCHER_CODE_NO_SPACES": "优惠券代码不得包含空格。",
+        "UNAUTHORIZED_USER": "未经授权的用户。",
+        "VALIDITY_PERIOD_INVALID": "有效期必须是 1 到 20 之间的整数。",
+        "CONFIRM_MESSAGE": "您正在为 Pioneer {pioneer} 设置名为 \"{voucherCode}\" 的 {tier} 优惠券，该优惠券必须在 {validUntil} 前兑换，即在 {days} {daysLabel} 内兑换。",
+        "DAY": "天",
+        "DAYS": "天",
+        "VOUCHER_SAVED": "优惠券已保存",
+        "ASSIGN_VOUCHER_ERROR": "无法分配优惠券",
+        "ADD_VOUCHER_ERROR": "添加优惠券时出错",
+        "LOAD_MEMBERSHIP_ERROR": "无法加载 Membership 数据",
+        "SAVE": "Save"
+      },
+      "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
+    },
     "SELLER_REGISTRATION": {
       "SELLER_REGISTRATION_HEADER": "卖家管理",
       "SELLER_RESTRICTION_MESSAGE": "您的销售中心位于 Pi Network 制裁的区域，因此您的地图标记将对所有用户隐藏",
