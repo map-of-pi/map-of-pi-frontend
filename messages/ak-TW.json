@@ -53,7 +53,7 @@
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Seisei abɔdeɛ mu awieeɛ da",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ɔyɛfoɔ nni hɔ",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi a aka no",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa Mappi a wopɛ sɛ wotɔ",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Paw abɔdeɛ mu anaa mappi a wopɛ sɛ wotɔ",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "abɔntenkɔmu ({duration} nna nsia)",
       "PICK_BUY_METHOD_LABEL": "Paw sɔ adeɛ kwan",
       "NO_ACTIVE_MEMBERSHIP": "Wonni membasip biara",
@@ -122,7 +122,7 @@
         "FAILED_SELLER_ITEM_SAVE": "Mfomso bi sii bere a wɔde atɔn adeɛ no kɔra",
         "FAILED_SELLER_ITEM_DELETE": "Mfomso bi sii bere a wɔde atɔn adeɛ no pepae",
         "SELLER_ITEM_NOT_FOUND": "Wɔanhu atɔn adeɛ no",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Kɔra no yɛɛ yiye. Mappi a wɔde dii dwuma yɛ {mappi_count}",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Kɔra no yɛɛ yiye",
         "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Kɔra no antumi anyɛ yiye. Mappi kwan a aka no mmɔ ho"
       },
       "SELLER_ITEMS_FEATURE": {
@@ -132,8 +132,6 @@
         "DESCRIPTION_LABEL": "Nkyerɛmu",
         "PHOTO": "Mfonini",
         "SELLING_DURATION_LABEL": "Bere a wɔbɛtɔn no (nnawɔtwe mu)",
-        "MAPPI_COST_PREVIEW": "Eyi bɛgye Mappi {mappi_count}",
-        "MAPPI_REFUND_PREVIEW": "Wobɛsan anya Mappi {mappi_count}",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Wɔtɔn so",
           "EXPIRED": "Asesa"
@@ -209,7 +207,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wɔahyɛ hyɛdeɛ no yiye",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Antumi annye adwuma no. Mesrɛ, san hwɛ bio na hu sɛ wowɔ Mappi baako anaa sen bi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Antumi annye adwuma no. Mesrɛ, san hwɛ bio na hu sɛ wowɔ mappi baako anaa sen bi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Nsɛnkɔm",
@@ -225,7 +223,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer a onyaa saa review yi nkutoo na obetumi de Trust Protect adi dwuma.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Wɔde Trust Protect adi dwuma dedaw wɔ saa review yi so.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect betumi adi dwuma wɔ review ahorow a wɔde [DESPAIR] rating ama nkutoo.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect biara a wode bedi dwuma no de Mappi 1000 di dwuma. Fa Membership krataafa no ma wo Mappi dodow no nkɔ anim.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect biara a wode bedi dwuma no de mappi 1000 di dwuma. Fa Membership krataafa no ma wo mappi dodow no nkɔ anim.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Antumi ankanyan Trust Protect."
       }
     },
