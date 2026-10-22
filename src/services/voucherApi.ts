@@ -2,6 +2,7 @@ import axios from "axios";
 import axiosClient from "@/config/client";
 import { IMembership, IVoucher, MembershipClassType } from "@/constants/types";
 import logger from "../../logger.config.mjs"
+import { getApiError } from "@/utils/getApiError";
 
 export interface IUserVouchersResult {
   success: boolean;
@@ -81,22 +82,12 @@ export const addVoucher = async (body: {
     logger.info(`Assigning voucher to user`);
 
     const response = await axiosClient.post("/voucher/add", body);
-    if (response.status === 400) {
-      logger.info(`Failed to assign voucher, ${response.data.message}`);
-
-      return {
-        success: false,
-        error: response.data.message
-      }
-    }
     return response.data;
   } catch (error) {
-    logger.error('Assign user voucher encountered an error:', error);
+    logger.error('Assign user voucher encountered an error:', getApiError(error));
     return {
       success: false,
-      error: axios.isAxiosError(error)
-        ? error.response?.data?.message || "Unexpected error assigning voucher. Please try again later."
-        : "Unexpected error assigning voucher. Please try again later."
+      error: getApiError(error) || "Unexpected error assigning voucher. Please try again later."
     };
   }
 };

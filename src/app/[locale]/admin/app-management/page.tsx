@@ -27,7 +27,7 @@ import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
 import { addVoucher } from '@/services/voucherApi';
-import { fetchSummaryStatistics } from '@/services/appManagerApi';
+import { authenticateAppManager, fetchSummaryStatistics } from '@/services/appManagerApi';
 import { 
   getAppManagers, 
   addAppManager, 
@@ -158,14 +158,25 @@ const StatisticsTab = () => {
   );
 }
 
-const AdminRegisterTab = () => {
+interface TabProps {
+  notificationMessage: string;
+  setNotificationMessage: (message: string) => void;
+  showNotification: boolean;
+  setShowNotification: (show: boolean) => void;
+}
+
+const AdminRegisterTab = ({
+  notificationMessage,
+  setNotificationMessage,
+  showNotification,
+  setShowNotification
+}: TabProps
+) => {
   const { showAlert, setIsSaveLoading, currentUser, isSigningInUser } = useContext(AppContext);
 
   const [admins, setAdmins] = useState<AdminType[]>([]);
   const [isPermanentAdmin, setIsPermanentAdmin] = useState<boolean>(false)
   const [piUsernameInput, setPiUsernameInput] = useState("");
-  const [showDialog, setShowDialog]  =  useState<boolean>(false);
-  const [dialogMessage, setDialogMessage] = useState<string> ("");
 
   const t = useTranslations();
 
@@ -199,10 +210,10 @@ const AdminRegisterTab = () => {
       }
     } catch (error: any) {
 
-      setDialogMessage(
+      setNotificationMessage(
         error?.message ?? t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.FETCH_ADMINS_ERROR')
       );
-      setShowDialog(true);
+      setShowNotification(true);
     } finally {
       setIsSaveLoading(false);
     }
@@ -228,11 +239,11 @@ const AdminRegisterTab = () => {
         showAlert(t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADMIN_ADDED'));
       }
     } catch (error: any) {
-      setDialogMessage(
+      setNotificationMessage(
         error.message ??
           t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADD_ADMIN_ERROR')
       );
-      setShowDialog(true)
+      setShowNotification(true)
     } finally {
       setIsSaveLoading(false)
     }
@@ -265,10 +276,10 @@ const AdminRegisterTab = () => {
         showAlert(result.message || t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.ADMIN_REMOVED'));
       }
     } catch (error: any) {
-      setDialogMessage(
+      setNotificationMessage(
         error.message ?? t('SCREEN.APP_MANAGEMENT.ADMIN_REGISTER.REMOVE_ADMIN_ERROR')
       );
-      setShowDialog(true)
+      setShowNotification(true)
     } finally {
       setIsSaveLoading(false)
     }
@@ -334,16 +345,18 @@ const AdminRegisterTab = () => {
         </ul>
       </div>
 
-      <Notification
-        message={dialogMessage}
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
-      />
+      
     </div>
   );
 }
 
-const AddVouchersTab = () => {
+const AddVouchersTab = ({
+  notificationMessage,
+  setNotificationMessage,
+  showNotification,
+  setShowNotification
+}: TabProps
+) => {
   const { showAlert, setIsSaveLoading, currentUser, isSaveLoading } = useContext(AppContext);
   const t = useTranslations();
 
@@ -353,8 +366,8 @@ const AddVouchersTab = () => {
   
   const [voucherCode, setVoucherCode] = useState('GreenForFree');
   const [validityDays, setValidityDays] = useState<string>('20');
-  const [popup, setPopup] = useState<boolean>(false);
-  const [notificationMessage, setNotificationMessage] = useState<string>('');
+  const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+  const [dialogueMessage, setDialogueMessage] = useState<string>('');
 
   const handleSave = () => {
     const errors: string[] = [];
@@ -370,14 +383,14 @@ const AddVouchersTab = () => {
 
     if (errors.length > 0) {
       setNotificationMessage( errors.join('\n') );
-      setPopup(true);
+      setShowNotification(true);
       return;
     }
 
     const validUntil = addDays(new Date(), days);
     const tierLabel = membershipList.find(t => t.value === selectedMembership)?.value ?? selectedMembership;
 
-    setNotificationMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.CONFIRM_MESSAGE', {
+    setDialogueMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.CONFIRM_MESSAGE', {
       tier: tierLabel,
       voucherCode,
       pioneer: recipient.trim(),
@@ -385,7 +398,7 @@ const AddVouchersTab = () => {
       days,
       daysLabel: t(`SCREEN.APP_MANAGEMENT.ADD_VOUCHER.${days === 1 ? 'DAY' : 'DAYS'}`),
     }));
-    setPopup(true);    
+    setShowConfirmDialog(true);    
   };
 
   const handleConfirm = async () => {
@@ -400,16 +413,18 @@ const AddVouchersTab = () => {
       });
 
       if (!result.success) {
-        showAlert(result.error || t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ASSIGN_VOUCHER_ERROR'));
+        setNotificationMessage(result.error || t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ASSIGN_VOUCHER_ERROR'));
+        setShowNotification(true);
       } else {
         showAlert(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_SAVED'));
       }
       
     } catch (error) {
-      showAlert(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ADD_VOUCHER_ERROR'));
+      setNotificationMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.ADD_VOUCHER_ERROR'));
+      setShowNotification(true);
     } finally {
       setIsSaveLoading(false);
-      setPopup(false);
+      setShowConfirmDialog(false);
     }
   };
 
@@ -510,11 +525,11 @@ const AddVouchersTab = () => {
       </div>
 
       {/* Confirm popup */}
-      {popup && (
+      {showConfirmDialog && (
         <ConfirmDialogX 
-          toggle={() => setPopup(false)}  
+          toggle={() => setShowConfirmDialog(false)}  
           handleClicked={handleConfirm}
-          message={notificationMessage}
+          message={dialogueMessage}
         />
       )}
     </div>
@@ -524,8 +539,12 @@ const AddVouchersTab = () => {
 // ─── App Management Page ──────────────────────────────────────────────────────
 
 export default function AppManagementPage() {
-  const { currentUser } = useContext(AppContext);
+  const {currentUser, isSigningInUser} = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState<TabId>('statistics');
+  const [showNotification, setShowNotification]  =  useState<boolean>(false);
+  const [notificationMessage, setNotificationMessage] = useState<string> ("");
+  const [isAppManager, setIsAppManager] = useState(false);
+
   const navTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const t = useTranslations();
 
@@ -539,7 +558,24 @@ export default function AppManagementPage() {
     if (navTimerRef.current) clearTimeout(navTimerRef.current);
   }, []);
 
-  if (!currentUser) {
+  useEffect(() => {
+    if (!currentUser || isSigningInUser) return
+
+    const authAppManager = async () => {    
+      try {
+        const result = await authenticateAppManager();
+        if (result.success) {
+          setIsAppManager(true);
+        }
+      } catch (error: any) {
+        setIsAppManager(false);
+      }
+    };
+    
+    authAppManager();
+  }, [currentUser]);
+
+  if (!currentUser || !isAppManager) {
     return (
       <div className="amp-page">
         <p className="amp-access-denied">{t('SCREEN.APP_MANAGEMENT.AUTH_REQUIRED')}</p>
@@ -566,12 +602,28 @@ export default function AppManagementPage() {
       )}
 
       {selectedTab === 'adminregister' && (
-        <AdminRegisterTab />
+        <AdminRegisterTab
+          notificationMessage={notificationMessage}
+          setNotificationMessage={setNotificationMessage}
+          showNotification={showNotification}
+          setShowNotification={setShowNotification}
+        />
       )}
 
       {selectedTab === 'addvouchers' && (
-        <AddVouchersTab />
+        <AddVouchersTab 
+          notificationMessage={notificationMessage}
+          setNotificationMessage={setNotificationMessage}
+          showNotification={showNotification}
+          setShowNotification={setShowNotification}        
+        />
       )}
+
+      <Notification
+        message={notificationMessage}
+        showDialog={showNotification}
+        setShowDialog={setShowNotification}
+      />
     </div>
   );
 }
