@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "Ìpele ìṣọkan lọ́wọ́lọ́wọ́",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ọjọ́ ìparí ìṣọkan lọ́wọ́lọ́wọ́",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Ko si ìdárúpọ̀ tó ń ṣiṣẹ́",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ìyókù Mappi",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Yan ìṣọkan tàbí Mappi láti rà",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ìyókù mappi",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Yan ìṣọkan tàbí mappi láti rà",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "ìmọ̀lára ({duration} ọ̀sẹ̀)",
       "PICK_BUY_METHOD_LABEL": "Yan ọ̀nà rira",
       "NO_ACTIVE_MEMBERSHIP": "O kò ní ọmọ ẹgbẹ́ kankan tí ó ń ṣiṣẹ́",
@@ -122,7 +122,7 @@
         "FAILED_SELLER_ITEM_SAVE": "Àṣìṣe ní fífi item olùtà pamọ́",
         "FAILED_SELLER_ITEM_DELETE": "Àṣìṣe ní pa item olùtà",
         "SELLER_ITEM_NOT_FOUND": "Kò ri item olùtà",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Fipamọ́ aṣeyọrí. Mappi ìkúnrẹ́rẹ́ tó lò ni {mappi_count}",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Fipamọ́ aṣeyọrí",
         "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Fipamọ́ kò ṣeyọrí. Mappi ìkúnrẹ́rẹ́ kò tó"
       },
       "SELLER_ITEMS_FEATURE": {  
@@ -132,8 +132,6 @@
         "DESCRIPTION_LABEL": "Àpejúwe",
         "PHOTO": "Fọ́tò",
         "SELLING_DURATION_LABEL": "Àkókò títà ní ọsẹ",
-        "MAPPI_COST_PREVIEW": "Èyí yóò na {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "A ó da {mappi_count} Mappi padà fún ọ",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Ṣiṣẹ́",
           "EXPIRED": "Tí parí"
@@ -209,7 +207,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "A ti fiṣẹṣẹ ránṣẹ̀",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "A kò lè ṣe ìṣẹ̀lẹ̀ àṣẹ náà. Jọwọ tún gbìmọ̀ ṣe, kí o sì rí i dájú pé o ní o kere tán 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "A kò lè ṣe ìṣẹ̀lẹ̀ àṣẹ náà. Jọwọ tún gbìmọ̀ ṣe, kí o sì rí i dájú pé o ní o kere tán 1 mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Atunyẹwo",
@@ -225,7 +223,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer tí ó gba review yìí nìkan ló lè lo Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect ti wà lórí review yìí tẹ́lẹ̀.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect lè ṣee lò lórí review tí ó ní rating [DESPAIR] nìkan.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Lílo Trust Protect kọ̀ọ̀kan máa ń lo 1000 Mappi. Lo ojú-ìbojú Membership láti pọ̀si ìwọ̀ntúnwọ̀nsì Mappi rẹ.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Lílo Trust Protect kọ̀ọ̀kan máa ń lo 1000 mappi. Lo ojú-ìbojú Membership láti pọ̀si ìwọ̀ntúnwọ̀nsì mappi rẹ.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "A kò lè mú Trust Protect ṣiṣẹ́."
       }
     },

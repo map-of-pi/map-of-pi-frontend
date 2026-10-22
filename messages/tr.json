@@ -53,7 +53,7 @@
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Mevcut üyelik bitiş tarihi",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Aktif üyelik yok",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "MKalan appi ödeneği",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Satın almak için üyelik veya Mappi'yi seçin",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Satın almak için üyelik veya mappi'yi seçin",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "Üyelik ({duration} Haftalar)",
       "PICK_BUY_METHOD_LABEL": "Satın alma yöntemini seç",
       "NO_ACTIVE_MEMBERSHIP": "Aktif bir üyeliğiniz yok",
@@ -122,8 +122,8 @@
         "FAILED_SELLER_ITEM_SAVE": "Satıcı ürününü kaydetme hatası",
         "FAILED_SELLER_ITEM_DELETE": "Satıcı ürünü silinirken hata oluştu",
         "SELLER_ITEM_NOT_FOUND": "Satıcı ürünü bulunamadı",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Kaydetme başarılı. Kullanılan Mappi ödeneği {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Başarısızlığı kaydedin. Yetersiz Mappi ödeneği mevcut"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Kaydetme başarılı",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Başarısızlığı kaydedin. Yetersiz mappi ödeneği mevcut"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "Madde",
@@ -209,7 +209,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Sipariş başarıyla verildi",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Sipariş işleme alınamadı. Lütfen tekrar deneyin ve en az 1 Mappi'ye sahip olduğunuzdan emin olun."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Sipariş işleme alınamadı. Lütfen tekrar deneyin ve en az 1 mappi'ye sahip olduğunuzdan emin olun."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "İncelemeler",
@@ -225,7 +225,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Trust Protect'i yalnızca bu incelemeyi alan Pioneer kullanabilir.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect bu incelemeye zaten uygulanmış.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect yalnızca [DESPAIR] derecelendirmesine sahip incelemelerde kullanılabilir.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 1000 Mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect'in her kullanımı 1000 mappi tüketir. Mappi bakiyenizi artırmak için Membership ekranını kullanın.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect etkinleştirilemedi."
       }
     },
