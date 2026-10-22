@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "Classe d’adhésion actuelle",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Date de fin d’adhésion actuelle",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Aucune adhésion active",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Solde Mappi restant",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Choisissez l’adhésion ou Mappi à acheter",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Solde mappi restant",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Choisissez l’adhésion ou mappi à acheter",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "adhésion ({duration} semaines)",
       "PICK_BUY_METHOD_LABEL": "Choisissez la méthode d’achat",
       "NO_ACTIVE_MEMBERSHIP": "Vous n'avez aucun abonnement actif",
@@ -122,8 +122,8 @@
         "FAILED_SELLER_ITEM_SAVE": "Erreur lors de l'enregistrement de l'article du vendeur",
         "FAILED_SELLER_ITEM_DELETE": "Erreur lors de la suppression de l'article du vendeur",
         "SELLER_ITEM_NOT_FOUND": "Article du vendeur introuvable",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Enregistrement réussi. Allocation Mappi utilisée {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Échec de l'enregistrement. Allocation Mappi insuffisante disponible"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Enregistrement réussi",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Échec de l'enregistrement. Allocation mappi insuffisante disponible"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "Article",
@@ -132,8 +132,6 @@
         "DESCRIPTION_LABEL": "Description",
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Durée de vente en semaines",
-        "MAPPI_COST_PREVIEW": "{mappi_count} Mappi seront facturés",
-        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi seront remboursés",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Actif",
           "EXPIRED": "Expiré"
@@ -209,7 +207,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Commande passée avec succès",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "La commande n’a pas pu être traitée. Veuillez réessayer et assurez-vous d’avoir au moins 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "La commande n’a pas pu être traitée. Veuillez réessayer et assurez-vous d’avoir au moins 1 mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Avis",
@@ -225,7 +223,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Seul le Pioneer ayant reçu cet avis peut utiliser Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect a déjà été appliqué à cet avis.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect ne peut être utilisé que pour les avis ayant une note [DESPAIR].",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Chaque utilisation de Trust Protect consomme 1000 Mappi. Utilisez l'écran Membership pour augmenter votre solde Mappi.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Chaque utilisation de Trust Protect consomme 1000 mappi. Utilisez l'écran Membership pour augmenter votre solde mappi.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Impossible d'activer Trust Protect."
       }
     },

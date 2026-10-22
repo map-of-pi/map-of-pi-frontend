@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "Ajin ƙungiya na yanzu",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ranar ƙarewar ƙungiya ta yanzu",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Babu rajistar da take aiki",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ragowar Mappi",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Zaɓi ƙungiya ko Mappi don siya",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Ragowar mappi",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Zaɓi ƙungiya ko mappi don siya",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "memba ({duration} makonni)",
       "PICK_BUY_METHOD_LABEL": "Zaɓi hanyar siya",
       "NO_ACTIVE_MEMBERSHIP": "Ba ka da wata membobinsu mai aiki",
@@ -122,8 +122,8 @@
         "FAILED_SELLER_ITEM_SAVE": "Kuskure wajen adana kayan mai sayarwa",
         "FAILED_SELLER_ITEM_DELETE": "Kuskure wajen share kayan mai sayarwa",
         "SELLER_ITEM_NOT_FOUND": "Ba a samu kayan mai sayarwa ba",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Ajiye ya yi nasara. An yi amfani da Mappi {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Ajiye bai yi nasara ba. Adadin Mappi ba ya wadatarwa"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Ajiye ya yi nasara",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Ajiye bai yi nasara ba. Adadin mappi ba ya wadatarwa"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "Abu",
@@ -132,8 +132,6 @@
         "DESCRIPTION_LABEL": "Bayani",
         "PHOTO": "Hoto",
         "SELLING_DURATION_LABEL": "Tsawon lokacin siyarwa a makonni",
-        "MAPPI_COST_PREVIEW": "Wannan zai kashe {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "Za a mayar maka da {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Aiki",
           "EXPIRED": "Ƙarewa"
@@ -209,7 +207,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "An yi oda cikin nasara",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Bai yiwu a sarrafa odar ba. Da fatan za a sake gwadawa kuma ku tabbatar kuna da aƙalla 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Bai yiwu a sarrafa odar ba. Da fatan za a sake gwadawa kuma ku tabbatar kuna da aƙalla 1 mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Bita",
@@ -225,7 +223,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer da ya karɓi wannan review ne kaɗai zai iya amfani da Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "An riga an yi amfani da Trust Protect a wannan review.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Ana iya amfani da Trust Protect ne kawai a kan review mai [DESPAIR] rating.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Kowane amfani da Trust Protect yana cin 1000 Mappi. Yi amfani da allon Membership don ƙara ma'aunin Mappi ɗinka.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Kowane amfani da Trust Protect yana cin 1000 mappi. Yi amfani da allon Membership don ƙara ma'aunin mappi ɗinka.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "An kasa kunna Trust Protect."
       }
     },
