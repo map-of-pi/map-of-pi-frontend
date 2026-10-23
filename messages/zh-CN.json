@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "当前会员等级",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "当前会员结束日期",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "没有有效的会员资格",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "剩余的Mappi额度",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "选择要购买的会员或Mappi",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "剩余的mappi额度",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "选择要购买的会员或mappi",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "会员资格（{duration} 周）",
       "PICK_BUY_METHOD_LABEL": "选择购买方式",
       "NO_ACTIVE_MEMBERSHIP": "您当前没有任何有效会员资格",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "保存卖家商品时出错",
         "FAILED_SELLER_ITEM_DELETE": "删除卖家商品时出错",
         "SELLER_ITEM_NOT_FOUND": "未找到卖家商品",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "保存成功。使用的 Mappi 配额为 {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "保存失败。可用的 Mappi 配额不足"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "保存成功",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "保存失败。可用的 mappi 配额不足"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "商品",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "描述",
         "PHOTO": "照片",
         "SELLING_DURATION_LABEL": "销售周期（以周为单位）",
-        "MAPPI_COST_PREVIEW": "需要支付 {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "将退还 {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "活动中",
           "EXPIRED": "已过期"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "订单提交成功",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "订单处理失败。请重试，并确保您至少拥有 1 Mappi。"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "订单处理失败。请重试，并确保您至少拥有 1 mappi。"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "评论",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "只有收到此评论的 Pioneer 才能使用 Trust Protect。",
         "TRUST_PROTECT_ALREADY_APPLIED": "此评论已应用 Trust Protect。",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect 只能用于带有 [DESPAIR] 评级的评论。",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都会消耗 1000 Mappi。请使用 Membership 页面来增加您的 Mappi 余额。",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "每次使用 Trust Protect 都会消耗 1000 mappi。请使用 Membership 页面来增加您的 mappi 余额。",
         "TRUST_PROTECT_ACTIVATION_FAILED": "无法启用 Trust Protect。"
       }
     },

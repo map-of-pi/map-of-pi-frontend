@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "वर्तमान सदस्यता श्रेणी",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "वर्तमान सदस्यता समाप्ति तिथि",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "कोई सक्रिय सदस्यता नहीं",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "शेष Mappi भत्ता",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "सदस्यता या Mappi खरीदें चुनें",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "शेष mappi भत्ता",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "सदस्यता या mappi खरीदें चुनें",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "सदस्यता ({duration} सप्ताह)",
       "PICK_BUY_METHOD_LABEL": "खरीदने की विधि चुनें",
       "NO_ACTIVE_MEMBERSHIP": "आपके पास कोई सक्रिय सदस्यता नहीं है",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "विक्रेता वस्तु को सहेजने में त्रुटि",
         "FAILED_SELLER_ITEM_DELETE": "विक्रेता वस्तु को हटाने में त्रुटि",
         "SELLER_ITEM_NOT_FOUND": "Seller item not found",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "सेव सफल रहा। {mappi_count} Mappi भत्ता उपयोग हुआ",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "सेव असफल रहा। पर्याप्त Mappi भत्ता नहीं है"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "सेव सफल रहा।",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "सेव असफल रहा। पर्याप्त mappi भत्ता नहीं है"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "आइटम",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "विवरण",
         "PHOTO": "फ़ोटो",
         "SELLING_DURATION_LABEL": "हफ्तों में बिक्री की अवधि",
-        "MAPPI_COST_PREVIEW": "इसके लिए {mappi_count} Mappi खर्च होंगे",
-        "MAPPI_REFUND_PREVIEW": "आपको {mappi_count} Mappi वापस मिलेंगे",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "सक्रिय", 
           "EXPIRED": "समाप्त हो गया"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "ऑर्डर सफलतापूर्वक रखा गया",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "ऑर्डर प्रोसेस नहीं हो सकी। कृपया फिर से प्रयास करें और सुनिश्चित करें कि आपके पास कम से कम 1 Mappi है।"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "ऑर्डर प्रोसेस नहीं हो सकी। कृपया फिर से प्रयास करें और सुनिश्चित करें कि आपके पास कम से कम 1 mappi है।"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "समीक्षा",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "केवल वही Pioneer जिसने यह review प्राप्त किया है, Trust Protect का उपयोग कर सकता है।",
         "TRUST_PROTECT_ALREADY_APPLIED": "इस review पर Trust Protect पहले ही लागू किया जा चुका है।",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect का उपयोग केवल उन review पर किया जा सकता है जिनकी rating [DESPAIR] है।",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect का प्रत्येक उपयोग 1000 Mappi खर्च करता है। अपना Mappi बैलेंस बढ़ाने के लिए Membership स्क्रीन का उपयोग करें।",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect का प्रत्येक उपयोग 1000 mappi खर्च करता है। अपना mappi बैलेंस बढ़ाने के लिए Membership स्क्रीन का उपयोग करें।",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect सक्रिय नहीं किया जा सका।"
       }
     },

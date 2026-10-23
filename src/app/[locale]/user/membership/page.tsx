@@ -106,7 +106,7 @@ export default function MembershipPage() {
   
     const paymentData: PaymentDataType = {
       amount: totalAmount,
-      memo: `Map of Pi payment for ${selectedMembership} ${isSingleMappi(selectedMembership) ? 'Mappi' : 'Membership' }`,
+      memo: `Map of Pi payment for ${selectedMembership} ${isSingleMappi(selectedMembership) ? 'mappi' : 'membership' }`,
       metadata: { 
         payment_type: PaymentType.Membership,
         MembershipPayment: {
@@ -269,7 +269,7 @@ export default function MembershipPage() {
                   <div className="p-1 bg-green-700 rounded"></div>
                       
                   {`${voucherMembership?.value}  ${isSingleMappi(voucherMembership?.value)
-                    ? "Mappi" 
+                    ? "mappi" 
                     : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: voucherMembership.duration ?? '' })
                   }`} 
                   
@@ -319,7 +319,7 @@ export default function MembershipPage() {
                     )
                   }
                   {`${option.value}  ${isSingleMappi(option.value)
-                    ? "Mappi" 
+                    ? "mappi" 
                     : t('SCREEN.MEMBERSHIP.PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL', { duration: option.duration ?? '' })
                   }`} 
                   

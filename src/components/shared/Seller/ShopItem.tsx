@@ -270,12 +270,6 @@ export const ShopItem: React.FC<{
     }).format(new Date(existingItem.expired_by));
   }, [existingItem.expired_by, locale]);
 
-  // Mappi cost preview — reacts immediately to duration changes
-  const mappiCostPreview = useMemo(
-    () => previewMappiCost(existingItem, formData.duration),
-    [existingItem, formData.duration]
-  );
-
   // Re-sync form when existingItem identity changes (e.g. after parent re-fetches)
   useEffect(() => {
     setFormData(initialFormData(existingItem));
@@ -373,10 +367,7 @@ export const ShopItem: React.FC<{
         onUpdate(data.sellerItem);
         setIsDirty(false);
         setDialogueMessage(
-          t(
-            'SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT',
-            { mappi_count: data.consumedMappi }
-          )
+          t('SCREEN.SELLER_REGISTRATION.VALIDATION.SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT')
         );
         setShowDialog(true);
         showAlert(
@@ -568,21 +559,6 @@ export const ShopItem: React.FC<{
               />
             </div>
           </div>
-
-          {/* Mappi cost / refund preview */}
-          {isActive && isDirty && mappiCostPreview !== 0 && (
-            <p className="mt-2 text-sm text-amber-600">
-              {mappiCostPreview > 0
-                ? t(
-                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_COST_PREVIEW',
-                    { mappi_count: mappiCostPreview }
-                  )
-                : t(
-                    'SCREEN.SELLER_REGISTRATION.SELLER_ITEMS_FEATURE.MAPPI_REFUND_PREVIEW',
-                    { mappi_count: Math.abs(mappiCostPreview) }
-                  )}
-            </p>
-          )}
 
           {/* Expiry status */}
           {existingItem.expired_by && (

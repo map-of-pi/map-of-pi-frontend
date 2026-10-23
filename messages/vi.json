@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "Hạng thành viên hiện tại",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ngày kết thúc tư cách thành viên hiện tại",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Không có tư cách thành viên đang hoạt động",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Số dư Mappi còn lại",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Chọn tư cách thành viên hoặc Mappi để mua",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "Số dư mappi còn lại",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Chọn tư cách thành viên hoặc mappi để mua",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "thành viên ({duration} tuần)",
       "PICK_BUY_METHOD_LABEL": "Chọn phương thức mua",
       "NO_ACTIVE_MEMBERSHIP": "Bạn không có gói thành viên nào đang hoạt động",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "Lỗi khi lưu mặt hàng của người bán",
         "FAILED_SELLER_ITEM_DELETE": "Lỗi khi xóa mặt hàng của người bán",
         "SELLER_ITEM_NOT_FOUND": "Không tìm thấy mặt hàng của người bán",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Lưu thành công. Số lượng Mappi đã dùng {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Lưu không thành công. Số lượng Mappi không đủ"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Lưu thành công",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Lưu không thành công. Số lượng mappi không đủ"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "Mặt hàng",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "Mô tả",
         "PHOTO": "Ảnh",
         "SELLING_DURATION_LABEL": "Thời gian bán hàng (tính theo tuần)",
-        "MAPPI_COST_PREVIEW": "Việc này sẽ tốn {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "Bạn sẽ được hoàn lại {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Đang hoạt động",
           "EXPIRED": "Đã hết hạn"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Đặt hàng thành công",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Đặt hàng không thành công. Vui lòng thử lại và đảm bảo bạn có ít nhất 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Đặt hàng không thành công. Vui lòng thử lại và đảm bảo bạn có ít nhất 1 mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Đánh giá",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Chỉ Pioneer đã nhận review này mới có thể sử dụng Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect đã được áp dụng cho review này.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect chỉ có thể được sử dụng cho các review có rating [DESPAIR].",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Mỗi lần sử dụng Trust Protect sẽ tiêu tốn 1000 Mappi. Hãy sử dụng màn hình Membership để tăng số dư Mappi của bạn.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Mỗi lần sử dụng Trust Protect sẽ tiêu tốn 1000 mappi. Hãy sử dụng màn hình Membership để tăng số dư mappi của bạn.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Không thể kích hoạt Trust Protect."
       }
     },

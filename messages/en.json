@@ -53,7 +53,7 @@
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Current membership end date",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "No active membership",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi allowance remaining",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Pick membership or Mappi to buy",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Pick membership or mappi to buy",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "membership ({duration} weeks)",
       "PICK_BUY_METHOD_LABEL": "Pick buy method",
       "NO_ACTIVE_MEMBERSHIP": "You don't have any membership",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "Error saving seller item",
         "FAILED_SELLER_ITEM_DELETE": "Error deleting seller item",
         "SELLER_ITEM_NOT_FOUND": "Seller item not found",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Save successful. Mappi allowance used {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Save unsuccessful. Insufficient Mappi allowance available"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Save successful",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Save unsuccessful. Insufficient mappi allowance available"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "Item",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "Description",
         "PHOTO": "Photo",
         "SELLING_DURATION_LABEL": "Selling duration in weeks",
-        "MAPPI_COST_PREVIEW": "This will cost {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "This will refund {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Active",
           "EXPIRED": "Expired"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Order placed successfully",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Order failed to process. Please try again and ensure you have at least 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Order failed to process. Please try again and ensure you have at least 1 mappi."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Reviews",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Only the Pioneer who received this review can use Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Trust Protect has already been applied to this review.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect can only be used on reviews with a [DESPAIR] rating.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Each use of Trust Protect consumes 1000 Mappi. Use the Membership screen to increase your Mappi balance.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Each use of Trust Protect consumes 1000 mappi. Use the Membership screen to increase your mappi balance.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Failed to activate Trust Protect."
       }
     },

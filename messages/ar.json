@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "فئة العضوية الحالية",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "تاريخ انتهاء العضوية الحالية",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "لا توجد عضوية نشطة",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "رصيد Mappi المتبقي",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو Mappi للشراء",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "رصيد mappi المتبقي",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "اختر العضوية أو mappi للشراء",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "العضوية ({duration} أسابيع)",
       "PICK_BUY_METHOD_LABEL": "اختر طريقة الشراء",
       "NO_ACTIVE_MEMBERSHIP": "ليس لديك أي عضوية",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "حدث خطأ أثناء حفظ منتج البائع",
         "FAILED_SELLER_ITEM_DELETE": "خطأ في حذف منتج البائع",
         "SELLER_ITEM_NOT_FOUND": "منتج البائع غير موجود",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "تم الحفظ بنجاح. تم استخدام مخصصات Mappi {mappi_count}",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "فشل الحفظ. المخصصات المتاحة من Mappi غير كافية"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "تم الحفظ بنجاح",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "فشل الحفظ. المخصصات المتاحة من mappi غير كافية"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "منتج",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "الوصف",
         "PHOTO": "الصورة",
         "SELLING_DURATION_LABEL": "مدة البيع بالأسابيع",
-        "MAPPI_COST_PREVIEW": "ستكون التكلفة {mappi_count} Mappi",
-        "MAPPI_REFUND_PREVIEW": "سيتم رد {mappi_count} Mappi",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "نشط",
           "EXPIRED": "منتهي الصلاحية"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "تم تقديم الطلب بنجاح",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "فشل معالجة الطلب. الرجاء المحاولة مرة أخرى والتأكد من أن لديك على الأقل 1 Mappi."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "فشل معالجة الطلب. الرجاء المحاولة مرة أخرى والتأكد من أن لديك على الأقل 1 mappi."
     }, 
     "REVIEWS": { 
       "REVIEWS_HEADER": "التقييمات", 
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "يمكن فقط لـ Pioneer الذي تلقى هذا التقييم استخدام Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "تم تطبيق Trust Protect بالفعل على هذا التقييم.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "لا يمكن استخدام Trust Protect إلا مع التقييمات التي تحمل تصنيف [DESPAIR].",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "كل استخدام لميزة Trust Protect يستهلك 1000 Mappi. استخدم شاشة Membership لزيادة رصيد Mappi الخاص بك.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "كل استخدام لميزة Trust Protect يستهلك 1000 mappi. استخدم شاشة Membership لزيادة رصيد mappi الخاص بك.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "فشل في تفعيل Trust Protect."
       } 
     },

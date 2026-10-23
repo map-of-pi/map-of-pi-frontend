@@ -52,8 +52,8 @@
       "CURRENT_MEMBERSHIP_CLASS_LABEL": "現在のメンバーシップクラス",
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "現在のメンバーシップ終了日",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "有効なメンバーシップはありません",
-      "MAPPI_ALLOWANCE_REMAINING_LABEL": "残りのMappi利用枠",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "購入するメンバーシップまたはMappiを選択",
+      "MAPPI_ALLOWANCE_REMAINING_LABEL": "残りのmappi利用枠",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "購入するメンバーシップまたはmappiを選択",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "メンバーシップ（{duration} 週間）",
       "PICK_BUY_METHOD_LABEL": "購入方法を選択",
       "NO_ACTIVE_MEMBERSHIP": "有効なメンバーシップがありません",
@@ -177,8 +177,8 @@
         "FAILED_SELLER_ITEM_SAVE": "販売者アイテムの保存中にエラーが発生しました",
         "FAILED_SELLER_ITEM_DELETE": "販売者アイテムの削除中にエラーが発生しました",
         "SELLER_ITEM_NOT_FOUND": "販売者アイテムが見つかりません",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "保存に成功しました。使用されたMappiの許容量は {mappi_count} です",
-        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "保存に失敗しました。Mappiの許容量が不足しています"
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "保存に成功しました",
+        "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "保存に失敗しました。mappiの許容量が不足しています"
       },
       "SELLER_ITEMS_FEATURE": {
         "ITEM_LABEL": "アイテム",
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "説明",
         "PHOTO": "写真",
         "SELLING_DURATION_LABEL": "販売期間（週間単位）",
-        "MAPPI_COST_PREVIEW": "これには {mappi_count} Mappi が必要です",
-        "MAPPI_REFUND_PREVIEW": "{mappi_count} Mappi が返金されます",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "アクティブ",
           "EXPIRED": "期限切れ"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "注文が正常に完了しました",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "注文を処理できませんでした。もう一度お試しいただき、少なくとも1 Mappiをお持ちであることを確認してください。"
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "注文を処理できませんでした。もう一度お試しいただき、少なくとも1 mappiをお持ちであることを確認してください。"
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "レビュー",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "このレビューを受け取った Pioneer のみが Trust Protect を使用できます。",
         "TRUST_PROTECT_ALREADY_APPLIED": "このレビューにはすでに Trust Protect が適用されています。",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect は [DESPAIR] 評価のレビューにのみ使用できます。",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect を使用するたびに 1000 Mappi が消費されます。Mappi の残高を増やすには、Membership 画面を使用してください。",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect を使用するたびに 1000 mappi が消費されます。Mappi の残高を増やすには、Membership 画面を使用してください。",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Trust Protect を有効化できませんでした。"
       }
     },

@@ -53,7 +53,7 @@
       "CURRENT_MEMBERSHIP_END_DATE_LABEL": "Ƒe nudɔwɔlaƒe gbeɖeɖe ƒe ɣeyiɣi",
       "CURRENT_MEMBERSHIP_END_DATE_NO_ACTIVE_MEMBERSHIP": "Míele nyaɖe me le ɖoɖo la ta",
       "MAPPI_ALLOWANCE_REMAINING_LABEL": "Mappi si gblɔ na wo kple kple le",
-      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Tia nudɔwɔlaƒe alo Mappi be nàɖɔ",
+      "PICK_MEMBERSHIP_MAPPI_TO_BUY_LABEL": "Tia nudɔwɔlaƒe alo mappi be nàɖɔ",
       "PICK_MEMBERSHIP_DURATION_IN_WEEKS_LABEL": "dzidzɔla ({duration} kɔsiɖa)",
       "PICK_BUY_METHOD_LABEL": "Tia ɖɔɖɔ nu vovotɔ",
       "NO_ACTIVE_MEMBERSHIP": "Membasip a le edzi o mele asiwò o",
@@ -177,7 +177,7 @@
         "FAILED_SELLER_ITEM_SAVE": "Nuɖeŋu bɔnuwo dzi na dɔ aɖe la de nyɔ",
         "FAILED_SELLER_ITEM_DELETE": "Keka nɔ bɔnu wɔ meɖea wò",
         "SELLER_ITEM_NOT_FOUND": "Bɔnu wɔ aɖe mɔ o",
-        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Dɔɖɔɖa se fia. Mappi gbɔ na xexlẽ {mappi_count}",
+        "SUCCESSFUL_SAVE_MAPPI_ALLOWANCE_SUFFICIENT": "Dɔɖɔɖa se fia",
         "FAILED_SAVE_MAPPI_ALLOWANCE_INSUFFICIENT": "Dɔɖɔɖa na ta fia. Mappi gbɔ nɔ kea fia wɔ"
       },
       "SELLER_ITEMS_FEATURE": {
@@ -187,8 +187,6 @@
         "DESCRIPTION_LABEL": "Nyateƒe",
         "PHOTO": "Dzeƒo",
         "SELLING_DURATION_LABEL": "Dɔɖɔɖoɖo vɔɖu awu me wo kpɔ wo dɔa",
-        "MAPPI_COST_PREVIEW": "Esia axɔ Mappi {mappi_count}",
-        "MAPPI_REFUND_PREVIEW": "Woadzra Mappi {mappi_count} na wò",
         "SELLING_STATUS_OPTIONS": {
           "ACTIVE": "Gblɔ nyaɖe",
           "EXPIRED": "Nyaɖe ɖe va tso"
@@ -264,7 +262,7 @@
         }
       },
       "ORDER_SUCCESSFUL_MESSAGE": "Wòɖo ɖɔɖɔ laɖoɖo",
-      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Adzɔgbe la nɔ nyuie. Mesrɛ, san ɖo edzi kple hu be wòwɔ Mappi ɖeka kple nyuie."
+      "ORDER_FAILED_OR_MAPPI_REQUIRED_MESSAGE": "Adzɔgbe la nɔ nyuie. Mesrɛ, san ɖo edzi kple hu be wòwɔ mappi ɖeka kple nyuie."
     },
     "REVIEWS": {
       "REVIEWS_HEADER": "Totoɖemewo",
@@ -280,7 +278,7 @@
         "TRUST_PROTECT_FORBIDDEN_RECEIVER_ONLY": "Pioneer si xɔ review sia ko koe ate ŋu azã Trust Protect.",
         "TRUST_PROTECT_ALREADY_APPLIED": "Wozã Trust Protect ɖe review sia ŋu xoxo.",
         "TRUST_PROTECT_REVIEW_NOT_DESPAIR": "Trust Protect ate ŋu azã ɖe review siwo xɔ [DESPAIR] rating ko dzi.",
-        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect ƒe zãzã ɖesiaɖe xɔ Mappi 1000. Zã Membership ƒe agbalẽ aɖeŋu la be nàtsɔ asɔ Mappi si le asiwò la dzi.",
+        "TRUST_PROTECT_INSUFFICIENT_MAPPI": "Trust Protect ƒe zãzã ɖesiaɖe xɔ mappi 1000. Zã Membership ƒe agbalẽ aɖeŋu la be nàtsɔ asɔ mappi si le asiwò la dzi.",
         "TRUST_PROTECT_ACTIVATION_FAILED": "Míetɔ́ ŋu wɔ Trust Protect dzo o."
       }
     },
