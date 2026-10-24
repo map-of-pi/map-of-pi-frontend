@@ -377,8 +377,9 @@ const AddVouchersTab = ({
     if (/\s/.test(voucherCode))  errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VOUCHER_CODE_NO_SPACES'));
     if (!currentUser)            errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.UNAUTHORIZED_USER'));
 
-    const days = parseInt(validityDays, 10);
-    if (!validityDays || isNaN(days) || days < 1 || days > 20)
+    const normalizedValidityDays = validityDays.trim();
+    const days = Number(normalizedValidityDays);
+    if (!normalizedValidityDays || !Number.isInteger(days) || days < 1 || days > 20)
       errors.push(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.VALIDITY_PERIOD_INVALID'));
 
     if (errors.length > 0) {
@@ -404,7 +405,7 @@ const AddVouchersTab = ({
   const handleConfirm = async () => {
     setIsSaveLoading(true);
     try {
-      const days = parseInt(validityDays, 10);
+      const days = Number(validityDays.trim());
       const result = await addVoucher({
         pi_username: recipient,
         voucher_code: voucherCode,
