@@ -1,7 +1,8 @@
 import axios from "axios";
 import axiosClient from "@/config/client";
-import { IMembership, IVoucher } from "@/constants/types";
+import { IMembership, IVoucher, MembershipClassType } from "@/constants/types";
 import logger from "../../logger.config.mjs"
+import { getApiError } from "@/utils/getApiError";
 
 export interface IUserVouchersResult {
   success: boolean;
@@ -67,6 +68,26 @@ export const redeemVoucher = async (voucher_id: string): Promise<IVoucherRedempt
       error: axios.isAxiosError(error)
         ? error.response?.data?.message || "Unexpected error redeeming voucher. Please try again later."
         : "Unexpected error redeeming voucher. Please try again later."
+    };
+  }
+};
+
+export const addVoucher = async (body: {
+  pi_username: string, 
+  voucher_code: string,
+  membership_class: MembershipClassType,
+  validity_period: number,
+}): Promise<IVoucherRedemptionResult> => {
+  try {
+    logger.info(`Assigning voucher to user`);
+
+    const response = await axiosClient.post("/voucher/add", body);
+    return response.data;
+  } catch (error) {
+    logger.error('Assign user voucher encountered an error:', getApiError(error));
+    return {
+      success: false,
+      error: getApiError(error) || "Unexpected error assigning voucher. Please try again later."
     };
   }
 };
