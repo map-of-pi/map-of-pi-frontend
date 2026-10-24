@@ -434,11 +434,17 @@ const AddVouchersTab = ({
       try {
         const subList = await fetchMembershipList();
 
-        setMembershipList(subList!);
+        if (!subList) {
+          setNotificationMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.LOAD_MEMBERSHIP_ERROR'));
+          setShowNotification(true);
+          return;
+        }
+
+        setMembershipList(subList);
         setSelectedMembership(MembershipClassType.GREEN)
-      } catch (error) {
-        // showAlert(t('SCREEN.MEMBERSHIP.VALIDATION.FAILED_LOAD_MEMBERSHIP_MESSAGE'));
-        console.error(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.LOAD_MEMBERSHIP_ERROR'), {error})
+      } catch {
+        setNotificationMessage(t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.LOAD_MEMBERSHIP_ERROR'));
+        setShowNotification(true);
       }
     };
 
