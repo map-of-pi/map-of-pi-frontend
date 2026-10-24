@@ -10,12 +10,13 @@ import { resolveDate } from '@/utils/date';
 type NotificationCardProps = {
   notification: NotificationType;
   onToggleClear: (id: string) => void;
+  onClick: () => void;
   refCallback: (node: HTMLElement | null) => void;
 };
-
 export default function NotificationCard({
   notification,
   onToggleClear,
+  onClick,
   refCallback,
 }: NotificationCardProps) {
   const t = useTranslations();
@@ -27,16 +28,22 @@ export default function NotificationCard({
     <div
       ref={refCallback}
       data-id={notification._id}
+      onClick={onClick}
       className={`relative outline outline-50 outline-gray-600 rounded-lg mb-7
         transition-all duration-150 ease-in-out transform
         ${notification.is_cleared ? 'bg-yellow-100' : ''}
-        translate-x-0 opacity-100`}
-    >
+        translate-x-0 opacity-100`}>
       <div className="p-3">
         <div className="mb-3">
           <div className="relative">
-            <label className="block text-[17px] text-[#333333]">{t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL')}:</label>
-            <div className={`mt-1 p-[10px] block w-full rounded-xl h-auto min-h-[48px] border-[#BDBDBD] bg-transparent outline-0 border-[2px] mb-4 select-none`}>
+            <label className="block text-[17px] text-[#333333]">
+              {t(
+                'SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_LABEL',
+              )}
+              :
+            </label>
+            <div
+              className={`mt-1 p-[10px] block w-full rounded-xl h-auto min-h-[48px] border-[#BDBDBD] bg-transparent outline-0 border-[2px] mb-4 select-none`}>
               {notification.reason}
             </div>
           </div>
@@ -65,11 +72,18 @@ export default function NotificationCard({
               <Button
                 label={
                   notification.is_cleared
-                    ? t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_STATUS.UNREAD')
-                    : t('SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_STATUS.READ')
+                    ? t(
+                        'SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_STATUS.UNREAD',
+                      )
+                    : t(
+                        'SCREEN.NOTIFICATIONS.NOTIFICATION_SECTION.NOTIFICATION_STATUS.READ',
+                      )
                 }
                 styles={{ color: '#ffc153', width: '100%', height: '47px' }}
-                onClick={() => onToggleClear(notification._id)}
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                  event.stopPropagation();
+                  onToggleClear(notification._id);
+                }}
               />
             </div>
           </div>
