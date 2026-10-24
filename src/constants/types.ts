@@ -183,7 +183,9 @@ export type PartialSeller = Pick<
 export interface ISellerWithSettings
   extends PartialSeller,
     PartialUserSettings,
-    PartialUserMembership {}
+    PartialUserMembership {
+  is_mapstamp_active?: boolean;
+}
 
 export type SellerItem = {
   _id: string;
