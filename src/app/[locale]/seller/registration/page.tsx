@@ -357,19 +357,26 @@ const SellerRegistrationForm = () => {
     <>
       <div className="w-full md:w-[500px] md:mx-auto p-4">
         <div className="w-full flex flex-col items-center mb-5">
-          <h3 className="text-gray-400 text-sm flex items-center">
-            {dbSeller ? dbSeller.name : ''} 
-            {userMembership && <MembershipIcon 
-              category={userMembership?.membership_class} 
-              className="ml-1"
-              styleComponent={{
-                display: 'inline-block',
-                objectFit: 'contain',
-                verticalAlign: 'middle',
-              }}
-            />}
-            <MapStampBadge isActive={dbSeller?.is_mapstamp_active ?? false} />
-          </h3>
+        <h3 className="text-gray-400 text-sm flex items-center">
+          {dbSeller ? dbSeller.name : ''}
+          {userMembership && (
+            <>
+              <MembershipIcon
+                category={userMembership?.membership_class}
+                className="ml-1"
+                styleComponent={{
+                  display: 'inline-block',
+                  objectFit: 'contain',
+                  verticalAlign: 'middle',
+                }}
+              />
+              <MapStampBadge
+                isActive={dbSeller?.is_mapstamp_active ?? false}
+                className="ml-1"
+              />
+            </>
+          )}
+        </h3>
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
           </h1>
@@ -411,7 +418,7 @@ const SellerRegistrationForm = () => {
             onClick={handleSave}
           />
         </div>
-        <div className="mb-4 flex justify-end gap-2">
+        <div className="mb-4 flex flex-col items-end gap-4">
           <Link
             href={{
               pathname: `/${locale}/map-center`,
