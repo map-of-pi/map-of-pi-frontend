@@ -159,6 +159,7 @@ export interface ISeller {
   fulfillment_method: FulfillmentType;
   fulfillment_description?: string;
   isRestricted: boolean;
+  is_mapstamp_active?: boolean;
 }
 
 export enum SellerType {

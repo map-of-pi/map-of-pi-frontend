@@ -31,7 +31,7 @@ export const OutlineBtn = (props: any) => {
   const { styles, icon, label, disabled, onClick } = props;
   return (
     <button
-      className={`px-4 py-1 gap-1 cursor-pointer items-center justify-center outline outline-primary outline-[1.5px] hover:bg-primary hover:text-white text-primary rounded-md flex mx-auto`}
+      className={`px-4 py-1 gap-1 cursor-pointer items-center justify-center outline outline-primary outline-[1.5px] hover:bg-primary hover:text-white text-primary rounded-md flex mx-auto disabled:cursor-not-allowed disabled:outline-[grey] disabled:text-[grey] disabled:hover:bg-transparent disabled:hover:text-[grey]`}
       style={styles}
       disabled={disabled}
       onClick={onClick}>
