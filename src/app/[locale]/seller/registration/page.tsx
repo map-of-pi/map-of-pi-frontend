@@ -14,6 +14,7 @@ import {
   TelephoneInput,
 } from '@/components/shared/Forms/Inputs/Inputs';
 import ConfirmDialog from '@/components/shared/confirm';
+import MapStampBadge from '@/components/shared/mapstamp/MapStampBadge';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import OnlineShopping from '@/components/shared/Seller/ShopItem';
 import { ListOrder } from '@/components/shared/Seller/OrderList';
@@ -356,18 +357,26 @@ const SellerRegistrationForm = () => {
     <>
       <div className="w-full md:w-[500px] md:mx-auto p-4">
         <div className="w-full flex flex-col items-center mb-5">
-          <h3 className="text-gray-400 text-sm flex items-center">
-            {dbSeller ? dbSeller.name : ''} 
-            {userMembership && <MembershipIcon 
-              category={userMembership?.membership_class} 
-              className="ml-1"
-              styleComponent={{
-                display: 'inline-block',
-                objectFit: 'contain',
-                verticalAlign: 'middle',
-              }}
-            />}
-          </h3>
+        <h3 className="text-gray-400 text-sm flex items-center">
+          {dbSeller ? dbSeller.name : ''}
+          {userMembership && (
+            <>
+              <MembershipIcon
+                category={userMembership?.membership_class}
+                className="ml-1"
+                styleComponent={{
+                  display: 'inline-block',
+                  objectFit: 'contain',
+                  verticalAlign: 'middle',
+                }}
+              />
+              <MapStampBadge
+                isActive={dbSeller?.is_mapstamp_active ?? false}
+                className="ml-1"
+              />
+            </>
+          )}
+        </h3>
           <h1 className={HEADER}>
             {t('SCREEN.SELLER_REGISTRATION.SELLER_REGISTRATION_HEADER')}
           </h1>
@@ -409,21 +418,33 @@ const SellerRegistrationForm = () => {
             onClick={handleSave}
           />
         </div>
-        <Link
-          href={{
-            pathname: `/${locale}/map-center`, // Path to MapCenter component
-            query: { entryType: 'sell' }, // Passing 'sell' as entryType
-          }}>
-          <Button
-            label={t('SCREEN.SELLER_REGISTRATION.SELLER_SELL_CENTER')}
-            styles={{
-              color: '#ffc153',
-              height: '40px',
-              padding: '10px',
-              marginLeft: 'auto',
+        <div className="mb-4 flex flex-col items-end gap-4">
+          <Link
+            href={{
+              pathname: `/${locale}/map-center`,
+              query: { entryType: 'sell' },
             }}
-          />
-        </Link>
+            className={!dbSeller ? 'pointer-events-none' : ''}
+            aria-disabled={!dbSeller}
+            tabIndex={!dbSeller ? -1 : undefined}>
+            <OutlineBtn
+              label={t('SCREEN.SELLER_REGISTRATION.SELLER_SELL_CENTER')}
+              disabled={!dbSeller}
+              styles={{ height: '40px', padding: '10px' }}
+            />
+          </Link>
+          <Link
+            href={`/${locale}/mapstamp`} // placeholder route, TODO confirm
+            className={!dbSeller ? 'pointer-events-none' : ''}
+            aria-disabled={!dbSeller}
+            tabIndex={!dbSeller ? -1 : undefined}>
+            <OutlineBtn
+              label={t('SCREEN.SELLER_REGISTRATION.SELLER_MAPSTAMP')}
+              disabled={!dbSeller}
+              styles={{ height: '40px', padding: '10px' }}
+            />
+          </Link>
+        </div>
 
         <div className="spacing-7">
           {/* seller registration form fields toggle */}

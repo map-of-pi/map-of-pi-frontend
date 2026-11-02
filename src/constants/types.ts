@@ -159,6 +159,7 @@ export interface ISeller {
   fulfillment_method: FulfillmentType;
   fulfillment_description?: string;
   isRestricted: boolean;
+  is_mapstamp_active?: boolean;
 }
 
 export enum SellerType {
@@ -183,7 +184,9 @@ export type PartialSeller = Pick<
 export interface ISellerWithSettings
   extends PartialSeller,
     PartialUserSettings,
-    PartialUserMembership {}
+    PartialUserMembership {
+  is_mapstamp_active?: boolean;
+}
 
 export type SellerItem = {
   _id: string;
