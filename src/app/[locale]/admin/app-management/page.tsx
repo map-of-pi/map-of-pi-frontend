@@ -369,6 +369,10 @@ const AddVouchersTab = ({
   const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
   const [dialogueMessage, setDialogueMessage] = useState<string>('');
 
+  const isSingleMappi = (newClass: MembershipClassType) => { 
+    return newClass === MembershipClassType.SINGLE
+  };
+
   const handleSave = () => {
     const errors: string[] = [];
 
@@ -490,7 +494,7 @@ const AddVouchersTab = ({
                 <div className="p-1 bg-yellow-400 rounded"></div>                  
               )
             }
-            {`${option.value} Mappi`} 
+            {`${option.value} ${isSingleMappi(option.value) ? "mappi" : t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.MEMBERSHIP')}`} 
             
             <MembershipIcon 
               category={option.value} 
@@ -581,14 +585,6 @@ export default function AppManagementPage() {
     
     authAppManager();
   }, [currentUser]);
-
-  if (!currentUser || !isAppManager) {
-    return (
-      <div className="amp-page">
-        <p className="amp-access-denied">{t('SCREEN.APP_MANAGEMENT.AUTH_REQUIRED')}</p>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full h-full h-min-screen md:w-[500px] md:mx-auto p-4">

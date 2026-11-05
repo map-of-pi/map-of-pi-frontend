@@ -122,7 +122,8 @@
         "ASSIGN_VOUCHER_ERROR": "Unable to assign voucher",
         "ADD_VOUCHER_ERROR": "Error adding voucher",
         "LOAD_MEMBERSHIP_ERROR": "Failed to load Membership data",
-        "SAVE": "Save"
+        "SAVE": "Save",
+        "MEMBERSHIP": "membership"
       },
       "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
