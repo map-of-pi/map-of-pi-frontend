@@ -437,6 +437,21 @@
         "EDIT_REVIEW_FEEDBACK_IMAGE_LABEL": "Bild aktualisieren"
       }
     },
+    "MAPSTAMP": {
+      "REVIEW_TILE_HEADER": "Earn MapStamps from reviews?",
+      "NOT_OPTED_IN": "Review receiver not opted-in to MapStamp!",
+      "NOT_OPTED_IN_HINT": "Add comment asking them to opt-in.",
+      "MEMBERSHIP_LAPSED": "Issuer membership has lapsed!",
+      "NOTIFY_ISSUER": "Notify issuer",
+      "NOTIFICATION_SENT": "Notification Sent",
+      "NOTIFICATION_FAILED": "Unable to send notification. Please try again later.",
+      "STAMP_FAILED": "Your review was saved, but the MapStamp could not be awarded. Please try again later.",
+      "NO_MAPPI": "Consumes 1 mappi. You have 0!",
+      "TOP_UP": "Top up",
+      "CONFIRM_MAPPI": "Consumes 1 mappi. Check box to confirm.",
+      "PREFILL_COMMENT_JOIN": "Thank you, everything was good. I'd love to join your MapStamp scheme.",
+      "PREFILL_COMMENT_LOVE": "Thank you, everything was good. I love your MapStamp scheme."
+    },
     "REACTION_RATING": {
       "UNSAFE": "Nicht sicher",
       "TRUSTWORTHY": "Vertrauenswürdig",
