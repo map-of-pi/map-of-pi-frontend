@@ -9,7 +9,7 @@ import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { fetchMapStampReviewStatus, notifyMapStampIssuer } from '@/services/mapstampApi';
+import { fetchMapStampReviewStatus, notifyMapStampIssuer, awardMapStamp } from '@/services/mapstampApi';
 import { getMapStampVariant } from '@/utils/mapstamp';
 import { IUser, MapStampReviewStatus } from '@/constants/types';
 import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
@@ -186,12 +186,28 @@ export default function EmojiPicker({
       setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
 
       const formData = buildFormData(!!isEditMode);
+      const shouldAwardMapStamp = !isEditMode && mapStampVariant === 4 && mapStampConfirmed;
 
       if (isEditMode && reviewId) {
         await updateReview(reviewId, formData);
         setReload(true);
       } else {
         await createReview(formData);
+        if (shouldAwardMapStamp) {
+          // MapStamp must never block the review itself
+          try {
+            await awardMapStamp(userId);
+          } catch (error) {
+            logger.error('Error awarding MapStamp:', error);
+            toast.warn(t('SHARED.MAPSTAMP.STAMP_FAILED'));
+          }
+        }
+        // The stamp consumes 1 mappi, so refresh the tile data
+        if (mapStampVariant) {
+          fetchMapStampReviewStatus(userId)
+            .then(setMapStampStatus)
+            .catch((error) => logger.error('Error refreshing MapStamp status:', error));
+        }
         refresh?.();
       }
 
