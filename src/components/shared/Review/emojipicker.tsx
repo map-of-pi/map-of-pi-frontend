@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from 'next-intl';
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { createReview, updateReview } from '@/services/reviewsApi';
 import { removeUrls } from '@/utils/sanitize';
@@ -19,6 +19,8 @@ interface Emoji {
   code: string;
   value: number;
 }
+
+const DELIGHT_VALUE = 5;
 
 interface EmojiPickerProps {
   userId: string;
@@ -69,6 +71,7 @@ export default function EmojiPicker({
 
   const [mapStampStatus, setMapStampStatus] = useState<MapStampReviewStatus | null>(null);
   const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
+  const mapStampPrefillComment = useRef('');
   const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
 
   // MapStamp tile data (give/reply only, never edit mode)
@@ -81,8 +84,16 @@ export default function EmojiPicker({
     fetchMapStampReviewStatus(userId)
       .then((status) => {
         if (cancelled) return;
+        const variant = getMapStampVariant(status);
+        const template = t(variant <= 2 ? 'SHARED.MAPSTAMP.PREFILL_COMMENT_JOIN' : 'SHARED.MAPSTAMP.PREFILL_COMMENT_LOVE');
+        const previousTemplate = mapStampPrefillComment.current;
+        mapStampPrefillComment.current = template;
         setMapStampStatus(status);
         setMapStampConfirmed(true);
+        // Only fill what the user has not touched yet
+        setSelectedEmoji((prev) => prev ?? DELIGHT_VALUE);
+        setReviewEmoji((prev) => prev ?? DELIGHT_VALUE);
+        setComments((prev) => (prev === '' || prev === previousTemplate ? template : prev));
       })
       .catch((error) => {
         logger.error('Error fetching MapStamp review status:', error);
