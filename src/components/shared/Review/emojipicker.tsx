@@ -9,6 +9,7 @@ import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
 import { IUser } from '@/constants/types';
+import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
 
 interface Emoji {
   name: string;
@@ -231,6 +232,18 @@ export default function EmojiPicker({
           disabled={isSaveLoading}
         />
       </div>
+
+      {!isEditMode && (
+        <div className="mb-2">
+          <MapStampReviewTile
+            variant={4}
+            confirmed={true}
+            onConfirmChange={() => {}}
+            onNotifyIssuer={() => {}}
+            onTopUp={() => {}}
+          />
+        </div>
+      )}
 
       <div className="mb-2">
         <FileInput
