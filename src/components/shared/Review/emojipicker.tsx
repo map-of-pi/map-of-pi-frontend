@@ -1,14 +1,18 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { createReview, updateReview } from '@/services/reviewsApi';
 import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { IUser } from '@/constants/types';
+import { fetchMapStampReviewStatus, notifyMapStampIssuer, awardMapStamp } from '@/services/mapstampApi';
+import { getMapStampVariant } from '@/utils/mapstamp';
+import { IUser, MapStampReviewStatus } from '@/constants/types';
+import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
 
 interface Emoji {
   name: string;
@@ -16,6 +20,8 @@ interface Emoji {
   code: string;
   value: number;
 }
+
+const DELIGHT_VALUE = 5;
 
 interface EmojiPickerProps {
   userId: string;
@@ -47,6 +53,8 @@ export default function EmojiPicker({
   refresh,
 }: EmojiPickerProps) {
   const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
   const { setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
 
   const despairEmoji: Emoji = { name: t('SHARED.REACTION_RATING.EMOTIONS.DESPAIR'), unicode: "😠", code: ":despair:", value: 0 };
@@ -63,6 +71,41 @@ export default function EmojiPicker({
   const [comments, setComments] = useState(initialComment);
   const [reviewEmoji, setReviewEmoji] = useState<number | null>(initialRating ?? null);
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(initialRating ?? null);
+
+  const [mapStampStatus, setMapStampStatus] = useState<MapStampReviewStatus | null>(null);
+  const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
+  const mapStampPrefillComment = useRef('');
+  const [issuerNotified, setIssuerNotified] = useState(false);
+  const latestReceiverId = useRef(userId);
+  latestReceiverId.current = userId;
+  const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
+
+  // MapStamp tile data (give/reply only, never edit mode)
+  useEffect(() => {
+    setIssuerNotified(false);
+    setMapStampStatus(null); // never show the previous receiver's status
+    if (isEditMode || !userId || currentUser?.pi_uid === userId) return;
+    let cancelled = false;
+    fetchMapStampReviewStatus(userId)
+      .then((status) => {
+        if (cancelled) return;
+        const variant = getMapStampVariant(status);
+        const template = t(variant <= 2 ? 'SHARED.MAPSTAMP.PREFILL_COMMENT_JOIN' : 'SHARED.MAPSTAMP.PREFILL_COMMENT_LOVE');
+        const previousTemplate = mapStampPrefillComment.current;
+        mapStampPrefillComment.current = template;
+        setMapStampStatus(status);
+        setMapStampConfirmed(true);
+        // Only fill what the user has not touched yet
+        setSelectedEmoji((prev) => prev ?? DELIGHT_VALUE);
+        setReviewEmoji((prev) => prev ?? DELIGHT_VALUE);
+        setComments((prev) => (prev === '' || prev === previousTemplate ? template : prev));
+      })
+      .catch((error) => {
+        logger.error('Error fetching MapStamp review status:', error);
+        if (!cancelled) setMapStampStatus(null);
+      });
+    return () => { cancelled = true; };
+  }, [userId, isEditMode, currentUser?.pi_uid]);
 
   // Sync controlled initial props (edit mode hydration)
   useEffect(() => {
@@ -143,12 +186,30 @@ export default function EmojiPicker({
       setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
 
       const formData = buildFormData(!!isEditMode);
+      const shouldAwardMapStamp = !isEditMode && mapStampVariant === 4 && mapStampConfirmed;
 
       if (isEditMode && reviewId) {
         await updateReview(reviewId, formData);
         setReload(true);
       } else {
         await createReview(formData);
+        if (shouldAwardMapStamp) {
+          // MapStamp must never block the review itself
+          try {
+            await awardMapStamp(userId);
+          } catch (error) {
+            logger.error('Error awarding MapStamp:', error);
+            toast.warn(t('SHARED.MAPSTAMP.STAMP_FAILED'));
+          }
+        }
+        // The stamp consumes 1 mappi, so refresh the tile data
+        if (mapStampVariant) {
+          fetchMapStampReviewStatus(userId)
+            .then((status) => {
+              if (latestReceiverId.current === userId) setMapStampStatus(status);
+            })
+            .catch((error) => logger.error('Error refreshing MapStamp status:', error));
+        }
         refresh?.();
       }
 
@@ -160,6 +221,21 @@ export default function EmojiPicker({
       setAlertMessage(null);
     }
   };
+
+  const handleNotifyIssuer = async () => {
+    if (issuerNotified) return;
+    setIssuerNotified(true); // also blocks double clicks while the request is running
+    try {
+      await notifyMapStampIssuer(userId);
+      toast.success(t('SHARED.MAPSTAMP.NOTIFICATION_SENT'), { autoClose: 3000 });
+    } catch (error) {
+      logger.error('Error notifying MapStamp issuer:', error);
+      toast.error(t('SHARED.MAPSTAMP.NOTIFICATION_FAILED'));
+      setIssuerNotified(false); // allow a retry
+    }
+  };
+
+  const handleTopUp = () => router.push(`/${locale}/user/membership`);
 
   const handleEmojiClick = (value: number) => {
     if (isSaveLoading || clickDisabled) return;
@@ -231,6 +307,19 @@ export default function EmojiPicker({
           disabled={isSaveLoading}
         />
       </div>
+
+      {!isEditMode && mapStampVariant && (
+        <div className="mb-2">
+          <MapStampReviewTile
+            variant={mapStampVariant}
+            confirmed={mapStampConfirmed}
+            disabled={isSaveLoading || issuerNotified}
+            onConfirmChange={setMapStampConfirmed}
+            onNotifyIssuer={handleNotifyIssuer}
+            onTopUp={handleTopUp}
+          />
+        </div>
+      )}
 
       <div className="mb-2">
         <FileInput
