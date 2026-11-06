@@ -8,7 +8,9 @@ import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { IUser } from '@/constants/types';
+import { fetchMapStampReviewStatus } from '@/services/mapstampApi';
+import { getMapStampVariant } from '@/utils/mapstamp';
+import { IUser, MapStampReviewStatus } from '@/constants/types';
 import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
 
 interface Emoji {
@@ -64,6 +66,30 @@ export default function EmojiPicker({
   const [comments, setComments] = useState(initialComment);
   const [reviewEmoji, setReviewEmoji] = useState<number | null>(initialRating ?? null);
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(initialRating ?? null);
+
+  const [mapStampStatus, setMapStampStatus] = useState<MapStampReviewStatus | null>(null);
+  const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
+  const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
+
+  // MapStamp tile data (give/reply only, never edit mode)
+  useEffect(() => {
+    if (isEditMode || !userId) {
+      setMapStampStatus(null);
+      return;
+    }
+    let cancelled = false;
+    fetchMapStampReviewStatus(userId)
+      .then((status) => {
+        if (cancelled) return;
+        setMapStampStatus(status);
+        setMapStampConfirmed(true);
+      })
+      .catch((error) => {
+        logger.error('Error fetching MapStamp review status:', error);
+        if (!cancelled) setMapStampStatus(null);
+      });
+    return () => { cancelled = true; };
+  }, [userId, isEditMode]);
 
   // Sync controlled initial props (edit mode hydration)
   useEffect(() => {
@@ -233,12 +259,13 @@ export default function EmojiPicker({
         />
       </div>
 
-      {!isEditMode && (
+      {!isEditMode && mapStampVariant && (
         <div className="mb-2">
           <MapStampReviewTile
-            variant={4}
-            confirmed={true}
-            onConfirmChange={() => {}}
+            variant={mapStampVariant}
+            confirmed={mapStampConfirmed}
+            disabled={isSaveLoading}
+            onConfirmChange={setMapStampConfirmed}
             onNotifyIssuer={() => {}}
             onTopUp={() => {}}
           />
