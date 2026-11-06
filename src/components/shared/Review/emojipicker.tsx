@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { createReview, updateReview } from '@/services/reviewsApi';
@@ -8,7 +9,7 @@ import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { fetchMapStampReviewStatus } from '@/services/mapstampApi';
+import { fetchMapStampReviewStatus, notifyMapStampIssuer } from '@/services/mapstampApi';
 import { getMapStampVariant } from '@/utils/mapstamp';
 import { IUser, MapStampReviewStatus } from '@/constants/types';
 import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
@@ -52,6 +53,8 @@ export default function EmojiPicker({
   refresh,
 }: EmojiPickerProps) {
   const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
   const { setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
 
   const despairEmoji: Emoji = { name: t('SHARED.REACTION_RATING.EMOTIONS.DESPAIR'), unicode: "😠", code: ":despair:", value: 0 };
@@ -72,10 +75,12 @@ export default function EmojiPicker({
   const [mapStampStatus, setMapStampStatus] = useState<MapStampReviewStatus | null>(null);
   const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
   const mapStampPrefillComment = useRef('');
+  const [issuerNotified, setIssuerNotified] = useState(false);
   const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
 
   // MapStamp tile data (give/reply only, never edit mode)
   useEffect(() => {
+    setIssuerNotified(false);
     if (isEditMode || !userId) {
       setMapStampStatus(null);
       return;
@@ -199,6 +204,21 @@ export default function EmojiPicker({
     }
   };
 
+  const handleNotifyIssuer = async () => {
+    if (issuerNotified) return;
+    setIssuerNotified(true); // also blocks double clicks while the request is running
+    try {
+      await notifyMapStampIssuer(userId);
+      toast.success(t('SHARED.MAPSTAMP.NOTIFICATION_SENT'), { autoClose: 3000 });
+    } catch (error) {
+      logger.error('Error notifying MapStamp issuer:', error);
+      toast.error(t('SHARED.MAPSTAMP.NOTIFICATION_FAILED'));
+      setIssuerNotified(false); // allow a retry
+    }
+  };
+
+  const handleTopUp = () => router.push(`/${locale}/user/membership`);
+
   const handleEmojiClick = (value: number) => {
     if (isSaveLoading || clickDisabled) return;
     const next = selectedEmoji === value ? null : value;
@@ -275,10 +295,10 @@ export default function EmojiPicker({
           <MapStampReviewTile
             variant={mapStampVariant}
             confirmed={mapStampConfirmed}
-            disabled={isSaveLoading}
+            disabled={isSaveLoading || issuerNotified}
             onConfirmChange={setMapStampConfirmed}
-            onNotifyIssuer={() => {}}
-            onTopUp={() => {}}
+            onNotifyIssuer={handleNotifyIssuer}
+            onTopUp={handleTopUp}
           />
         </div>
       )}
