@@ -76,15 +76,15 @@ export default function EmojiPicker({
   const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
   const mapStampPrefillComment = useRef('');
   const [issuerNotified, setIssuerNotified] = useState(false);
+  const latestReceiverId = useRef(userId);
+  latestReceiverId.current = userId;
   const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
 
   // MapStamp tile data (give/reply only, never edit mode)
   useEffect(() => {
     setIssuerNotified(false);
-    if (isEditMode || !userId) {
-      setMapStampStatus(null);
-      return;
-    }
+    setMapStampStatus(null); // never show the previous receiver's status
+    if (isEditMode || !userId || currentUser?.pi_uid === userId) return;
     let cancelled = false;
     fetchMapStampReviewStatus(userId)
       .then((status) => {
@@ -105,7 +105,7 @@ export default function EmojiPicker({
         if (!cancelled) setMapStampStatus(null);
       });
     return () => { cancelled = true; };
-  }, [userId, isEditMode]);
+  }, [userId, isEditMode, currentUser?.pi_uid]);
 
   // Sync controlled initial props (edit mode hydration)
   useEffect(() => {
@@ -205,7 +205,9 @@ export default function EmojiPicker({
         // The stamp consumes 1 mappi, so refresh the tile data
         if (mapStampVariant) {
           fetchMapStampReviewStatus(userId)
-            .then(setMapStampStatus)
+            .then((status) => {
+              if (latestReceiverId.current === userId) setMapStampStatus(status);
+            })
             .catch((error) => logger.error('Error refreshing MapStamp status:', error));
         }
         refresh?.();
