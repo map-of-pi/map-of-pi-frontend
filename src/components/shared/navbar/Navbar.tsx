@@ -17,7 +17,6 @@ import MembershipIcon from '@/components/shared/membership/MembershipIcon';
 import Sidebar from '../sidebar/sidebar';
 import { AppContext } from '../../../../context/AppContextProvider';
 import { MembershipClassType } from '@/constants/types';
-import { authenticateAppManager } from '@/services/appManagerApi';
 
 function Navbar() {
   const router = useRouter();
@@ -27,8 +26,6 @@ function Navbar() {
 
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [isHomePage, setIsHomePage] = useState(true);
-  const [isAppManager, setIsAppManager] = useState(false);
-
   const {
     isSigningInUser, 
     reload, 
@@ -37,30 +34,13 @@ function Navbar() {
     userMembership, 
     notificationsCount, 
     ordersCount,
-    currentUser 
+    isAppManager,
   } = useContext(AppContext);
 
   // check if the current page is the homepage
   useEffect(() => {
     setIsHomePage(pathname === '/' || pathname === `/${locale}`);
   }, [pathname, locale]);
-
-  useEffect(() => {
-    if (!currentUser || isSigningInUser) return
-
-    const authAppManager = async () => {    
-      try {
-        const result = await authenticateAppManager();
-        if (result.success) {
-          setIsAppManager(true);
-        }
-      } catch (error: any) {
-        setIsAppManager(false);
-      }
-    };
-    
-    authAppManager();
-  }, [currentUser]);
 
   const handleBackBtn = () => router.back();
   const handleMenu = () => setSidebarToggle(prev => !prev);

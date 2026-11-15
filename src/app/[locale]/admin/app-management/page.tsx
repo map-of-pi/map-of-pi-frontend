@@ -6,8 +6,9 @@ import React, {
   useRef, 
   useState 
 } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import TabShuttle, { TabItem } from '@/components/shared/tabShuttle/TabShuttle';
-import { fetchMembershipList } from "@/services/membershipApi"
 import { 
   AdminType, 
   AppManagerRoleType, 
@@ -22,16 +23,16 @@ import {
   SUBHEADER 
 } from '@/constants/mock';
 import MembershipIcon from '@/components/shared/membership/MembershipIcon';
-import { useTranslations } from 'next-intl';
 import { Input } from '@/components/shared/Forms/Inputs/Inputs';
 import { Button } from '@/components/shared/Forms/Buttons/Buttons';
 import { AppContext } from '../../../../../context/AppContextProvider';
+import { fetchMembershipList } from "@/services/membershipApi"
 import { addVoucher } from '@/services/voucherApi';
-import { authenticateAppManager, fetchSummaryStatistics } from '@/services/appManagerApi';
 import { 
   getAppManagers, 
   addAppManager, 
-  deleteAppManager 
+  deleteAppManager,
+  fetchSummaryStatistics 
 } from "@/services/appManagerApi";
 import { ConfirmDialogX, Notification } from '@/components/shared/confirm';
 
@@ -550,14 +551,14 @@ const AddVouchersTab = ({
 // ─── App Management Page ──────────────────────────────────────────────────────
 
 export default function AppManagementPage() {
-  const {currentUser, isSigningInUser} = useContext(AppContext);
+  const { isAppManager } = useContext(AppContext);
   const [selectedTab, setSelectedTab] = useState<TabId>('statistics');
   const [showNotification, setShowNotification]  =  useState<boolean>(false);
   const [notificationMessage, setNotificationMessage] = useState<string> ("");
-  const [isAppManager, setIsAppManager] = useState(false);
-
   const navTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
 
   const tabs: TabItem[] = [
     { id: 'statistics',    label: t('SCREEN.APP_MANAGEMENT.TABS.STATISTICS') },
@@ -570,21 +571,12 @@ export default function AppManagementPage() {
   }, []);
 
   useEffect(() => {
-    if (!currentUser || isSigningInUser) return
+    if (isAppManager === false) {
+      router.replace(`/${locale}`);
+    }
+  }, [isAppManager, locale, router]);
 
-    const authAppManager = async () => {    
-      try {
-        const result = await authenticateAppManager();
-        if (result.success) {
-          setIsAppManager(true);
-        }
-      } catch (error: any) {
-        setIsAppManager(false);
-      }
-    };
-    
-    authAppManager();
-  }, [currentUser]);
+  if (isAppManager !== true) return null;
 
   return (
     <div className="w-full h-full h-min-screen md:w-[500px] md:mx-auto p-4">
