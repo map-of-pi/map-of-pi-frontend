@@ -17,8 +17,9 @@ import { AuthResult } from '@/constants/pi';
 import { IMembership, IUser } from '@/constants/types';
 import { getNotifications } from '@/services/notificationApi';
 import { fetchBuyerOrders } from '@/services/orderApi';
-import logger from '../logger.config.mjs';
+import { authenticateAppManager } from '@/services/appManagerApi';
 import { fetchMembership } from '@/services/membershipApi';
+import logger from '../logger.config.mjs';
 
 const MAX_LOGIN_RETRIES = 3;
 const BASE_DELAY_MS = 5000; // 5s → 15s → 45s
@@ -30,6 +31,7 @@ interface IAppContextProps {
   userMembership: IMembership | null;
   setUserMembership: React.Dispatch<SetStateAction<IMembership | null>>;
   isSigningInUser: boolean;
+  isAppManager: boolean | null;
   reload: boolean;
   alertMessage: string | null;
   setAlertMessage: React.Dispatch<SetStateAction<string | null>>;
@@ -52,6 +54,7 @@ const initialState: IAppContextProps = {
   setCurrentUser: () => {},
   authenticateUser: () => {},
   isSigningInUser: false,
+  isAppManager: null,
   userMembership: null,
   setUserMembership: () => {},
   reload: false,
@@ -99,6 +102,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [toggleNotification, setToggleNotification] = useState<boolean>(true);
   const [notificationsCount, setNotificationsCount] = useState(0);
   const [ordersCount, setOrdersCount] = useState(0);
+  const [isAppManager, setIsAppManager] = useState<boolean | null>(null);
 
   const piSdkLoaded = useRef(false);
 
@@ -253,6 +257,36 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
   }, [refreshUserMembership]);
 
   useEffect(() => {
+    if (!currentUser) {
+      setIsAppManager(null);
+      return;
+    }
+
+    if (isSigningInUser) return;
+
+    let isCurrentRequest = true;
+
+    const checkAppManagerAccess = async () => {
+      try {
+        const result = await authenticateAppManager();
+        if (isCurrentRequest) {
+          setIsAppManager(result.success === true);
+        }
+      } catch {
+        if (isCurrentRequest) {
+          setIsAppManager(false);
+        }
+      }
+    };
+
+    checkAppManagerAccess();
+
+    return () => {
+      isCurrentRequest = false;
+    };
+  }, [currentUser, isSigningInUser]);
+
+  useEffect(() => {
     if (!currentUser) return;
 
     const fetchNotificationsCount = async () => {
@@ -301,6 +335,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps) => {
         setCurrentUser, 
         authenticateUser, 
         isSigningInUser, 
+        isAppManager,
         userMembership,
         setUserMembership,
         reload, 

@@ -121,8 +121,7 @@
         "VOUCHER_SAVED": "Cupón guardado",
         "ASSIGN_VOUCHER_ERROR": "No se pudo asignar el cupón",
         "ADD_VOUCHER_ERROR": "Error al añadir el cupón",
-        "LOAD_MEMBERSHIP_ERROR": "No se pudieron cargar los datos de Membership",
-        "SAVE": "Save"
+        "LOAD_MEMBERSHIP_ERROR": "No se pudieron cargar los datos de Membership"
       },
       "AUTH_REQUIRED": "You are not authenticated, please refresh the page."
     },
