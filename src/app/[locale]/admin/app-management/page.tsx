@@ -494,7 +494,7 @@ const AddVouchersTab = ({
                 <div className="p-1 bg-yellow-400 rounded"></div>                  
               )
             }
-            {`${option.value} ${isSingleMappi(option.value) ? "mappi" : t('SCREEN.APP_MANAGEMENT.ADD_VOUCHER.MEMBERSHIP')}`} 
+            {`${option.value} ${isSingleMappi(option.value) ? "mappi" : t('SHARED.MEMBERSHIP')}`} 
             
             <MembershipIcon 
               category={option.value} 
