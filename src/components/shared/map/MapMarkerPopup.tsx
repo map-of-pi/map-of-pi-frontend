@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import { Button } from '../Forms/Buttons/Buttons';
 import MembershipIcon from '../membership/MembershipIcon';
+import MapStampBadge from '../mapstamp/MapStampBadge';
 import TrustMeter from '@/components/shared/Review/TrustMeter';
 import { ISellerWithSettings } from '@/constants/types';
 import { translateSellerCategory } from '@/utils/translate';
@@ -45,6 +46,13 @@ const MapMarkerPopup = ({ seller }: { seller: ISellerWithSettings }) => {
             category={ seller.membership_class } 
             styleComponent={{
               display: "inline-block",
+              objectFit: "contain",
+              verticalAlign: "middle"
+            }}
+          />
+          <MapStampBadge isActive={ seller.is_mapstamp_active ?? false }
+            styleComponent={{
+              display:"inline-block",
               objectFit: "contain",
               verticalAlign: "middle"
             }}

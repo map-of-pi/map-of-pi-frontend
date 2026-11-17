@@ -183,7 +183,9 @@ export type PartialSeller = Pick<
 export interface ISellerWithSettings
   extends PartialSeller,
     PartialUserSettings,
-    PartialUserMembership {}
+    PartialUserMembership {
+  is_mapstamp_active?: boolean;
+}
 
 export type SellerItem = {
   _id: string;
@@ -417,4 +419,11 @@ export type NotificationType = {
   reason: string;
   createdAt: string;
   updatedAt: string;
+};
+
+// MapStamp status for the review receiver (issuer) and the current user (holder)
+export type MapStampReviewStatus = {
+  receiverOptedIn: boolean;
+  receiverMembershipActive: boolean;
+  mappiBalance: number;
 };
