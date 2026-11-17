@@ -9,7 +9,7 @@ import { removeUrls } from '@/utils/sanitize';
 import { FileInput, TextArea } from '../Forms/Inputs/Inputs';
 import { AppContext } from '../../../../context/AppContextProvider';
 import logger from '../../../../logger.config.mjs';
-import { fetchMapStampReviewStatus, notifyMapStampIssuer, awardMapStamp } from '@/services/mapstampApi';
+import { fetchMapStampReviewStatus, notifyMapStampIssuer } from '@/services/mapstampApi';
 import { getMapStampVariant } from '@/utils/mapstamp';
 import { IUser, MapStampReviewStatus } from '@/constants/types';
 import MapStampReviewTile from '../mapstamp/MapStampReviewTile';
@@ -55,7 +55,7 @@ export default function EmojiPicker({
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
-  const { setAlertMessage, isSaveLoading, setIsSaveLoading, setReload } = useContext(AppContext);
+  const { setAlertMessage, isSaveLoading, setIsSaveLoading, setReload, refreshUserMembership } = useContext(AppContext);
 
   const despairEmoji: Emoji = { name: t('SHARED.REACTION_RATING.EMOTIONS.DESPAIR'), unicode: "😠", code: ":despair:", value: 0 };
   const emojis: Emoji[] = [
@@ -76,6 +76,8 @@ export default function EmojiPicker({
   const [mapStampConfirmed, setMapStampConfirmed] = useState(true);
   const mapStampPrefillComment = useRef('');
   const [issuerNotified, setIssuerNotified] = useState(false);
+  const savingRef = useRef(false);
+  const notifyingRef = useRef(false);
   const latestReceiverId = useRef(userId);
   latestReceiverId.current = userId;
   const mapStampVariant = mapStampStatus ? getMapStampVariant(mapStampStatus) : null;
@@ -147,7 +149,7 @@ export default function EmojiPicker({
     notifyParent?.(false);
   }, [notifyParent]);
 
-  const buildFormData = (isEdit: boolean): FormData => {
+  const buildFormData = (isEdit: boolean, requestMapStamp = false): FormData => {
     const formData = new FormData();
     formData.append('comment', removeUrls(comments));
     formData.append('rating', reviewEmoji!.toString());
@@ -155,6 +157,7 @@ export default function EmojiPicker({
     if (!isEdit) {
       formData.append('review_receiver_id', userId);
       formData.append('reply_to_review_id', replyToReviewId ?? '');
+        if (requestMapStamp) formData.append('mapstamp_requested', 'true');
     }
     return formData;
   };
@@ -179,36 +182,39 @@ export default function EmojiPicker({
   };
 
   const handleSave = async () => {
+    if (savingRef.current) return; // blocks fast double clicks before re-render
     if (!validate()) return;
+    savingRef.current = true;
     try {
       setIsSaveEnabled(false);
       setIsSaveLoading(true);
       setAlertMessage(t('SHARED.SAVING_SCREEN_MESSAGE'));
 
-      const formData = buildFormData(!!isEditMode);
       const shouldAwardMapStamp = !isEditMode && mapStampVariant === 4 && mapStampConfirmed;
+      const formData = buildFormData(!!isEditMode, shouldAwardMapStamp);
 
       if (isEditMode && reviewId) {
         await updateReview(reviewId, formData);
         setReload(true);
       } else {
-        await createReview(formData);
+        const result = await createReview(formData);
         if (shouldAwardMapStamp) {
           // MapStamp must never block the review itself
-          try {
-            await awardMapStamp(userId);
-          } catch (error) {
-            logger.error('Error awarding MapStamp:', error);
-            toast.warn(t('SHARED.MAPSTAMP.STAMP_FAILED'));
+          if (result?.mapstampApplied !== true) {
+            toast.error(t('SHARED.MAPSTAMP.STAMP_FAILED'));
           }
+          // The stamp consumes 1 mappi, so refresh the membership balance
+          refreshUserMembership?.()?.catch((error: unknown) =>
+          logger.error('Error refreshing membership:', error),
+          );
         }
         // The stamp consumes 1 mappi, so refresh the tile data
         if (mapStampVariant) {
           fetchMapStampReviewStatus(userId)
-            .then((status) => {
-              if (latestReceiverId.current === userId) setMapStampStatus(status);
-            })
-            .catch((error) => logger.error('Error refreshing MapStamp status:', error));
+          .then((status) => {
+            if (latestReceiverId.current === userId) setMapStampStatus(status);
+          })
+          .catch((error) => logger.error('Error refreshing MapStamp status:', error));
         }
         refresh?.();
       }
@@ -217,14 +223,16 @@ export default function EmojiPicker({
     } catch (error) {
       logger.error('Error saving review:', error);
     } finally {
+      savingRef.current = false;
       setIsSaveLoading(false);
       setAlertMessage(null);
     }
   };
 
   const handleNotifyIssuer = async () => {
-    if (issuerNotified) return;
-    setIssuerNotified(true); // also blocks double clicks while the request is running
+    if (issuerNotified || notifyingRef.current) return;
+    notifyingRef.current = true;
+    setIssuerNotified(true);
     try {
       await notifyMapStampIssuer(userId);
       toast.success(t('SHARED.MAPSTAMP.NOTIFICATION_SENT'), { autoClose: 3000 });
@@ -232,6 +240,8 @@ export default function EmojiPicker({
       logger.error('Error notifying MapStamp issuer:', error);
       toast.error(t('SHARED.MAPSTAMP.NOTIFICATION_FAILED'));
       setIssuerNotified(false); // allow a retry
+    } finally {
+      notifyingRef.current = false;
     }
   };
 

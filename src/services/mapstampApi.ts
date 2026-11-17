@@ -1,7 +1,8 @@
+import axiosClient from '@/config/client';
 import { MapStampReviewStatus } from '@/constants/types';
 import logger from '../../logger.config.mjs';
 
-// TODO: replace these stubs with real MapStamp backend calls once the endpoints exist.
+// TODO: replace the status stub with a real backend call once the endpoint exists.
 // Set NEXT_PUBLIC_MAPSTAMP_STUB_VARIANT=1..4 in .env.local to preview each tile variant.
 const STUB_STATUSES: Record<string, MapStampReviewStatus> = {
   '1': { receiverOptedIn: false, receiverMembershipActive: false, mappiBalance: 5 },
@@ -17,12 +18,13 @@ export const fetchMapStampReviewStatus = async (
   return STUB_STATUSES[process.env.NEXT_PUBLIC_MAPSTAMP_STUB_VARIANT ?? '4'] ?? STUB_STATUSES['4'];
 };
 
-// Backend should send the issuer: "Please renew your membership so your card holders can receive MapStamps from you"
-export const notifyMapStampIssuer = async (issuerId: string): Promise<void> => {
-  logger.info(`[stub] Notifying MapStamp issuer ${issuerId} to renew membership`);
-};
-
-// Awards one MapStamp to the current user and consumes one mappi
-export const awardMapStamp = async (issuerId: string): Promise<void> => {
-  logger.info(`[stub] Awarding MapStamp from issuer ${issuerId}`);
+// Asks the issuer to renew their membership so card holders can receive MapStamps
+export const notifyMapStampIssuer = async (issuerPiUid: string): Promise<void> => {
+  try {
+    logger.info(`Notifying MapStamp issuer ${issuerPiUid}`);
+    await axiosClient.post('/mapstamps/notify-issuer', { issuer_pi_uid: issuerPiUid });
+  } catch (error) {
+    logger.error('Notify MapStamp issuer encountered an error:', error);
+    throw new Error('Failed to notify issuer. Please try again later.');
+  }
 };
